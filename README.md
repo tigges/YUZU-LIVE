@@ -49,6 +49,8 @@ Do **not** rebuild this in Elementor, Spectra, Kadence, or the site editor. Thos
 
 The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTML. WordPress is only hosting, permalinks, and SSL.
 
+Header: Gallery, Services, Offers, Reviews, Visit, Book. Footer: Questions, Patch testing, Terms, Privacy. There is no price-list PDF and no Join our team item in the menus. The careers band and `/team/` page stay.
+
 **Windows — no terminal.** Do not run the bash commands in PowerShell.
 
 1. Download [wordpress/yuzu-round.zip](https://github.com/tigges/YUZU-LIVE/raw/main/wordpress/yuzu-round.zip).
