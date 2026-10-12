@@ -17,7 +17,9 @@ Intended live hosts: **yuzu.hair** (canonical) and **yuzuhair.com** (301 to yuzu
 ```
 site/                     Cloudways document root (static + send.php)
 wordpress/yuzu-round/     WordPress theme that serves those same pages
+wordpress/yuzu-round.zip  Ready-to-upload theme (no terminal needed)
 scripts/pack-theme.sh     Copies site/ into the theme before you zip it
+scripts/pack-theme.ps1    Same packer for Windows PowerShell
 ```
 
 Pages: home, prices, exclusive offers, **join our team**, questions, patch testing, terms, privacy.
@@ -47,12 +49,20 @@ Do **not** rebuild this in Elementor, Spectra, Kadence, or the site editor. Thos
 
 The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTML. WordPress is only hosting, permalinks, and SSL.
 
-1. Run `bash scripts/pack-theme.sh` (already done in this repo).
-2. Zip `wordpress/yuzu-round/`.
-3. In the Cloudways WordPress app: **Appearance → Themes → Add New → Upload** the zip, then activate **Yuzu Round**.
+**Windows — no terminal.** Do not run the bash commands in PowerShell.
+
+1. Download [wordpress/yuzu-round.zip](https://github.com/tigges/YUZU-LIVE/raw/main/wordpress/yuzu-round.zip).
+2. In WordPress: **Appearance → Themes → Add New → Upload Theme** (not the Popular list).
+3. Choose that zip → **Install Now → Activate**.
 4. Activation creates Home, Prices, Offers, Join our team, Questions, Patch testing, Terms, and Privacy, and sets Home as the front page.
-5. Settings → Permalinks → Post name.
+5. **Settings → Permalinks → Post name → Save**.
 6. Point yuzu.hair / yuzuhair.com at that WordPress app.
+
+To rebuild the zip later on Windows, from a clone of this repo:
+
+```powershell
+.\scripts\pack-theme.ps1
+```
 
 A page-builder “Blox / blocks” reconstruction will not keep this layout. If you already have WordPress on Cloudways (the old `/v1-clean/` preview), install this theme over it and keep the designed templates.
 
