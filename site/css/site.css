@@ -595,10 +595,14 @@ section[id] { scroll-margin-top: 88px; }
 .round-footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .round-footer p { margin: 0; }
 
+.round.lightbox-open .round-header {
+  z-index: 1;
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 100;
   background: rgb(20 16 12 / 92%);
   color: #fff;
   display: none;
