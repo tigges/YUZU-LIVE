@@ -56,6 +56,18 @@ The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTM
 
 A page-builder “Blox / blocks” reconstruction will not keep this layout. If you already have WordPress on Cloudways (the old `/v1-clean/` preview), install this theme over it and keep the designed templates.
 
+## Cloudways staging (YUZU_LIVEWORD)
+
+Live is **yuzu.hair**. Do design and copy checks on a staging clone, then push.
+
+1. On **YUZU_LIVEWORD**, open **Staging Management** (or the app menu → **Clone App / Create Staging**). Tick **Create as Staging**, same server is fine. Wait for the new app and its `cloudwaysapps.com` URL.
+2. On that staging app, upload or overwrite the **Yuzu Round** theme (`wordpress/yuzu-round` after `bash scripts/pack-theme.sh`). Do not change the live theme until you have looked at staging.
+3. Open the staging URL, not yuzu.hair. Check layout, nav, forms, and mobile.
+4. When it looks right, go back to the **live** app → **Staging Management** → **Push**. Choose **Incremental** files if you only changed the theme. Take the live backup. For this site, you usually do **not** need to push the whole database (that would overwrite live comments/settings).
+5. **Pull** is the other way: copy live down onto staging when you want a fresh copy of production.
+
+The GitHub repo is the source of the theme. Staging is where you prove a zip before yuzu.hair changes.
+
 ## Book, maps, social
 
 - Book: https://www.phorest.com/salon/yuzuhairandbeauty
