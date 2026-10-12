@@ -1,0 +1,39 @@
+Options -Indexes
+DirectoryIndex index.html index.php
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} ^www\.(yuzu\.hair|yuzuhair\.com)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?yuzuhair\.com$ [NC]
+  RewriteRule ^ https://yuzu.hair%{REQUEST_URI} [R=301,L]
+
+  RewriteRule ^team/?$ /team.html [L]
+  RewriteRule ^prices/?$ /prices.html [L]
+  RewriteRule ^offers/?$ /offers.html [L]
+  RewriteRule ^questions/?$ /questions.html [L]
+  RewriteRule ^patch/?$ /patch.html [L]
+  RewriteRule ^join-our-team/?$ /team.html [R=301,L]
+  RewriteRule ^terms/?$ /terms.html [L]
+  RewriteRule ^privacy/?$ /privacy.html [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType application/pdf "access plus 7 days"
+</IfModule>

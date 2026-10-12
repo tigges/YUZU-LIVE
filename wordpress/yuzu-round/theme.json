@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": false,
+    "layout": {
+      "contentSize": "1120px",
+      "wideSize": "1120px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        { "slug": "ink", "name": "Ink", "color": "#1c1916" },
+        { "slug": "cream", "name": "Cream", "color": "#efe6da" },
+        { "slug": "paper", "name": "Paper", "color": "#fffdfb" },
+        { "slug": "book", "name": "Book", "color": "#2f3b25" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "fraunces",
+          "name": "Fraunces",
+          "fontFamily": "Fraunces, Georgia, serif"
+        },
+        {
+          "slug": "outfit",
+          "name": "Outfit",
+          "fontFamily": "Outfit, system-ui, sans-serif"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#efe6da",
+      "text": "#1c1916"
+    }
+  }
+}
