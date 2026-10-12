@@ -38,6 +38,7 @@
       lightbox.classList.add('is-open')
       lightbox.setAttribute('aria-hidden', 'false')
       document.body.classList.add('is-locked')
+      document.querySelector('.round')?.classList.add('lightbox-open')
       closeBtn.focus()
     }
 
@@ -45,6 +46,7 @@
       lightbox.classList.remove('is-open')
       lightbox.setAttribute('aria-hidden', 'true')
       document.body.classList.remove('is-locked')
+      document.querySelector('.round')?.classList.remove('lightbox-open')
     }
 
     shots.forEach((shot, shotIndex) => {
