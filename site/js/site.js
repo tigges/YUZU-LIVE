@@ -70,6 +70,19 @@
       const thanks = box?.querySelector('[data-form-thanks]')
       const action = form.getAttribute('action') || 'send.php'
       const body = new FormData(form)
+      const error = form.querySelector('[data-form-error]')
+      const file = body.get('cv')
+      if (error) error.hidden = true
+      if (file instanceof File && file.size > 0) {
+        const allowed = /\.(pdf|docx?|txt|rtf)$/i.test(file.name)
+        if (!allowed || file.size > 5 * 1024 * 1024) {
+          if (error) {
+            error.hidden = false
+            error.textContent = 'Please attach a PDF, Word or text file under 5 MB.'
+          }
+          return
+        }
+      }
 
       try {
         const response = await fetch(action, {
@@ -77,7 +90,15 @@
           body,
           headers: { Accept: 'application/json' },
         })
-        if (!response.ok) throw new Error('send failed')
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}))
+          if (error && data.error) {
+            error.hidden = false
+            error.textContent = data.error
+            return
+          }
+          throw new Error('send failed')
+        }
       } catch {
         const name = body.get('name') || ''
         const email = body.get('email') || ''
@@ -91,6 +112,7 @@
           phone && `Phone: ${phone}`,
           role && `Role: ${role}`,
           message && `\n${message}`,
+          file instanceof File && file.size > 0 && '\nPlease attach the CV to this email. The form could not send the file.',
         ].filter(Boolean)
         window.location.href = `mailto:info@yuzuhairandbeauty.co.uk?subject=${subject}&body=${encodeURIComponent(lines.join('\n'))}`
       }
