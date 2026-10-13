@@ -19,6 +19,7 @@ ErrorDocument 404 /404.html
   RewriteRule ^ https://yuzu.hair%{REQUEST_URI} [R=301,L]
 
   RewriteRule ^price-list\.pdf$ /prices.html [R=301,L]
+  RewriteRule ^patch-testing\.pdf$ /patch.html [R=301,L]
   RewriteRule ^about/?$ /about.html [L]
   RewriteRule ^contact/?$ /contact.html [L]
   RewriteRule ^team/?$ /team.html [L]
