@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/site.css?v=8" />
+    <link rel="stylesheet" href="css/site.css?v=9" />
     <style>
       .ig-frame { background: #fffdfb; border-radius: 24px; padding: 12px; overflow: hidden; }
       .ig-stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
@@ -35,10 +35,10 @@
           <nav class="round-nav" aria-label="Primary">
             <a href="index.html#gallery">Gallery</a>
             <a href="index.html#services">Services</a>
-            <a href="offers.html">Offers</a>
             <a href="index.html#reviews">Reviews</a>
-            <a href="index.html#visit">Visit</a>
+            <a href="offers.html">Offers</a>
             <a href="team.html" aria-current="page">Join</a>
+            <a href="index.html#visit">Visit</a>
             <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
           </nav>
           <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
@@ -70,6 +70,9 @@
               </a>
             </div>
           </div>
+          <p class="round-band-cta">
+            <a class="btn btn-ink" href="#cv">Submit your CV</a>
+          </p>
 
           <ul class="round-roles">
             <li>
@@ -86,7 +89,7 @@
             </li>
           </ul>
 
-          <div class="round-prose" style="margin: 36px 0 28px">
+          <div class="round-prose" id="cv" style="margin: 36px 0 28px">
             <h2>Send us your CV</h2>
             <p>
               Email <a href="mailto:info@yuzuhairandbeauty.co.uk?subject=Joining%20the%20Yuzu%20team">info@yuzuhairandbeauty.co.uk</a>
@@ -147,6 +150,6 @@
     <script>
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
     </script>
-    <script src="js/site.js?v=8"></script>
+    <script src="js/site.js?v=9"></script>
   </body>
 </html>
