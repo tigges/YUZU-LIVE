@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact | Yuzu Hair &amp; Beauty, Ealing</title>
+    <meta
+      name="description"
+      content="Send a message to Yuzu Hair & Beauty at 5 Dickens Yard, Ealing. Call 020 8840 2244 or email info@yuzuhairandbeauty.co.uk."
+    />
+    <link rel="canonical" href="https://yuzu.hair/contact.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <div class="round">
+      <a class="skip" href="#main">Skip to content</a>
+      <header class="round-header">
+        <div class="wrap round-header-inner">
+          <a class="round-logo" href="index.html">
+            <img src="assets/clean/logo.png" alt="Yuzu Hair &amp; Beauty" width="234" height="80" />
+          </a>
+          <nav class="round-nav" aria-label="Primary">
+            <a href="index.html#gallery">Gallery</a>
+            <a href="index.html#services">Services</a>
+            <a href="offers.html">Offers</a>
+            <a href="index.html#reviews">Reviews</a>
+            <a href="index.html#visit">Visit</a>
+            <a href="team.html">Join</a>
+            <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+          </nav>
+          <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+            <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+          </button>
+        </div>
+      </header>
+      <main id="main" class="round-section round-sub">
+        <div class="wrap">
+          <a class="round-back" href="index.html#visit">← Contact</a>
+          <div class="section-head">
+            <h1>Send a message</h1>
+            <p>
+              5 Dickens Yard, Longfield Avenue, Ealing, W5 2TD ·
+              <a href="tel:+442088402244">020 8840 2244</a> ·
+              <a href="mailto:info@yuzuhairandbeauty.co.uk">info@yuzuhairandbeauty.co.uk</a>
+            </p>
+          </div>
+          <div data-form-box>
+            <form class="round-form" data-yuzu-form action="send.php" method="post">
+              <input type="hidden" name="subject" value="Message from yuzu.hair" />
+              <div class="round-form-row">
+                <label>Name <input name="name" autocomplete="name" /></label>
+                <label>Email <input name="email" type="email" autocomplete="email" required /></label>
+              </div>
+              <label>Phone <input name="phone" type="tel" autocomplete="tel" /></label>
+              <label>Message <textarea name="message" rows="4" placeholder="Type your message here..."></textarea></label>
+              <button class="btn btn-book" type="submit">Submit</button>
+            </form>
+            <div class="round-thanks" data-form-thanks hidden tabindex="-1">
+              <h2>Thanks for submitting!</h2>
+              <p>We’ll get back to you as soon as we can.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="round-footer">
+        <div class="wrap">
+          <p>© <span data-year>2026</span> Yuzu Hair &amp; Beauty · 5 Dickens Yard, Longfield Avenue, Ealing, W5 2TD · 020 8840 2244</p>
+          <p><a href="about.html">About</a> · <a href="questions.html">Questions</a> · <a href="patch.html">Patch testing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p>
+        </div>
+      </footer>
+      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book on Phorest<span class="vh"> (opens in a new tab)</span></a>
+    </div>
+    <script>document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })</script>
+    <script src="js/site.js"></script>
+  </body>
+</html>
