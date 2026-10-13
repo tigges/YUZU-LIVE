@@ -38,6 +38,7 @@
       lightbox.classList.add('is-open')
       lightbox.setAttribute('aria-hidden', 'false')
       document.body.classList.add('is-locked')
+      document.querySelector('.round')?.classList.add('lightbox-open')
       closeBtn.focus()
     }
 
@@ -45,6 +46,7 @@
       lightbox.classList.remove('is-open')
       lightbox.setAttribute('aria-hidden', 'true')
       document.body.classList.remove('is-locked')
+      document.querySelector('.round')?.classList.remove('lightbox-open')
     }
 
     shots.forEach((shot, shotIndex) => {
@@ -101,7 +103,7 @@
     })
   })
 
-  const ids = ['top', 'gallery', 'services', 'offers', 'team', 'visit']
+  const ids = ['top', 'gallery', 'services', 'offers', 'reviews', 'visit']
   const observed = ids.map((id) => document.getElementById(id)).filter(Boolean)
   if (observed.length && 'IntersectionObserver' in window) {
     const links = new Map(
