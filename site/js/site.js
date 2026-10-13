@@ -90,9 +90,9 @@
           body,
           headers: { Accept: 'application/json' },
         })
-        if (!response.ok) {
-          const data = await response.json().catch(() => ({}))
-          if (error && data.error) {
+        const data = await response.json().catch(() => null)
+        if (!(response.ok && data && data.ok === true)) {
+          if (error && data && data.error) {
             error.hidden = false
             error.textContent = data.error
             return
@@ -114,7 +114,14 @@
           message && `\n${message}`,
           file instanceof File && file.size > 0 && '\nPlease attach the CV to this email. The form could not send the file.',
         ].filter(Boolean)
+        if (error) {
+          error.hidden = false
+          error.textContent = file instanceof File && file.size > 0
+            ? 'The form could not send the file. Your email app should open so you can attach the CV.'
+            : 'The form could not send. Your email app should open with this message.'
+        }
         window.location.href = `mailto:info@yuzuhairandbeauty.co.uk?subject=${subject}&body=${encodeURIComponent(lines.join('\n'))}`
+        return
       }
 
       if (thanks) {
