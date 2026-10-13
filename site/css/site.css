@@ -536,6 +536,9 @@ section[id] { scroll-margin-top: 88px; }
 .offer-block li { color: var(--muted); }
 .offer-note { grid-template-columns: 1fr; padding: 22px 24px; }
 
+/* Home contact form is parked with [hidden] in index.html. Keep this margin for when it is shown again. */
+.round-home-contact { margin-top: 16px; }
+
 .round-form {
   display: grid;
   gap: 12px;
