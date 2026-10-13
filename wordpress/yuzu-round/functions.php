@@ -7,6 +7,14 @@ add_action('after_setup_theme', static function (): void {
 
 add_action('after_switch_theme', 'yuzu_round_seed_pages');
 
+add_action('init', static function (): void {
+    if (get_option('yuzu_round_seed') === 'about-contact') {
+        return;
+    }
+    yuzu_round_seed_pages();
+    update_option('yuzu_round_seed', 'about-contact');
+});
+
 function yuzu_round_pages(): array
 {
     return [
@@ -14,6 +22,8 @@ function yuzu_round_pages(): array
         'prices' => ['title' => 'Prices', 'file' => 'prices.html'],
         'offers' => ['title' => 'Offers', 'file' => 'offers.html'],
         'team' => ['title' => 'Join our team', 'file' => 'team.html'],
+        'about' => ['title' => 'About', 'file' => 'about.html'],
+        'contact' => ['title' => 'Contact', 'file' => 'contact.html'],
         'questions' => ['title' => 'Questions', 'file' => 'questions.html'],
         'patch' => ['title' => 'Patch testing', 'file' => 'patch.html'],
         'terms' => ['title' => 'Terms and conditions', 'file' => 'terms.html'],
