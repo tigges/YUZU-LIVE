@@ -773,14 +773,28 @@ body.is-locked { overflow: hidden; }
     right: 0;
     top: 100%;
     background: var(--paper);
-    padding: 8px 22px 18px;
+    padding: 10px 22px 18px;
     border-bottom: 1px solid var(--line);
     gap: 2px;
   }
 
   .round-header.open .round-nav a {
-    padding: 12px 0;
-    width: 100%;
+    width: auto;
+    padding: 12px 2px;
+  }
+
+  .round-header.open .round-nav a[aria-current="page"] {
+    padding: 8px 14px;
+  }
+
+  .round-header.open .round-nav a.btn {
+    margin-top: 8px;
+    padding: 0 1.2rem;
+  }
+
+  .round-header.open ~ .mobile-book,
+  body:has(.round-header.open) .salon-chat {
+    display: none;
   }
 
   .round-hero-img { aspect-ratio: 4 / 3; }
