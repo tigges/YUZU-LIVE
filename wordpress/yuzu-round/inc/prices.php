@@ -307,7 +307,7 @@ function yuzu_round_prices_offer(string $name, string $display): ?array
         'name' => $name,
         'price' => $parts['price'],
         'priceCurrency' => 'GBP',
-        'url' => 'https://yuzu.hair/prices.html',
+        'url' => 'https://yuzu.hair/prices/',
         'seller' => ['@id' => 'https://yuzu.hair/#salon'],
     ];
     if (isset($parts['description'])) {
@@ -346,7 +346,7 @@ function yuzu_round_prices_schema_script(array $data): string
             '@context' => 'https://schema.org',
             '@type' => 'OfferCatalog',
             'name' => 'Yuzu Hair price list',
-            'url' => 'https://yuzu.hair/prices.html',
+            'url' => 'https://yuzu.hair/prices/',
             'itemListElement' => $offers,
         ],
         JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG
