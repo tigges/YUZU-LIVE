@@ -14,3 +14,7 @@ Locked Round layout for Yuzu Hair & Beauty. Serves the designed static pages so 
 4. Use Settings → Permalinks → Post name.
 
 Do not assemble these pages in a block builder. The templates are the design.
+
+== Price list ==
+
+In wp-admin, open Price list. Edit the services, senior and stylist prices, treatments, and the four homepage From prices, then press Save prices. The Round layout stays locked. Saving clears the Breeze cache when that plugin is active. Restore original prices puts back the list shipped with the theme.

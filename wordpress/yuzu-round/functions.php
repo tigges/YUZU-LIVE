@@ -4,6 +4,10 @@ if (defined('YUZU_ROUND_LOADED')) {
 }
 define('YUZU_ROUND_LOADED', true);
 
+if (function_exists('add_action') && is_readable(__DIR__ . '/inc/prices.php')) {
+    require_once __DIR__ . '/inc/prices.php';
+}
+
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
 });
@@ -96,6 +100,17 @@ function yuzu_round_render(string $file): void
         }
         echo 'Yuzu Round could not read this page.';
         return;
+    }
+
+    if (function_exists('yuzu_round_prices_apply')) {
+        try {
+            $applied = yuzu_round_prices_apply($html, basename($file));
+            if (is_string($applied) && $applied !== '') {
+                $html = $applied;
+            }
+        } catch (Throwable $e) {
+            // A bad price record must not take the page down.
+        }
     }
 
     $base = trailingslashit(get_template_directory_uri() . '/static');
