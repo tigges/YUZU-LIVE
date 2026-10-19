@@ -13,7 +13,7 @@ Locked Round layout for Yuzu Hair & Beauty. Serves the designed static pages so 
 3. The theme creates Home, Prices, Offers, Join our team, and the legal pages, and sets Home as the front page.
 4. Use Settings → Permalinks → Post name.
 
-Do not assemble these pages in a block builder. The templates are the design.
+Do not assemble these pages in a block builder. The templates are the design. Editing one of these pages in wp-admin shows the public page. The block canvas stays empty because that text is not what visitors see.
 
 == Price list ==
 
