@@ -8,12 +8,45 @@
       name="description"
       content="Think you’ve got what it takes to join the Yuzu team? Senior stylists, stylists and models at 5 Dickens Yard, Ealing Broadway. Email your CV to info@yuzuhairandbeauty.co.uk."
     />
-    <link rel="canonical" href="https://yuzu.hair/team.html" />
+    <link rel="canonical" href="https://yuzu.hair/team/" />
+    <meta property="og:title" content="Join our team | Yuzu Hair &amp; Beauty, Ealing" />
+    <meta property="og:description" content="Think you’ve got what it takes to join the Yuzu team? Senior stylists, stylists and models at 5 Dickens Yard, Ealing Broadway. Email your CV to info@yuzuhairandbeauty.co.uk." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="Yuzu Hair &amp; Beauty" />
+    <meta property="og:url" content="https://yuzu.hair/team/" />
+    <meta property="og:image" content="https://yuzu.hair/assets/clean/hero.jpg" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="660" />
+    <meta property="og:image:alt" content="Yuzu Hair &amp; Beauty, Ealing Broadway" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Join our team | Yuzu Hair &amp; Beauty, Ealing" />
+    <meta name="twitter:description" content="Think you’ve got what it takes to join the Yuzu team? Senior stylists, stylists and models at 5 Dickens Yard, Ealing Broadway. Email your CV to info@yuzuhairandbeauty.co.uk." />
+    <meta name="twitter:image" content="https://yuzu.hair/assets/clean/hero.jpg" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="css/site.css?v=11" />
+    <style>
+      .ig-frame { background: #fffdfb; border-radius: 24px; padding: 12px; overflow: hidden; }
+      .ig-stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
+      .ig-stills img { width: 100%; height: 168px; max-height: 168px; object-fit: cover; object-position: center 34%; border-radius: 16px; }
+      .ig-stills img.ig-team { object-position: center 62%; }
+      .ig-frame-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 6px 4px; }
+      .ig-mark { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid currentColor; border-radius: 50%; text-decoration: none; flex: none; }
+      .ig-mark svg { width: 18px; height: 18px; display: block; }
+    </style>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yuzu.hair/" },
+          { "@type": "ListItem", "position": 2, "name": "Join our team", "item": "https://yuzu.hair/team/" }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="round">
@@ -26,8 +59,9 @@
           <nav class="round-nav" aria-label="Primary">
             <a href="index.html#gallery">Gallery</a>
             <a href="index.html#services">Services</a>
-            <a href="offers.html">Offers</a>
             <a href="index.html#reviews">Reviews</a>
+            <a href="offers.html">Offers</a>
+            <a href="team.html" aria-current="page">Join</a>
             <a href="index.html#visit">Visit</a>
             <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
           </nav>
@@ -41,37 +75,55 @@
         <div class="wrap">
           <a class="round-back" href="index.html">← Home</a>
           <div class="section-head">
-            <p class="kicker">Careers</p>
-            <h1>Join our team</h1>
-            <p>Think you’ve got what it takes to join our team? We are looking for senior stylists, stylists, and models at Dickens Yard.</p>
+            <p class="kicker" data-yuzu-copy="team-kicker">Careers</p>
+            <h1 data-yuzu-copy="team-title">Join our team</h1>
+            <p data-yuzu-copy="team-intro">Think you’ve got what it takes to join our team? We are looking for senior stylists, stylists, and models at Dickens Yard.</p>
           </div>
+
+          <div class="ig-frame">
+            <ul class="ig-stills">
+              <li><img class="ig-team" src="assets/team/together.jpg" alt="The Yuzu team together" width="280" height="168" /></li>
+              <li><img src="assets/team/meet.jpg" alt="Stylist outside the Yuzu salon" width="280" height="112" /></li>
+              <li><img src="assets/team/behind.jpg" alt="Stylist at the salon" width="280" height="112" /></li>
+              <li><img src="assets/team/party.jpg" alt="The Yuzu team at a summer party" width="280" height="112" /></li>
+            </ul>
+            <div class="ig-frame-foot">
+              <p data-yuzu-copy="team-caption">The team, from the salon Instagram.</p>
+              <a class="ig-mark" href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer" aria-label="Instagram (opens in a new tab)">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
+              </a>
+            </div>
+          </div>
+          <p class="round-band-cta">
+            <a class="btn btn-ink" href="#cv">Submit your CV</a>
+          </p>
 
           <ul class="round-roles">
             <li>
-              <h2>Senior stylists</h2>
-              <p>If you have a flair for sleek cuts and vibrant colour creations, email us your CV.</p>
+              <h2 data-yuzu-copy="team-senior-title">Senior stylists</h2>
+              <p data-yuzu-copy="team-senior-text">If you have a flair for sleek cuts and vibrant colour creations, email us your CV.</p>
             </li>
             <li>
-              <h2>Stylists</h2>
-              <p>Are you a motivated individual with a passion for hair styling? Join our dynamic team and grow your skills. Email us your CV.</p>
+              <h2 data-yuzu-copy="team-stylist-title">Stylists</h2>
+              <p data-yuzu-copy="team-stylist-text">Are you a motivated individual with a passion for hair styling? Join our dynamic team and grow your skills. Email us your CV.</p>
             </li>
             <li>
-              <h2>Models</h2>
-              <p>Whether you have long, flowing locks or bold, edgy cuts, we want to showcase your unique look in our salon. Our talented stylists are ready to transform your hair into a stunning masterpiece.</p>
+              <h2 data-yuzu-copy="team-model-title">Models</h2>
+              <p data-yuzu-copy="team-model-text">Whether you have long, flowing locks or bold, edgy cuts, we want to showcase your unique look in our salon. Our talented stylists are ready to transform your hair into a stunning masterpiece.</p>
             </li>
           </ul>
 
-          <div class="round-prose" style="margin: 36px 0 28px">
-            <h2>Send us your CV</h2>
+          <div class="round-prose" id="cv" style="margin: 36px 0 28px">
+            <h2 data-yuzu-copy="team-cv-title">Send us your CV</h2>
             <p>
               Email <a href="mailto:info@yuzuhairandbeauty.co.uk?subject=Joining%20the%20Yuzu%20team">info@yuzuhairandbeauty.co.uk</a>
-              or leave a note below. Attach your CV in the email if you can.
+              or leave a note below and attach your CV.
             </p>
             <p>Phone: <a href="tel:+442088402244">020 8840 2244</a> · 5 Dickens Yard, Longfield Avenue, W5 2TD</p>
           </div>
 
           <div data-form-box>
-            <form class="round-form" data-yuzu-form action="send.php" method="post">
+            <form class="round-form" data-yuzu-form action="send.php" method="post" enctype="multipart/form-data">
               <input type="hidden" name="subject" value="Joining the Yuzu team" />
               <div class="round-form-row">
                 <label>Name <input name="name" autocomplete="name" required /></label>
@@ -89,12 +141,18 @@
                   </select>
                 </label>
               </div>
-              <label>Message <textarea name="message" rows="5" placeholder="Tell us a little about you. Please email your CV to info@yuzuhairandbeauty.co.uk as well."></textarea></label>
+              <label>Message <textarea name="message" rows="5" placeholder="Tell us a little about you."></textarea></label>
+              <label>
+                CV
+                <input name="cv" type="file" accept=".pdf,.doc,.docx,.txt,.rtf,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/rtf" />
+              </label>
+              <p class="file-hint">PDF, Word or plain text. Up to 5 MB.</p>
+              <p class="form-error" data-form-error hidden></p>
               <button class="btn btn-book" type="submit">Submit</button>
             </form>
             <div class="round-thanks" data-form-thanks hidden tabindex="-1">
               <h2>Thanks for submitting!</h2>
-              <p>Please also email your CV to <a href="mailto:info@yuzuhairandbeauty.co.uk">info@yuzuhairandbeauty.co.uk</a> if you have not already.</p>
+              <p>We’ll read your note and CV, and reply to the email address you gave.</p>
             </div>
           </div>
         </div>
@@ -104,18 +162,18 @@
         <div class="wrap">
           <p>© <span data-year>2026</span> Yuzu Hair &amp; Beauty · 5 Dickens Yard, Longfield Avenue, Ealing, W5 2TD · 020 8840 2244</p>
           <p>
-            <a href="questions.html">Questions</a> ·
+            <a href="about.html">About</a> · <a href="questions.html">Questions</a> ·
             <a href="patch.html">Patch testing</a> ·
             <a href="terms.html">Terms</a> ·
             <a href="privacy.html">Privacy</a>
           </p>
         </div>
       </footer>
-      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book on Phorest<span class="vh"> (opens in a new tab)</span></a>
+      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
     </div>
     <script>
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
     </script>
-    <script src="js/site.js"></script>
+    <script src="js/site.js?v=9"></script>
   </body>
 </html>

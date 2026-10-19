@@ -1,4 +1,10 @@
 User-agent: *
-Allow: /
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /wp-content/themes/yuzu-round/static/
+Allow: /wp-content/themes/yuzu-round/static/assets/
+Allow: /wp-content/themes/yuzu-round/static/css/
+Allow: /wp-content/themes/yuzu-round/static/js/
+Allow: /wp-content/themes/yuzu-round/static/favicon.svg
 
 Sitemap: https://yuzu.hair/sitemap.xml

@@ -18,13 +18,19 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^(www\.)?yuzuhair\.com$ [NC]
   RewriteRule ^ https://yuzu.hair%{REQUEST_URI} [R=301,L]
 
-  RewriteRule ^price-list\.pdf$ /prices.html [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?yuzuhairandbeauty\.london$ [NC]
+  RewriteRule ^ https://yuzu.hair%{REQUEST_URI} [R=301,L]
+
+  RewriteRule ^price-list\.pdf$ /prices/ [R=301,L]
+  RewriteRule ^patch-testing\.pdf$ /patch/ [R=301,L]
+  RewriteRule ^about/?$ /about.html [L]
+  RewriteRule ^contact/?$ /contact.html [L]
   RewriteRule ^team/?$ /team.html [L]
   RewriteRule ^prices/?$ /prices.html [L]
   RewriteRule ^offers/?$ /offers.html [L]
   RewriteRule ^questions/?$ /questions.html [L]
   RewriteRule ^patch/?$ /patch.html [L]
-  RewriteRule ^join-our-team/?$ /team.html [R=301,L]
+  RewriteRule ^join-our-team/?$ /team/ [R=301,L]
   RewriteRule ^terms/?$ /terms.html [L]
   RewriteRule ^privacy/?$ /privacy.html [L]
 </IfModule>

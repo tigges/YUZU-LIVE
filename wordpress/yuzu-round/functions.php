@@ -1,11 +1,93 @@
 <?php
-declare(strict_types=1);
+if (defined('YUZU_ROUND_LOADED')) {
+    return;
+}
+define('YUZU_ROUND_LOADED', true);
 
-add_action('after_setup_theme', static function (): void {
+if (function_exists('add_action') && is_readable(__DIR__ . '/inc/prices.php')) {
+    require_once __DIR__ . '/inc/prices.php';
+}
+if (function_exists('add_action') && is_readable(__DIR__ . '/inc/copy.php')) {
+    require_once __DIR__ . '/inc/copy.php';
+}
+if (is_readable(__DIR__ . '/inc/seo.php')) {
+    require_once __DIR__ . '/inc/seo.php';
+}
+
+add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
 });
 
-add_action('after_switch_theme', 'yuzu_round_seed_pages');
+add_action('after_switch_theme', static function () {
+    try {
+        yuzu_round_seed_pages();
+        update_option('yuzu_round_seed', 'about-contact');
+    } catch (Throwable $e) {
+        // Page setup must not take the salon or wp-admin down.
+    }
+});
+
+function yuzu_round_locked_post($post): bool
+{
+    return $post instanceof WP_Post
+        && $post->post_type === 'page'
+        && isset(yuzu_round_pages()[$post->post_name]);
+}
+
+function yuzu_round_preview_meta_box(WP_Post $post): void
+{
+    $pages = yuzu_round_pages();
+    $slug = (string) $post->post_name;
+    $view = get_permalink($post);
+    echo '<p>Visitors see the designed page below, not a blank editor. Leave the slug as <code>' . esc_html($slug) . '</code>.</p>';
+    if ($slug === 'prices' && current_user_can('edit_pages')) {
+        echo '<p>Prices are changed on the <a href="' . esc_url(admin_url('admin.php?page=yuzu-prices')) . '">Price list</a> screen.</p>';
+    }
+    if (current_user_can('edit_pages') && function_exists('yuzu_round_copy_catalog') && isset(yuzu_round_copy_catalog()[$slug])) {
+        $copy_label = (string) yuzu_round_copy_catalog()[$slug]['menu'];
+        echo '<p>Change the words under <a href="' . esc_url(yuzu_round_copy_admin_url($slug)) . '">Page copy → ' . esc_html($copy_label) . '</a>.</p>';
+    }
+    if (is_string($view) && $view !== '') {
+        echo '<p><a class="button button-primary" href="' . esc_url($view) . '" target="_blank" rel="noopener">Open this page</a></p>';
+        echo '<iframe class="yuzu-round-preview" title="' . esc_attr($pages[$slug]['title'] ?? 'Page preview') . '" src="' . esc_url($view) . '"></iframe>';
+    }
+}
+
+add_filter('use_block_editor_for_post', static function ($use, $post) {
+    if (yuzu_round_locked_post($post)) {
+        return false;
+    }
+    return $use;
+}, 10, 2);
+
+add_filter('replace_editor', static function ($replace, $post) {
+    if (yuzu_round_locked_post($post)) {
+        remove_post_type_support('page', 'editor');
+    }
+    return $replace;
+}, 10, 2);
+
+add_action('add_meta_boxes_page', static function ($post): void {
+    if (!yuzu_round_locked_post($post)) {
+        return;
+    }
+    add_meta_box(
+        'yuzu-round-preview',
+        'This page on the site',
+        'yuzu_round_preview_meta_box',
+        'page',
+        'normal',
+        'high'
+    );
+});
+
+add_action('admin_head', static function (): void {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (!$screen || $screen->base !== 'post' || $screen->post_type !== 'page') {
+        return;
+    }
+    echo '<style>.yuzu-round-preview{width:100%;height:75vh;min-height:640px;border:1px solid #c3c4c7;background:#fff}</style>';
+});
 
 function yuzu_round_pages(): array
 {
@@ -14,6 +96,8 @@ function yuzu_round_pages(): array
         'prices' => ['title' => 'Prices', 'file' => 'prices.html'],
         'offers' => ['title' => 'Offers', 'file' => 'offers.html'],
         'team' => ['title' => 'Join our team', 'file' => 'team.html'],
+        'about' => ['title' => 'About', 'file' => 'about.html'],
+        'contact' => ['title' => 'Contact', 'file' => 'contact.html'],
         'questions' => ['title' => 'Questions', 'file' => 'questions.html'],
         'patch' => ['title' => 'Patch testing', 'file' => 'patch.html'],
         'terms' => ['title' => 'Terms and conditions', 'file' => 'terms.html'],
@@ -25,10 +109,10 @@ function yuzu_round_seed_pages(): void
 {
     $home_id = 0;
     foreach (yuzu_round_pages() as $slug => $page) {
-        $existing = get_page_by_path($slug === 'home' ? 'home' : $slug);
+        $existing = get_page_by_path($slug);
         if ($existing instanceof WP_Post) {
             if ($slug === 'home') {
-                $home_id = $existing->ID;
+                $home_id = (int) $existing->ID;
             }
             continue;
         }
@@ -38,12 +122,15 @@ function yuzu_round_seed_pages(): void
             'post_status' => 'publish',
             'post_type' => 'page',
             'post_content' => '<!-- Yuzu Round locked template: ' . $page['file'] . ' -->',
-        ]);
-        if ($slug === 'home' && is_int($id)) {
-            $home_id = $id;
+        ], true);
+        if (is_wp_error($id)) {
+            continue;
+        }
+        if ($slug === 'home') {
+            $home_id = (int) $id;
         }
     }
-    if ($home_id) {
+    if ($home_id > 0) {
         update_option('show_on_front', 'page');
         update_option('page_on_front', $home_id);
     }
@@ -51,41 +138,77 @@ function yuzu_round_seed_pages(): void
 
 function yuzu_round_file_for_request(): string
 {
-    if (is_404()) {
-        return '404.html';
-    }
-    if (is_front_page()) {
+    if (function_exists('yuzu_round_is_salon_front') && yuzu_round_is_salon_front()) {
         return 'index.html';
     }
-    $slug = get_queried_object() instanceof WP_Post ? get_queried_object()->post_name : '';
-    $pages = yuzu_round_pages();
-    return $pages[$slug]['file'] ?? 'index.html';
+    if (function_exists('yuzu_round_locked_file')) {
+        $locked = yuzu_round_locked_file();
+        if (is_string($locked)) {
+            return $locked;
+        }
+    }
+    if (function_exists('is_404') && is_404()) {
+        return '404.html';
+    }
+    if (function_exists('yuzu_round_force_404')) {
+        yuzu_round_force_404();
+    }
+    return '404.html';
 }
 
 function yuzu_round_render(string $file): void
 {
-    $path = get_template_directory() . '/static/' . $file;
+    $path = get_template_directory() . '/static/' . basename($file);
     if (!is_readable($path)) {
-        status_header(500);
-        echo 'Yuzu Round is missing static/' . esc_html($file);
-        exit;
+        if (function_exists('status_header')) {
+            status_header(500);
+        }
+        echo 'Yuzu Round is missing static/' . esc_html(basename($file));
+        return;
     }
 
-    $html = (string) file_get_contents($path);
-    $base = trailingslashit(get_template_directory_uri() . '/static');
-    $html = preg_replace_callback(
-        '/\s(href|src|action)="(?!https?:|mailto:|tel:|#|\/)([^"]+)"/',
-        static function (array $match) use ($base): string {
-            return ' ' . $match[1] . '="' . $base . $match[2] . '"';
-        },
-        $html
-    ) ?? $html;
+    $html = file_get_contents($path);
+    if (!is_string($html)) {
+        if (function_exists('status_header')) {
+            status_header(500);
+        }
+        echo 'Yuzu Round could not read this page.';
+        return;
+    }
 
+    if (function_exists('yuzu_round_copy_apply')) {
+        try {
+            $copied = yuzu_round_copy_apply($html, basename($file));
+            if (is_string($copied) && $copied !== '') {
+                $html = $copied;
+            }
+        } catch (Throwable $e) {
+            // A bad page-copy record must not take the page down.
+        }
+    }
+
+    if (function_exists('yuzu_round_prices_apply')) {
+        try {
+            $applied = yuzu_round_prices_apply($html, basename($file));
+            if (is_string($applied) && $applied !== '') {
+                $html = $applied;
+            }
+        } catch (Throwable $e) {
+            // A bad price record must not take the page down.
+        }
+    }
+
+    $base = trailingslashit(get_template_directory_uri() . '/static');
+    if (function_exists('yuzu_round_rewrite_public_urls')) {
+        $html = yuzu_round_rewrite_public_urls($html, $base);
+    }
     echo $html;
-    exit;
 }
 
-add_filter('template_include', static function (string $template): string {
-    yuzu_round_render(yuzu_round_file_for_request());
-    return $template;
+add_filter('template_include', static function ($template) {
+    $render = get_template_directory() . '/render.php';
+    if (is_readable($render)) {
+        return $render;
+    }
+    return is_string($template) ? $template : '';
 });
