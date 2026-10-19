@@ -6,26 +6,47 @@
 
 function yuzu_round_prices_catalog(): array
 {
+    $chairs = [
+        'creative' => ['label' => 'Creative director', 'short' => 'Creative', 'role' => 'creative director'],
+        'senior' => ['label' => 'Senior stylist', 'short' => 'Senior', 'role' => 'senior stylist'],
+        'stylist' => ['label' => 'Stylist', 'short' => 'Stylist', 'role' => 'stylist'],
+        'junior' => ['label' => 'Junior stylist', 'short' => 'Junior', 'role' => 'junior stylist'],
+    ];
+    $without_junior = $chairs;
+    unset($without_junior['junior']);
+
     return [
         'cut' => [
             'title' => 'Cut & style',
             'kind' => 'table',
+            'columns' => $chairs,
+            'card' => true,
             'home_label' => 'Cut & styling',
         ],
         'colour' => [
             'title' => 'Colour',
             'kind' => 'table',
+            'columns' => $chairs,
+            'card' => true,
             'home_label' => 'Colour',
         ],
         'highlights' => [
             'title' => 'Highlights / balayage / foiliage',
             'kind' => 'table',
+            'columns' => $without_junior,
+            'card' => true,
             'home_label' => 'Highlights & balayage',
         ],
         'treatments' => [
             'title' => 'Treatments',
             'kind' => 'list',
+            'card' => true,
             'home_label' => 'Treatments',
+        ],
+        'packages' => [
+            'title' => 'Packages',
+            'kind' => 'list',
+            'card' => false,
         ],
     ];
 }
@@ -35,55 +56,62 @@ function yuzu_round_prices_default(): array
     return [
         'groups' => [
             'cut' => [
-                ['name' => 'Ladies wash, cut & style', 'senior' => '£87', 'stylist' => '£58'],
-                ['name' => 'Gents wash, cut & style', 'senior' => '£58', 'stylist' => '—'],
-                ['name' => 'Kids (12 & under)', 'senior' => '£29', 'stylist' => '£23'],
-                ['name' => 'Teens (13–16) boys', 'senior' => '£41', 'stylist' => '£35'],
-                ['name' => 'Teens (13–16) girls', 'senior' => '£52', 'stylist' => '£35'],
-                ['name' => 'Blow-dry', 'senior' => '£58', 'stylist' => '£41'],
+                ['name' => 'Ladies wash, cut & style', 'creative' => '£90', 'senior' => '£75', 'stylist' => '£60', 'junior' => 'Up to £30'],
+                ['name' => 'Gents wash, cut & style', 'creative' => '£60', 'senior' => '—', 'stylist' => '—', 'junior' => '—'],
+                ['name' => 'Kids (12 & under)', 'creative' => '£35', 'senior' => '—', 'stylist' => '—', 'junior' => '—'],
+                ['name' => 'Kids, girls (12 & under)', 'creative' => '—', 'senior' => '£30', 'stylist' => '£25', 'junior' => '£15'],
+                ['name' => 'Teens (13–16) boys', 'creative' => '£45', 'senior' => '—', 'stylist' => '—', 'junior' => '—'],
+                ['name' => 'Teens (13–16) girls', 'creative' => '£55', 'senior' => '£50', 'stylist' => '£40', 'junior' => '£20'],
+                ['name' => 'Blow-dry', 'creative' => '£60', 'senior' => '£52', 'stylist' => '£45', 'junior' => '£35'],
             ],
             'colour' => [
-                ['name' => 'Full head', 'senior' => '£101', 'stylist' => '£87'],
-                ['name' => 'Roots', 'senior' => '£88', 'stylist' => '£75'],
-                ['name' => 'In-between full head', 'senior' => '£124', 'stylist' => '£101'],
-                ['name' => 'In-between roots', 'senior' => '£111', 'stylist' => '£88'],
-                ['name' => 'Illumina colouring', 'senior' => '£133', 'stylist' => '—'],
+                ['name' => 'Full head', 'creative' => '£105', 'senior' => '£97', 'stylist' => '£90', 'junior' => '£65'],
+                ['name' => 'Roots', 'creative' => '£90', 'senior' => '£85', 'stylist' => '£80', 'junior' => '£55'],
+                ['name' => 'In-between full head', 'creative' => '£130', 'senior' => '£117', 'stylist' => '£105', 'junior' => '—'],
+                ['name' => 'In-between roots', 'creative' => '£115', 'senior' => '£102', 'stylist' => '£90', 'junior' => '—'],
+                ['name' => 'Illumia colour', 'creative' => '£135', 'senior' => '£125', 'stylist' => '£115', 'junior' => '—'],
             ],
             'highlights' => [
-                ['name' => 'Full head', 'senior' => '£150', 'stylist' => '£98'],
-                ['name' => 'Half head', 'senior' => '£115', 'stylist' => '£75'],
-                ['name' => 'T-section', 'senior' => '£89', 'stylist' => '£64'],
-                ['name' => 'Long hair below chest', 'senior' => '+£41', 'stylist' => '+£41'],
-                ['name' => 'Toner', 'senior' => '£38', 'stylist' => '£38'],
-                ['name' => 'Blending', 'senior' => '£41', 'stylist' => '£41'],
-                ['name' => 'Colour remover', 'senior' => '£115', 'stylist' => '£104'],
-                ['name' => 'Pre-lighten full head', 'senior' => '£179', 'stylist' => '£138'],
-                ['name' => 'Pre-lighten roots', 'senior' => '£127', 'stylist' => '£104'],
+                ['name' => 'Full head', 'creative' => '£155', 'senior' => '£127', 'stylist' => '£100'],
+                ['name' => 'Half head', 'creative' => '£120', 'senior' => '£100', 'stylist' => '£80'],
+                ['name' => 'T-section', 'creative' => '£95', 'senior' => '£82', 'stylist' => '£70'],
+                ['name' => 'Long hair below chest', 'creative' => '£45', 'senior' => '£45', 'stylist' => '£45'],
+                ['name' => 'Toner', 'creative' => '£40', 'senior' => '£40', 'stylist' => '£40'],
+                ['name' => 'Double toner', 'creative' => '£60', 'senior' => '£60', 'stylist' => '£60'],
+                ['name' => 'Blending', 'creative' => '£45', 'senior' => '£45', 'stylist' => '£45'],
+                ['name' => 'Colour remover', 'creative' => '£120', 'senior' => '£115', 'stylist' => '£110'],
+                ['name' => 'Pre-lighten full head', 'creative' => '£185', 'senior' => '£165', 'stylist' => '£145'],
+                ['name' => 'Pre-lighten roots', 'creative' => '£155', 'senior' => '£122', 'stylist' => '£110'],
             ],
             'treatments' => [
-                ['name' => 'Nashi Filler Express', 'price' => '£33'],
-                ['name' => 'Nashi Filler 1, 2, 3 intense moisture', 'price' => '£46'],
-                ['name' => 'K2.0 short', 'price' => '£41'],
-                ['name' => 'K2.0 medium', 'price' => '£52'],
-                ['name' => 'K2.0 long', 'price' => '£64'],
-                ['name' => 'K2.0 extra long', 'price' => '£75'],
-                ['name' => 'Aura smoothing, long (3–4 months)', 'price' => '£357'],
-                ['name' => 'Aura smoothing, below shoulder', 'price' => '£294'],
-                ['name' => 'Aura smoothing, above shoulder', 'price' => '£228'],
-                ['name' => 'Aura smoothing, short', 'price' => '£117–165'],
+                ['name' => 'Nashi filler express', 'price' => '£35'],
+                ['name' => 'Nashi filler 1, 2, 3 intense moisture', 'price' => '£50'],
+                ['name' => 'K2.0 short hair', 'price' => '£45'],
+                ['name' => 'K2.0 medium length hair', 'price' => '£55'],
+                ['name' => 'K2.0 long hair', 'price' => '£65'],
+                ['name' => 'K2.0 extra long hair', 'price' => '£80'],
+                ['name' => 'Aura smoothing, 3–4 months, long', 'price' => '£360'],
+                ['name' => 'Aura smoothing, below shoulder', 'price' => '£300'],
+                ['name' => 'Aura smoothing, above shoulder', 'price' => '£230'],
+                ['name' => 'Aura smoothing, short', 'price' => '£165'],
+                ['name' => 'Aura smoothing, 4–6 months, with shampoo and conditioner', 'price' => '+£175'],
+            ],
+            'packages' => [
+                ['name' => '4 blow-drys', 'price' => '£156'],
+                ['name' => '4 roots for the price of 3, paid upfront', 'price' => '£264'],
             ],
         ],
         'home' => [
-            'cut' => '£29',
-            'colour' => '£75',
-            'highlights' => '£64',
-            'treatments' => '£33',
+            'cut' => '£15',
+            'colour' => '£55',
+            'highlights' => '£70',
+            'treatments' => '£35',
         ],
         'blurbs' => [
-            'cut' => 'From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style from £58 with a stylist, £87 with a senior. Kids from £29.',
-            'colour' => 'Roots, full head and Illumina colouring. Colour guests, including existing clients, need a patch test at least 48 hours before.',
-            'highlights' => 'Classic highlights, balayage and foiliage — T-section from £64, half head from £75, full head from £98, with toner and blending.',
-            'treatments' => 'Nashi fillers from £33 and K2.0 moisture. Aura smoothing / Brazilian blow-dry from £117, formaldehyde and ammonia free.',
+            'cut' => 'From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style from £60 with a stylist, £75 with a senior, £90 with a creative director. Kids from £15.',
+            'colour' => 'Roots from £55 and full head from £65, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.',
+            'highlights' => 'Classic highlights, balayage and foiliage — T-section from £70, half head from £80, full head from £100, with toner and blending.',
+            'treatments' => 'Nashi fillers from £35 and K2.0 moisture. Aura smoothing from £165, formaldehyde and ammonia free.',
         ],
     ];
 }
@@ -131,6 +159,10 @@ function yuzu_round_price_display(string $raw): string
     if ($compact === '' || preg_match('/^(?:—|–|-|n\/a|na)$/iu', $compact)) {
         return '—';
     }
+    $plain = str_replace('£', '', $compact);
+    if (preg_match('/^upto(\d+(?:\.\d+)?)$/iu', $plain, $matches)) {
+        return 'Up to £' . yuzu_round_price_amount($matches[1]);
+    }
     $plus = str_starts_with($compact, '+');
     $body = $plus ? substr($compact, 1) : $compact;
     $body = str_replace(['£', ','], '', $body);
@@ -147,6 +179,12 @@ function yuzu_round_price_display(string $raw): string
 
 function yuzu_round_price_schema_parts(string $display): ?array
 {
+    if (preg_match('/^Up to £(\d+(?:\.\d+)?)$/u', $display, $matches)) {
+        return [
+            'price' => $matches[1],
+            'description' => 'Up to £' . $matches[1],
+        ];
+    }
     $body = str_starts_with($display, '+') ? substr($display, 1) : $display;
     if (preg_match('/^£(\d+(?:\.\d+)?)–(\d+(?:\.\d+)?)$/u', $body, $matches)) {
         return [
@@ -186,11 +224,11 @@ function yuzu_round_prices_sanitize(mixed $input, ?array $previous = null): ?arr
                     ];
                     continue;
                 }
-                $rows[] = [
-                    'name' => $name,
-                    'senior' => yuzu_round_price_display((string) ($row['senior'] ?? '')),
-                    'stylist' => yuzu_round_price_display((string) ($row['stylist'] ?? '')),
-                ];
+                $item = ['name' => $name];
+                foreach ($meta['columns'] as $key => $column) {
+                    $item[$key] = yuzu_round_price_display((string) ($row[$key] ?? ''));
+                }
+                $rows[] = $item;
             }
         }
         $kept = $fallback['groups'][$id] ?? yuzu_round_prices_default()['groups'][$id];
@@ -201,6 +239,9 @@ function yuzu_round_prices_sanitize(mixed $input, ?array $previous = null): ?arr
     $blurbs = [];
     $default = yuzu_round_prices_default();
     foreach (yuzu_round_prices_catalog() as $id => $meta) {
+        if (empty($meta['card'])) {
+            continue;
+        }
         $from = yuzu_round_price_display((string) ($input['home'][$id] ?? ''));
         $home[$id] = $from === '—' ? (string) ($fallback['home'][$id] ?? $default['home'][$id]) : $from;
         $blurb = yuzu_round_prices_clean_line((string) ($input['blurbs'][$id] ?? ''), 360);
@@ -234,12 +275,18 @@ function yuzu_round_prices_groups_html(array $data): string
             $html .= "            </ul>\n";
         } else {
             $html .= "            <table>\n";
-            $html .= "              <thead><tr><th scope=\"col\">Service</th><th scope=\"col\">Senior</th><th scope=\"col\">Stylist</th></tr></thead>\n";
+            $html .= '              <thead><tr><th scope="col">Service</th>';
+            foreach ($meta['columns'] as $column) {
+                $html .= '<th scope="col">' . yuzu_round_prices_esc($column['short']) . '</th>';
+            }
+            $html .= "</tr></thead>\n";
             $html .= "              <tbody>\n";
             foreach ($rows as $row) {
                 $html .= '                <tr><th scope="row">' . yuzu_round_prices_esc((string) $row['name']) . '</th>';
-                $html .= '<td data-label="Senior">' . yuzu_round_prices_esc((string) $row['senior']) . '</td>';
-                $html .= '<td data-label="Stylist">' . yuzu_round_prices_esc((string) $row['stylist']) . "</td></tr>\n";
+                foreach ($meta['columns'] as $key => $column) {
+                    $html .= '<td data-label="' . yuzu_round_prices_esc($column['short']) . '">' . yuzu_round_prices_esc((string) ($row[$key] ?? '—')) . '</td>';
+                }
+                $html .= "</tr>\n";
             }
             $html .= "              </tbody>\n";
             $html .= "            </table>\n";
@@ -281,13 +328,13 @@ function yuzu_round_prices_schema_script(array $data): string
                 }
                 continue;
             }
-            foreach (['senior' => 'senior stylist', 'stylist' => 'stylist'] as $key => $role) {
+            foreach ($meta['columns'] as $key => $column) {
                 $price = (string) ($row[$key] ?? '');
                 $name = (string) $row['name'];
                 if (str_starts_with($price, '+')) {
                     $name .= ', extra';
                 }
-                $offer = yuzu_round_prices_offer($meta['title'] . ': ' . $name . ', ' . $role, $price);
+                $offer = yuzu_round_prices_offer($meta['title'] . ': ' . $name . ', ' . $column['role'], $price);
                 if ($offer !== null) {
                     $offers[] = $offer;
                 }
@@ -351,7 +398,10 @@ function yuzu_round_prices_replace_schema(string $html, array $data): string
 
 function yuzu_round_prices_replace_home(string $html, array $data): string
 {
-    foreach (array_keys(yuzu_round_prices_catalog()) as $id) {
+    foreach (yuzu_round_prices_catalog() as $id => $meta) {
+        if (empty($meta['card'])) {
+            continue;
+        }
         $from = yuzu_round_prices_esc((string) ($data['home'][$id] ?? ''));
         if ($from !== '') {
             $html = yuzu_round_prices_replace(
@@ -468,7 +518,7 @@ function yuzu_round_prices_admin_assets(): void
     echo '<style>
       .yuzu-prices .yuzu-lead { max-width: 760px; }
       .yuzu-prices .yuzu-group,
-      .yuzu-prices .yuzu-home { background: #fff; border: 1px solid #c3c4c7; margin: 16px 0 24px; padding: 4px 16px 16px; max-width: 980px; }
+      .yuzu-prices .yuzu-home { background: #fff; border: 1px solid #c3c4c7; margin: 16px 0 24px; padding: 4px 16px 16px; max-width: 1180px; }
       .yuzu-prices table { width: 100%; }
       .yuzu-prices input.regular-text,
       .yuzu-prices textarea { width: 100%; max-width: none; }
@@ -481,20 +531,20 @@ function yuzu_round_prices_admin_assets(): void
     </style>';
 }
 
-function yuzu_round_prices_row_fields(string $id, string $kind, int $index, array $row): void
+function yuzu_round_prices_row_fields(string $id, array $meta, int $index, array $row): void
 {
     $base = 'yuzu_prices[groups][' . $id . '][' . $index . ']';
     echo '<tr>';
     echo '<td><label class="screen-reader-text" for="' . esc_attr($id . '-name-' . $index) . '">Service</label>';
     echo '<input class="regular-text" id="' . esc_attr($id . '-name-' . $index) . '" type="text" name="' . esc_attr($base . '[name]') . '" value="' . esc_attr((string) ($row['name'] ?? '')) . '" /></td>';
-    if ($kind === 'list') {
+    if ($meta['kind'] === 'list') {
         echo '<td><label class="screen-reader-text" for="' . esc_attr($id . '-price-' . $index) . '">Price</label>';
         echo '<input class="yuzu-price" id="' . esc_attr($id . '-price-' . $index) . '" type="text" name="' . esc_attr($base . '[price]') . '" value="' . esc_attr((string) ($row['price'] ?? '')) . '" /></td>';
     } else {
-        echo '<td><label class="screen-reader-text" for="' . esc_attr($id . '-senior-' . $index) . '">Senior</label>';
-        echo '<input class="yuzu-price" id="' . esc_attr($id . '-senior-' . $index) . '" type="text" name="' . esc_attr($base . '[senior]') . '" value="' . esc_attr((string) ($row['senior'] ?? '')) . '" /></td>';
-        echo '<td><label class="screen-reader-text" for="' . esc_attr($id . '-stylist-' . $index) . '">Stylist</label>';
-        echo '<input class="yuzu-price" id="' . esc_attr($id . '-stylist-' . $index) . '" type="text" name="' . esc_attr($base . '[stylist]') . '" value="' . esc_attr((string) ($row['stylist'] ?? '')) . '" /></td>';
+        foreach ($meta['columns'] as $key => $column) {
+            echo '<td><label class="screen-reader-text" for="' . esc_attr($id . '-' . $key . '-' . $index) . '">' . esc_html($column['label']) . '</label>';
+            echo '<input class="yuzu-price" id="' . esc_attr($id . '-' . $key . '-' . $index) . '" type="text" name="' . esc_attr($base . '[' . $key . ']') . '" value="' . esc_attr((string) ($row[$key] ?? '')) . '" /></td>';
+        }
     }
     echo '<td class="yuzu-row-actions">';
     echo '<button type="button" class="button yuzu-up">Up</button>';
@@ -535,21 +585,23 @@ function yuzu_round_prices_admin_page(): void
         echo '<section class="yuzu-group" data-group="' . esc_attr($id) . '" data-next="' . esc_attr((string) (count($rows) + 1)) . '">';
         echo '<h2>' . esc_html($meta['title']) . '</h2>';
         if ($kind === 'table') {
-            echo '<p class="description">Leave a stylist price empty if that chair does not offer it. For an extra, type +41. For a range, type 117-165.</p>';
+            echo '<p class="description">Leave a price empty if that chair does not offer it. For an extra, type +175. For a junior cap, type up to 30.</p>';
         } else {
-            echo '<p class="description">One price for each treatment. For a range, type 117-165.</p>';
+            echo '<p class="description">One price for each line. For an extra, type +175.</p>';
         }
         echo '<table class="widefat striped"><thead><tr><th>Service</th>';
         if ($kind === 'list') {
             echo '<th>Price</th>';
         } else {
-            echo '<th>Senior</th><th>Stylist</th>';
+            foreach ($meta['columns'] as $column) {
+                echo '<th>' . esc_html($column['label']) . '</th>';
+            }
         }
         echo '<th>Order</th></tr></thead><tbody>';
         foreach ($rows as $index => $row) {
-            yuzu_round_prices_row_fields($id, $kind, (int) $index, $row);
+            yuzu_round_prices_row_fields($id, $meta, (int) $index, $row);
         }
-        yuzu_round_prices_row_fields($id, $kind, count($rows), ['name' => '', 'senior' => '', 'stylist' => '', 'price' => '']);
+        yuzu_round_prices_row_fields($id, $meta, count($rows), ['name' => '']);
         echo '</tbody></table>';
         echo '<p><button type="button" class="button yuzu-add">Add service</button></p>';
         echo '</section>';
@@ -559,6 +611,9 @@ function yuzu_round_prices_admin_page(): void
     echo '<p class="description">These are the four From prices on the homepage, and the sentence under each card. They are not calculated from the table, so update them when a featured price changes.</p>';
     echo '<div class="yuzu-home-grid">';
     foreach (yuzu_round_prices_catalog() as $id => $meta) {
+        if (empty($meta['card'])) {
+            continue;
+        }
         echo '<div><label for="yuzu-from-' . esc_attr($id) . '"><strong>' . esc_html($meta['home_label']) . '</strong> From</label><br />';
         echo '<input class="yuzu-price" id="yuzu-from-' . esc_attr($id) . '" type="text" name="yuzu_prices[home][' . esc_attr($id) . ']" value="' . esc_attr($data['home'][$id]) . '" />';
         echo '<p><label for="yuzu-blurb-' . esc_attr($id) . '">Card text</label><br />';
