@@ -10,6 +10,9 @@ if (function_exists('add_action') && is_readable(__DIR__ . '/inc/prices.php')) {
 if (function_exists('add_action') && is_readable(__DIR__ . '/inc/copy.php')) {
     require_once __DIR__ . '/inc/copy.php';
 }
+if (is_readable(__DIR__ . '/inc/seo.php')) {
+    require_once __DIR__ . '/inc/seo.php';
+}
 
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
@@ -135,16 +138,22 @@ function yuzu_round_seed_pages(): void
 
 function yuzu_round_file_for_request(): string
 {
+    if (function_exists('yuzu_round_is_salon_front') && yuzu_round_is_salon_front()) {
+        return 'index.html';
+    }
+    if (function_exists('yuzu_round_locked_file')) {
+        $locked = yuzu_round_locked_file();
+        if (is_string($locked)) {
+            return $locked;
+        }
+    }
     if (function_exists('is_404') && is_404()) {
         return '404.html';
     }
-    if (function_exists('is_front_page') && is_front_page()) {
-        return 'index.html';
+    if (function_exists('yuzu_round_force_404')) {
+        yuzu_round_force_404();
     }
-    $queried = function_exists('get_queried_object') ? get_queried_object() : null;
-    $slug = $queried instanceof WP_Post ? (string) $queried->post_name : '';
-    $pages = yuzu_round_pages();
-    return $pages[$slug]['file'] ?? 'index.html';
+    return '404.html';
 }
 
 function yuzu_round_render(string $file): void
@@ -190,14 +199,10 @@ function yuzu_round_render(string $file): void
     }
 
     $base = trailingslashit(get_template_directory_uri() . '/static');
-    $rewritten = preg_replace_callback(
-        '/\s(href|src|action)="(?!https?:|mailto:|tel:|#|\/)([^"]+)"/',
-        static function (array $match) use ($base): string {
-            return ' ' . $match[1] . '="' . $base . $match[2] . '"';
-        },
-        $html
-    );
-    echo is_string($rewritten) ? $rewritten : $html;
+    if (function_exists('yuzu_round_rewrite_public_urls')) {
+        $html = yuzu_round_rewrite_public_urls($html, $base);
+    }
+    echo $html;
 }
 
 add_filter('template_include', static function ($template) {

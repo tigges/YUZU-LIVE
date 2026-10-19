@@ -10,10 +10,11 @@ if (Test-Path $dest) {
 }
 New-Item -ItemType Directory -Path $dest | Out-Null
 Copy-Item -Path (Join-Path $root "site\*") -Destination $dest -Recurse -Force
-$htaccess = Join-Path $dest ".htaccess"
-if (Test-Path $htaccess) {
-    Remove-Item -Force $htaccess
+$copiedHtaccess = Join-Path $dest ".htaccess"
+if (Test-Path $copiedHtaccess) {
+    Remove-Item -Force $copiedHtaccess
 }
+Copy-Item -Path (Join-Path $theme "redirect.htaccess") -Destination $copiedHtaccess -Force
 
 if (Test-Path $zip) {
     Remove-Item -Force $zip
