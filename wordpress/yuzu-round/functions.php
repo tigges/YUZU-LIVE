@@ -21,6 +21,64 @@ add_action('after_switch_theme', static function () {
     }
 });
 
+function yuzu_round_locked_post($post): bool
+{
+    return $post instanceof WP_Post
+        && $post->post_type === 'page'
+        && isset(yuzu_round_pages()[$post->post_name]);
+}
+
+function yuzu_round_preview_meta_box(WP_Post $post): void
+{
+    $pages = yuzu_round_pages();
+    $slug = (string) $post->post_name;
+    $view = get_permalink($post);
+    echo '<p>Visitors see the designed page below, not a blank editor. Leave the slug as <code>' . esc_html($slug) . '</code>.</p>';
+    if ($slug === 'prices' && current_user_can('edit_pages')) {
+        echo '<p>Prices are changed on the <a href="' . esc_url(admin_url('admin.php?page=yuzu-prices')) . '">Price list</a> screen.</p>';
+    }
+    if (is_string($view) && $view !== '') {
+        echo '<p><a class="button button-primary" href="' . esc_url($view) . '" target="_blank" rel="noopener">Open this page</a></p>';
+        echo '<iframe class="yuzu-round-preview" title="' . esc_attr($pages[$slug]['title'] ?? 'Page preview') . '" src="' . esc_url($view) . '"></iframe>';
+    }
+}
+
+add_filter('use_block_editor_for_post', static function ($use, $post) {
+    if (yuzu_round_locked_post($post)) {
+        return false;
+    }
+    return $use;
+}, 10, 2);
+
+add_filter('replace_editor', static function ($replace, $post) {
+    if (yuzu_round_locked_post($post)) {
+        remove_post_type_support('page', 'editor');
+    }
+    return $replace;
+}, 10, 2);
+
+add_action('add_meta_boxes_page', static function ($post): void {
+    if (!yuzu_round_locked_post($post)) {
+        return;
+    }
+    add_meta_box(
+        'yuzu-round-preview',
+        'This page on the site',
+        'yuzu_round_preview_meta_box',
+        'page',
+        'normal',
+        'high'
+    );
+});
+
+add_action('admin_head', static function (): void {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (!$screen || $screen->base !== 'post' || $screen->post_type !== 'page') {
+        return;
+    }
+    echo '<style>.yuzu-round-preview{width:100%;height:75vh;min-height:640px;border:1px solid #c3c4c7;background:#fff}</style>';
+});
+
 function yuzu_round_pages(): array
 {
     return [
