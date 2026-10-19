@@ -8,7 +8,7 @@ This is a clean live version of the **Round** design from [YUZU_FINAL](https://g
 | --- | --- |
 | Layout, type, colour, rounded cards | YUZU_FINAL `?v=round` |
 | Welcome, hours, offers, join-the-team, terms | [yuzuhairandbeauty.london](https://www.yuzuhairandbeauty.london/) and the [Wix clone](https://tigges.github.io/YUZU_SEPT_26/?v=wix) |
-| Prices | Current senior / stylist menu (not the placeholder “from” figures on the old Clean preview) |
+| Prices | Current creative director, senior stylist, stylist and junior menu |
 
 Intended live hosts: **yuzu.hair** (canonical) and **yuzuhair.com** (301 to yuzu.hair).
 
@@ -47,7 +47,7 @@ python3 -m http.server 4173 --directory site
 
 Do **not** rebuild this in Elementor, Spectra, Kadence, or the site editor. Those tools will change spacing, radius, and the overlapping hero.
 
-The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTML. WordPress is only hosting, permalinks, and SSL.
+The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTML. WordPress hosts the pages, permalinks, and SSL. The salon edits prices in wp-admin under **Price list**. Saving updates the price tables, the homepage From prices and card sentences, and clears the Breeze cache when that plugin is active. The layout stays locked. Restore original prices puts back the list shipped with the theme.
 
 Header: Gallery, Services, Offers, Reviews, Visit, Book. Footer: Questions, Patch testing, Terms, Privacy. There is no price-list PDF and no Join our team item in the menus. The careers band and `/team/` page stay.
 
