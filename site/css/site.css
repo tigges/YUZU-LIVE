@@ -522,6 +522,8 @@ section[id] { scroll-margin-top: 88px; }
   font-weight: 500;
 }
 
+.price-group td { white-space: nowrap; }
+
 .price-group thead th {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
