@@ -1,0 +1,16 @@
+# Direct requests for the theme's HTML copies go to the public page.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^prices\.html$ /prices/ [R=301,L]
+RewriteRule ^offers\.html$ /offers/ [R=301,L]
+RewriteRule ^team\.html$ /team/ [R=301,L]
+RewriteRule ^about\.html$ /about/ [R=301,L]
+RewriteRule ^contact\.html$ /contact/ [R=301,L]
+RewriteRule ^questions\.html$ /questions/ [R=301,L]
+RewriteRule ^patch\.html$ /patch/ [R=301,L]
+RewriteRule ^terms\.html$ /terms/ [R=301,L]
+RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
+RewriteRule ^404\.html$ / [R=301,L]
+RewriteRule ^sitemap\.xml$ /sitemap.xml [R=301,L]
+</IfModule>

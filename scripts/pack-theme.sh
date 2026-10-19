@@ -6,6 +6,7 @@ rm -rf "$dest"
 mkdir -p "$dest"
 cp -a "$root/site/." "$dest/"
 rm -f "$dest/.htaccess"
+cp "$root/wordpress/yuzu-round/redirect.htaccess" "$dest/.htaccess"
 echo "Copied site/ into wordpress/yuzu-round/static"
 (
   cd "$root/wordpress"
