@@ -7,6 +7,9 @@ define('YUZU_ROUND_LOADED', true);
 if (function_exists('add_action') && is_readable(__DIR__ . '/inc/prices.php')) {
     require_once __DIR__ . '/inc/prices.php';
 }
+if (function_exists('add_action') && is_readable(__DIR__ . '/inc/copy.php')) {
+    require_once __DIR__ . '/inc/copy.php';
+}
 
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
@@ -36,6 +39,10 @@ function yuzu_round_preview_meta_box(WP_Post $post): void
     echo '<p>Visitors see the designed page below, not a blank editor. Leave the slug as <code>' . esc_html($slug) . '</code>.</p>';
     if ($slug === 'prices' && current_user_can('edit_pages')) {
         echo '<p>Prices are changed on the <a href="' . esc_url(admin_url('admin.php?page=yuzu-prices')) . '">Price list</a> screen.</p>';
+    }
+    if (current_user_can('edit_pages') && function_exists('yuzu_round_copy_catalog') && isset(yuzu_round_copy_catalog()[$slug])) {
+        $copy_label = (string) yuzu_round_copy_catalog()[$slug]['menu'];
+        echo '<p>Change the words under <a href="' . esc_url(yuzu_round_copy_admin_url($slug)) . '">Page copy → ' . esc_html($copy_label) . '</a>.</p>';
     }
     if (is_string($view) && $view !== '') {
         echo '<p><a class="button button-primary" href="' . esc_url($view) . '" target="_blank" rel="noopener">Open this page</a></p>';
@@ -158,6 +165,17 @@ function yuzu_round_render(string $file): void
         }
         echo 'Yuzu Round could not read this page.';
         return;
+    }
+
+    if (function_exists('yuzu_round_copy_apply')) {
+        try {
+            $copied = yuzu_round_copy_apply($html, basename($file));
+            if (is_string($copied) && $copied !== '') {
+                $html = $copied;
+            }
+        } catch (Throwable $e) {
+            // A bad page-copy record must not take the page down.
+        }
     }
 
     if (function_exists('yuzu_round_prices_apply')) {
