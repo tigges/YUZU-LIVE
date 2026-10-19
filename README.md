@@ -8,7 +8,7 @@ This is a clean live version of the **Round** design from [YUZU_FINAL](https://g
 | --- | --- |
 | Layout, type, colour, rounded cards | YUZU_FINAL `?v=round` |
 | Welcome, hours, offers, join-the-team, terms | [yuzuhairandbeauty.london](https://www.yuzuhairandbeauty.london/) and the [Wix clone](https://tigges.github.io/YUZU_SEPT_26/?v=wix) |
-| Prices | Current senior / stylist menu (not the placeholder “from” figures on the old Clean preview) |
+| Prices | Current creative director, senior stylist, stylist and junior menu |
 
 Intended live hosts: **yuzu.hair** (canonical) and **yuzuhair.com** (301 to yuzu.hair).
 
