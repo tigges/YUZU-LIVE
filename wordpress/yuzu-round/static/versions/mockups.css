@@ -315,11 +315,15 @@ button, a { -webkit-font-smoothing: antialiased; }
 /* ——— 3. The menu ——— */
 .page-menu { height: 2040px; background: var(--paper); color: var(--forest); }
 .menu-bar {
+  position: sticky;
+  top: 22px;
+  z-index: 30;
   height: 108px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 48px 0 40px;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 .menu-bar .logo { width: 176px; height: auto; }

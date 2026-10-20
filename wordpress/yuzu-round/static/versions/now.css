@@ -45,13 +45,20 @@ a { color: inherit; text-decoration: none; }
 .btn.ghost { background: transparent; }
 
 .bar {
+  position: sticky;
+  top: 22px;
+  z-index: 30;
   height: 96px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 48px 0 40px;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
+body.clusters .bar:not(.plate) { background: var(--cream); }
+.bar ~ [id],
+.bar ~ * [id] { scroll-margin-top: 140px; }
 .bar .logo { width: 168px; height: auto; }
 .nav { display: flex; align-items: center; gap: 26px; }
 .nav a {
@@ -453,6 +460,8 @@ body.clusters { background: #f6ebdd; }
 
 @media (max-width: 980px) {
   .wrap { padding: 0 28px; }
+  .bar ~ [id],
+  .bar ~ * [id] { scroll-margin-top: 190px; }
   .bar { height: auto; min-height: 72px; padding: 14px 20px; flex-wrap: wrap; gap: 12px; }
   .nav { flex-wrap: wrap; gap: 14px 18px; }
   .hero { padding-top: 20px; }
