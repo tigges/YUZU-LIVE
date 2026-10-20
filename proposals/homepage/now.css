@@ -301,17 +301,95 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.28;
 }
 .visit-legal {
-  padding: 8px 72px 36px;
+  padding: 4px 48px 32px;
   text-align: center;
 }
 .visit-legal p {
-  margin: 0 0 8px;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.visit-legal a { color: inherit; }
+
+.bg-olive { background: var(--olive); }
+.bg-forest { background: var(--forest); }
+.bg-mustard { background: var(--mustard); }
+.bg-terra { background: var(--terra-deep); }
+.bg-cream { background: var(--cream); }
+.ink-light { color: var(--cream); }
+.ink-light figcaption,
+.ink-light h2,
+.ink-light h3,
+.ink-light .section-head p,
+.ink-light .team-foot p { color: var(--cream); }
+.ink-light .services li,
+.ink-light .reviews li { border-top-color: rgba(246, 235, 221, 0.4); }
+.ink-light .services .from b,
+.ink-light .services a,
+.ink-light .reviews a,
+.ink-light .stars { color: var(--cream); }
+.ink-light .extras li { border-top-color: rgba(246, 235, 221, 0.35); }
+.ink-light .btn.terra { background: var(--cream); border-color: var(--cream); color: var(--forest); }
+.ink-light .btn.ghost { color: var(--cream); }
+.ink-light .team-foot h2 a { border-bottom-color: var(--cream); }
+.hero.bg-olive,
+.hero.bg-forest,
+.hero.bg-mustard { padding: 36px 0 56px; }
+.hero-card,
+.hero-card h1 { color: var(--forest); }
+.hero-card h1 { color: var(--terra); }
+
+.hero-drawn.bg-olive,
+.hero-drawn.bg-forest,
+.hero-drawn.bg-mustard { padding: 0; }
+.hero-drawn {
+  display: grid;
+  grid-template-columns: 620px 1fr;
+  align-items: end;
+  min-height: 720px;
+  padding: 0;
+  overflow: hidden;
+}
+.hero-drawn .portrait { position: relative; height: 720px; }
+.hero-drawn .portrait img {
+  position: absolute;
+  left: 12px;
+  bottom: 0;
+  height: 680px;
+  width: auto;
+  max-width: none;
+}
+.hero-drawn .hero-copy { padding: 64px 72px 56px 12px; }
+.hero-drawn h1 {
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 68px;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.hero-drawn .lede {
+  margin: 0 0 26px;
+  max-width: 640px;
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.35;
 }
-.visit-legal a { color: inherit; }
+.hero-drawn .actions { justify-content: flex-start; }
+.with-art { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+.with-art img { width: 150px; height: 190px; object-fit: contain; flex: none; }
+.offer-mark { width: 84px; height: 84px; object-fit: contain; object-position: left center; margin-bottom: 12px; }
+.review-mark {
+  width: 100%;
+  height: 210px;
+  object-fit: contain;
+  object-position: center;
+}
 .visit .label {
   display: block;
   margin-bottom: 10px;
