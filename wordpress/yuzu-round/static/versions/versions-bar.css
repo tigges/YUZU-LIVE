@@ -1,0 +1,26 @@
+.version-bar {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 22px;
+  margin: 0;
+  padding: 0 16px;
+  background: #2f3a27;
+  color: #f6ebdd;
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.version-bar::-webkit-scrollbar { display: none; }
+.version-bar a { color: inherit; text-decoration: none; opacity: 0.72; }
+.version-bar a:hover,
+.version-bar a[aria-current="page"] { opacity: 1; }
+.version-bar a[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }

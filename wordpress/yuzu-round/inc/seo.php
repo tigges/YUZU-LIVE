@@ -100,6 +100,67 @@ function yuzu_round_robots_txt(): string
     ]);
 }
 
+function yuzu_round_serve_version_request(): void
+{
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    if (!is_string($path) || preg_match('#^/versions(?:/(.*))?$#', $path, $match) !== 1) {
+        return;
+    }
+    $rel = rawurldecode($match[1] ?? '');
+    $rel = str_replace('\\', '/', $rel);
+    if ($rel === '' || str_ends_with($rel, '/')) {
+        $rel .= 'index.html';
+    }
+    if (str_contains($rel, "\0") || preg_match('#(^|/)\.\.(/|$)#', $rel) === 1) {
+        return;
+    }
+    if (!function_exists('get_template_directory')) {
+        return;
+    }
+    $root_real = realpath(get_template_directory() . '/static/versions');
+    if ($root_real === false) {
+        return;
+    }
+    $real = realpath($root_real . '/' . $rel);
+    $prefix = $root_real . DIRECTORY_SEPARATOR;
+    if ($real === false || !is_file($real) || !str_starts_with($real, $prefix)) {
+        return;
+    }
+    $types = [
+        'html' => 'text/html; charset=UTF-8',
+        'css' => 'text/css; charset=UTF-8',
+        'js' => 'text/javascript; charset=UTF-8',
+        'png' => 'image/png',
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'svg' => 'image/svg+xml',
+        'webp' => 'image/webp',
+        'ttf' => 'font/ttf',
+        'woff' => 'font/woff',
+        'woff2' => 'font/woff2',
+    ];
+    $ext = strtolower(pathinfo($real, PATHINFO_EXTENSION));
+    if (!isset($types[$ext])) {
+        return;
+    }
+    if (function_exists('status_header')) {
+        status_header(200);
+    }
+    header('Content-Type: ' . $types[$ext]);
+    header('X-Content-Type-Options: nosniff');
+    header('X-Robots-Tag: noindex');
+    if ($ext === 'html' && function_exists('get_template_directory_uri')) {
+        $html = file_get_contents($real);
+        $assets = trailingslashit(get_template_directory_uri() . '/static/assets');
+        if (is_string($html)) {
+            echo str_replace('../assets/', $assets, $html);
+            exit;
+        }
+    }
+    readfile($real);
+    exit;
+}
+
 function yuzu_round_sitemap_xml(): string
 {
     $urls = ['https://yuzu.hair/'];
@@ -168,6 +229,10 @@ if (function_exists('add_action')) {
     add_filter('robots_txt', static function ($output, $public) {
         return yuzu_round_robots_txt();
     }, 99, 2);
+
+    add_action('init', static function (): void {
+        yuzu_round_serve_version_request();
+    }, 0);
 
     add_action('init', static function (): void {
         $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
