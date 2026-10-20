@@ -13,14 +13,20 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { background: var(--paper); }
 body {
-  width: 1440px;
+  width: min(1440px, 100%);
+  margin-inline: auto;
   overflow: hidden;
   background: var(--paper);
   color: var(--forest);
   font-family: var(--sans);
 }
 img { display: block; max-width: none; }
+@media (max-width: 900px) {
+  body { overflow: auto; }
+  img { max-width: 100%; height: auto; }
+}
 a { color: inherit; }
 button, a { -webkit-font-smoothing: antialiased; }
 

@@ -13,8 +13,11 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { background: var(--paper); }
+html:has(body.clusters) { background: #f6ebdd; }
 body.now {
-  width: 1440px;
+  width: min(1440px, 100%);
+  margin-inline: auto;
   background: var(--paper);
   color: var(--forest);
   font-family: var(--sans);
@@ -447,3 +450,50 @@ body.clusters { background: #f6ebdd; }
   overflow: hidden;
 }
 .film img { height: 460px; width: auto; max-width: none; }
+
+@media (max-width: 980px) {
+  .wrap { padding: 0 28px; }
+  .bar { height: auto; min-height: 72px; padding: 14px 20px; flex-wrap: wrap; gap: 12px; }
+  .nav { flex-wrap: wrap; gap: 14px 18px; }
+  .hero { padding-top: 20px; }
+  .hero-photo { width: calc(100% - 40px); height: auto; aspect-ratio: 4 / 3; }
+  .hero-card { width: min(820px, calc(100% - 28px)); margin-top: -48px; padding: 28px 22px 24px; }
+  .hero-card h1 { font-size: 48px; }
+  .actions { flex-wrap: wrap; }
+  .gallery, .reviews, .offers, .extras { grid-template-columns: 1fr 1fr; }
+  .services { grid-template-columns: 1fr 1fr; }
+  .services li { min-height: 0; }
+  .team-row { grid-template-columns: 1fr 1fr; }
+  .team-row img { height: 200px; }
+  .visit-bar {
+    height: auto;
+    grid-template-columns: 1fr 1fr;
+    padding: 28px 24px;
+    gap: 22px;
+  }
+  .visit-legal { padding: 8px 24px 28px; }
+  .visit-legal p { white-space: normal; }
+  .hero-drawn { grid-template-columns: 1fr; min-height: 0; }
+  .hero-drawn .portrait { height: 420px; }
+  .hero-drawn .portrait img { position: static; height: 400px; max-width: 100%; }
+  .hero-drawn .hero-copy { padding: 28px 24px 36px; }
+  .film { grid-template-columns: repeat(3, 1fr); height: auto; }
+  .film figure { height: 280px; }
+  .film img { height: 260px; max-width: 100%; }
+}
+
+@media (max-width: 700px) {
+  .wrap { padding: 0 18px; }
+  .bar { align-items: flex-start; }
+  .nav { width: 100%; }
+  .hero-card h1, .section-head h2 { font-size: 40px; }
+  .section-head p, .hero-card .lede { font-size: 18px; }
+  .gallery, .services, .reviews, .offers, .extras, .team-row { grid-template-columns: 1fr; }
+  .offers a { min-height: 0; }
+  .team-foot { flex-direction: column; align-items: flex-start; }
+  .team-foot h2 { font-size: 36px; }
+  .visit-bar { grid-template-columns: 1fr; padding: 28px 18px; }
+  .visit-bar p { font-size: 22px; }
+  .film { grid-template-columns: 1fr 1fr; }
+  .section { padding-top: 40px; }
+}
