@@ -408,3 +408,31 @@ body.clusters { background: #f6ebdd; }
   opacity: 0.72;
 }
 .visit .btn { letter-spacing: 0.12em; }
+
+.bar.plate {
+  background: var(--forest);
+  color: var(--cream);
+  border-bottom: 0;
+}
+.bar.plate .btn.terra {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--forest);
+}
+.film {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: 520px;
+  margin: 0;
+  overflow: hidden;
+}
+.hero:has(.film) { padding-top: 0; }
+.film figure {
+  margin: 0;
+  height: 480px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+.film img { height: 460px; width: auto; max-width: none; }
