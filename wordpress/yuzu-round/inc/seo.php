@@ -149,6 +149,7 @@ function yuzu_round_serve_version_request(): void
     header('Content-Type: ' . $types[$ext]);
     header('X-Content-Type-Options: nosniff');
     header('X-Robots-Tag: noindex');
+    header('Cache-Control: no-cache');
     if ($ext === 'html' && function_exists('get_template_directory_uri')) {
         $html = file_get_contents($real);
         $assets = trailingslashit(get_template_directory_uri() . '/static/assets');
