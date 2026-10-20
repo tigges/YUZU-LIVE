@@ -2,64 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Yuzu homepage proposals</title>
+  <title>Yuzu homepage gallery</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="fonts/fonts.css" />
   <style>
-    body { margin: 0; background: #2f3a27; color: #f6ebdd; font-family: Outfit, sans-serif; }
-    header { max-width: 920px; margin: 0 auto; padding: 72px 28px 12px; }
-    h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 68px; line-height: 0.95; margin: 8px 0 16px; }
+    body { margin: 0; background: #f6ebdd; color: #2f3a27; font-family: Outfit, sans-serif; }
+    header { padding: 56px 64px 8px; }
     .kicker { letter-spacing: 0.22em; text-transform: uppercase; font-size: 12px; margin: 0; }
-    p { font-size: 18px; line-height: 1.5; max-width: 680px; }
-    section { max-width: 1100px; margin: 0 auto; padding: 28px 28px 8px; }
-    h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 36px; margin: 0 0 8px; }
-    a { color: #f6ebdd; }
-    figure { margin: 0 0 48px; }
-    img { width: 100%; height: auto; background: #ecddc8; }
-    figcaption { margin-top: 12px; font-size: 16px; line-height: 1.45; color: #ecddc8; }
+    h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 64px; line-height: 0.95; margin: 10px 0 12px; }
+    header p { max-width: 720px; font-size: 18px; line-height: 1.45; margin: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 24px;
+      padding: 36px 64px 72px;
+    }
+    a.tile { color: inherit; text-decoration: none; }
+    .shot {
+      display: block;
+      height: 340px;
+      overflow: hidden;
+      background: #ecddc8;
+      border: 1px solid rgba(47, 58, 39, 0.12);
+    }
+    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .meta { display: flex; gap: 14px; align-items: baseline; margin-top: 10px; }
+    .num { font-size: 12px; letter-spacing: 0.16em; color: #ba644b; }
+    h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 28px; margin: 0; }
+    .meta p { margin: 4px 0 0; font-size: 15px; line-height: 1.35; }
   </style>
 </head>
 <body>
   <header>
-    <p class="kicker">Proposal · the live site is unchanged</p>
-    <h1>Three homepages from the new print.</h1>
-    <p>The asset folder holds the October print set: price lists, window posters, a drinks menu, business cards, logos and line drawings. The first artboard is the current homepage, with the same sections, photographs and words, set in that palette. The other three are new directions. Open a full artboard for the type at size.</p>
+    <p class="kicker">Ten directions · open a tile</p>
+    <h1>Homepage gallery</h1>
+    <p>The current page, the full-width colour blocks, the portrait heroes, the forest logo bar, and the illustration carousel. Each tile opens the full artboard.</p>
   </header>
-  <section>
-    <figure>
-      <a href="now.html"><img src="previews/now.png" alt="The current homepage restyled: photo hero, gallery, services, reviews, offers, team and visit, in the new type and colours." /></a>
-      <h2><a href="now.html">The current page</a></h2>
-      <figcaption>Same order as the live homepage. New wordmark, serif, paper, and the Tuesday, Wednesday and Thursday colours. The photographs and the words stay. The credit and the page links sit on one line.</figcaption>
-    </figure>
-    <figure>
-      <a href="blocks.html"><img src="previews/blocks.png" alt="Homepage with each section in a different brand colour." /></a>
-      <h2><a href="blocks.html">Colour blocks</a></h2>
-      <figcaption>The same page, in the business-card olive, the menu paper, and the menu-cover terracotta. Hero and services on olive, gallery and offers on the menu paper, reviews and join on terracotta.</figcaption>
-    </figure>
-    <figure>
-      <a href="portrait.html"><img src="previews/portrait.png" alt="Homepage with the illustrated woman as the hero." /></a>
-      <h2><a href="portrait.html">Portrait</a></h2>
-      <figcaption>The woman from the print is the hero, on the business-card olive. Gallery and offers sit on the menu paper. Services and join use the menu-cover terracotta. Reviews are on olive.</figcaption>
-    </figure>
-    <figure>
-      <a href="drawn.html"><img src="previews/drawn.png" alt="Homepage with the illustrated man as the hero and line drawings in the reviews." /></a>
-      <h2><a href="drawn.html">Drawings</a></h2>
-      <figcaption>The man from the print is the hero, on the menu-cover terracotta. Services use the menu paper and the orange fan. Reviews are on the card olive, with the lily, the fruit and the fan.</figcaption>
-    </figure>
-    <figure>
-      <a href="cover.html"><img src="previews/cover.png" alt="Homepage mockup. Olive field, line portrait, beige Yuzu hair logo, and a paper band with hours." /></a>
-      <h2><a href="cover.html">1 · The card</a></h2>
-      <figcaption>Olive field from the business card and drinks menu, cream portrait, beige wordmark, then the paper band from the price-list interior.</figcaption>
-    </figure>
-    <figure>
-      <a href="poster.html"><img src="previews/poster.png" alt="Homepage mockup. Mustard Colour Tuesdays poster, then olive and terracotta offer panels." /></a>
-      <h2><a href="poster.html">2 · The window</a></h2>
-      <figcaption>The Tuesday, Wednesday and Thursday window posters, set as the first screen: mustard, olive, terracotta, with the fruit, flower and fan drawings.</figcaption>
-    </figure>
-    <figure>
-      <a href="menu.html"><img src="previews/menu.png" alt="Homepage mockup. Paper page, green logo, terracotta headline and a Creative Director price list." /></a>
-      <h2><a href="menu.html">3 · The menu</a></h2>
-      <figcaption>The printed list, opened as a homepage. Green wordmark on paper, terracotta headline, Creative Director prices, forest footer with the brush character.</figcaption>
-    </figure>
-  </section>
+  <main class="grid">
+    <a class="tile" href="now.html">
+      <span class="shot"><img src="previews/now.png" alt="Now homepage" /></span>
+      <span class="meta"><span class="num">01</span><span><h2>Now</h2><p>The current homepage in the new type, with the photograph and the forest footer.</p></span></span>
+    </a>
+    <a class="tile" href="logobar.html">
+      <span class="shot"><img src="previews/logobar.png" alt="Forest logo bar" /></span>
+      <span class="meta"><span class="num">02</span><span><h2>Logo bar</h2><p>Beige wordmark on the forest plate, and the menu in that same cream.</p></span></span>
+    </a>
+    <a class="tile" href="blocks.html">
+      <span class="shot"><img src="previews/blocks.png" alt="Full-width colour blocks" /></span>
+      <span class="meta"><span class="num">03</span><span><h2>Full-width blocks</h2><p>Each section is an edge-to-edge field of card olive, menu paper, or cover terracotta.</p></span></span>
+    </a>
+    <a class="tile" href="portrait.html">
+      <span class="shot"><img src="previews/portrait.png" alt="Woman portrait hero" /></span>
+      <span class="meta"><span class="num">04</span><span><h2>Portrait</h2><p>The woman from the print, on the business-card olive.</p></span></span>
+    </a>
+    <a class="tile" href="drawn.html">
+      <span class="shot"><img src="previews/drawn.png" alt="Man on terracotta" /></span>
+      <span class="meta"><span class="num">05</span><span><h2>Terracotta hero</h2><p>The man from the print, on the menu-cover terracotta.</p></span></span>
+    </a>
+    <a class="tile" href="forest-hero.html">
+      <span class="shot"><img src="previews/forest-hero.png" alt="Man on forest" /></span>
+      <span class="meta"><span class="num">06</span><span><h2>Forest hero</h2><p>The same portrait on the forest ground of the logo plate.</p></span></span>
+    </a>
+    <a class="tile" href="carousel.html">
+      <span class="shot"><img src="previews/carousel.png" alt="Illustration carousel" /></span>
+      <span class="meta"><span class="num">07</span><span><h2>Carousel</h2><p>A full-width row of the woman, lily, fruit, fan and man.</p></span></span>
+    </a>
+    <a class="tile" href="cover.html">
+      <span class="shot"><img src="previews/cover.png" alt="Business card homepage" /></span>
+      <span class="meta"><span class="num">08</span><span><h2>The card</h2><p>Olive field, cream portrait and the beige wordmark, like the business card.</p></span></span>
+    </a>
+    <a class="tile" href="poster.html">
+      <span class="shot"><img src="previews/poster.png" alt="Window poster homepage" /></span>
+      <span class="meta"><span class="num">09</span><span><h2>The window</h2><p>Colour Tuesdays as the first screen, then Wednesday and Thursday.</p></span></span>
+    </a>
+    <a class="tile" href="menu.html">
+      <span class="shot"><img src="previews/menu.png" alt="Menu homepage" /></span>
+      <span class="meta"><span class="num">10</span><span><h2>The menu</h2><p>Paper page, terracotta headline, and a Creative Director price column.</p></span></span>
+    </a>
+  </main>
 </body>
 </html>
