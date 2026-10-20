@@ -20,6 +20,7 @@ wordpress/yuzu-round/     WordPress theme that serves those same pages
 wordpress/yuzu-round.zip  Ready-to-upload theme (no terminal needed)
 scripts/pack-theme.sh     Copies site/ into the theme before you zip it
 scripts/pack-theme.ps1    Same packer for Windows PowerShell
+asset/                    Design references for the next version (not used on the live site)
 ```
 
 Pages: home, prices, exclusive offers, **join our team**, questions, patch testing, terms, privacy.
