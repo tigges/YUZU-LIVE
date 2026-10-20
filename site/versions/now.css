@@ -206,15 +206,20 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+  align-items: stretch;
 }
+.offers li { display: flex; min-width: 0; }
 .offers a {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  min-height: 320px;
+  width: 100%;
+  min-height: 340px;
   padding: 28px 26px 24px;
   color: var(--cream);
+  box-sizing: border-box;
 }
 .offers .tue { background: var(--mustard); }
 .offers .wed { background: var(--olive); }
