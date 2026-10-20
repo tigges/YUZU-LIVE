@@ -27,6 +27,7 @@ body.spread.night { background: var(--forest); color: var(--cream); }
 body.spread.night a { color: inherit; }
 body.spread.day { background: var(--mustard); }
 body.spread h1, body.spread h2, body.spread p { margin: 0; }
+body.spread [id] { scroll-margin-top: 120px; }
 
 .book {
   display: inline-flex;
@@ -49,6 +50,9 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
 /* Lookbook — MILLOR: the photographs are the page */
 .lookbook { background: var(--cream); }
 .lb-top {
+  position: sticky;
+  top: 22px;
+  z-index: 30;
   height: 84px;
   display: flex;
   align-items: center;
@@ -133,10 +137,14 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
 /* Still — GROEN: one sentence, then the room */
 .still { background: var(--cream); }
 .st-top {
+  position: sticky;
+  top: 22px;
+  z-index: 30;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 48px 88px 0;
+  padding: 28px 88px 18px;
+  background: var(--cream);
 }
 .st-top img { width: 150px; }
 .st-top a { font-size: 14px; letter-spacing: 0.14em; }
@@ -235,6 +243,9 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
 /* Index — a poster of numbered bands */
 .indexband { background: var(--cream); }
 .ix-top {
+  position: sticky;
+  top: 22px;
+  z-index: 30;
   height: 72px;
   display: flex;
   align-items: center;
@@ -272,11 +283,18 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
   min-height: 900px;
 }
 .nt-rail {
+  position: sticky;
+  top: 22px;
+  align-self: start;
+  height: calc(100vh - 22px);
+  z-index: 30;
+  box-sizing: border-box;
   padding: 36px 28px;
   border-right: 1px solid rgba(246, 235, 221, 0.2);
   display: flex;
   flex-direction: column;
   gap: 22px;
+  background: var(--forest);
 }
 .nt-rail img { width: 140px; }
 .nt-rail nav { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
@@ -314,10 +332,11 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
 /* Chapter — KOKUU: a book with a spine */
 .chapter { background: var(--paper); position: relative; }
 .ch-spine {
-  position: absolute;
-  top: 40px;
+  position: fixed;
+  top: 62px;
   bottom: 40px;
-  left: 28px;
+  left: calc((100% - min(1440px, 100%)) / 2 + 28px);
+  z-index: 25;
   writing-mode: vertical-rl;
   font-family: var(--serif);
   font-size: 18px;
@@ -471,7 +490,13 @@ body.spread .day-sheet.thu { background: var(--terra-deep); grid-template-column
   .ix-row h2 { font-size: 34px; }
   .ix-row img { width: 100%; max-width: 160px; height: 110px; grid-column: 2; justify-self: start; }
   .nt { grid-template-columns: 1fr; min-height: 0; }
-  .nt-rail { border-right: 0; border-bottom: 1px solid rgba(246, 235, 221, 0.25); }
+  .nt-rail {
+    position: static;
+    top: auto;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid rgba(246, 235, 221, 0.25);
+  }
   .nt-rail nav { flex-direction: row; flex-wrap: wrap; margin-top: 8px; }
   .nt-rail .book { margin-top: 8px; }
   .nt-main { padding: 28px 18px 40px; }
