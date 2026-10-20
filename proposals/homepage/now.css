@@ -317,7 +317,13 @@ a { color: inherit; text-decoration: none; }
 .bg-olive { background: var(--olive); }
 .bg-forest { background: var(--forest); }
 .bg-mustard { background: var(--mustard); }
-.bg-terra { background: var(--terra-deep); }
+.bg-terra { background: var(--terra); }
+.bg-paper { background: var(--paper); color: var(--forest); }
+.bg-paper h2,
+.bg-paper h3 { color: var(--terra); }
+.bg-paper .services .from b,
+.bg-paper .services a { color: var(--terra); }
+body.clusters { background: #f6ebdd; }
 .bg-cream { background: var(--cream); }
 .ink-light { color: var(--cream); }
 .ink-light figcaption,
@@ -344,7 +350,8 @@ a { color: inherit; text-decoration: none; }
 
 .hero-drawn.bg-olive,
 .hero-drawn.bg-forest,
-.hero-drawn.bg-mustard { padding: 0; }
+.hero-drawn.bg-mustard,
+.hero-drawn.bg-terra { padding: 0; }
 .hero-drawn {
   display: grid;
   grid-template-columns: 620px 1fr;
