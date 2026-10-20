@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Yuzu homepage gallery</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="fonts/fonts.css" />
   <style>
     body { margin: 0; background: #f6ebdd; color: #2f3a27; font-family: Outfit, sans-serif; }
+    header, .grid { width: min(1440px, 100%); margin-inline: auto; box-sizing: border-box; }
     header { padding: 56px 64px 8px; }
     .kicker { letter-spacing: 0.22em; text-transform: uppercase; font-size: 12px; margin: 0; }
     h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 64px; line-height: 0.95; margin: 10px 0 12px; }
@@ -30,9 +32,15 @@
     .num { font-size: 12px; letter-spacing: 0.16em; color: #ba644b; }
     h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 28px; margin: 0; }
     .meta p { margin: 4px 0 0; font-size: 15px; line-height: 1.35; }
+    @media (max-width: 800px) {
+      header { padding: 28px 20px 8px; }
+      h1 { font-size: 40px; }
+      .grid { grid-template-columns: 1fr; padding: 24px 20px 48px; gap: 22px; }
+      .shot { height: 220px; }
+    }
   </style>
 <meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="versions-bar.css" />
+  <link rel="stylesheet" href="versions-bar.css?v=3" />
   </head>
 <body>
   <nav class="version-bar" aria-label="Design versions"><a href="/">Live</a><a href="/versions/" aria-current="page">Gallery</a><a href="/versions/logobar.html">Logo bar</a><a href="/versions/lookbook.html">Lookbook</a><a href="/versions/still.html">Still</a><a href="/versions/atelier.html">Atelier</a><a href="/versions/indexband.html">Index</a><a href="/versions/night.html">Night</a><a href="/versions/chapter.html">Chapter</a><a href="/versions/split.html">Split</a><a href="/versions/day.html">Day</a></nav>
