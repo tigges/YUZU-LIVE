@@ -1,3 +1,32 @@
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../versions/fonts/cormorant-italic-500.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../versions/fonts/cormorant-italic-600.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../versions/fonts/cormorant-500.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../versions/fonts/cormorant-600.ttf") format("truetype");
+}
+
 :root {
   --ink: #1c1916;
   --muted: #5e574e;
@@ -481,8 +510,8 @@ section[id] { scroll-margin-top: 118px; }
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 701px) {
     .round-offers { row-gap: 6px; }
-    .round-offers li,
-    .round-offers a {
+    .round-offers li:not(:has(> a.promo)),
+    .round-offers a:not(.promo) {
       display: grid;
       grid-template-rows: subgrid;
       grid-row: span 4;
@@ -866,7 +895,7 @@ body.is-locked { overflow: hidden; }
 
   .round-gallery,
   .round-services,
-  .round-offers,
+  .round-offers:not(:has(a.promo)),
   .round-extras,
   .round-reviews,
   .round-roles,
@@ -1065,6 +1094,48 @@ body.is-locked { overflow: hidden; }
 @media (max-width: 700px) {
   .salon-chat { right: 14px; bottom: 78px; }
   .salon-chat-panel { height: min(460px, calc(100vh - 170px)); }
+}
+
+/* Homepage offers are the promo squares. Colours stay on this band so the
+   rest of the live page keeps its own palette. */
+.round-offers-band {
+  --mustard: #bb861b;
+  --olive: #9e9870;
+  --terra: #bb7451;
+}
+.round-offers:has(a.promo) { align-items: start; }
+.round-offers li:has(> a.promo) {
+  display: block;
+  height: auto;
+}
+.round-offers a.promo {
+  --serif: "Cormorant Garamond", Georgia, serif;
+  display: flex;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  color: #fcf4e8;
+  background: var(--ground);
+}
+
+@media (max-width: 700px) {
+  .round-offers:has(a.promo) {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .round-offers:has(a.promo)::-webkit-scrollbar { display: none; }
+  .round-offers:has(a.promo) > li {
+    flex: 0 0 84%;
+    width: 84%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
