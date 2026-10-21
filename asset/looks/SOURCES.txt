@@ -2,7 +2,9 @@ September Simple version
 https://tigges.github.io/YUZU_SEPT_26/?v=simple
 Files in sept-simple/ come from the public YUZU_SEPT_26 repo, the pictures that version shows.
 
-Hair photographs used on the Results version:
+Hair photographs used on the Results version.
+Soft blonde and copper balayage are also the replacements for the sourced
+blonde updo and inverted bob on Gloss, Studio, and Pulse.
   blonde-layers.jpg       instagram/08.jpg        Soft blonde, on the Simple gallery
   copper-balayage.jpg     instagram/09.jpg        Copper balayage, on the Simple gallery
   before-dark-waves.jpg   instagram/09-1.jpg      Before, on the Simple gallery
@@ -28,15 +30,18 @@ Sourced photographs
 Files in sourced/ are high-resolution pictures from Wikimedia Commons.
 They are other people's work, not Yuzu clients.
 Gloss, Studio and Pulse use website-sized copies in site/versions/img/fresh/, with a credit in the footer of those pages.
+Blonde updo and inverted bob are no longer on those pages. Soft blonde and copper balayage, from the Results set above, stand in for them.
 Originals here were kept up to 3200 pixels on the long edge.
 
   blonde-waves.jpg     File:Seated woman with blonde hair-3177506.jpg
                        CC0. ivanovgood, via Pixabay. Long blonde waves.
   blonde-updo.jpg      File:Profile Photographic Portrait of Blonde Young Woman.jpg
                        CC BY 2.0. Elmo Love. Blonde updo, profile.
+                       Kept in sourced/. Not used on Gloss, Studio, or Pulse.
   inverted-bob.jpg     File:Inverted bob haircut.jpg
                        CC BY-SA 2.0. Thirteen Of Clubs.
                        https://www.flickr.com/photos/thirteenofclubs/4806346458/
+                       Kept in sourced/. Not used on Gloss, Studio, or Pulse.
   salon-interior.jpg   File:Beauty salon 20211024 171434.jpg
                        CC BY-SA 4.0. Ka23 13. Modern salon, seen from the street.
   stylist-cutting.jpg  File:Hairstylist at Paris Fashion Week 2019.jpg
