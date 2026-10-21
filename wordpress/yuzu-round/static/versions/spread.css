@@ -65,6 +65,19 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
   color: var(--cream);
 }
 .lb-top img { width: 132px; height: auto; }
+.lb-top .menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  place-items: center;
+  flex: none;
+}
+.lb-top .menu-icon { display: grid; gap: 5px; }
+.lb-top .menu-icon i { display: block; width: 18px; height: 1.5px; background: currentColor; }
 .lb-top nav { display: flex; gap: 28px; align-items: center; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
 .lb-grid {
   display: grid;
@@ -521,4 +534,31 @@ body.spread .day-sheet.thu { background: var(--terra-deep); grid-template-column
   .at-film a { flex: 1 1 100%; }
   .st-open h1 { font-size: 40px; }
   .day-sheet h1 { font-size: 48px; }
+}
+
+@media (max-width: 860px) {
+  .lb-top:has(.menu-toggle) {
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 76px;
+    padding: 0 16px 0 18px;
+  }
+  .lb-top:has(.menu-toggle) img { width: auto; height: 56px; }
+  .lb-top:has(.menu-toggle) .menu-toggle { display: grid; }
+  .lb-top:has(.menu-toggle) > nav { display: none; width: auto; overflow: visible; }
+  .lb-top.open > nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 2;
+    gap: 2px;
+    padding: 6px 18px 16px;
+    background: inherit;
+  }
+  .lb-top.open > nav a { padding: 12px 2px; }
+  .lb-top.open > nav .book { margin-top: 8px; }
 }
