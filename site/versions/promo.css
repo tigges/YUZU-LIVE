@@ -16,14 +16,15 @@
   --ink: #fcf4e8;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
   height: auto;
   min-height: 0;
-  aspect-ratio: 1;
-  padding: 8% 7%;
+  max-height: none;
+  aspect-ratio: 1 / 1;
+  padding: 11% 8% 10%;
   overflow: hidden;
   container-type: inline-size;
   text-align: center;
@@ -71,6 +72,12 @@
 .promo-copy {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   color: var(--ink);
 }
 .promo-copy span {
@@ -79,6 +86,11 @@
   font-weight: 600;
   paint-order: stroke fill;
   -webkit-text-stroke: 0.035em var(--ground);
+}
+.promo-copy .promo-lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .promo-title { font-size: 12.33cqw; line-height: 0.92; }
 .wed .promo-title { font-size: 14.67cqw; line-height: 0.88; }
@@ -92,13 +104,18 @@
 }
 .thu .promo-sub { font-size: 4.83cqw; }
 .promo-off {
-  margin-top: 1.6cqw;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin: 0;
+  transform: translateY(-50%);
   font-size: 13.75cqw;
   line-height: 0.85;
   letter-spacing: -0.03em;
 }
 .promo-fine {
-  margin-top: 1.6cqw;
+  margin-top: 0;
   font-style: italic;
   font-weight: 600;
   font-size: 4.83cqw;
@@ -107,11 +124,21 @@
 .wed .promo-fine { font-size: 5.17cqw; }
 .thu .promo-fine { font-size: 4.67cqw; }
 
-.offers:has(a.promo) { align-items: start; }
+.offers:has(a.promo),
+.promo-row:has(.promo) {
+  grid-auto-rows: auto;
+  align-items: start;
+}
+.offers li:has(> .promo) {
+  display: block;
+  height: auto;
+}
 .offers a.promo {
   flex: none;
-  flex-direction: row;
-  padding: 8% 7%;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
 }
 
 .lb-offers { display: block; }
