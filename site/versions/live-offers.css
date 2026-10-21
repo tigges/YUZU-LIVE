@@ -11,9 +11,44 @@ body.live-offers-mock {
   --serif: "Cormorant Garamond", Georgia, serif;
 }
 
-/* The live card link sets color: inherit, which would darken the square. */
-.round-offers a .promo {
+/* The square is the card. Live link rules would paint it white, stretch it,
+   and split the type into subgrid rows. */
+.live-offers-mock .round-offers {
+  align-items: start;
+}
+.live-offers-mock .round-offers li {
+  display: block;
+  grid-template-rows: none;
+  grid-row: auto;
+  height: auto;
+}
+.live-offers-mock .round-offers a.promo {
+  display: flex;
+  grid-template-rows: none;
+  grid-row: auto;
+  height: auto;
+  border-radius: 24px;
   color: #fcf4e8;
+  background: var(--ground);
+}
+
+@media (max-width: 700px) {
+  .live-offers-mock .round-offers {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .live-offers-mock .round-offers::-webkit-scrollbar { display: none; }
+  .live-offers-mock .round-offers > li {
+    flex: 0 0 84%;
+    width: 84%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
 }
 
 .live-offers-note {
