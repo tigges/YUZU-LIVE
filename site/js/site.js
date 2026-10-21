@@ -132,7 +132,7 @@
     })
   })
 
-  const ids = ['top', 'gallery', 'services', 'reviews', 'offers', 'team', 'visit']
+  const ids = ['top', 'looks', 'services', 'reviews', 'offers', 'team', 'visit']
   const observed = ids.map((id) => document.getElementById(id)).filter(Boolean)
   if (observed.length && 'IntersectionObserver' in window) {
     const links = new Map(
