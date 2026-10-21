@@ -1,0 +1,137 @@
+/* Set C promotions. Drawings sit behind the words in a quiet tint.
+   The 50% / 25% Off line is half the size used in the C mockup.
+   Titles and the smaller lines stay at that mockup's size. */
+
+.promo-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.promo {
+  --ink: #fcf4e8;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 8% 7%;
+  overflow: hidden;
+  container-type: inline-size;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--ground);
+}
+
+.promo.tue { --ground: var(--mustard); --line-ink: #c59743; }
+.promo.wed { --ground: var(--olive); --line-ink: #b0a884; }
+.promo.thu { --ground: var(--terra); --line-ink: #c68a6a; }
+
+.promo .draw {
+  position: absolute;
+  background: var(--line-ink);
+  pointer-events: none;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.tue .fruit-a,
+.tue .fruit-b {
+  -webkit-mask-image: url("img/fruit-beige.png");
+  mask-image: url("img/fruit-beige.png");
+}
+.tue .fruit-a { width: 93.3%; height: 84.2%; left: -30%; top: -33.3%; }
+.tue .fruit-b { width: 83.3%; height: 75.2%; left: 43.3%; top: 56.7%; transform: scaleX(-1); }
+
+.wed .bloom {
+  -webkit-mask-image: url("img/blossom-beige.png");
+  mask-image: url("img/blossom-beige.png");
+}
+.wed .bloom-a { width: 38.3%; height: 53.2%; left: -12.5%; top: -15%; }
+.wed .bloom-b { width: 41.7%; height: 57.9%; left: 71.7%; top: 63.3%; transform: scaleX(-1) rotate(180deg); }
+
+.thu .fan {
+  -webkit-mask-image: url("img/fan-beige.png");
+  mask-image: url("img/fan-beige.png");
+}
+.thu .fan-a { width: 130%; height: 219.4%; left: -88.3%; top: -74.7%; transform: scaleX(-1); }
+.thu .fan-b { width: 130%; height: 219.4%; left: 58.3%; top: -44.7%; }
+
+.promo-copy {
+  position: relative;
+  z-index: 1;
+  color: var(--ink);
+}
+.promo-copy span {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 0.035em var(--ground);
+}
+.promo-title { font-size: 12.33cqw; line-height: 0.92; }
+.wed .promo-title { font-size: 14.67cqw; line-height: 0.88; }
+.wed .promo-title + .promo-title { margin-top: -0.6cqw; }
+.thu .promo-title { font-size: 11.67cqw; }
+.promo-sub {
+  margin-top: 1.2cqw;
+  font-style: italic;
+  font-size: 5.33cqw;
+  line-height: 1.05;
+}
+.thu .promo-sub { font-size: 4.83cqw; }
+.promo-off {
+  margin-top: 1.6cqw;
+  font-size: 13.75cqw;
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+}
+.promo-fine {
+  margin-top: 1.6cqw;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 4.83cqw;
+  line-height: 1.15;
+}
+.wed .promo-fine { font-size: 5.17cqw; }
+.thu .promo-fine { font-size: 4.67cqw; }
+
+.offers:has(a.promo) { align-items: start; }
+.offers a.promo {
+  flex: none;
+  flex-direction: row;
+  padding: 8% 7%;
+}
+
+.lb-offers { display: block; }
+
+body.page-poster {
+  height: auto;
+  background: var(--beige);
+  color: var(--forest);
+}
+.poster-stage { padding: 36px 40px 28px; }
+.poster-stage .promo-row { gap: 18px; }
+
+@media (max-width: 980px) {
+  .offers.promo-row,
+  .lb-offers .promo-row,
+  .poster-stage .promo-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .offers.promo-row,
+  .lb-offers .promo-row,
+  .poster-stage .promo-row { grid-template-columns: 1fr; }
+  .poster-stage { padding: 20px 16px; }
+}
