@@ -1,0 +1,12 @@
+/* Version-page brand colours. The only place these hex values live. */
+:root {
+  --forest: #313a28;
+  --beige: #ece4d6;
+  --paper: var(--beige);
+  --cream: var(--beige);
+  --mustard: #bb861b;
+  --olive: #9e9870;
+  --terra: #bb7451;
+  --terra-deep: var(--terra);
+  --line: rgb(49 58 40 / 0.2);
+}
