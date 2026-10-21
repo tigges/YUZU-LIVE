@@ -1,0 +1,25 @@
+September Simple version
+https://tigges.github.io/YUZU_SEPT_26/?v=simple
+Files in sept-simple/ come from the public YUZU_SEPT_26 repo, the pictures that version shows.
+
+Hair photographs used on the Results version:
+  blonde-layers.jpg       instagram/08.jpg        Soft blonde, on the Simple gallery
+  copper-balayage.jpg     instagram/09.jpg        Copper balayage, on the Simple gallery
+  before-dark-waves.jpg   instagram/09-1.jpg      Before, on the Simple gallery
+  blonde-back.jpg         instagram/08-1.jpg      Blonde from behind, on the Simple gallery
+  textured-crop.jpg       archive-ig/DVb3HcZDELC.jpg  Textured crop, on the Simple gallery
+  dimensional-blonde.jpg  archive-ig/DVENtQODLyW.jpg  Same archive, a clearer blonde
+  long-straight.jpg       instagram/08-2.jpg      Same Instagram set, long straight hair
+
+Also fetched from that Simple gallery, not used as looks:
+  story-collage.jpg       archive-ig/DU3pkydDIvf.jpg
+  dickens-yard-balloons.jpg archive-ig/DUqjrd_DRky.jpg
+  flowers-offer.jpg       archive-ig/DUyAEtbjKdM.jpg
+
+High-resolution reference, other salons
+Files in reference/ are CC0 photographs by Mostafa Meraji on Wikimedia Commons.
+They are not Yuzu client work, so they stay out of the Looks grid.
+  salon-floor.jpg      File:Hair Salon In Iran.jpg
+  cut-in-progress.jpg  File:Haircut or hair Salon From Iran, fashion Photo 01
+  clipper-finish.jpg   File:Haircut or hair Salon From Iran, fashion Photo 08
+  two-chairs.jpg       File:Jorj Barbershop In Iran Hair Salon Photography 06
