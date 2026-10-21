@@ -433,7 +433,6 @@ body.fx a.fx-ghost { border: 1px solid currentColor; }
   .gloss .join-copy, .price-sheet { padding-left: 18px; padding-right: 18px; }
   .studio .join, .pulse .join { padding: 48px 18px; }
   .visit { padding: 36px 18px 20px; }
-  .fx-offers .promo-row { grid-template-columns: 1fr; }
   .fx-bar {
     height: 72px;
     padding: 0 14px 0 16px;
