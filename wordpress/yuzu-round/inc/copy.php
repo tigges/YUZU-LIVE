@@ -23,8 +23,8 @@ function yuzu_round_copy_catalog(): array
                 $line('home-hero-kicker', 'Label', 'Hero'),
                 $line('home-hero-title', 'Heading', 'Hero'),
                 $paragraph('home-hero-text', 'Text', 'Hero'),
-                $line('home-gallery-title', 'Heading', 'Gallery'),
-                $paragraph('home-gallery-text', 'Text', 'Gallery'),
+                $line('home-gallery-title', 'Heading', 'Looks'),
+                $paragraph('home-gallery-text', 'Text', 'Looks'),
                 $line('home-services-title', 'Heading', 'Services'),
                 $paragraph('home-services-intro', 'Introduction', 'Services'),
                 $line('home-reviews-title', 'Heading', 'Reviews'),
@@ -415,11 +415,25 @@ function yuzu_round_copy_sanitize_page(string $slug, mixed $input, array $previo
     return $clean;
 }
 
+function yuzu_round_copy_rename_gallery_heading(): void
+{
+    if (!function_exists('get_option') || !function_exists('update_option')) {
+        return;
+    }
+    $stored = get_option('yuzu_round_copy');
+    if (!is_array($stored) || ($stored['home']['home-gallery-title'] ?? '') !== 'Gallery') {
+        return;
+    }
+    $stored['home']['home-gallery-title'] = 'Looks';
+    update_option('yuzu_round_copy', $stored);
+}
+
 function yuzu_round_copy_apply(string $html, string $file): string
 {
     if (!function_exists('get_option')) {
         return $html;
     }
+    yuzu_round_copy_rename_gallery_heading();
     $stored = get_option('yuzu_round_copy');
     if (!is_array($stored)) {
         return $html;
