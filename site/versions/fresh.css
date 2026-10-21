@@ -219,6 +219,21 @@ body.fx a.fx-ghost { border: 1px solid currentColor; }
   align-items: stretch;
 }
 .studio .hero-copy { display: flex; flex-direction: column; justify-content: flex-end; padding: 48px 40px 56px 48px; }
+.studio .hero-mark {
+  display: block;
+  width: 72px;
+  height: 96px;
+  margin: 0 0 18px;
+  background: var(--olive);
+  -webkit-mask-image: url("img/blossom-beige.png");
+  mask-image: url("img/blossom-beige.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
 .studio .hero-copy h1 {
   margin: 14px 0 16px;
   font-family: var(--serif);
@@ -293,7 +308,7 @@ body.fx a.fx-ghost { border: 1px solid currentColor; }
 /* ——— Pulse: rounded, bright, a card over the picture ——— */
 .pulse .hero-float { padding: 22px 28px 0; }
 .pulse .hero-photo { height: min(56vh, 540px); border-radius: 28px; }
-.pulse .hero-photo img { object-position: center 8%; }
+.pulse .hero-photo img { object-position: center 42%; }
 .pulse .hero-copy {
   position: relative;
   z-index: 2;
