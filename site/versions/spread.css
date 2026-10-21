@@ -27,7 +27,10 @@ body.spread.night { background: var(--forest); color: var(--cream); }
 body.spread.night a { color: inherit; }
 body.spread.day { background: var(--mustard); }
 body.spread h1, body.spread h2, body.spread p { margin: 0; }
-body.spread [id] { scroll-margin-top: 120px; }
+.lb-top ~ [id],
+.lb-top ~ * [id],
+.ix-top ~ [id],
+.ix-top ~ * [id] { scroll-margin-top: 120px; }
 
 .book {
   display: inline-flex;
@@ -62,6 +65,19 @@ body.spread [id] { scroll-margin-top: 120px; }
   color: var(--cream);
 }
 .lb-top img { width: 132px; height: auto; }
+.lb-top .menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  place-items: center;
+  flex: none;
+}
+.lb-top .menu-icon { display: grid; gap: 5px; }
+.lb-top .menu-icon i { display: block; width: 18px; height: 1.5px; background: currentColor; }
 .lb-top nav { display: flex; gap: 28px; align-items: center; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
 .lb-grid {
   display: grid;
@@ -137,14 +153,10 @@ body.spread [id] { scroll-margin-top: 120px; }
 /* Still — GROEN: one sentence, then the room */
 .still { background: var(--cream); }
 .st-top {
-  position: sticky;
-  top: 22px;
-  z-index: 30;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 28px 88px 18px;
-  background: var(--cream);
+  padding: 48px 88px 0;
 }
 .st-top img { width: 150px; }
 .st-top a { font-size: 14px; letter-spacing: 0.14em; }
@@ -283,18 +295,11 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
   min-height: 900px;
 }
 .nt-rail {
-  position: sticky;
-  top: 22px;
-  align-self: start;
-  height: calc(100vh - 22px);
-  z-index: 30;
-  box-sizing: border-box;
   padding: 36px 28px;
   border-right: 1px solid rgba(246, 235, 221, 0.2);
   display: flex;
   flex-direction: column;
   gap: 22px;
-  background: var(--forest);
 }
 .nt-rail img { width: 140px; }
 .nt-rail nav { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
@@ -332,11 +337,10 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
 /* Chapter — KOKUU: a book with a spine */
 .chapter { background: var(--paper); position: relative; }
 .ch-spine {
-  position: fixed;
-  top: 62px;
+  position: absolute;
+  top: 40px;
   bottom: 40px;
-  left: calc((100% - min(1440px, 100%)) / 2 + 28px);
-  z-index: 25;
+  left: 28px;
   writing-mode: vertical-rl;
   font-family: var(--serif);
   font-size: 18px;
@@ -490,13 +494,7 @@ body.spread .day-sheet.thu { background: var(--terra-deep); grid-template-column
   .ix-row h2 { font-size: 34px; }
   .ix-row img { width: 100%; max-width: 160px; height: 110px; grid-column: 2; justify-self: start; }
   .nt { grid-template-columns: 1fr; min-height: 0; }
-  .nt-rail {
-    position: static;
-    top: auto;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid rgba(246, 235, 221, 0.25);
-  }
+  .nt-rail { border-right: 0; border-bottom: 1px solid rgba(246, 235, 221, 0.25); }
   .nt-rail nav { flex-direction: row; flex-wrap: wrap; margin-top: 8px; }
   .nt-rail .book { margin-top: 8px; }
   .nt-main { padding: 28px 18px 40px; }
@@ -536,4 +534,31 @@ body.spread .day-sheet.thu { background: var(--terra-deep); grid-template-column
   .at-film a { flex: 1 1 100%; }
   .st-open h1 { font-size: 40px; }
   .day-sheet h1 { font-size: 48px; }
+}
+
+@media (max-width: 860px) {
+  .lb-top:has(.menu-toggle) {
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 76px;
+    padding: 0 16px 0 18px;
+  }
+  .lb-top:has(.menu-toggle) img { width: auto; height: 56px; }
+  .lb-top:has(.menu-toggle) .menu-toggle { display: grid; }
+  .lb-top:has(.menu-toggle) > nav { display: none; width: auto; overflow: visible; }
+  .lb-top.open > nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 2;
+    gap: 2px;
+    padding: 6px 18px 16px;
+    background: inherit;
+  }
+  .lb-top.open > nav a { padding: 12px 2px; }
+  .lb-top.open > nav .book { margin-top: 8px; }
 }
