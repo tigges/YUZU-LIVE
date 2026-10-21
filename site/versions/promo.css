@@ -76,8 +76,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
+  /* Pull the title and the small print in toward the centred offer line.
+     About a third of the gap on a desktop tile. */
+  padding-block: 8%;
   color: var(--ink);
 }
 .promo-copy span {
