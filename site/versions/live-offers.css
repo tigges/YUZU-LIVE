@@ -1,0 +1,30 @@
+/* Mock of the live Exclusive Offers band.
+   Promo colours live here so brand.css is not loaded over the live palette. */
+
+body.live-offers-mock {
+  --mustard: #bb861b;
+  --olive: #9e9870;
+  --terra: #bb7451;
+}
+
+.live-offers-mock .promo {
+  --serif: "Cormorant Garamond", Georgia, serif;
+}
+
+/* The live card link sets color: inherit, which would darken the square. */
+.round-offers a .promo {
+  color: #fcf4e8;
+}
+
+.live-offers-note {
+  width: min(1120px, calc(100% - 40px));
+  margin: 22px auto 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.live-offers-note a { color: inherit; }
+
+@media (max-width: 700px) {
+  .live-offers-note { width: min(1120px, calc(100% - 28px)); }
+}
