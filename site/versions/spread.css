@@ -1,11 +1,4 @@
 :root {
-  --forest: #2f3a27;
-  --paper: #ecddc8;
-  --cream: #f6ebdd;
-  --terra: #d07661;
-  --terra-deep: #ba644b;
-  --mustard: #b87b25;
-  --olive: #919066;
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: Outfit, "Helvetica Neue", sans-serif;
 }
@@ -93,7 +86,7 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
   color: var(--cream);
   font-family: var(--serif);
   font-size: 28px;
-  text-shadow: 0 1px 12px rgba(47, 58, 39, 0.45);
+  text-shadow: 0 1px 12px color-mix(in srgb, var(--forest) 45%, transparent);
 }
 .lb-grid figure:first-child { grid-row: 1 / span 2; }
 .lb-words {
@@ -106,7 +99,7 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
   padding: 36px 28px 28px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid rgba(47, 58, 39, 0.25);
+  border-right: 1px solid color-mix(in srgb, var(--forest) 25%, transparent);
 }
 .lb-words article:last-child { border-right: 0; }
 .lb-words span { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; }
@@ -191,7 +184,7 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
   gap: 24px;
   align-items: baseline;
   padding: 18px 0;
-  border-top: 1px solid rgba(47, 58, 39, 0.25);
+  border-top: 1px solid color-mix(in srgb, var(--forest) 25%, transparent);
   font-size: 18px;
 }
 .st-row b { font-family: var(--serif); font-weight: 500; font-size: 28px; }
@@ -296,7 +289,7 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
 }
 .nt-rail {
   padding: 36px 28px;
-  border-right: 1px solid rgba(246, 235, 221, 0.2);
+  border-right: 1px solid color-mix(in srgb, var(--beige) 20%, transparent);
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -318,19 +311,19 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
   color: var(--paper);
 }
 .nt-quote span { display: block; margin-top: 12px; font-style: normal; font-family: var(--sans); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cream); }
-.nt-days { border-top: 1px solid rgba(246, 235, 221, 0.3); }
+.nt-days { border-top: 1px solid color-mix(in srgb, var(--beige) 30%, transparent); }
 .nt-days a {
   display: grid;
   grid-template-columns: 220px 1fr auto;
   gap: 20px;
   align-items: baseline;
   padding: 18px 0;
-  border-bottom: 1px solid rgba(246, 235, 221, 0.3);
+  border-bottom: 1px solid color-mix(in srgb, var(--beige) 30%, transparent);
 }
 .nt-days b { font-family: var(--serif); font-weight: 500; font-size: 28px; }
-.nt-days .tue b { color: #e2c27a; }
-.nt-days .wed b { color: #d5d3b4; }
-.nt-days .thu b { color: #e7b2a4; }
+.nt-days .tue b { color: var(--mustard-light); }
+.nt-days .wed b { color: var(--olive-light); }
+.nt-days .thu b { color: var(--terra-light); }
 .nt-looks { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .nt-looks img { width: 100%; height: 240px; object-fit: cover; }
 
@@ -353,7 +346,7 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
   gap: 28px;
   align-items: center;
   padding: 64px 72px 64px 88px;
-  border-bottom: 1px solid rgba(47, 58, 39, 0.18);
+  border-bottom: 1px solid color-mix(in srgb, var(--forest) 18%, transparent);
 }
 .ch .no { font-family: var(--serif); font-size: 28px; color: var(--terra-deep); }
 .ch h2 { font-family: var(--serif); font-weight: 500; font-size: 56px; line-height: 0.92; }
@@ -494,7 +487,7 @@ body.spread .day-sheet.thu { background: var(--terra-deep); grid-template-column
   .ix-row h2 { font-size: 34px; }
   .ix-row img { width: 100%; max-width: 160px; height: 110px; grid-column: 2; justify-self: start; }
   .nt { grid-template-columns: 1fr; min-height: 0; }
-  .nt-rail { border-right: 0; border-bottom: 1px solid rgba(246, 235, 221, 0.25); }
+  .nt-rail { border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--beige) 25%, transparent); }
   .nt-rail nav { flex-direction: row; flex-wrap: wrap; margin-top: 8px; }
   .nt-rail .book { margin-top: 8px; }
   .nt-main { padding: 28px 18px 40px; }

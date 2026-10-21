@@ -1,12 +1,4 @@
 :root {
-  --forest: #2f3a27;
-  --paper: #ecddc8;
-  --cream: #f6ebdd;
-  --terra: #d07661;
-  --terra-deep: #ba644b;
-  --mustard: #b87b25;
-  --olive: #919066;
-  --line: rgba(47, 58, 39, 0.2);
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: "Outfit", "Helvetica Neue", sans-serif;
 }
