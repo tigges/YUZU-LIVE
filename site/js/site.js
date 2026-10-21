@@ -253,3 +253,31 @@
     chat.querySelector('.salon-chat-who').hidden = true
   })
 })()
+
+;(() => {
+  const homePath = (url) => {
+    let path = url.pathname.replace(/\/index\.html$/i, '/')
+    if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1)
+    return path || '/'
+  }
+
+  document.querySelectorAll('a.round-logo').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      let dest
+      try {
+        dest = new URL(link.href, window.location.href)
+      } catch {
+        return
+      }
+      if (dest.origin !== window.location.origin) return
+      if (homePath(dest) !== homePath(window.location)) return
+      event.preventDefault()
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      window.scrollTo({ top: 0, left: 0, behavior: reduce ? 'auto' : 'smooth' })
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search)
+      }
+    })
+  })
+})()
