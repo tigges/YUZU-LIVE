@@ -26,8 +26,9 @@ They are not Yuzu client work, so they stay out of the Looks grid.
 
 Sourced photographs
 Files in sourced/ are high-resolution pictures from Wikimedia Commons.
-They are other people's work, not Yuzu clients, so they stay out of the Looks grid.
-Originals were kept up to 3200 pixels on the long edge.
+They are other people's work, not Yuzu clients.
+Gloss, Studio and Pulse use website-sized copies in site/versions/img/fresh/, with a credit in the footer of those pages.
+Originals here were kept up to 3200 pixels on the long edge.
 
   blonde-waves.jpg     File:Seated woman with blonde hair-3177506.jpg
                        CC0. ivanovgood, via Pixabay. Long blonde waves.

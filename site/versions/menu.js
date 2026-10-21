@@ -1,4 +1,4 @@
-document.querySelectorAll(".bar, .lb-top").forEach((header) => {
+document.querySelectorAll(".bar, .lb-top, .fx-bar").forEach((header) => {
   const toggle = header.querySelector(".menu-toggle");
   const nav = header.querySelector("nav");
   if (!toggle || !nav) return;
