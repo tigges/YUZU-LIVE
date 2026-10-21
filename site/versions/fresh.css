@@ -39,12 +39,17 @@ body.fx h1, body.fx h2, body.fx h3, body.fx p { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 100px;
   padding: 0 28px 0 32px;
   background: var(--beige);
   border-bottom: 1px solid var(--line);
 }
-.fx-bar .logo-home img { height: 56px; width: auto; }
+.fx-bar .logo-home { align-self: center; }
+.fx-bar .logo-home img {
+  width: 132px;
+  height: auto;
+  transform: translateY(-5%);
+}
 .fx-bar nav {
   display: flex;
   align-items: center;
@@ -68,7 +73,7 @@ body.fx h1, body.fx h2, body.fx h3, body.fx p { margin: 0; }
 .menu-icon i { display: block; width: 18px; height: 1.5px; background: currentColor; }
 
 .fx-bar ~ [id],
-.fx-bar ~ * [id] { scroll-margin-top: 112px; }
+.fx-bar ~ * [id] { scroll-margin-top: 132px; }
 
 .kicker {
   font-size: 12px;
@@ -438,6 +443,7 @@ body.fx a.fx-ghost { border: 1px solid currentColor; }
     height: 72px;
     padding: 0 14px 0 16px;
   }
+  .fx-bar .logo-home img { width: auto; height: 56px; }
   .fx-bar .menu-toggle { display: grid; }
   .fx-bar nav { display: none; }
   .fx-bar.open { position: sticky; }
