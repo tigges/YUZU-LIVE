@@ -1,0 +1,29 @@
+/* Version-page brand colours. The only place these hex values live.
+   Logo: beige on dark green.
+   Tiles use mustard, olive, and terracotta.
+   The lighter three are the same hues, a step up. */
+:root {
+  /* Dark green */
+  --forest: #2f3a27;
+  /* Beige. Paper and cream are this one colour. */
+  --beige: #efe4d4;
+  --paper: var(--beige);
+  --cream: var(--beige);
+
+  /* Mustard */
+  --mustard: #bb861b;
+  /* Olive */
+  --olive: #9e9870;
+  /* Terracotta */
+  --terra: #bb7451;
+  --terra-deep: var(--terra);
+
+  /* Light mustard */
+  --mustard-light: #c99c4e;
+  /* Light olive */
+  --olive-light: #b3aa88;
+  /* Light terracotta */
+  --terra-light: #c88e6d;
+
+  --line: rgb(47 58 39 / 0.2);
+}

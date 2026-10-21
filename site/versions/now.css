@@ -1,12 +1,4 @@
 :root {
-  --forest: #2f3a27;
-  --paper: #ecddc8;
-  --cream: #f6ebdd;
-  --terra: #d07661;
-  --terra-deep: #ba644b;
-  --mustard: #b87b25;
-  --olive: #919066;
-  --line: rgba(47, 58, 39, 0.2);
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: "Outfit", "Helvetica Neue", sans-serif;
 }
@@ -14,7 +6,7 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { background: var(--paper); }
-html:has(body.clusters) { background: #f6ebdd; }
+html:has(body.clusters) { background: var(--beige); }
 body.now {
   width: min(1440px, 100%);
   margin-inline: auto;
@@ -93,7 +85,7 @@ body.clusters .bar:not(.plate) { background: var(--cream); }
   margin: -78px auto 0;
   position: relative;
   background: var(--cream);
-  border: 1px solid rgba(47, 58, 39, 0.16);
+  border: 1px solid color-mix(in srgb, var(--forest) 16%, transparent);
   padding: 40px 56px 36px;
   text-align: center;
 }
@@ -357,7 +349,7 @@ body.clusters .bar:not(.plate) { background: var(--cream); }
 .bg-paper h3 { color: var(--terra); }
 .bg-paper .services .from b,
 .bg-paper .services a { color: var(--terra); }
-body.clusters { background: #f6ebdd; }
+body.clusters { background: var(--beige); }
 .bg-cream { background: var(--cream); }
 .ink-light { color: var(--cream); }
 .ink-light figcaption,
@@ -366,12 +358,12 @@ body.clusters { background: #f6ebdd; }
 .ink-light .section-head p,
 .ink-light .team-foot p { color: var(--cream); }
 .ink-light .services li,
-.ink-light .reviews li { border-top-color: rgba(246, 235, 221, 0.4); }
+.ink-light .reviews li { border-top-color: color-mix(in srgb, var(--beige) 40%, transparent); }
 .ink-light .services .from b,
 .ink-light .services a,
 .ink-light .reviews a,
 .ink-light .stars { color: var(--cream); }
-.ink-light .extras li { border-top-color: rgba(246, 235, 221, 0.35); }
+.ink-light .extras li { border-top-color: color-mix(in srgb, var(--beige) 35%, transparent); }
 .ink-light .btn.terra { background: var(--cream); border-color: var(--cream); color: var(--forest); }
 .ink-light .btn.ghost { color: var(--cream); }
 .ink-light .team-foot h2 a { border-bottom-color: var(--cream); }
