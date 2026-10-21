@@ -18,6 +18,25 @@ Also fetched from that Simple gallery, not used as looks:
   dickens-yard-balloons.jpg archive-ig/DUqjrd_DRky.jpg
   flowers-offer.jpg       archive-ig/DUyAEtbjKdM.jpg
 
+September hlclone version
+https://tigges.github.io/YUZU_SEPT_26/?v=hlclone
+Files in sept-hlclone/ are the hair photographs on that page.
+They are Hairlust campaign pictures from the visual clone, not Yuzu clients,
+so they stay in the asset folder and are not used on the site.
+Product shots, press still-lifes, and the footer illustration were left behind.
+
+  hero-three-colours.jpg         assets/hlclone/hero.jpg         1600x900. Burgundy, copper waves, and pink blonde.
+  hero-three-colours-square.jpg  assets/hlclone/hero-mobile.jpg  768x768. The same three, cropped square.
+  hair-test-group.png            assets/hlclone/hair-test.png    800x600. Bob, red waves, blonde man, dark curls.
+  copper-curls.jpg               assets/hlclone/ig-1.jpg         Copper waves and copper curls.
+  brunette-and-copper.jpg        assets/hlclone/ig-2.jpg         Dark brunette waves and straight copper.
+  burgundy-copper-pink.jpg       assets/hlclone/ig-3.jpg         Burgundy, copper, and pink blonde.
+  long-straight-dark.jpg         assets/hlclone/ig-4.jpg         Long straight dark hair, from behind.
+  blonde-and-silver.jpg          assets/hlclone/ig-5.jpg         Long blonde and a silver crop.
+  curls-straight-bottles.jpg     assets/hlclone/ig-6.jpg         Curls, waves, and straight hair.
+  curls-and-blonde.jpg           assets/hlclone/ig-7.jpg         Dark curls and a blonde crop.
+  brown-waves-oil.jpg            assets/hlclone/ig-8.jpg         Long brown waves.
+
 High-resolution reference, other salons
 Files in reference/ are CC0 photographs by Mostafa Meraji on Wikimedia Commons.
 They are not Yuzu client work, so they stay out of the Looks grid.
