@@ -26,7 +26,6 @@
   aspect-ratio: 1 / 1;
   padding: 11% 8% 10%;
   overflow: hidden;
-  container-type: inline-size;
   text-align: center;
   text-decoration: none;
   color: var(--ink);
@@ -78,6 +77,9 @@
   align-items: center;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
+  container-type: inline-size;
   color: var(--ink);
 }
 .promo-copy span {
@@ -157,8 +159,34 @@ body.page-poster {
   .poster-stage .promo-row { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 700px) {
+  /* One full-bleed square is almost a phone screen tall, so the other
+     two offers sit off-screen. A snap row keeps each tile square and
+     leaves a peek of the next one. */
   .offers.promo-row,
   .lb-offers .promo-row,
-  .poster-stage .promo-row { grid-template-columns: 1fr; }
+  .poster-stage .promo-row,
+  .fx-offers .promo-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .offers.promo-row::-webkit-scrollbar,
+  .lb-offers .promo-row::-webkit-scrollbar,
+  .poster-stage .promo-row::-webkit-scrollbar,
+  .fx-offers .promo-row::-webkit-scrollbar { display: none; }
+  .offers.promo-row > li,
+  .lb-offers .promo-row > li,
+  .poster-stage .promo-row > li,
+  .fx-offers .promo-row > li {
+    flex: 0 0 84%;
+    width: 84%;
+    height: auto;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
   .poster-stage { padding: 20px 16px; }
 }
