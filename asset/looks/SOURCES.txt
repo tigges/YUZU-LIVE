@@ -23,3 +23,25 @@ They are not Yuzu client work, so they stay out of the Looks grid.
   cut-in-progress.jpg  File:Haircut or hair Salon From Iran, fashion Photo 01
   clipper-finish.jpg   File:Haircut or hair Salon From Iran, fashion Photo 08
   two-chairs.jpg       File:Jorj Barbershop In Iran Hair Salon Photography 06
+
+Sourced photographs
+Files in sourced/ are high-resolution pictures from Wikimedia Commons.
+They are other people's work, not Yuzu clients, so they stay out of the Looks grid.
+Originals were kept up to 3200 pixels on the long edge.
+
+  blonde-waves.jpg     File:Seated woman with blonde hair-3177506.jpg
+                       CC0. ivanovgood, via Pixabay. Long blonde waves.
+  blonde-updo.jpg      File:Profile Photographic Portrait of Blonde Young Woman.jpg
+                       CC BY 2.0. Elmo Love. Blonde updo, profile.
+  inverted-bob.jpg     File:Inverted bob haircut.jpg
+                       CC BY-SA 2.0. Thirteen Of Clubs.
+                       https://www.flickr.com/photos/thirteenofclubs/4806346458/
+  salon-interior.jpg   File:Beauty salon 20211024 171434.jpg
+                       CC BY-SA 4.0. Ka23 13. Modern salon, seen from the street.
+  stylist-cutting.jpg  File:Hairstylist at Paris Fashion Week 2019.jpg
+                       CC BY-SA 4.0. Rohit Verma. A stylist cutting hair.
+  braid-finish.jpg     File:Hairdresser at work.jpg
+                       CC BY-SA 4.0. Rwebogora. Braids finished in a salon.
+  salon-floor-wide.jpg File:Beauty salon In Iran.jpg
+                       CC0. Mostafa Meraji. A working salon floor.
+                       A different frame from the four files in reference/.
