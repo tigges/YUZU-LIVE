@@ -45,9 +45,38 @@ body.results {
 }
 .rs-main > p {
   max-width: 640px;
-  margin: 0 0 36px;
+  margin: 0 0 22px;
   font-size: 18px;
   line-height: 1.45;
+}
+.rs-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 36px;
+  padding: 0;
+}
+.rs-socials a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  color: var(--forest);
+  text-decoration: none;
+}
+.rs-socials svg { width: 18px; height: 18px; display: block; }
+.rs-socials a:hover,
+.rs-socials a:focus-visible {
+  background: var(--forest);
+  color: var(--beige);
+  border-color: var(--forest);
+}
+.rs-socials a:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
 }
 .rs-grid {
   list-style: none;
