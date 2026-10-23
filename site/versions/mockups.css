@@ -305,7 +305,13 @@ button, a { -webkit-font-smoothing: antialiased; }
 .poster-foot .btn { flex: none; }
 
 /* ——— 3. The menu ——— */
-.page-menu { height: 2040px; background: var(--paper); color: var(--forest); }
+/* The price list is a long page. The other mockups stay fixed artboards. */
+body.page-menu {
+  height: auto;
+  overflow: visible;
+  background: var(--paper);
+  color: var(--forest);
+}
 .menu-bar {
   height: 108px;
   display: flex;
