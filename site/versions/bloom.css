@@ -1,4 +1,4 @@
-/* One-screen landing. Forest field, a still photo in a slowly morphing window, booking in the corner. */
+/* One-screen landing. Forest field, a full-bleed photo seen clearly through a slowly morphing window, booking in the corner. */
 :root {
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --sans: Outfit, "Helvetica Neue", sans-serif;
@@ -23,37 +23,31 @@ body.bloom-page {
   position: fixed;
   inset: 22px 0 0;
   z-index: 1;
-  display: grid;
-  place-items: center;
-  padding: 108px 72px 72px;
-  box-sizing: border-box;
+  overflow: hidden;
   background: var(--forest);
   pointer-events: none;
 }
 
-.bloom {
-  width: min(100%, 1120px);
-  height: min(88%, 740px);
-  overflow: hidden;
-  border-radius: 34% 66% 48% 52% / 62% 30% 70% 38%;
-  animation: bloom 16s ease-in-out infinite;
-}
-
-.bloom img {
+.stage img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center 30%;
 }
 
-@keyframes bloom {
-  0%,
-  100% { border-radius: 34% 66% 48% 52% / 62% 30% 70% 38%; }
-  20% { border-radius: 82% 18% 22% 78% / 24% 84% 16% 76%; }
-  40% { border-radius: 18% 82% 76% 24% / 78% 20% 80% 22%; }
-  60% { border-radius: 62% 38% 14% 86% / 36% 68% 32% 64%; }
-  80% { border-radius: 20% 80% 58% 42% / 74% 18% 82% 26%; }
+.stage .field { filter: blur(3px) saturate(0.8); }
+
+.veil {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--forest) 66%, transparent);
 }
+
+.stage .window { clip-path: url(#bloom-shape); }
+
+.shape { position: absolute; }
 
 .chrome {
   position: fixed;
@@ -234,8 +228,6 @@ body.menu-open .menu-btn span:last-child {
 body.menu-open :focus-visible { outline-color: var(--forest); }
 
 @media (max-width: 800px) {
-  .stage { padding: 96px 24px 64px; }
-  .bloom { width: min(100%, 1120px); height: min(100%, 640px); }
   .chrome { padding: 18px 20px; }
   .chrome a.logo-home img { width: 100px; }
   .menu-btn { width: 48px; height: 48px; }
@@ -257,6 +249,5 @@ body.menu-open :focus-visible { outline-color: var(--forest); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bloom { animation: none; }
   .menu-btn span { transition: none; }
 }
