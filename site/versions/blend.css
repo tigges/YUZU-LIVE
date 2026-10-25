@@ -1,0 +1,406 @@
+/* Blend: Live’s photographs and price list, in Pulse’s rounded rooms. */
+
+.blend .fx-bar {
+  height: 78px;
+  padding: 0 24px 0 28px;
+}
+.blend .fx-bar .logo-home img { width: 104px; }
+.blend .fx-bar nav { gap: 18px; }
+.blend .fx-bar ~ [id],
+.blend .fx-bar ~ * [id] { scroll-margin-top: 112px; }
+
+.blend .hero-float { padding: 18px 28px 0; }
+.blend .hero-photo {
+  height: min(58vh, 560px);
+  border-radius: 28px;
+}
+.blend .hero-photo img { object-position: center 22%; }
+.blend .hero-copy {
+  position: relative;
+  z-index: 2;
+  width: min(680px, calc(100% - 72px));
+  margin: -44px auto 0;
+  padding: 22px 28px 22px;
+  background: var(--beige);
+  color: var(--forest);
+  border: 1px solid rgb(47 58 39 / 0.1);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgb(47 58 39 / 0.1);
+}
+.blend .hero-copy h1 {
+  margin: 8px 0 10px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(40px, 4.6vw, 60px);
+  line-height: 0.92;
+}
+.blend .hero-copy .lede { max-width: 34em; }
+.blend .hero-copy .actions { margin-top: 16px; justify-content: center; }
+.blend .center-cta { text-align: center; }
+.blend .section { padding: 28px 40px; }
+.blend .section-head { margin-bottom: 16px; }
+.blend .section-head h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(44px, 5vw, 68px);
+  line-height: 0.92;
+}
+.blend .section-head a { text-decoration: underline; text-underline-offset: 3px; }
+.blend .section-head .price-note { margin: 12px 0 0; }
+
+.blend .looks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .looks .shine { aspect-ratio: 3 / 4; border-radius: 22px; }
+.blend .looks figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.blend .looks img { object-position: center 18%; }
+
+.blend .services {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .services li {
+  padding: 24px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--beige) 72%, white);
+}
+.blend .services h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1;
+}
+.blend .services li p { margin-top: 8px; line-height: 1.4; }
+.blend .services .from { font-family: var(--serif); font-size: 28px; }
+.blend .services .from strong { font-weight: 600; }
+.blend .services li a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blend .reviews {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .reviews li {
+  overflow: hidden;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--beige) 70%, white);
+}
+.blend .reviews img {
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+}
+.blend .reviews li > div { padding: 18px 18px 22px; }
+.blend .reviews h3 {
+  margin-top: 8px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.05;
+}
+.blend .reviews li p { margin-top: 8px; line-height: 1.4; }
+.blend .reviews a {
+  display: inline-block;
+  margin-top: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blend .promo { border-radius: 22px; }
+
+.blend .join {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+  padding: 28px 40px;
+}
+.blend .join-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.blend .join-photos img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 18px;
+}
+.blend .join-copy h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(44px, 5vw, 68px);
+  line-height: 0.92;
+}
+.blend .join-copy p { margin: 12px 0 20px; font-size: 18px; line-height: 1.45; max-width: 28em; }
+.blend .join-links { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.blend .visit {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px 32px;
+  padding: 28px 40px 16px;
+}
+.blend .visit > div:nth-child(2) { justify-self: center; }
+.blend .visit h2 { font-size: 22px; margin-bottom: 6px; }
+.blend .visit p { font-size: 14px; line-height: 1.35; }
+.blend .visit p + p { margin-top: 8px; }
+.blend .visit .legal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+  margin: 6px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid rgb(239 228 212 / 0.28);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.blend .legal-links { text-align: right; }
+.blend .visit-book {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-self: end;
+  gap: 10px;
+  text-align: right;
+}
+.blend .socials {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .socials a {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  text-decoration: none;
+}
+.blend .socials svg { width: 15px; height: 15px; display: block; }
+
+body.blend a.blend-book { display: none; }
+
+@media (max-width: 980px) {
+  .blend .services,
+  .blend .reviews { grid-template-columns: 1fr 1fr; }
+  .blend .join { grid-template-columns: 1fr; padding: 28px 18px; }
+  .blend .visit { grid-template-columns: 1fr 1fr; }
+  .blend .visit > div:nth-child(2),
+  .blend .visit-book { justify-self: start; }
+  .blend .visit-book { align-items: flex-start; text-align: left; }
+}
+
+@media (max-width: 700px) {
+  .blend .hero-float { padding: 12px 12px 0; }
+  .blend .hero-photo { height: 78vw; border-radius: 18px; }
+  .blend .hero-photo img { object-position: center 18%; }
+  .blend .hero-copy {
+    width: calc(100% - 16px);
+    margin-top: -28px;
+    padding: 20px 18px 22px;
+    border-radius: 18px;
+  }
+  .blend .looks {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .blend .looks::-webkit-scrollbar { display: none; }
+  .blend .looks li { flex: 0 0 78%; scroll-snap-align: start; }
+  .blend .services,
+  .blend .reviews { grid-template-columns: 1fr; }
+  body.blend a.blend-book {
+    display: flex;
+    position: fixed;
+    z-index: 40;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    min-height: 52px;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgb(47 58 39 / 22%);
+  }
+  body.blend { padding-bottom: 84px; }
+  .fx-bar.open ~ .blend-book { display: none; }
+  .blend .fx-bar { height: 62px; }
+  .blend .fx-bar .logo-home img { width: auto; height: 46px; }
+  .blend .section { padding: 24px 18px; }
+  .blend .visit {
+    grid-template-columns: 1fr;
+    padding: 22px 18px 14px;
+  }
+  .blend .visit .legal { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .blend .legal-links { text-align: left; }
+  .price-name { flex-basis: 120px; }
+  .chairs { padding-left: 8px; }
+}
+
+/* Price list. Each menu has its own scale. A closed row is the span. */
+.price-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.price-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.price-tabs label {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+#pm-cut:focus-visible ~ .price-tabs label[for="pm-cut"],
+#pm-colour:focus-visible ~ .price-tabs label[for="pm-colour"],
+#pm-high:focus-visible ~ .price-tabs label[for="pm-high"],
+#pm-treat:focus-visible ~ .price-tabs label[for="pm-treat"] {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+}
+#pm-cut:checked ~ .price-tabs label[for="pm-cut"],
+#pm-colour:checked ~ .price-tabs label[for="pm-colour"],
+#pm-high:checked ~ .price-tabs label[for="pm-high"],
+#pm-treat:checked ~ .price-tabs label[for="pm-treat"] {
+  background: var(--forest);
+  color: var(--beige);
+  border-color: var(--forest);
+}
+.price-panel { display: none; margin-top: 8px; }
+#pm-cut:checked ~ .panel-cut,
+#pm-colour:checked ~ .panel-colour,
+#pm-high:checked ~ .panel-high,
+#pm-treat:checked ~ .panel-treat { display: block; }
+.price-lead { margin: 14px 0 4px; line-height: 1.4; }
+.scale-note { margin: 0 0 8px; font-size: 13px; opacity: 0.72; }
+.price-row { border-top: 1px solid var(--line); }
+.price-row summary,
+.chairs li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+}
+.price-row summary { cursor: pointer; list-style: none; }
+.price-row summary::-webkit-details-marker,
+.price-more > summary::-webkit-details-marker { display: none; }
+.state {
+  flex: none;
+  width: 48px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+.price-row[open] .state-open,
+.price-more[open] > summary .state-open { display: none; }
+.price-row:not([open]) .state-close,
+.price-more:not([open]) > summary .state-close { display: none; }
+.price-name,
+.chairs li > span:first-child {
+  flex: 1 1 200px;
+  min-width: 0;
+  line-height: 1.25;
+}
+.price-name { font-weight: 500; }
+.track {
+  flex: 1.4 1 140px;
+  height: 10px;
+  min-width: 72px;
+  background: color-mix(in srgb, var(--forest) 14%, transparent);
+  border-radius: 99px;
+  position: relative;
+}
+.fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x);
+  width: var(--w);
+  min-width: 6px;
+  background: var(--forest);
+  border-radius: 99px;
+}
+.price-fig {
+  flex: none;
+  width: 96px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+.chairs { list-style: none; margin: 0; padding: 0 0 6px 60px; }
+.chairs li { padding: 6px 0; }
+.chairs .price-fig { font-weight: 400; }
+.price-note { margin: 4px 0 8px 60px; font-size: 14px; line-height: 1.4; }
+.price-note a { text-decoration: underline; text-underline-offset: 3px; }
+.price-more { margin-top: 6px; border-top: 1px solid var(--line); }
+.price-more > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 28px;
+}
+.packages { margin-top: 28px; }
+.packages h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 36px;
+}
+.packages ul { list-style: none; margin: 12px 0 0; padding: 0; }
+.packages li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.packages strong { font-weight: 500; font-variant-numeric: tabular-nums; }
