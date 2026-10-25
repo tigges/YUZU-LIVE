@@ -1,0 +1,208 @@
+/* Blend: Live’s photographs and price list, in Pulse’s rounded rooms. */
+
+.blend .fx-bar nav { gap: 16px; }
+
+.blend .hero-float { padding: 18px 28px 0; }
+.blend .hero-photo {
+  height: min(58vh, 560px);
+  border-radius: 28px;
+}
+.blend .hero-photo img { object-position: center 38%; }
+.blend .hero-copy {
+  position: relative;
+  z-index: 2;
+  width: min(680px, calc(100% - 72px));
+  margin: -72px auto 0;
+  padding: 22px 28px 22px;
+  background: var(--beige);
+  color: var(--forest);
+  border: 1px solid rgb(47 58 39 / 0.1);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgb(47 58 39 / 0.1);
+}
+.blend .hero-copy h1 {
+  margin: 8px 0 10px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(40px, 4.6vw, 60px);
+  line-height: 0.92;
+}
+.blend .hero-copy .lede { max-width: 34em; }
+.blend .hero-copy .actions { margin-top: 16px; }
+
+.blend .looks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .looks .shine { aspect-ratio: 3 / 4; border-radius: 22px; }
+.blend .looks figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.blend .looks img { object-position: center 18%; }
+
+.blend .services {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .services li {
+  padding: 24px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--beige) 72%, white);
+}
+.blend .services h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1;
+}
+.blend .services li p { margin-top: 8px; line-height: 1.4; }
+.blend .services .from { font-family: var(--serif); font-size: 28px; }
+.blend .services .from strong { font-weight: 600; }
+.blend .services li a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blend .reviews {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .reviews li {
+  overflow: hidden;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--beige) 70%, white);
+}
+.blend .reviews img {
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+}
+.blend .reviews li > div { padding: 18px 18px 22px; }
+.blend .reviews h3 {
+  margin-top: 8px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.05;
+}
+.blend .reviews li p { margin-top: 8px; line-height: 1.4; }
+.blend .reviews a {
+  display: inline-block;
+  margin-top: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blend .promo { border-radius: 22px; }
+
+.blend .join {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 72px 40px;
+}
+.blend .join-photos {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 10px;
+}
+.blend .join-photos img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+.blend .join-photos img:first-child { grid-row: 1 / span 2; height: 100%; min-height: 370px; }
+.blend .join-copy h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(44px, 5vw, 68px);
+  line-height: 0.92;
+}
+.blend .join-copy p { margin: 12px 0 20px; font-size: 18px; line-height: 1.45; max-width: 28em; }
+.blend .join-links { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+.blend .visit-book { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.blend .socials {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .socials a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  text-decoration: none;
+}
+.blend .socials svg { width: 18px; height: 18px; display: block; }
+
+body.blend a.blend-book { display: none; }
+
+@media (max-width: 980px) {
+  .blend .services,
+  .blend .reviews { grid-template-columns: 1fr 1fr; }
+  .blend .join { grid-template-columns: 1fr; padding: 48px 18px; }
+  .blend .join-photos img:first-child { min-height: 280px; }
+}
+
+@media (max-width: 700px) {
+  .blend .hero-float { padding: 12px 12px 0; }
+  .blend .hero-photo { height: 78vw; border-radius: 18px; }
+  .blend .hero-copy {
+    width: calc(100% - 16px);
+    margin-top: -48px;
+    padding: 20px 18px 22px;
+    border-radius: 18px;
+  }
+  .blend .looks {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .blend .looks::-webkit-scrollbar { display: none; }
+  .blend .looks li { flex: 0 0 78%; scroll-snap-align: start; }
+  .blend .services,
+  .blend .reviews { grid-template-columns: 1fr; }
+  body.blend a.blend-book {
+    display: flex;
+    position: fixed;
+    z-index: 40;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    min-height: 52px;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgb(47 58 39 / 22%);
+  }
+  body.blend { padding-bottom: 84px; }
+  .fx-bar.open ~ .blend-book { display: none; }
+}
