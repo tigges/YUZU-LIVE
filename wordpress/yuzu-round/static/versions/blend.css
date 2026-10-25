@@ -14,11 +14,7 @@
   height: min(58vh, 560px);
   border-radius: 28px;
 }
-.blend .hero-photo img {
-  object-position: center 62%;
-  transform: scale(1.08);
-  transform-origin: center 70%;
-}
+.blend .hero-photo img { object-position: center 22%; }
 .blend .hero-copy {
   position: relative;
   z-index: 2;
@@ -41,6 +37,8 @@
 .blend .hero-copy .lede { max-width: 34em; }
 .blend .hero-copy .actions { margin-top: 16px; justify-content: center; }
 .blend .center-cta { text-align: center; }
+.blend .section { padding: 28px 40px; }
+.blend .section-head { margin-bottom: 16px; }
 .blend .section-head h1 {
   font-family: var(--serif);
   font-weight: 500;
@@ -140,7 +138,7 @@
   grid-template-columns: 1.15fr 0.85fr;
   gap: 40px;
   align-items: center;
-  padding: 56px 40px;
+  padding: 28px 40px;
 }
 .blend .join-photos {
   display: grid;
@@ -165,14 +163,37 @@
 .blend .join-links { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 .blend .visit {
-  gap: 14px 28px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px 32px;
   padding: 28px 40px 16px;
 }
-.blend .visit h2 { font-size: 22px; margin-bottom: 4px; }
+.blend .visit > div:nth-child(2) { justify-self: center; }
+.blend .visit h2 { font-size: 22px; margin-bottom: 6px; }
 .blend .visit p { font-size: 14px; line-height: 1.35; }
 .blend .visit p + p { margin-top: 8px; }
-.blend .visit .legal { font-size: 12px; margin-top: 2px; }
-.blend .visit-book { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.blend .visit .legal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+  margin: 6px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid rgb(239 228 212 / 0.28);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.blend .legal-links { text-align: right; }
+.blend .visit-book {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-self: end;
+  gap: 10px;
+  text-align: right;
+}
 .blend .socials {
   display: flex;
   gap: 10px;
@@ -196,13 +217,17 @@ body.blend a.blend-book { display: none; }
 @media (max-width: 980px) {
   .blend .services,
   .blend .reviews { grid-template-columns: 1fr 1fr; }
-  .blend .join { grid-template-columns: 1fr; padding: 40px 18px; }
+  .blend .join { grid-template-columns: 1fr; padding: 28px 18px; }
+  .blend .visit { grid-template-columns: 1fr 1fr; }
+  .blend .visit > div:nth-child(2),
+  .blend .visit-book { justify-self: start; }
+  .blend .visit-book { align-items: flex-start; text-align: left; }
 }
 
 @media (max-width: 700px) {
   .blend .hero-float { padding: 12px 12px 0; }
   .blend .hero-photo { height: 78vw; border-radius: 18px; }
-  .blend .hero-photo img { transform: none; object-position: center 48%; }
+  .blend .hero-photo img { object-position: center 18%; }
   .blend .hero-copy {
     width: calc(100% - 16px);
     margin-top: -28px;
@@ -236,7 +261,13 @@ body.blend a.blend-book { display: none; }
   .fx-bar.open ~ .blend-book { display: none; }
   .blend .fx-bar { height: 62px; }
   .blend .fx-bar .logo-home img { width: auto; height: 46px; }
-  .blend .visit { padding: 22px 18px 14px; }
+  .blend .section { padding: 24px 18px; }
+  .blend .visit {
+    grid-template-columns: 1fr;
+    padding: 22px 18px 14px;
+  }
+  .blend .visit .legal { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .blend .legal-links { text-align: left; }
   .price-name { flex-basis: 120px; }
   .chairs { padding-left: 8px; }
 }
