@@ -163,11 +163,11 @@
   const chat = document.createElement('div')
   chat.className = 'salon-chat'
   chat.innerHTML = `
-    <section class="salon-chat-panel" hidden aria-label="Chat with Yuzu Hair">
+    <section class="salon-chat-panel" hidden aria-label="Chat with YUZU hair">
       <header class="salon-chat-head">
         <span class="salon-chat-avatar" aria-hidden="true">Y</span>
         <div>
-          <strong>Yuzu Hair</strong>
+          <strong>YUZU hair</strong>
           <span>Ask us about a visit</span>
         </div>
         <button class="salon-chat-close" type="button" aria-label="Close chat">×</button>

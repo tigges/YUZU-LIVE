@@ -345,7 +345,7 @@ function yuzu_round_prices_schema_script(array $data): string
         [
             '@context' => 'https://schema.org',
             '@type' => 'OfferCatalog',
-            'name' => 'Yuzu Hair price list',
+            'name' => 'YUZU hair price list',
             'url' => 'https://yuzu.hair/prices/',
             'itemListElement' => $offers,
         ],
