@@ -153,6 +153,7 @@ body.menu-open .menu-btn span:last-child {
   right: 40px;
   bottom: 30px;
   font-size: 12px;
+  text-transform: none;
 }
 
 .overlay {

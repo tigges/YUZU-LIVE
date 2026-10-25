@@ -340,6 +340,7 @@ body.spread .ix-row.paper { background: var(--paper); color: var(--forest); }
   letter-spacing: 0.42em;
   text-transform: uppercase;
 }
+.ch-spine .brand { text-transform: none; }
 .ch { 
   display: grid;
   grid-template-columns: 90px 1fr 460px;
