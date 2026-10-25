@@ -11,10 +11,13 @@
 
 .blend .hero-float { padding: 18px 28px 0; }
 .blend .hero-photo {
-  height: min(58vh, 560px);
+  height: auto;
+  aspect-ratio: 1920 / 660;
+  max-height: 560px;
   border-radius: 28px;
 }
-.blend .hero-photo img { object-position: center 22%; }
+/* The eyes sit at the photo's top edge, so any crop must come off the bottom. */
+.blend .hero-photo img { object-position: center top; }
 .blend .hero-copy {
   position: relative;
   z-index: 2;
@@ -226,8 +229,7 @@ body.blend a.blend-book { display: none; }
 
 @media (max-width: 700px) {
   .blend .hero-float { padding: 12px 12px 0; }
-  .blend .hero-photo { height: 78vw; border-radius: 18px; }
-  .blend .hero-photo img { object-position: center 18%; }
+  .blend .hero-photo { aspect-ratio: auto; height: 78vw; border-radius: 18px; }
   .blend .hero-copy {
     width: calc(100% - 16px);
     margin-top: -28px;
