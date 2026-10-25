@@ -25,18 +25,19 @@ body.bloom-page {
   z-index: 1;
   display: grid;
   place-items: center;
-  padding: 124px 40px 86px;
+  padding: 108px 20px 72px;
   box-sizing: border-box;
   background: var(--forest);
   pointer-events: none;
 }
 
 .bloom {
-  width: min(100%, 680px);
-  height: min(100%, 780px);
+  width: min(100%, 1120px);
+  height: min(88%, 740px);
   overflow: hidden;
-  border-radius: 48% 52% 46% 54% / 42% 46% 54% 58%;
-  animation: bloom 18s ease-in-out infinite;
+  border-radius: 38% 62% 46% 54% / 58% 34% 66% 42%;
+  animation: bloom 7.5s ease-in-out infinite;
+  will-change: border-radius, transform;
 }
 
 .bloom img {
@@ -48,9 +49,22 @@ body.bloom-page {
 
 @keyframes bloom {
   0%,
-  100% { border-radius: 46% 54% 50% 50% / 42% 48% 52% 58%; }
-  33% { border-radius: 58% 42% 48% 52% / 52% 40% 60% 48%; }
-  66% { border-radius: 42% 58% 56% 44% / 48% 60% 40% 52%; }
+  100% {
+    border-radius: 34% 66% 48% 52% / 62% 30% 70% 38%;
+    transform: scale(0.96) rotate(-2deg);
+  }
+  28% {
+    border-radius: 70% 30% 36% 64% / 32% 72% 28% 68%;
+    transform: scale(1.03) rotate(3deg);
+  }
+  52% {
+    border-radius: 46% 54% 28% 72% / 40% 60% 34% 66%;
+    transform: scale(0.98) rotate(-1deg);
+  }
+  76% {
+    border-radius: 26% 74% 64% 36% / 70% 28% 58% 42%;
+    transform: scale(1.04) rotate(2deg);
+  }
 }
 
 .chrome {
@@ -231,7 +245,8 @@ body.menu-open .menu-btn span:last-child {
 body.menu-open :focus-visible { outline-color: var(--forest); }
 
 @media (max-width: 800px) {
-  .stage { padding: 112px 28px 76px; }
+  .stage { padding: 96px 12px 64px; }
+  .bloom { width: min(100%, 1120px); height: min(100%, 640px); }
   .chrome { padding: 18px 20px; }
   .chrome a.logo-home img { width: 100px; }
   .menu-btn { width: 48px; height: 48px; }
