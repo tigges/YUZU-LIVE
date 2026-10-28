@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YUZU hair — Live, next</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/site.css?v=16" />
+    <link rel="stylesheet" href="promo.css?v=4" />
+    <style>
+      .ig-frame { background: #fffdfb; border-radius: 24px; padding: 12px; overflow: hidden; }
+      .ig-stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
+      .ig-stills img { width: 100%; height: 168px; max-height: 168px; object-fit: cover; object-position: center 34%; border-radius: 16px; }
+      .ig-stills img.ig-team { object-position: center 62%; }
+      .ig-frame-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 6px 4px; }
+      .ig-mark { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid currentColor; border-radius: 50%; text-decoration: none; flex: none; }
+      .ig-mark svg { width: 18px; height: 18px; display: block; }
+      .open-status { width: fit-content; display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-family: Outfit, sans-serif; letter-spacing: 0; padding: 6px 12px; border-radius: 999px; background: #f3ece2; font-size: 0.9rem; font-weight: 500; }
+      .open-status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #b0503a; }
+      .open-status.is-open::before { background: #2f7a3e; }
+      .today-offer { margin: 0 0 18px; padding: 14px 18px; border-radius: 18px; background: #fffdfb; line-height: 1.45; }
+      .today-offer strong { margin-right: 6px; }
+      .promo.is-today { outline: 3px solid #2f3a27; outline-offset: 4px; }
+      .promo.is-today::before { content: attr(data-flag); position: absolute; top: 14px; left: 14px; z-index: 3; padding: 4px 12px; border-radius: 999px; background: #fffdfb; color: #2f3a27; font: 600 0.78rem/1.4 Outfit, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+      .hiring { margin: 18px 0 0; font-size: 0.95rem; }
+      .hiring a { font-weight: 600; }
+      .mobile-book { transition: opacity 0.2s ease, transform 0.2s ease; }
+      .mobile-book.is-hidden { opacity: 0; transform: translateY(16px); pointer-events: none; }
+      @media (max-width: 700px) {
+        .round { padding-bottom: 0; }
+        .round-gallery, .round-reviews {
+          display: flex; flex-wrap: nowrap; gap: 12px; overflow-x: auto;
+          overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+        }
+        .round-gallery::-webkit-scrollbar, .round-reviews::-webkit-scrollbar { display: none; }
+        .round-gallery > li, .round-reviews > li { position: relative; flex: 0 0 80%; width: 80%; min-width: 0; scroll-snap-align: start; }
+        .round-reviews img { height: 160px; object-fit: cover; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="round">
+      <a class="skip" href="#main">Skip to content</a>
+      <header class="round-header">
+        <nav class="version-bar" aria-label="Design versions"><a href="/">Live</a><a href="/versions/logobar.html">Logo bar</a><a href="/versions/blend.html">Blend</a><a href="/versions/lookbook.html">Lookbook</a><a href="/versions/atelier.html">Atelier</a><a href="/versions/bloom.html">Bloom</a><a href="/versions/split.html">Split</a><a href="/versions/pulse.html">Pulse</a><a href="/versions/results.html">Results</a></nav>
+        <div class="wrap round-header-inner">
+          <a class="round-logo" href="/">
+            <img src="../assets/clean/logo.png?v=2" alt="YUZU hair" width="918" height="520" />
+          </a>
+          <nav class="round-nav" aria-label="Primary">
+            <a href="#looks">Looks</a>
+            <a href="#services">Services</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#offers">Offers</a>
+            <a href="../team.html">Join</a>
+            <a href="#visit">Visit</a>
+            <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
+              Book
+              <span class="vh"> (opens in a new tab)</span>
+            </a>
+          </nav>
+          <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+            <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="round-hero" id="top" aria-labelledby="hero-title">
+          <div class="wrap">
+            <img
+              class="round-hero-img"
+              src="../assets/clean/hero.jpg"
+              alt="Wavy brunette hair, photographed in the salon at YUZU hair, Ealing"
+              width="1920"
+              height="660"
+              fetchpriority="high"
+            />
+            <div class="round-hero-card">
+              <p class="kicker" data-yuzu-copy="home-hero-kicker">Dickens Yard · Ealing Broadway</p>
+              <h1 id="hero-title" data-yuzu-copy="home-hero-title">Where tradition meets trend</h1>
+              <p data-yuzu-copy="home-hero-text">Japanese-inspired cuts, colour and smoothing, a short walk from Ealing Broadway station.</p>
+              <div class="round-actions">
+                <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
+                  Book your appointment
+                  <span class="vh"> (opens in a new tab)</span>
+                </a>
+                <a class="btn btn-ghost" href="#services">See services</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="round-section" id="looks">
+          <div class="wrap">
+            <div class="section-head">
+              <h2 data-yuzu-copy="home-gallery-title">Looks</h2>
+              <p data-yuzu-copy="home-gallery-text">Recent finishes from the Dickens Yard chair.</p>
+            </div>
+            <ul class="round-gallery">
+              <li>
+                <button type="button" class="round-shot" data-lightbox data-title="Soft blonde" data-alt="Soft blonde layers, photographed in the salon">
+                  <img src="img/looks/blonde-layers.jpg" alt="Soft blonde layers, photographed in the salon" width="1080" height="1080" />
+                  <span aria-hidden="true">Soft blonde</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="round-shot" data-lightbox data-title="Copper balayage" data-alt="Copper balayage, seen from behind in the salon chair">
+                  <img src="img/looks/copper-balayage.jpg" alt="Copper balayage, seen from behind in the salon chair" width="1080" height="1137" />
+                  <span aria-hidden="true">Copper balayage</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="round-shot" data-lightbox data-title="Long and straight" data-alt="Long straight hair, centre-parted">
+                  <img src="img/looks/long-straight.jpg" alt="Long straight hair, centre-parted" width="1080" height="1080" />
+                  <span aria-hidden="true">Long and straight</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="round-section" id="services">
+          <div class="wrap">
+            <div class="section-head">
+              <h2 data-yuzu-copy="home-services-title">Services</h2>
+              <p data-yuzu-copy="home-services-intro">Creative director, senior stylist, stylist and junior menus.</p>
+            </div>
+            <ul class="round-services">
+              <li>
+                <h3>Cut &amp; styling</h3>
+                <p data-yuzu-blurb="cut">From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style with a stylist, a senior, or a creative director.</p>
+                <p class="price-from" data-yuzu-from="cut">Ladies from <strong>£30</strong></p>
+                <a href="../prices.html">Full menu</a>
+              </li>
+              <li>
+                <h3>Colour</h3>
+                <p data-yuzu-blurb="colour">Roots and full head, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.</p>
+                <p class="price-from" data-yuzu-from="colour">From <strong>£55</strong></p>
+                <a href="../prices.html">Full menu</a>
+              </li>
+              <li>
+                <h3>Highlights &amp; balayage</h3>
+                <p data-yuzu-blurb="highlights">Classic highlights, balayage and foiliage, with toner and blending.</p>
+                <p class="price-from" data-yuzu-from="highlights">From <strong>£70</strong></p>
+                <a href="../prices.html">Full menu</a>
+              </li>
+              <li>
+                <h3>Treatments</h3>
+                <p data-yuzu-blurb="treatments">Nashi fillers and K2.0 moisture. Aura smoothing, formaldehyde and ammonia free.</p>
+                <p class="price-from" data-yuzu-from="treatments">From <strong>£35</strong></p>
+                <a href="../prices.html">Full menu</a>
+              </li>
+            </ul>
+            <p class="round-services-cta">
+              <a class="btn btn-ink" href="../prices.html">See prices</a>
+            </p>
+          </div>
+        </section>
+
+        <section class="round-section" id="reviews">
+          <div class="wrap">
+            <div class="section-head">
+              <h2 data-yuzu-copy="home-reviews-title">What clients say</h2>
+              <p data-yuzu-copy="home-reviews-intro">Five-star notes from Google reviews.</p>
+            </div>
+            <ul class="round-reviews">
+              <li>
+                <img src="../assets/reviews/1.jpg?v=2" alt="The salon at Dickens Yard" width="590" height="332" />
+                <div>
+                  <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+                  <h3 data-yuzu-copy="home-review-1-title">“Amazing — focused on every detail”</h3>
+                  <p data-yuzu-copy="home-review-1-text">Listened to my requests and delivered exactly what I wanted. I already booked my follow-up.</p>
+                  <a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Alexa · Google review<span class="vh"> (opens in a new tab)</span></a>
+                </div>
+              </li>
+              <li>
+                <img src="../assets/reviews/2.jpg?v=2" alt="The salon at Dickens Yard" width="590" height="332" />
+                <div>
+                  <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+                  <h3 data-yuzu-copy="home-review-2-title">“I always leave feeling a million dollars”</h3>
+                  <p data-yuzu-copy="home-review-2-text">Cut and colour once again exactly how I asked. Calm, expert and friendly throughout.</p>
+                  <a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Rachel · Google review<span class="vh"> (opens in a new tab)</span></a>
+                </div>
+              </li>
+              <li>
+                <img src="../assets/reviews/3.jpg?v=2" alt="The salon at Dickens Yard" width="590" height="332" />
+                <div>
+                  <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+                  <h3 data-yuzu-copy="home-review-3-title">“A brilliant artist working in hair”</h3>
+                  <p data-yuzu-copy="home-review-3-text">Jasmine is not just another haircut, but a brilliant artist working in hair.</p>
+                  <a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Steve · Google review<span class="vh"> (opens in a new tab)</span></a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="round-section round-offers-band" id="offers">
+          <div class="wrap">
+            <div class="section-head">
+              <h2 data-yuzu-copy="home-offers-title">Exclusive Offers</h2>
+              <p data-yuzu-copy="home-offers-intro">Tuesday, Wednesday and Thursday.</p>
+            </div>
+            <p class="today-offer" data-today-offer></p>
+            <ul class="round-offers">
+              <li>
+                <a class="promo tue" href="../offers.html#tuesdays">
+                  <span class="draw fruit-a" aria-hidden="true"></span>
+                  <span class="draw fruit-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Colour Tuesdays</span>
+                    <span class="promo-sub">with a Creative Director</span></span>
+                    <span class="promo-off">50% Off</span>
+                    <span class="promo-fine">Your most expensive colour<br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="promo wed" href="../offers.html#wednesdays">
+                  <span class="draw bloom bloom-a" aria-hidden="true"></span>
+                  <span class="draw bloom bloom-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Smooth</span>
+                    <span class="promo-title">Wednesdays</span></span>
+                    <span class="promo-off">25% Off</span>
+                    <span class="promo-fine">Our three to six month<br />smoothing treatment</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="promo thu" href="../offers.html#thursdays">
+                  <span class="draw fan fan-a" aria-hidden="true"></span>
+                  <span class="draw fan fan-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Colour Thursdays</span>
+                    <span class="promo-sub">with a Senior Stylist and Stylist</span></span>
+                    <span class="promo-off">50% Off</span>
+                    <span class="promo-fine">Your most expensive colour<br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <ul class="round-extras">
+              <li>
+                <strong data-yuzu-copy="home-extra-refer-title">Refer a friend</strong>
+                <span data-yuzu-copy="home-extra-refer-text">When they complete their first appointment, you receive £10 credit. No limit on referrals.</span>
+              </li>
+              <li>
+                <strong data-yuzu-copy="home-extra-rebook-title">Rebook the same day</strong>
+                <span data-yuzu-copy="home-extra-rebook-text">Book your next visit before you leave and take 10% off that appointment.</span>
+              </li>
+              <li>
+                <strong data-yuzu-copy="home-extra-blow-title">4 blow-drys</strong>
+                <span data-yuzu-copy="home-extra-blow-text">£156, valid 6 months. Haircuts not included. Non-refundable.</span>
+              </li>
+            </ul>
+            <p class="round-band-cta">
+              <a class="btn btn-ink" href="../offers.html">View all offers</a>
+            </p>
+          </div>
+        </section>
+
+        <section class="round-section" id="visit" data-book-end>
+          <div class="wrap round-visit">
+            <div>
+              <h2>Contact</h2>
+              <p data-yuzu-copy="home-address">
+                5 Dickens Yard<br />
+                Longfield Avenue<br />
+                Ealing, W5 2TD
+              </p>
+              <p>
+                <a href="tel:+442088402244">020 8840 2244</a><br />
+                <a href="mailto:info@yuzuhairandbeauty.co.uk">info@yuzuhairandbeauty.co.uk</a>
+              </p>
+              <p class="round-visit-links">
+                <a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Get directions<span class="vh"> (opens in a new tab)</span></a>
+              </p>
+              <p class="hiring">We’re hiring senior stylists, stylists and models. <a href="../team.html#cv">Submit your CV</a></p>
+            </div>
+            <div>
+              <h2><span data-yuzu-copy="home-hours-title">Opening hours</span><span class="open-status" data-open-status></span></h2>
+              <ul class="hours">
+                <li><span data-yuzu-copy="home-hours-week-label">Tuesday – Friday</span><span data-yuzu-copy="home-hours-week">10am to 8pm</span></li>
+                <li><span data-yuzu-copy="home-hours-sat-label">Saturday</span><span data-yuzu-copy="home-hours-sat">9am to 6pm</span></li>
+                <li><span data-yuzu-copy="home-hours-sun-label">Monday &amp; Sunday</span><span data-yuzu-copy="home-hours-sun">CLOSED</span></li>
+              </ul>
+            </div>
+            <div class="round-visit-book">
+              <h2 data-yuzu-copy="home-book-title">Ready to book?</h2>
+              <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
+                Book your appointment
+                <span class="vh"> (opens in a new tab)</span>
+              </a>
+              <ul class="socials">
+                <li>
+                  <a href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
+                    <span class="vh">Instagram (opens in a new tab)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.tiktok.com/@yuzuhairandbeauty.est16" target="_blank" rel="noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.2 3h2.3c.2 1.7 1.2 3.2 2.7 4.1 1 .6 2.1.9 3.2.9v2.4c-1.6 0-3.1-.5-4.4-1.3v6.6c0 3.4-2.7 6.2-6.2 6.3-3.4 0-6.2-2.8-6.2-6.3s2.8-6.2 6.2-6.2c.3 0 .6 0 .9.1v2.5c-.3-.1-.6-.2-.9-.2-2 0-3.6 1.6-3.6 3.7s1.6 3.7 3.6 3.7 3.6-1.6 3.6-3.7V3Z"/></svg>
+                    <span class="vh">TikTok (opens in a new tab)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.facebook.com/YUZUHairandBeauty/" target="_blank" rel="noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.7.5-1.1 1.2-1.1h1.3V3h-2.3C12.3 3 11 4.4 11 6.6v2H9v2.7h2V21h3.5v-9.8h2.3l.4-2.7h-2.7Z"/></svg>
+                    <span class="vh">Facebook (opens in a new tab)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@yuzuhairandbeauty.co.uk">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 7.2 12 13l8-5.8" stroke="currentColor" stroke-width="1.6"/></svg>
+                    <span class="vh">Email</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="round-footer">
+        <div class="wrap">
+          <p>© <span data-year>2026</span> YUZU hair</p>
+          <p>
+            <a href="../about.html">About</a>
+            ·
+            <a href="../questions.html">Questions</a>
+            ·
+            <a href="../patch.html">Patch testing</a>
+            ·
+            <a href="../terms.html">Terms</a>
+            ·
+            <a href="../privacy.html">Privacy</a>
+          </p>
+        </div>
+      </footer>
+      <a class="mobile-book" data-sticky-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
+        Book
+        <span class="vh"> (opens in a new tab)</span>
+      </a>
+      <div class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Looks">
+        <button class="lightbox-close" type="button">Close</button>
+        <button class="lightbox-nav prev" type="button" aria-label="Previous photo">‹</button>
+        <figure>
+          <img alt="" />
+          <figcaption></figcaption>
+        </figure>
+        <button class="lightbox-nav next" type="button" aria-label="Next photo">›</button>
+      </div>
+    </div>
+    <script>
+      document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
+    </script>
+    <script src="../js/site.js?v=13"></script>
+    <script src="next.js?v=1"></script>
+  </body>
+</html>
