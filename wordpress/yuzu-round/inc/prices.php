@@ -296,6 +296,245 @@ function yuzu_round_prices_groups_html(array $data): string
     return rtrim($html);
 }
 
+function yuzu_round_prices_number(string $display): ?float
+{
+    if (preg_match_all('/£(\d+(?:\.\d+)?)/u', $display, $matches) < 1) {
+        return null;
+    }
+    return (float) end($matches[1]);
+}
+
+function yuzu_round_prices_money(float $amount): string
+{
+    return '£' . yuzu_round_price_amount(rtrim(rtrim(number_format($amount, 2, '.', ''), '0'), '.'));
+}
+
+function yuzu_round_prices_blend_title(string $label): string
+{
+    return ucwords($label);
+}
+
+/**
+ * One Blend row from a list of [label, display] pairs. $levels maps the
+ * chair key to its display price for the level switch, or is empty.
+ */
+function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, float $scale, string $only = '', string $note = ''): string
+{
+    $e = 'yuzu_round_prices_esc';
+    $data = $levels === [] ? '' : " data-levels='" . $e((string) json_encode($levels, JSON_UNESCAPED_UNICODE)) . "'";
+    $numbers = array_values(array_filter(array_map(static fn ($p) => yuzu_round_prices_number($p[1]), $pairs), static fn ($n) => $n !== null));
+    if (count($pairs) === 1) {
+        $small = $only === '' ? '' : '<small>' . $e($only) . '</small>';
+        return "          <div class=\"price-row price-single\"{$data}>\n"
+            . '            <span class="price-name">' . $e($name) . $small . "</span>\n"
+            . '            <span class="price-fig">' . $e($pairs[0][1]) . "</span>\n"
+            . "          </div>\n";
+    }
+    $min = $numbers === [] ? 0 : min($numbers);
+    $max = $numbers === [] ? 0 : max($numbers);
+    $range = $min === $max ? yuzu_round_prices_money($max) : yuzu_round_prices_money($min) . '–' . yuzu_round_prices_money($max);
+    $html = "          <details class=\"price-row\"{$data}>\n"
+        . "            <summary>\n"
+        . '              <span class="price-name">' . $e($name) . "</span>\n"
+        . '              <span class="price-fig">' . $e($range) . "</span>\n"
+        . "              <span class=\"chev\" aria-hidden=\"true\"></span>\n"
+        . "            </summary>\n"
+        . "            <ul class=\"chairs\">\n";
+    foreach ($pairs as [$label, $display]) {
+        $width = $scale > 0 ? round((yuzu_round_prices_number($display) ?? 0) / $scale * 100, 1) : 0;
+        $html .= "              <li>\n"
+            . '                <span>' . $e($label) . "</span>\n"
+            . '                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:' . $width . "%\"></span></span>\n"
+            . '                <span class="price-fig">' . $e($display) . "</span>\n"
+            . "              </li>\n";
+    }
+    $html .= "            </ul>\n";
+    if ($note !== '') {
+        $html .= '            <p class="price-note">' . $e($note) . "</p>\n";
+    }
+    return $html . "          </details>\n";
+}
+
+function yuzu_round_prices_blend_table_row(array $row, array $columns, float $scale): string
+{
+    $pairs = [];
+    $levels = [];
+    foreach ($columns as $key => $column) {
+        $display = (string) ($row[$key] ?? '—');
+        if ($display === '—') {
+            continue;
+        }
+        $pairs[] = [yuzu_round_prices_blend_title($column['label']), $display];
+        $levels[$key] = $display;
+    }
+    if ($pairs === []) {
+        return '';
+    }
+    $same = count(array_unique(array_column($pairs, 1))) === 1;
+    if ($same && count($pairs) === count($columns)) {
+        return yuzu_round_prices_blend_row((string) $row['name'], [['Any stylist', $pairs[0][1]]], [], $scale);
+    }
+    $only = count($pairs) === 1 ? $pairs[0][0] . ' only' : '';
+    return yuzu_round_prices_blend_row((string) $row['name'], $pairs, $levels, $scale, $only);
+}
+
+function yuzu_round_prices_blend_scale(array $rows, array $keys): float
+{
+    $max = 0.0;
+    foreach ($rows as $row) {
+        foreach ($keys as $key) {
+            $max = max($max, yuzu_round_prices_number((string) ($row[$key] ?? '')) ?? 0);
+        }
+    }
+    return $max;
+}
+
+function yuzu_round_prices_blend_more(string $title, string $rows): string
+{
+    if ($rows === '') {
+        return '';
+    }
+    $count = preg_match_all('/class="price-row/', $rows);
+    return "          <details class=\"price-more\">\n"
+        . '            <summary><span class="more-name">' . yuzu_round_prices_esc($title) . '</span><span class="more-count">' . $count . ' ' . ($count === 1 ? 'service' : 'services') . "</span><span class=\"chev\" aria-hidden=\"true\"></span></summary>\n"
+        . $rows
+        . "          </details>\n";
+}
+
+function yuzu_round_prices_blend_packages(array $rows): string
+{
+    if ($rows === []) {
+        return '';
+    }
+    $html = "          <div class=\"packages\">\n            <h3>Packages</h3>\n            <ul>\n";
+    foreach ($rows as $row) {
+        $html .= '              <li><span>' . yuzu_round_prices_esc((string) $row['name']) . '</span><strong>' . yuzu_round_prices_esc((string) $row['price']) . "</strong></li>\n";
+    }
+    return $html . "            </ul>\n          </div>\n";
+}
+
+/**
+ * The Blend price board panels. Names decide the grouping: Kids and Teens
+ * fold under Children and teens, In-between under In-between colour, every
+ * highlight after T-section under the extras, Aura rows become one row by
+ * length, and packages sit with roots (Colour) or otherwise Cut & style.
+ */
+function yuzu_round_prices_blend_board_html(array $data): string
+{
+    $catalog = yuzu_round_prices_catalog();
+    $groups = $data['groups'];
+    $patch = "          <p class=\"panel-note\">Colour needs a patch test at least 48 hours before. <a href=\"../patch.html\">About patch testing</a></p>\n";
+
+    $packages = ['cut' => [], 'colour' => []];
+    foreach ($groups['packages'] ?? [] as $row) {
+        $packages[preg_match('/root|colour/i', (string) $row['name']) ? 'colour' : 'cut'][] = $row;
+    }
+
+    $panel = static function (string $class, string $body): string {
+        return "        <section class=\"price-panel {$class}\">\n{$body}        </section>\n";
+    };
+    $table = static function (string $id, callable $is_extra) use ($catalog, $groups): array {
+        $columns = $catalog[$id]['columns'];
+        $rows = $groups[$id] ?? [];
+        $scale = yuzu_round_prices_blend_scale($rows, array_keys($columns));
+        $main = '';
+        $extra = '';
+        foreach ($rows as $index => $row) {
+            $html = yuzu_round_prices_blend_table_row($row, $columns, $scale);
+            if ($is_extra((string) $row['name'], $index)) {
+                $extra .= $html;
+            } else {
+                $main .= $html;
+            }
+        }
+        return [$main, $extra];
+    };
+
+    [$main, $extra] = $table('cut', static fn ($name) => preg_match('/^(kids|teens)/i', $name) === 1);
+    $out = $panel('panel-cut', $main . yuzu_round_prices_blend_more('Children and teens', $extra) . yuzu_round_prices_blend_packages($packages['cut']));
+
+    [$main, $extra] = $table('colour', static fn ($name) => preg_match('/^in-between/i', $name) === 1);
+    $out .= $panel('panel-colour', $patch . $main . yuzu_round_prices_blend_more('In-between colour', $extra) . yuzu_round_prices_blend_packages($packages['colour']));
+
+    $after_t = false;
+    [$main, $extra] = $table('highlights', static function ($name) use (&$after_t) {
+        $extra = $after_t;
+        if (preg_match('/^t-section/i', $name) === 1) {
+            $after_t = true;
+        }
+        return $extra;
+    });
+    $out .= $panel('panel-high', $patch . $main . yuzu_round_prices_blend_more('Added when the hair needs it', $extra));
+
+    $aura = [];
+    $note = '';
+    $others = [];
+    foreach ($groups['treatments'] ?? [] as $row) {
+        $name = (string) $row['name'];
+        $price = (string) $row['price'];
+        if (preg_match('/^aura smoothing,\s*(.+)$/iu', $name, $m) === 1) {
+            if (str_starts_with($price, '+')) {
+                $note = 'Upgrade to ' . $m[1] . ': ' . $price . '.';
+            } else {
+                $aura[] = [ucfirst($m[1]), $price];
+            }
+            continue;
+        }
+        $others[] = $row;
+    }
+    $body = '';
+    if ($aura !== []) {
+        $scale = max(array_map(static fn ($p) => yuzu_round_prices_number($p[1]) ?? 0, $aura));
+        $body .= yuzu_round_prices_blend_row('Aura smoothing, by length', $aura, [], $scale, '', $note);
+    }
+    $rows = '';
+    foreach ($others as $row) {
+        $rows .= yuzu_round_prices_blend_row((string) $row['name'], [['', (string) $row['price']]], [], 0);
+    }
+    $body .= yuzu_round_prices_blend_more('Fillers and K2.0', $rows);
+    $out .= $panel('panel-treat', $body);
+
+    return rtrim($out);
+}
+
+function yuzu_round_prices_replace_blend_board(string $html, array $data): string
+{
+    $block = "<!-- yuzu-blend-prices -->\n" . yuzu_round_prices_blend_board_html($data) . "\n        <!-- /yuzu-blend-prices -->";
+    return yuzu_round_prices_replace(
+        $html,
+        '/<!-- yuzu-blend-prices -->.*?<!-- \/yuzu-blend-prices -->/s',
+        static function () use ($block): string {
+            return $block;
+        }
+    );
+}
+
+/**
+ * Version pages are served as files from static/versions; only the Blend
+ * pages carry prices.
+ */
+function yuzu_round_prices_apply_version(string $html, string $rel): string
+{
+    if (!function_exists('get_option')) {
+        return $html;
+    }
+    $stored = get_option('yuzu_round_prices');
+    if (!is_array($stored)) {
+        return $html;
+    }
+    $clean = yuzu_round_prices_sanitize($stored);
+    if ($clean === null) {
+        return $html;
+    }
+    if ($rel === 'blend-prices.html') {
+        return yuzu_round_prices_replace_blend_board($html, $clean);
+    }
+    if ($rel === 'blend.html') {
+        return yuzu_round_prices_replace_home($html, $clean);
+    }
+    return $html;
+}
+
 function yuzu_round_prices_offer(string $name, string $display): ?array
 {
     $parts = yuzu_round_price_schema_parts($display);
@@ -406,7 +645,7 @@ function yuzu_round_prices_replace_home(string $html, array $data): string
         if ($from !== '') {
             $html = yuzu_round_prices_replace(
                 $html,
-                '/(<p class="price-from" data-yuzu-from="' . preg_quote($id, '/') . '">[^<]*?from\s*<strong>)(.*?)(<\/strong>\s*<\/p>)/si',
+                '/(<p class="(?:price-from|from)" data-yuzu-from="' . preg_quote($id, '/') . '">[^<]*?from\s*<strong>)(.*?)(<\/strong>\s*<\/p>)/si',
                 static function (array $matches) use ($from): string {
                     return $matches[1] . $from . $matches[3];
                 }
@@ -608,7 +847,7 @@ function yuzu_round_prices_admin_page(): void
     if ($reset) {
         echo '<div class="notice notice-success is-dismissible"><p>The original price list is back on the site.</p></div>';
     }
-    echo '<p class="yuzu-lead">Edit the services and prices here, then press Save prices. The public tables and the homepage cards update. The page design stays as it is.</p>';
+    echo '<p class="yuzu-lead">Edit the services and prices here, then press Save prices. The price list, the homepage cards and the Blend version pages update. The page design stays as it is.</p>';
     echo '<form method="post">';
     wp_nonce_field('yuzu_round_prices_save');
     echo '<input type="hidden" name="yuzu_prices_action" value="save" />';
