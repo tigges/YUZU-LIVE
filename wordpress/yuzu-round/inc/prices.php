@@ -102,7 +102,7 @@ function yuzu_round_prices_default(): array
             ],
         ],
         'home' => [
-            'cut' => '£15',
+            'cut' => '£30',
             'colour' => '£55',
             'highlights' => '£70',
             'treatments' => '£35',
@@ -406,7 +406,7 @@ function yuzu_round_prices_replace_home(string $html, array $data): string
         if ($from !== '') {
             $html = yuzu_round_prices_replace(
                 $html,
-                '/(<p class="price-from" data-yuzu-from="' . preg_quote($id, '/') . '">\s*From\s*<strong>)(.*?)(<\/strong>\s*<\/p>)/s',
+                '/(<p class="price-from" data-yuzu-from="' . preg_quote($id, '/') . '">[^<]*?from\s*<strong>)(.*?)(<\/strong>\s*<\/p>)/si',
                 static function (array $matches) use ($from): string {
                     return $matches[1] . $from . $matches[3];
                 }
