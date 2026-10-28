@@ -34,16 +34,23 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/site.css?v=16" />
+    <link rel="stylesheet" href="css/site.css?v=18" />
     <link rel="stylesheet" href="versions/promo.css?v=4" />
     <style>
       .ig-frame { background: #fffdfb; border-radius: 24px; padding: 12px; overflow: hidden; }
-      .ig-stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
-      .ig-stills img { width: 100%; height: 168px; max-height: 168px; object-fit: cover; object-position: center 34%; border-radius: 16px; }
-      .ig-stills img.ig-team { object-position: center 62%; }
-      .ig-frame-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 6px 4px; }
-      .ig-mark { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid currentColor; border-radius: 50%; text-decoration: none; flex: none; }
+      .ig-stills { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 8px; list-style: none; margin: 0; padding: 0; }
+      .ig-stills img { width: 100%; height: 220px; object-fit: cover; object-position: center 30%; border-radius: 16px; display: block; }
+      .ig-frame-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 8px 4px; }
+      .ig-frame-foot h2 { margin: 0 0 4px; }
+      .ig-frame-foot p { margin: 0; }
+      .ig-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+      .ig-mark { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid currentColor; border-radius: 50%; text-decoration: none; flex: none; }
       .ig-mark svg { width: 18px; height: 18px; display: block; }
+      @media (max-width: 700px) {
+        .ig-stills { grid-template-columns: 1fr 1fr; }
+        .ig-stills img { height: 140px; }
+        .ig-frame-foot { flex-direction: column; align-items: flex-start; }
+      }
     </style>
     <script type="application/ld+json">
       {
@@ -137,14 +144,7 @@
             <div class="round-hero-card">
               <p class="kicker" data-yuzu-copy="home-hero-kicker">Dickens Yard · Ealing Broadway</p>
               <h1 id="hero-title" data-yuzu-copy="home-hero-title">Where tradition meets trend</h1>
-              <p data-yuzu-copy="home-hero-text">
-                Welcome to YUZU hair, where tradition meets trend in the art of hair care. Inspired by
-                the elegance of Japanese culture, our salon offers a fusion of modern styling
-                techniques with timeless grace. Nestled in the heart of Ealing Broadway, and a short
-                walk from the station, YUZU hair is your sanctuary for rejuvenation and transformation.
-                From blow-outs to sleek cuts, our skilled stylists craft each style with precision and
-                passion.
-              </p>
+              <p data-yuzu-copy="home-hero-text">Japanese-inspired cuts, colour and smoothing, a short walk from Ealing Broadway station.</p>
               <div class="round-actions">
                 <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
                   Book your appointment
@@ -152,6 +152,7 @@
                 </a>
                 <a class="btn btn-ghost" href="#services">See services</a>
               </div>
+              <p class="round-book-note">Online booking opens Phorest in a new tab.</p>
             </div>
           </div>
         </section>
@@ -195,14 +196,14 @@
               <li>
                 <h3>Cut &amp; styling</h3>
                 <p data-yuzu-blurb="cut">From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style with a stylist, a senior, or a creative director.</p>
-                <p class="price-from" data-yuzu-from="cut">From <strong>£15</strong></p>
+                <p class="price-from" data-yuzu-from="cut">Ladies from <strong>£30</strong></p>
                 <a href="prices.html">Full menu</a>
               </li>
               <li>
                 <h3>Colour</h3>
                 <p data-yuzu-blurb="colour">Roots and full head, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.</p>
                 <p class="price-from" data-yuzu-from="colour">From <strong>£55</strong></p>
-                <a href="prices.html">Full menu</a>
+                <p class="service-links"><a href="prices.html">Full menu</a><a class="patch-link" href="patch.html">Patch test first</a></p>
               </li>
               <li>
                 <h3>Highlights &amp; balayage</h3>
@@ -227,7 +228,7 @@
           <div class="wrap">
             <div class="section-head">
               <h2 data-yuzu-copy="home-reviews-title">What clients say</h2>
-              <p data-yuzu-copy="home-reviews-intro">Notes guests left after a visit. The photographs are the salon, not the reviewers.</p>
+              <p data-yuzu-copy="home-reviews-intro">Five-star notes from Google reviews.</p>
             </div>
             <ul class="round-reviews">
               <li>
@@ -265,8 +266,9 @@
           <div class="wrap">
             <div class="section-head">
               <h2 data-yuzu-copy="home-offers-title">Exclusive Offers</h2>
-              <p data-yuzu-copy="home-offers-intro">Are you ready to elevate your salon visits? Get ready to indulge in exclusive offers just for you.</p>
+              <p data-yuzu-copy="home-offers-intro">Tuesday, Wednesday and Thursday.</p>
             </div>
+            <p class="today-offer" data-today-offer></p>
             <ul class="round-offers">
               <li>
                 <a class="promo tue" href="offers.html#tuesdays">
@@ -329,28 +331,28 @@
           <div class="wrap">
             <div class="ig-frame">
               <ul class="ig-stills">
-                <li><img class="ig-team" src="assets/team/together.jpg" alt="The YUZU hair team together" width="280" height="168" /></li>
-                <li><img src="assets/team/meet.jpg" alt="Stylist outside the YUZU hair salon" width="280" height="112" /></li>
-                <li><img src="assets/team/behind.jpg" alt="Stylist at the salon" width="280" height="112" /></li>
-                <li><img src="assets/team/party.jpg" alt="The YUZU hair team at a summer party" width="280" height="112" /></li>
+                <li><img src="versions/img/join/booth.jpg" alt="The YUZU hair team in the photo booth" width="720" height="350" loading="lazy" /></li>
+                <li><img src="versions/img/join/mic.jpg" alt="A stylist with a microphone outside the salon" width="720" height="480" loading="lazy" /></li>
+                <li><img src="versions/img/join/drink.jpg" alt="A stylist with a drink outside the salon" width="660" height="600" loading="lazy" /></li>
+                <li><img src="versions/img/join/table.jpg" alt="The YUZU hair team gathered around a table" width="480" height="440" loading="lazy" /></li>
               </ul>
               <div class="ig-frame-foot">
                 <div>
                   <h2><a href="team.html" data-yuzu-copy="home-team-title">Join our team</a></h2>
                   <p data-yuzu-copy="home-team-text">Senior stylists, stylists and models at Dickens Yard.</p>
                 </div>
-                <a class="ig-mark" href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer" aria-label="Instagram (opens in a new tab)">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
-                </a>
+                <div class="ig-actions">
+                  <a class="btn btn-ink" href="team.html#cv">Submit your CV</a>
+                  <a class="ig-mark" href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer" aria-label="Instagram (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
+                  </a>
+                </div>
               </div>
             </div>
-            <p class="round-band-cta">
-              <a class="btn btn-ink" href="team.html#cv">Submit your CV</a>
-            </p>
           </div>
         </section>
 
-        <section class="round-section" id="visit">
+        <section class="round-section" id="visit" data-book-end>
           <div class="wrap round-visit">
             <div>
               <h2>Contact</h2>
@@ -368,7 +370,7 @@
               </p>
             </div>
             <div>
-              <h2 data-yuzu-copy="home-hours-title">Opening hours</h2>
+              <h2><span data-yuzu-copy="home-hours-title">Opening hours</span><span class="open-status" data-open-status></span></h2>
               <ul class="hours">
                 <li><span data-yuzu-copy="home-hours-week-label">Tuesday – Friday</span><span data-yuzu-copy="home-hours-week">10am to 8pm</span></li>
                 <li><span data-yuzu-copy="home-hours-sat-label">Saturday</span><span data-yuzu-copy="home-hours-sat">9am to 6pm</span></li>
@@ -428,7 +430,7 @@
           </p>
         </div>
       </footer>
-      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
+      <a class="mobile-book" data-sticky-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">
         Book
         <span class="vh"> (opens in a new tab)</span>
       </a>
@@ -446,5 +448,6 @@
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
     </script>
     <script src="js/site.js?v=13"></script>
+    <script src="js/visit.js?v=1"></script>
   </body>
 </html>
