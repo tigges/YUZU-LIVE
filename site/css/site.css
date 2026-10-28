@@ -780,9 +780,16 @@ section[id] { scroll-margin-top: 118px; }
   justify-content: space-between;
   min-height: 0;
 }
-.round-visit-links,
 .round-visit-book .socials { margin-top: auto; }
-.round-visit-book { align-items: flex-start; }
+.round-visit-book { align-items: center; text-align: center; }
+.round-visit-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(100%, 250px);
+  margin: auto 0;
+}
+.round-visit-ctas .btn { width: 100%; }
 
 .round-footer { padding: 28px 0 40px; color: var(--muted); font-size: 0.92rem; }
 .round-footer .wrap {
@@ -840,6 +847,9 @@ body.is-locked { overflow: hidden; }
   .round-about-grid,
   .round-visit,
   .offer-block { grid-template-columns: 1fr; }
+  .round-visit-book { align-items: flex-start; text-align: left; }
+  .round-visit-ctas { flex-direction: row; flex-wrap: wrap; width: auto; margin: 0; }
+  .round-visit-ctas .btn { width: auto; }
   .round-about img {
     height: auto;
     aspect-ratio: 1 / 1;
