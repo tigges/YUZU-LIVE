@@ -153,6 +153,13 @@ function yuzu_round_serve_version_request(): void
     if ($ext === 'html' && function_exists('get_template_directory_uri')) {
         $html = file_get_contents($real);
         $assets = trailingslashit(get_template_directory_uri() . '/static/assets');
+        if (is_string($html) && function_exists('yuzu_round_prices_apply_version')) {
+            try {
+                $html = yuzu_round_prices_apply_version($html, $rel);
+            } catch (Throwable $e) {
+                // A bad price record must not take the page down.
+            }
+        }
         if (is_string($html)) {
             echo str_replace('../assets/', $assets, $html);
             exit;
