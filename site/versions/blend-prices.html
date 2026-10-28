@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="brand.css?v=2" />
   <link rel="stylesheet" href="fresh.css?v=6" />
-  <link rel="stylesheet" href="blend.css?v=4" />
+  <link rel="stylesheet" href="blend.css?v=6" />
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="versions-bar.css?v=5" />
 </head>
@@ -25,6 +25,7 @@
       <a href="blend.html#looks">Looks</a>
       <a href="blend-prices.html" aria-current="page">Services</a>
       <a href="blend.html#offers">Offers</a>
+      <a href="#visit">Visit</a>
       <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
     </nav>
   </header>
@@ -711,7 +712,7 @@
     </section>
     <p class="center-cta"><a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment<span class="vh"> (opens in a new tab)</span></a></p>
   </main>
-  <footer class="visit" id="visit">
+  <footer class="visit" id="visit" data-book-end>
     <div>
       <h2>Contact</h2>
       <p>5 Dickens Yard<br />Longfield Avenue<br />Ealing, W5 2TD</p>
@@ -720,6 +721,7 @@
     </div>
     <div>
       <h2>Opening hours</h2>
+      <p class="open-status" data-open-status></p>
       <p>Tuesday – Friday, 10am – 8pm<br />Saturday, 9am – 6pm<br />Monday &amp; Sunday, closed</p>
     </div>
     <div class="visit-book">
@@ -750,9 +752,10 @@
     </div>
     <p class="legal"><span>© 2026 YUZU hair</span><span class="legal-links"><a href="../about.html">About</a> · <a href="../questions.html">Questions</a> · <a href="../patch.html">Patch testing</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></span></p>
   </footer>
-  <a class="fx-book blend-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+  <a class="fx-book blend-book" data-sticky-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
   <script src="menu.js?v=2"></script>
   <script src="logo-home.js?v=1"></script>
+  <script src="../js/visit.js?v=1"></script>
   <script>
     (function () {
       var map = { "#cut": "pm-cut", "#colour": "pm-colour", "#highlights": "pm-high", "#treatments": "pm-treat" };

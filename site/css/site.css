@@ -984,3 +984,72 @@ body.is-locked { overflow: hidden; }
     transition: none !important;
   }
 }
+
+.round-book-note { margin: 10px 0 0; font-size: 0.85rem; color: var(--muted); }
+.round-services .service-links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; color: var(--ink); }
+.round-services a.patch-link { color: var(--muted); }
+
+.open-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 10px 0 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #f3ece2;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.open-status:empty { display: none; }
+.open-status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #b0503a; }
+.open-status.is-open::before { background: #2f7a3e; }
+
+.today-offer { margin: 0 0 18px; padding: 14px 18px; border-radius: 18px; background: #fffdfb; line-height: 1.45; }
+.today-offer:empty { display: none; }
+.today-offer strong { margin-right: 6px; }
+.promo.is-today { outline: 3px solid #2f3a27; outline-offset: 4px; }
+.promo.is-today::before {
+  content: attr(data-flag);
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #fffdfb;
+  color: #2f3a27;
+  font: 600 0.78rem/1.4 var(--sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mobile-book { transition: opacity 0.2s ease, transform 0.2s ease; }
+.mobile-book.is-hidden { opacity: 0; transform: translateY(16px); pointer-events: none; }
+
+@media (max-width: 700px) {
+  .round:has([data-book-end]) { padding-bottom: 0; }
+  .round-gallery,
+  .round-reviews {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .round-gallery::-webkit-scrollbar,
+  .round-reviews::-webkit-scrollbar { display: none; }
+  /* position: relative keeps the visually hidden link text inside the row, or the phone page widens. */
+  .round-gallery > li,
+  .round-reviews > li {
+    position: relative;
+    flex: 0 0 80%;
+    width: 80%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+}
