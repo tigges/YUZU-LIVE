@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/site.css?v=21" />
+    <link rel="stylesheet" href="css/site.css?v=22" />
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -858,105 +858,550 @@
         <div class="wrap">
           <a class="round-back" href="index.html">← Home</a>
           <div class="section-head">
-            <h1>Price list</h1>
-            <p>Creative director, senior stylist, stylist and junior menus. Call <a href="tel:+442088402244">020 8840 2244</a> for long hair or a colour correction.</p>
+            <h1>Prices</h1>
           </div>
-          <p class="round-notice">
-            Mandatory patch testing. As part of our updated colour line, we now require a mandatory
-            patch test for all clients before any colour service, including both existing and new
-            clients. Please complete it at least 48 hours before your appointment.
-            <a href="patch.html">Read more</a>
-          </p>
+          <fieldset class="level-pick">
+            <legend>Prices for</legend>
+            <div class="level-options">
+              <label><input type="radio" name="level" value="" checked /><span>All<i class="level-tail"> levels</i></span></label>
+              <label><input type="radio" name="level" value="creative" /><span><i class="level-mob" aria-hidden="true">CD</i><i class="level-tail">Creative Director</i></span></label>
+              <label><input type="radio" name="level" value="senior" /><span>Senior<i class="level-tail"> Stylist</i></span></label>
+              <label><input type="radio" name="level" value="stylist" /><span>Stylist</span></label>
+              <label><input type="radio" name="level" value="junior" /><span>Junior<i class="level-tail"> Stylist</i></span></label>
+            </div>
+            <p class="level-desc" data-level-desc aria-live="polite">Price ranges from Junior Stylist to Creative Director (CD).</p>
+          </fieldset>
+          <div class="price-board">
+            <input class="price-radio" type="radio" name="price-menu" id="pm-cut" checked />
+            <input class="price-radio" type="radio" name="price-menu" id="pm-colour" />
+            <input class="price-radio" type="radio" name="price-menu" id="pm-high" />
+            <input class="price-radio" type="radio" name="price-menu" id="pm-treat" />
+            <div class="price-tabs">
+              <label for="pm-cut">Cut &amp; style</label>
+              <label for="pm-colour">Colour</label>
+              <label for="pm-high">Highlights</label>
+              <label for="pm-treat">Treatments</label>
+            </div>
 
-          <div class="levels">
-            <h2>Stylist levels</h2>
-            <dl>
-              <div><dt>Creative Director</dt><dd>Lead stylist and salon visionary</dd></div>
-              <div><dt>Senior Stylist</dt><dd>Extensive experience, advanced cutting and colour</dd></div>
-              <div><dt>Stylist</dt><dd>Fully qualified, all cuts and colour</dd></div>
-              <div><dt>Junior Stylist</dt><dd>Newly qualified, under senior guidance</dd></div>
-            </dl>
+        <!-- yuzu-blend-prices -->
+        <section class="price-panel panel-cut" data-who="ladies">
+          <div class="cut-filter" role="group" aria-label="Filter Cut &amp; style by client">
+            <label><input type="radio" name="who" value="" /><span>All</span></label>
+            <label><input type="radio" name="who" value="ladies" checked /><span>Ladies</span></label>
+            <label><input type="radio" name="who" value="gents" /><span>Gents</span></label>
+            <label><input type="radio" name="who" value="children" /><span>Children &amp; teens</span></label>
           </div>
-
-          <!-- yuzu-price-groups -->
-          <div class="price-group">
-            <h2>Cut &amp; style</h2>
-            <table>
-              <thead><tr><th scope="col">Service</th><th scope="col">Creative</th><th scope="col">Senior</th><th scope="col">Stylist</th><th scope="col">Junior</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">Ladies wash, cut &amp; style</th><td data-label="Creative">£90</td><td data-label="Senior">£75</td><td data-label="Stylist">£60</td><td data-label="Junior">Up to £30</td></tr>
-                <tr><th scope="row">Gents wash, cut &amp; style</th><td data-label="Creative">£60</td><td data-label="Senior">—</td><td data-label="Stylist">—</td><td data-label="Junior">—</td></tr>
-                <tr><th scope="row">Kids (12 &amp; under)</th><td data-label="Creative">£35</td><td data-label="Senior">—</td><td data-label="Stylist">—</td><td data-label="Junior">—</td></tr>
-                <tr><th scope="row">Kids, girls (12 &amp; under)</th><td data-label="Creative">—</td><td data-label="Senior">£30</td><td data-label="Stylist">£25</td><td data-label="Junior">£15</td></tr>
-                <tr><th scope="row">Teens (13–16) boys</th><td data-label="Creative">£45</td><td data-label="Senior">—</td><td data-label="Stylist">—</td><td data-label="Junior">—</td></tr>
-                <tr><th scope="row">Teens (13–16) girls</th><td data-label="Creative">£55</td><td data-label="Senior">£50</td><td data-label="Stylist">£40</td><td data-label="Junior">£20</td></tr>
-                <tr><th scope="row">Blow-dry</th><td data-label="Creative">£60</td><td data-label="Senior">£52</td><td data-label="Stylist">£45</td><td data-label="Junior">£35</td></tr>
-              </tbody>
-            </table>
+          <details class="price-row" data-who="ladies" open data-levels='{&quot;creative&quot;:&quot;£90&quot;,&quot;senior&quot;:&quot;£75&quot;,&quot;stylist&quot;:&quot;£60&quot;,&quot;junior&quot;:&quot;Up to £30&quot;}'>
+            <summary>
+              <span class="price-name">Ladies wash, cut &amp; style</span>
+              <span class="price-fig">£30–£90</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:100%"></span></span>
+                <span class="price-fig">£90</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:83.3%"></span></span>
+                <span class="price-fig">£75</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:66.7%"></span></span>
+                <span class="price-fig">£60</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:33.3%"></span></span>
+                <span class="price-fig">Up to £30</span>
+              </li>
+            </ul>
+          </details>
+          <div class="price-row price-single" data-who="gents" data-levels='{&quot;creative&quot;:&quot;£60&quot;}'>
+            <span class="price-name">Gents wash, cut &amp; style<small>Creative Director only</small></span>
+            <span class="price-fig">£60</span>
           </div>
-          <div class="price-group">
-            <h2>Colour</h2>
-            <table>
-              <thead><tr><th scope="col">Service</th><th scope="col">Creative</th><th scope="col">Senior</th><th scope="col">Stylist</th><th scope="col">Junior</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">Full head</th><td data-label="Creative">£105</td><td data-label="Senior">£97</td><td data-label="Stylist">£90</td><td data-label="Junior">£65</td></tr>
-                <tr><th scope="row">Roots</th><td data-label="Creative">£90</td><td data-label="Senior">£85</td><td data-label="Stylist">£80</td><td data-label="Junior">£55</td></tr>
-                <tr><th scope="row">In-between full head</th><td data-label="Creative">£130</td><td data-label="Senior">£117</td><td data-label="Stylist">£105</td><td data-label="Junior">—</td></tr>
-                <tr><th scope="row">In-between roots</th><td data-label="Creative">£115</td><td data-label="Senior">£102</td><td data-label="Stylist">£90</td><td data-label="Junior">—</td></tr>
-                <tr><th scope="row">Illumia colour</th><td data-label="Creative">£135</td><td data-label="Senior">£125</td><td data-label="Stylist">£115</td><td data-label="Junior">—</td></tr>
-              </tbody>
-            </table>
+          <details class="price-row" data-who="children" data-levels='{&quot;senior&quot;:&quot;£30&quot;,&quot;stylist&quot;:&quot;£25&quot;,&quot;junior&quot;:&quot;£15&quot;}'>
+            <summary>
+              <span class="price-name">Girls, 12 and under</span>
+              <span class="price-fig">£15–£30</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:33.3%"></span></span>
+                <span class="price-fig">£30</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:27.8%"></span></span>
+                <span class="price-fig">£25</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:16.7%"></span></span>
+                <span class="price-fig">£15</span>
+              </li>
+            </ul>
+          </details>
+          <div class="price-row price-single" data-who="children" data-levels='{&quot;creative&quot;:&quot;£35&quot;}'>
+            <span class="price-name">Boys, 12 and under<small>Creative Director only</small></span>
+            <span class="price-fig">£35</span>
           </div>
-          <div class="price-group">
-            <h2>Highlights / balayage / foiliage</h2>
-            <table>
-              <thead><tr><th scope="col">Service</th><th scope="col">Creative</th><th scope="col">Senior</th><th scope="col">Stylist</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">Full head</th><td data-label="Creative">£155</td><td data-label="Senior">£127</td><td data-label="Stylist">£100</td></tr>
-                <tr><th scope="row">Half head</th><td data-label="Creative">£120</td><td data-label="Senior">£100</td><td data-label="Stylist">£80</td></tr>
-                <tr><th scope="row">T-section</th><td data-label="Creative">£95</td><td data-label="Senior">£82</td><td data-label="Stylist">£70</td></tr>
-                <tr><th scope="row">Long hair below chest</th><td data-label="Creative">£45</td><td data-label="Senior">£45</td><td data-label="Stylist">£45</td></tr>
-                <tr><th scope="row">Toner</th><td data-label="Creative">£40</td><td data-label="Senior">£40</td><td data-label="Stylist">£40</td></tr>
-                <tr><th scope="row">Double toner</th><td data-label="Creative">£60</td><td data-label="Senior">£60</td><td data-label="Stylist">£60</td></tr>
-                <tr><th scope="row">Blending</th><td data-label="Creative">£45</td><td data-label="Senior">£45</td><td data-label="Stylist">£45</td></tr>
-                <tr><th scope="row">Colour remover</th><td data-label="Creative">£120</td><td data-label="Senior">£115</td><td data-label="Stylist">£110</td></tr>
-                <tr><th scope="row">Pre-lighten full head</th><td data-label="Creative">£185</td><td data-label="Senior">£165</td><td data-label="Stylist">£145</td></tr>
-                <tr><th scope="row">Pre-lighten roots</th><td data-label="Creative">£155</td><td data-label="Senior">£122</td><td data-label="Stylist">£110</td></tr>
-              </tbody>
-            </table>
+          <details class="price-row" data-who="children" data-levels='{&quot;creative&quot;:&quot;£55&quot;,&quot;senior&quot;:&quot;£50&quot;,&quot;stylist&quot;:&quot;£40&quot;,&quot;junior&quot;:&quot;£20&quot;}'>
+            <summary>
+              <span class="price-name">Teen girls, 13–16</span>
+              <span class="price-fig">£20–£55</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:61.1%"></span></span>
+                <span class="price-fig">£55</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:55.6%"></span></span>
+                <span class="price-fig">£50</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:44.4%"></span></span>
+                <span class="price-fig">£40</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:22.2%"></span></span>
+                <span class="price-fig">£20</span>
+              </li>
+            </ul>
+          </details>
+          <div class="price-row price-single" data-who="children" data-levels='{&quot;creative&quot;:&quot;£45&quot;}'>
+            <span class="price-name">Teen boys, 13–16<small>Creative Director only</small></span>
+            <span class="price-fig">£45</span>
           </div>
-          <div class="price-group">
-            <h2>Treatments</h2>
-            <ul class="treatment-list">
-              <li><span>Nashi filler express</span><span>£35</span></li>
-              <li><span>Nashi filler 1, 2, 3 intense moisture</span><span>£50</span></li>
-              <li><span>K2.0 short hair</span><span>£45</span></li>
-              <li><span>K2.0 medium length hair</span><span>£55</span></li>
-              <li><span>K2.0 long hair</span><span>£65</span></li>
-              <li><span>K2.0 extra long hair</span><span>£80</span></li>
-              <li><span>Aura smoothing, 3–4 months, long</span><span>£360</span></li>
-              <li><span>Aura smoothing, below shoulder</span><span>£300</span></li>
-              <li><span>Aura smoothing, above shoulder</span><span>£230</span></li>
-              <li><span>Aura smoothing, short</span><span>£165</span></li>
-              <li><span>Aura smoothing, 4–6 months, with shampoo and conditioner</span><span>+£175</span></li>
+          <details class="price-row" data-who="ladies" open data-levels='{&quot;creative&quot;:&quot;£60&quot;,&quot;senior&quot;:&quot;£52&quot;,&quot;stylist&quot;:&quot;£45&quot;,&quot;junior&quot;:&quot;£35&quot;}'>
+            <summary>
+              <span class="price-name">Blow-dry</span>
+              <span class="price-fig">£35–£60</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:66.7%"></span></span>
+                <span class="price-fig">£60</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:57.8%"></span></span>
+                <span class="price-fig">£52</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:50%"></span></span>
+                <span class="price-fig">£45</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:38.9%"></span></span>
+                <span class="price-fig">£35</span>
+              </li>
+            </ul>
+          </details>
+          <div class="packages" data-who="ladies">
+            <h3>Packages</h3>
+            <ul>
+              <li><span>4 blow-drys</span><strong>£156</strong></li>
             </ul>
           </div>
-          <div class="price-group">
-            <h2>Packages</h2>
-            <ul class="treatment-list">
-              <li><span>4 blow-drys</span><span>£156</span></li>
-              <li><span>4 roots for the price of 3, paid upfront</span><span>£264</span></li>
+        </section>
+        <section class="price-panel panel-colour">
+          <p class="panel-note">Colour needs a patch test at least 48 hours before. <a href="patch.html">About patch testing</a></p>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£105&quot;,&quot;senior&quot;:&quot;£97&quot;,&quot;stylist&quot;:&quot;£90&quot;,&quot;junior&quot;:&quot;£65&quot;}'>
+            <summary>
+              <span class="price-name">Full head</span>
+              <span class="price-fig">£65–£105</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:77.8%"></span></span>
+                <span class="price-fig">£105</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:71.9%"></span></span>
+                <span class="price-fig">£97</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:66.7%"></span></span>
+                <span class="price-fig">£90</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:48.1%"></span></span>
+                <span class="price-fig">£65</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£90&quot;,&quot;senior&quot;:&quot;£85&quot;,&quot;stylist&quot;:&quot;£80&quot;,&quot;junior&quot;:&quot;£55&quot;}'>
+            <summary>
+              <span class="price-name">Roots</span>
+              <span class="price-fig">£55–£90</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:66.7%"></span></span>
+                <span class="price-fig">£90</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:63%"></span></span>
+                <span class="price-fig">£85</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:59.3%"></span></span>
+                <span class="price-fig">£80</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:40.7%"></span></span>
+                <span class="price-fig">£55</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£135&quot;,&quot;senior&quot;:&quot;£125&quot;,&quot;stylist&quot;:&quot;£115&quot;}'>
+            <summary>
+              <span class="price-name">Illumia colour</span>
+              <span class="price-fig">£115–£135</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:100%"></span></span>
+                <span class="price-fig">£135</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:92.6%"></span></span>
+                <span class="price-fig">£125</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:85.2%"></span></span>
+                <span class="price-fig">£115</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-more">
+            <summary><span class="more-name">In-between colour</span><span class="more-count">2 services</span><span class="chev" aria-hidden="true"></span></summary>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£130&quot;,&quot;senior&quot;:&quot;£117&quot;,&quot;stylist&quot;:&quot;£105&quot;}'>
+            <summary>
+              <span class="price-name">In-between full head</span>
+              <span class="price-fig">£105–£130</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:96.3%"></span></span>
+                <span class="price-fig">£130</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:86.7%"></span></span>
+                <span class="price-fig">£117</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:77.8%"></span></span>
+                <span class="price-fig">£105</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£115&quot;,&quot;senior&quot;:&quot;£102&quot;,&quot;stylist&quot;:&quot;£90&quot;}'>
+            <summary>
+              <span class="price-name">In-between roots</span>
+              <span class="price-fig">£90–£115</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:85.2%"></span></span>
+                <span class="price-fig">£115</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:75.6%"></span></span>
+                <span class="price-fig">£102</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:66.7%"></span></span>
+                <span class="price-fig">£90</span>
+              </li>
+            </ul>
+          </details>
+          </details>
+          <div class="packages">
+            <h3>Packages</h3>
+            <ul>
+              <li><span>4 roots for the price of 3, paid upfront</span><strong>£264</strong></li>
             </ul>
           </div>
-          <!-- /yuzu-price-groups -->
+        </section>
+        <section class="price-panel panel-high">
+          <p class="panel-note">Colour needs a patch test at least 48 hours before. <a href="patch.html">About patch testing</a></p>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£155&quot;,&quot;senior&quot;:&quot;£127&quot;,&quot;stylist&quot;:&quot;£100&quot;}'>
+            <summary>
+              <span class="price-name">Full head</span>
+              <span class="price-fig">£100–£155</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:83.8%"></span></span>
+                <span class="price-fig">£155</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:68.6%"></span></span>
+                <span class="price-fig">£127</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:54.1%"></span></span>
+                <span class="price-fig">£100</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£120&quot;,&quot;senior&quot;:&quot;£100&quot;,&quot;stylist&quot;:&quot;£80&quot;}'>
+            <summary>
+              <span class="price-name">Half head</span>
+              <span class="price-fig">£80–£120</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:64.9%"></span></span>
+                <span class="price-fig">£120</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:54.1%"></span></span>
+                <span class="price-fig">£100</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:43.2%"></span></span>
+                <span class="price-fig">£80</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£95&quot;,&quot;senior&quot;:&quot;£82&quot;,&quot;stylist&quot;:&quot;£70&quot;}'>
+            <summary>
+              <span class="price-name">T-section</span>
+              <span class="price-fig">£70–£95</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:51.4%"></span></span>
+                <span class="price-fig">£95</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:44.3%"></span></span>
+                <span class="price-fig">£82</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:37.8%"></span></span>
+                <span class="price-fig">£70</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-more">
+            <summary><span class="more-name">Added when the hair needs it</span><span class="more-count">7 services</span><span class="chev" aria-hidden="true"></span></summary>
+          <div class="price-row price-single">
+            <span class="price-name">Long hair below chest</span>
+            <span class="price-fig">£45</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">Toner</span>
+            <span class="price-fig">£40</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">Double toner</span>
+            <span class="price-fig">£60</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">Blending</span>
+            <span class="price-fig">£45</span>
+          </div>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£120&quot;,&quot;senior&quot;:&quot;£115&quot;,&quot;stylist&quot;:&quot;£110&quot;}'>
+            <summary>
+              <span class="price-name">Colour remover</span>
+              <span class="price-fig">£110–£120</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:64.9%"></span></span>
+                <span class="price-fig">£120</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:62.2%"></span></span>
+                <span class="price-fig">£115</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:59.5%"></span></span>
+                <span class="price-fig">£110</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£185&quot;,&quot;senior&quot;:&quot;£165&quot;,&quot;stylist&quot;:&quot;£145&quot;}'>
+            <summary>
+              <span class="price-name">Pre-lighten full head</span>
+              <span class="price-fig">£145–£185</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:100%"></span></span>
+                <span class="price-fig">£185</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:89.2%"></span></span>
+                <span class="price-fig">£165</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:78.4%"></span></span>
+                <span class="price-fig">£145</span>
+              </li>
+            </ul>
+          </details>
+          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£155&quot;,&quot;senior&quot;:&quot;£122&quot;,&quot;stylist&quot;:&quot;£110&quot;}'>
+            <summary>
+              <span class="price-name">Pre-lighten roots</span>
+              <span class="price-fig">£110–£155</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:83.8%"></span></span>
+                <span class="price-fig">£155</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:65.9%"></span></span>
+                <span class="price-fig">£122</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:59.5%"></span></span>
+                <span class="price-fig">£110</span>
+              </li>
+            </ul>
+          </details>
+          </details>
+        </section>
+        <section class="price-panel panel-treat">
+          <details class="price-row">
+            <summary>
+              <span class="price-name">Aura smoothing, by length</span>
+              <span class="price-fig">£165–£360</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>3–4 months, long</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:100%"></span></span>
+                <span class="price-fig">£360</span>
+              </li>
+              <li>
+                <span>Below shoulder</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:83.3%"></span></span>
+                <span class="price-fig">£300</span>
+              </li>
+              <li>
+                <span>Above shoulder</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:63.9%"></span></span>
+                <span class="price-fig">£230</span>
+              </li>
+              <li>
+                <span>Short</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:45.8%"></span></span>
+                <span class="price-fig">£165</span>
+              </li>
+            </ul>
+            <p class="price-note">Upgrade to 4–6 months, with shampoo and conditioner: +£175.</p>
+          </details>
+          <details class="price-more">
+            <summary><span class="more-name">Fillers and K2.0</span><span class="more-count">6 services</span><span class="chev" aria-hidden="true"></span></summary>
+          <div class="price-row price-single">
+            <span class="price-name">Nashi filler express</span>
+            <span class="price-fig">£35</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">Nashi filler 1, 2, 3 intense moisture</span>
+            <span class="price-fig">£50</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">K2.0 short hair</span>
+            <span class="price-fig">£45</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">K2.0 medium length hair</span>
+            <span class="price-fig">£55</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">K2.0 long hair</span>
+            <span class="price-fig">£65</span>
+          </div>
+          <div class="price-row price-single">
+            <span class="price-name">K2.0 extra long hair</span>
+            <span class="price-fig">£80</span>
+          </div>
+          </details>
+        </section>
+        <!-- /yuzu-blend-prices -->
 
+          </div>
+          <div class="price-foot">
+            <p>Long hair or a colour correction? Call <a href="tel:+442088402244">020 8840 2244</a>.</p>
+            <a class="google-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer"><strong>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true">★★★★★</span><span>217 Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
+          </div>
           <p class="round-band-cta">
             <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
           </p>
         </div>
       </main>
 
-      <footer class="round-footer">
+      <footer class="round-footer" data-book-end>
         <div class="wrap">
           <p>© <span data-year>2026</span> YUZU hair</p>
           <p>
@@ -967,11 +1412,78 @@
           </p>
         </div>
       </footer>
-      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      <a class="mobile-book" data-sticky-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
     </div>
     <script>
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
     </script>
     <script src="js/site.js?v=13"></script>
+    <script src="js/visit.js?v=1"></script>
+    <script>
+      (function () {
+        var map = { "#cut": "pm-cut", "#colour": "pm-colour", "#highlights": "pm-high", "#treatments": "pm-treat" };
+        var id = map[location.hash];
+        if (!id) return;
+        var input = document.getElementById(id);
+        if (input) input.checked = true;
+      })();
+    </script>
+    <script>
+      (function () {
+        var board = document.querySelector('.price-board');
+        var desc = document.querySelector('[data-level-desc]');
+        var rows = document.querySelectorAll('[data-levels]');
+        var text = {
+          '': 'Price ranges from Junior Stylist to Creative Director (CD).',
+          creative: 'Creative Director (CD): lead stylist and salon visionary.',
+          senior: 'Senior Stylist: extensive experience, advanced cutting and colour.',
+          stylist: 'Stylist: fully qualified, all cuts and colour.',
+          junior: 'Junior Stylist: newly qualified, under senior guidance.'
+        };
+        function apply(level) {
+          if (level) board.setAttribute('data-level', level); else board.removeAttribute('data-level');
+          rows.forEach(function (row) {
+            var fig = row.querySelector('.price-fig');
+            if (!fig.dataset.all) fig.dataset.all = fig.textContent;
+            var price = level ? JSON.parse(row.dataset.levels)[level] : fig.dataset.all;
+            fig.innerHTML = price || '—<span class="vh"> not offered at this level</span>';
+            row.classList.toggle('is-missing', !price);
+            if (level && row.tagName === 'DETAILS') row.open = false;
+          });
+          if (!level) syncCutOpen();
+          desc.textContent = text[level];
+        }
+        var panelCut = board.querySelector('.panel-cut');
+        function syncCutOpen() {
+          if (!panelCut || board.hasAttribute('data-level')) return;
+          var who = panelCut.getAttribute('data-who') || '';
+          panelCut.querySelectorAll('details.price-row').forEach(function (d) {
+            d.open = Boolean(who && d.getAttribute('data-who') === who);
+          });
+        }
+        board.querySelectorAll('input[name="who"]').forEach(function (r) {
+          r.addEventListener('change', function () {
+            if (r.value) panelCut.setAttribute('data-who', r.value);
+            else panelCut.removeAttribute('data-who');
+            syncCutOpen();
+          });
+        });
+        document.querySelectorAll('input[name="level"]').forEach(function (input) {
+          input.addEventListener('change', function () { apply(input.value); });
+        });
+        var tabs = board.querySelector('.price-tabs');
+        function showTab(radio, behavior) {
+          var label = tabs.querySelector('label[for="' + radio.id + '"]');
+          tabs.scrollTo({ left: label.offsetLeft - tabs.offsetLeft - 18, behavior: behavior });
+        }
+        board.querySelectorAll('.price-radio').forEach(function (radio) {
+          radio.addEventListener('change', function () { showTab(radio, 'smooth'); });
+          if (radio.checked) showTab(radio, 'auto');
+        });
+        board.addEventListener('click', function (e) {
+          if (board.hasAttribute('data-level') && e.target.closest('.price-row[data-levels] > summary')) e.preventDefault();
+        });
+      })();
+    </script>
   </body>
 </html>
