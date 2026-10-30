@@ -634,3 +634,4 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
   .chairs .track { min-width: 48px; }
 }
 .blend a[href^="tel:"] { white-space: nowrap; }
+.blend .extras a.extra-link { display: block; text-decoration: none; color: inherit; }
