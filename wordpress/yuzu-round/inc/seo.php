@@ -89,6 +89,7 @@ function yuzu_round_robots_txt(): string
         'User-agent: *',
         'Disallow: /wp-admin/',
         'Allow: /wp-admin/admin-ajax.php',
+        'Disallow: /review',
         'Disallow: /wp-content/themes/yuzu-round/static/',
         'Allow: /wp-content/themes/yuzu-round/static/assets/',
         'Allow: /wp-content/themes/yuzu-round/static/css/',
