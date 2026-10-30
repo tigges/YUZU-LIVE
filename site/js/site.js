@@ -132,32 +132,39 @@
     })
   })
 
-  const ids = ['top', 'looks', 'services', 'reviews', 'offers', 'team', 'visit']
-  const observed = ids.map((id) => document.getElementById(id)).filter(Boolean)
-  if (observed.length && 'IntersectionObserver' in window) {
-    const links = new Map(
-      [...document.querySelectorAll('.round-nav a[href*="#"]')].map((link) => {
-        const id = new URL(link.href, window.location.href).hash.replace('#', '')
-        return [id, link]
-      }),
-    )
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        const id = visible?.target.id
-        if (!id) return
-        links.forEach((link, key) => {
-          if (key === id) link.setAttribute('aria-current', 'page')
-          else if (link.getAttribute('aria-current') === 'page' && !link.dataset.keepCurrent) {
-            link.removeAttribute('aria-current')
-          }
-        })
-      },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] },
-    )
-    observed.forEach((el) => observer.observe(el))
+  const navLinks = [...document.querySelectorAll('.round-nav a[href*="#"]')]
+    .map((link) => {
+      const id = new URL(link.href, window.location.href).hash.replace('#', '')
+      const target = id ? document.getElementById(id) : null
+      return target ? { id, link, target } : null
+    })
+    .filter(Boolean)
+
+  if (navLinks.length) {
+    const syncNav = () => {
+      const vh = window.innerHeight
+      const atBottom = vh + window.scrollY >= document.documentElement.scrollHeight - 80
+      let activeId = ''
+      for (const item of navLinks) {
+        const threshold = item.id === 'visit' ? vh * 0.65 : vh * 0.38
+        if (item.target.getBoundingClientRect().top <= threshold) {
+          activeId = item.id
+        }
+      }
+      if (atBottom) {
+        activeId = navLinks[navLinks.length - 1].id
+      }
+      for (const item of navLinks) {
+        if (item.id === activeId) {
+          item.link.setAttribute('aria-current', 'page')
+        } else if (item.link.getAttribute('aria-current') === 'page' && !item.link.dataset.keepCurrent) {
+          item.link.removeAttribute('aria-current')
+        }
+      }
+    }
+    window.addEventListener('scroll', syncNav, { passive: true })
+    window.addEventListener('resize', syncNav, { passive: true })
+    syncNav()
   }
 })()
 

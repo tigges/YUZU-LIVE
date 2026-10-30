@@ -121,7 +121,7 @@ if ($attachment !== null) {
 $body .= "\n{$message}\n";
 
 $headers = [
-    'From: Yuzu Hair website <' . $from . '>',
+    'From: YUZU hair website <' . $from . '>',
     'Reply-To: ' . $email,
     'MIME-Version: 1.0',
 ];

@@ -289,18 +289,22 @@ section[id] { scroll-margin-top: 118px; }
 .round-nav {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 4px;
 }
 
-.round-nav a:not(.btn) { font-size: 0.95rem; }
+.round-nav a:not(.btn) {
+  font-size: 0.95rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.round-nav a.btn { margin-left: 6px; }
 
 .round-nav a { text-decoration: none; }
 
 .round-nav a[aria-current="page"] {
   background: var(--book);
   color: #fff;
-  border-radius: 999px;
-  padding: 6px 12px;
 }
 
 .round-hero { padding: 22px 0 8px; }
@@ -939,17 +943,13 @@ body.is-locked { overflow: hidden; }
     gap: 2px;
   }
 
-  .round-header.open .round-nav a {
+  .round-header.open .round-nav a:not(.btn) {
     width: auto;
-    padding: 12px 2px;
-  }
-
-  .round-header.open .round-nav a[aria-current="page"] {
-    padding: 8px 14px;
+    padding: 10px 14px;
   }
 
   .round-header.open .round-nav a.btn {
-    margin-top: 8px;
+    margin: 8px 0 0;
     padding: 0 1.2rem;
   }
 
@@ -1041,7 +1041,10 @@ body.is-locked { overflow: hidden; }
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 8px;
     scrollbar-width: none;
+    padding: 8px;
+    margin: -8px;
   }
   .round-offers:has(a.promo)::-webkit-scrollbar { display: none; }
   .round-offers:has(a.promo) > li {
