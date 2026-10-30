@@ -137,6 +137,11 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.blend .reviews .review-author {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
 
 .blend .promo { border-radius: 22px; }
 
@@ -299,7 +304,8 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
   .blend .services .from { margin: 8px 0 0; font-size: 20px; }
   .blend .services li a { display: block; margin-top: 8px; }
   .blend .services li a + a { margin-left: 0; }
-  .blend .reviews {
+  .blend .reviews,
+  .blend .extras {
     display: flex;
     gap: 12px;
     overflow-x: auto;
@@ -307,9 +313,11 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
-  .blend .reviews::-webkit-scrollbar { display: none; }
+  .blend .reviews::-webkit-scrollbar,
+  .blend .extras::-webkit-scrollbar { display: none; }
   /* position: relative keeps the visually hidden link text inside the row, or the phone page widens. */
-  .blend .reviews li { position: relative; flex: 0 0 82%; min-width: 0; scroll-snap-align: start; }
+  .blend .reviews li,
+  .blend .extras li { position: relative; flex: 0 0 82%; min-width: 0; scroll-snap-align: start; }
   .blend .reviews img { height: 150px; }
   .blend .join { gap: 18px; padding: 24px 18px; }
   body.blend a.blend-book {

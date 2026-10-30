@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Offers Mockup 2 · Pop-up Card Modal + All 6 Illustrated Roll | YUZU hair</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="fonts/fonts.css" />
+    <link rel="stylesheet" href="../css/site.css?v=28" />
+    <link rel="stylesheet" href="promo.css?v=5" />
+    <style>
+      .mock-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px 16px;
+        margin: 0 0 18px;
+        padding: 12px 16px;
+        background: #f6e3b4;
+        color: #4a360b;
+        border-radius: 16px;
+        font-size: 0.88rem;
+      }
+      .mock-switch { display: inline-flex; gap: 6px; }
+      .mock-switch button {
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid #b59445;
+        background: transparent;
+        color: inherit;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .mock-switch button[aria-pressed="true"] {
+        background: #4a360b;
+        border-color: #4a360b;
+        color: #fff;
+      }
+      .promo-roll-6 {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 14px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 8px;
+        scrollbar-width: none;
+        padding: 8px;
+        margin: -8px;
+      }
+      .promo-roll-6::-webkit-scrollbar { display: none; }
+      .promo-roll-6 > li {
+        flex: 0 0 30.5%;
+        width: 30.5%;
+        min-width: 250px;
+        scroll-snap-align: start;
+      }
+      [data-roll-mode="3plus3"] .promo-roll-6 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        overflow: visible;
+        padding: 0;
+        margin: 0;
+      }
+      [data-roll-mode="3plus3"] .promo-roll-6 > li {
+        width: 100%;
+        min-width: 0;
+      }
+      [data-roll-mode="3plus3"] .promo-roll-6 > li.tile-extra { display: none; }
+      [data-roll-mode="6roll"] .extras-3plus3 { display: none !important; }
+      button.promo {
+        --serif: "Cormorant Garamond", Georgia, serif;
+        width: 100%;
+        border: 0;
+        border-radius: 24px;
+        cursor: pointer;
+        padding: 11% 8% 10%;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      button.promo:hover { transform: translateY(-2px); }
+      button.promo.is-selected {
+        outline: 3px solid var(--ink);
+        outline-offset: 4px;
+      }
+      .promo.forest { --ground: #2f3b25; --line-ink: #46543a; }
+      .promo.cream-tile { --ground: #dfd3bf; --ink: #2f3b25; --line-ink: #cbbca4; }
+      .promo.bronze { --ground: #8c5a3c; --line-ink: #a16f50; }
+      .promo.forest .fruit-a, .promo.forest .fruit-b {
+        -webkit-mask-image: url("img/fruit-beige.png");
+        mask-image: url("img/fruit-beige.png");
+      }
+      .promo.forest .fruit-a { width: 93.3%; height: 84.2%; left: -30%; top: -33.3%; }
+      .promo.forest .fruit-b { width: 83.3%; height: 75.2%; left: 43.3%; top: 56.7%; transform: scaleX(-1); }
+      .promo.cream-tile .bloom {
+        -webkit-mask-image: url("img/blossom-beige.png");
+        mask-image: url("img/blossom-beige.png");
+      }
+      .promo.cream-tile .bloom-a { width: 38.3%; height: 53.2%; left: -12.5%; top: -15%; }
+      .promo.cream-tile .bloom-b { width: 41.7%; height: 57.9%; left: 71.7%; top: 63.3%; transform: scaleX(-1) rotate(180deg); }
+      .promo.bronze .fan {
+        -webkit-mask-image: url("img/fan-beige.png");
+        mask-image: url("img/fan-beige.png");
+      }
+      .promo.bronze .fan-a { width: 130%; height: 219.4%; left: -88.3%; top: -74.7%; transform: scaleX(-1); }
+      .promo.bronze .fan-b { width: 130%; height: 219.4%; left: 58.3%; top: -44.7%; }
+      .extra-btn {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        text-align: left;
+        cursor: pointer;
+        color: inherit;
+      }
+      .promo-Hint {
+        margin: 10px 0 0;
+        font-size: 0.86rem;
+        color: var(--muted);
+      }
+      .offer-tray {
+        margin-top: 18px;
+        padding: 24px 28px;
+        background: var(--paper);
+        border: 2px solid var(--book);
+        border-radius: 24px;
+        box-shadow: 0 16px 36px rgb(28 25 22 / 8%);
+      }
+      .offer-tray-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .offer-tray h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin: 4px 0 8px; }
+      .offer-tray p { color: var(--muted); margin: 0 0 10px; max-width: 46rem; }
+      .tray-close {
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid #cfc6ba;
+        background: transparent;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        flex: none;
+      }
+      .offer-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 90;
+        background: rgb(28 25 22 / 62%);
+        backdrop-filter: blur(4px);
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+      .offer-modal-backdrop[hidden] { display: none !important; }
+      .offer-modal-card {
+        width: min(560px, 100%);
+        background: var(--paper);
+        border-radius: 28px;
+        padding: 28px;
+        box-shadow: 0 24px 60px rgb(28 25 22 / 26%);
+      }
+      .offer-modal-card h3 { font-size: clamp(1.5rem, 2.8vw, 2rem); margin: 4px 0 10px; }
+      .offer-modal-card p { color: var(--muted); margin: 0 0 12px; }
+      @media (max-width: 700px) {
+        [data-roll-mode="3plus3"] .promo-roll-6 {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 12px;
+          overflow-x: auto;
+          padding: 8px;
+          margin: -8px;
+        }
+        .promo-roll-6 > li,
+        [data-roll-mode="3plus3"] .promo-roll-6 > li {
+          flex: 0 0 82%;
+          width: 82%;
+          min-width: 0;
+        }
+        .offer-tray { padding: 20px; }
+        .offer-modal-backdrop { align-items: end; padding: 12px; }
+        .offer-modal-card { padding: 22px 20px; border-radius: 24px; }
+      }
+</style>
+  </head>
+  <body>
+    <div class="round" data-roll-mode="6roll">
+      <header class="round-header">
+        <nav class="version-bar" aria-label="Design versions"><a href="/" aria-current="page">Live</a><a href="/versions/logobar.html">Logo bar</a><a href="/versions/blend.html">Blend</a><a href="/versions/lookbook.html">Lookbook</a><a href="/versions/atelier.html">Atelier</a><a href="/versions/bloom.html">Bloom</a><a href="/versions/split.html">Split</a><a href="/versions/pulse.html">Pulse</a><a href="/versions/results.html">Results</a></nav>
+        <div class="wrap round-header-inner">
+          <a class="round-logo" href="../index.html">
+            <img src="../assets/clean/logo.png?v=2" alt="YUZU hair" width="918" height="520" />
+          </a>
+          <nav class="round-nav" aria-label="Primary">
+            <a href="../index.html#looks">Looks</a>
+            <a href="../index.html#services">Services</a>
+            <a href="#offers" aria-current="page">Offers</a>
+            <a href="../index.html#visit">Visit</a>
+            <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book</a>
+          </nav>
+        </div>
+      </header>
+      <main id="main">
+        <section class="round-section round-offers-band" id="offers">
+          <div class="wrap">
+            <div class="mock-bar">
+              <span><strong>Mockup 2 · Single-Click Pop-up Card Modal</strong> · Click/tap any promotion tile below to open its details in-place.</span>
+              <div class="mock-switch" role="group" aria-label="Switch roll layout">
+                <button type="button" data-set-roll="6roll" aria-pressed="true">All 6 illustrated roll</button>
+                <button type="button" data-set-roll="3plus3" aria-pressed="false">3 + 3 layout</button>
+              </div>
+            </div>
+            <div class="section-head">
+              <h2>Exclusive Offers</h2>
+              <p>Swipe through all 6 promotions and tap any tile for details.</p>
+            </div>
+            <p class="today-offer" data-today-offer></p>
+
+            <ul class="round-offers promo-roll-6">
+              <li>
+                <button type="button" class="promo tue" data-promo="tue">
+                  <span class="draw fruit-a" aria-hidden="true"></span>
+                  <span class="draw fruit-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Colour Tuesdays</span>
+                    <span class="promo-sub">with a Creative Director</span></span>
+                    <span class="promo-off">50% Off</span>
+                    <span class="promo-fine">Your most expensive colour<br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="promo wed" data-promo="wed">
+                  <span class="draw bloom bloom-a" aria-hidden="true"></span>
+                  <span class="draw bloom bloom-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Smooth</span>
+                    <span class="promo-title">Wednesdays</span></span>
+                    <span class="promo-off">25% Off</span>
+                    <span class="promo-fine">Our three to six month<br />smoothing treatment</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="promo thu" data-promo="thu">
+                  <span class="draw fan fan-a" aria-hidden="true"></span>
+                  <span class="draw fan fan-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Colour Thursdays</span>
+                    <span class="promo-sub">with a Senior Stylist and Stylist</span></span>
+                    <span class="promo-off">50% Off</span>
+                    <span class="promo-fine">Your most expensive colour<br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
+                  </span>
+                </button>
+              </li>
+              <li class="tile-extra">
+                <button type="button" class="promo forest" data-promo="refer">
+                  <span class="draw fruit-a" aria-hidden="true"></span>
+                  <span class="draw fruit-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Spread the Word</span>
+                    <span class="promo-sub">Refer a friend</span></span>
+                    <span class="promo-off">£10</span>
+                    <span class="promo-fine">Credit for every new client<br />you recommend to YUZU hair</span>
+                  </span>
+                </button>
+              </li>
+              <li class="tile-extra">
+                <button type="button" class="promo cream-tile" data-promo="rebook">
+                  <span class="draw bloom bloom-a" aria-hidden="true"></span>
+                  <span class="draw bloom bloom-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Rebook</span>
+                    <span class="promo-sub">the same day</span></span>
+                    <span class="promo-off">10% Off</span>
+                    <span class="promo-fine">Book your next appointment<br />in the salon before you leave</span>
+                  </span>
+                </button>
+              </li>
+              <li class="tile-extra">
+                <button type="button" class="promo bronze" data-promo="blowdry">
+                  <span class="draw fan fan-a" aria-hidden="true"></span>
+                  <span class="draw fan fan-b" aria-hidden="true"></span>
+                  <span class="promo-copy">
+                    <span class="promo-lead"><span class="promo-title">Blow-dry</span>
+                    <span class="promo-sub">package of four</span></span>
+                    <span class="promo-off">£156</span>
+                    <span class="promo-fine">Four blow-drys · valid<br />for six months</span>
+                  </span>
+                </button>
+              </li>
+            </ul>
+            <ul class="round-extras extras-3plus3">
+              <li>
+                <button type="button" class="extra-btn" data-promo="refer">
+                  <strong>Refer a friend · £10 credit</strong>
+                  <span>When they complete their first appointment, you receive £10 credit. Tap for details →</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="extra-btn" data-promo="rebook">
+                  <strong>Rebook the same day · 10% off</strong>
+                  <span>Book your next visit before you leave and take 10% off that appointment. Tap for details →</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="extra-btn" data-promo="blowdry">
+                  <strong>4 blow-drys · £156</strong>
+                  <span>Valid 6 months. Haircuts not included. Non-refundable. Tap for details →</span>
+                </button>
+              </li>
+            </ul>
+
+            <p class="promo-Hint">← Swipe horizontally to see all 6 illustrated tiles · Tap any tile to view details</p>
+
+            <div class="offer-modal-backdrop" data-offer-detail>
+              <div class="offer-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                <div class="offer-tray-head">
+                  <div>
+                    <p class="kicker" data-detail-kicker>Every Tuesday · Creative Director</p>
+                    <h3 id="modal-headline" data-detail-headline>Don’t go back to black with this deal</h3>
+                  </div>
+                  <button type="button" class="tray-close" data-detail-close>Close ×</button>
+                </div>
+                <p data-detail-text>Say goodbye to dull hair with our vibrant colour celebration. Every Tuesday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with our Creative Director.</p>
+                <p class="offer-terms" data-detail-terms>50% off most expensive colour service · requires full-priced wash, cut &amp; blow-dry · patch test 48h prior</p>
+                <div class="offer-ctas">
+                  <a class="btn btn-book" data-detail-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book Tuesday colour</a>
+                  <a class="btn btn-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../js/visit.js?v=2"></script>
+    <script>
+      (function () {
+
+      var PROMOS = {
+        tue: {
+          kicker: 'Every Tuesday · Creative Director',
+          title: 'Colour Tuesdays — 50% Off',
+          headline: 'Don’t go back to black with this deal',
+          text: 'Say goodbye to dull hair with our vibrant colour celebration. Every Tuesday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with our Creative Director.',
+          terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
+          bookLabel: 'Book Tuesday colour',
+          bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty'
+        },
+        wed: {
+          kicker: 'Every Wednesday · Aura Smoothing',
+          title: 'Smooth Wednesdays — 25% Off',
+          headline: 'Blow everyone away with this deal',
+          text: 'Every Wednesday at YUZU hair, enjoy 25% off our Brazilian blow-dry and Aura smoothing treatments—our formaldehyde- and ammonia-free smoothing and straightening treatment lasting 3 to 6 months.',
+          terms: '25% off 3–6 month smoothing treatment · formaldehyde & ammonia free',
+          bookLabel: 'Book Wednesday smoothing',
+          bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty'
+        },
+        thu: {
+          kicker: 'Every Thursday · Senior Stylist & Stylist',
+          title: 'Colour Thursdays — 50% Off',
+          headline: 'Thursdays are the new Tuesdays',
+          text: 'Every Thursday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with a Senior Stylist or Stylist.',
+          terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
+          bookLabel: 'Book Thursday colour',
+          bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty'
+        },
+        refer: {
+          kicker: 'Ongoing reward · Unlimited referrals',
+          title: 'Refer a friend — £10 Credit',
+          headline: 'Spread the word, earn £10 credit',
+          text: 'Share YUZU hair with friends, family, or colleagues. When your recommended friend books and completes their first appointment with us, you receive £10 credit towards your next visit—with no limit on how many friends you refer.',
+          terms: '£10 credit per new client referred · unlimited referrals · redeemable on any service',
+          bookLabel: 'Book an appointment',
+          bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty'
+        },
+        rebook: {
+          kicker: 'In-salon loyalty reward',
+          title: 'Rebook the same day — 10% Off',
+          headline: 'Hair today, gone tomorrow (but not really)',
+          text: 'At YUZU hair, we value loyalty. Book your next appointment at reception on the same day as your visit and receive 10% off that next appointment as a token of our gratitude.',
+          terms: '10% off your next appointment when booked in-salon on the day of your visit',
+          bookLabel: 'Book your visit',
+          bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty'
+        },
+        blowdry: {
+          kicker: 'Package · Save on regular styling',
+          title: '4 Blow-drys Package — £156',
+          headline: '4 blow-drys for £156',
+          text: 'Keep your hair styled for less with our 4-visit blow-dry bundle. Ask at reception on your next visit or call us to purchase.',
+          terms: 'Valid 6 months · haircuts not included · not applicable for extensions · no-show deducts 1 blow-dry · non-refundable',
+          bookLabel: 'View in price list',
+          bookHref: '../prices.html#cut'
+        }
+      };
+
+        var root = document.querySelector('.round');
+        var detail = document.querySelector('[data-offer-detail]');
+        var kicker = document.querySelector('[data-detail-kicker]');
+        var headline = document.querySelector('[data-detail-headline]');
+        var text = document.querySelector('[data-detail-text]');
+        var terms = document.querySelector('[data-detail-terms]');
+        var book = document.querySelector('[data-detail-book]');
+        var activeKey = 'tue';
+
+        function selectPromo(key) {
+          var p = PROMOS[key];
+          if (!p) return;
+          activeKey = key;
+          kicker.textContent = p.kicker;
+          headline.textContent = p.headline;
+          text.textContent = p.text;
+          terms.textContent = p.terms;
+          book.textContent = p.bookLabel;
+          book.setAttribute('href', p.bookHref);
+          detail.hidden = false;
+          document.querySelectorAll('[data-promo]').forEach(function (btn) {
+            btn.classList.toggle('is-selected', btn.getAttribute('data-promo') === key);
+          });
+        }
+
+        document.querySelectorAll('[data-promo]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var k = btn.getAttribute('data-promo');
+            if (!detail.hidden && activeKey === k) {
+              detail.hidden = true;
+              btn.classList.remove('is-selected');
+            } else {
+              selectPromo(k);
+            }
+          });
+        });
+
+        document.querySelector('[data-detail-close]').addEventListener('click', function () {
+          detail.hidden = true;
+          document.querySelectorAll('[data-promo]').forEach(function (btn) {
+            btn.classList.remove('is-selected');
+          });
+        });
+
+        detail.addEventListener('click', function (e) {
+          if (e.target === detail && detail.classList.contains('offer-modal-backdrop')) {
+            detail.hidden = true;
+          }
+        });
+
+        document.querySelectorAll('[data-set-roll]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var mode = btn.getAttribute('data-set-roll');
+            root.setAttribute('data-roll-mode', mode);
+            document.querySelectorAll('[data-set-roll]').forEach(function (b) {
+              b.setAttribute('aria-pressed', String(b === btn));
+            });
+          });
+        });
+
+        selectPromo('tue');
+      })();
+    </script>
+  </body>
+</html>
