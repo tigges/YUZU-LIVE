@@ -391,13 +391,14 @@ function yuzu_round_prices_blend_scale(array $rows, array $keys): float
     return $max;
 }
 
-function yuzu_round_prices_blend_more(string $title, string $rows): string
+function yuzu_round_prices_blend_more(string $title, string $rows, bool $open = false): string
 {
     if ($rows === '') {
         return '';
     }
+    $open_attr = $open ? ' open' : '';
     $count = preg_match_all('/class="price-row/', $rows);
-    return "          <details class=\"price-more\">\n"
+    return "          <details class=\"price-more\"{$open_attr}>\n"
         . '            <summary><span class="more-name">' . yuzu_round_prices_esc($title) . '</span><span class="more-count">' . $count . ' ' . ($count === 1 ? 'service' : 'services') . "</span><span class=\"chev\" aria-hidden=\"true\"></span></summary>\n"
         . $rows
         . "          </details>\n";
@@ -484,8 +485,9 @@ function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '.
         $main = '';
         $extra = '';
         foreach ($rows as $index => $row) {
-            $html = yuzu_round_prices_blend_table_row($row, $columns, $scale);
-            if ($is_extra((string) $row['name'], $index)) {
+            $extra_row = $is_extra((string) $row['name'], $index);
+            $html = yuzu_round_prices_blend_table_row($row, $columns, $scale, !$extra_row);
+            if ($extra_row) {
                 $extra .= $html;
             } else {
                 $main .= $html;
@@ -543,13 +545,13 @@ function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '.
     $body = '';
     if ($aura !== []) {
         $scale = max(array_map(static fn ($p) => yuzu_round_prices_number($p[1]) ?? 0, $aura));
-        $body .= yuzu_round_prices_blend_row('Aura smoothing, by length', $aura, [], $scale, '', $note);
+        $body .= yuzu_round_prices_blend_row('Aura smoothing, by length', $aura, [], $scale, '', $note, true);
     }
     $rows = '';
     foreach ($others as $row) {
         $rows .= yuzu_round_prices_blend_row((string) $row['name'], [['', (string) $row['price']]], [], 0);
     }
-    $body .= yuzu_round_prices_blend_more('Fillers and K2.0', $rows);
+    $body .= yuzu_round_prices_blend_more('Fillers and K2.0', $rows, true);
     $out .= $panel('panel-treat', $body);
 
     return rtrim($out);
