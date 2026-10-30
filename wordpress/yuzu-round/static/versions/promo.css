@@ -197,3 +197,120 @@ body.page-poster {
   }
   .poster-stage { padding: 20px 16px; }
 }
+
+.promo.forest { --ground: #2f3b25; --line-ink: #46543a; }
+.promo.cream-tile { --ground: #dfd3bf; --ink: #2f3b25; --line-ink: #cbbca4; }
+.promo.bronze { --ground: #8c5a3c; --line-ink: #a16f50; }
+.promo.forest .fruit-a,
+.promo.forest .fruit-b {
+  -webkit-mask-image: url("img/fruit-beige.png");
+  mask-image: url("img/fruit-beige.png");
+}
+.promo.forest .fruit-a { width: 93.3%; height: 84.2%; left: -30%; top: -33.3%; }
+.promo.forest .fruit-b { width: 83.3%; height: 75.2%; left: 43.3%; top: 56.7%; transform: scaleX(-1); }
+.promo.cream-tile .bloom {
+  -webkit-mask-image: url("img/blossom-beige.png");
+  mask-image: url("img/blossom-beige.png");
+}
+.promo.cream-tile .bloom-a { width: 38.3%; height: 53.2%; left: -12.5%; top: -15%; }
+.promo.cream-tile .bloom-b { width: 41.7%; height: 57.9%; left: 71.7%; top: 63.3%; transform: scaleX(-1) rotate(180deg); }
+.promo.bronze .fan {
+  -webkit-mask-image: url("img/fan-beige.png");
+  mask-image: url("img/fan-beige.png");
+}
+.promo.bronze .fan-a { width: 130%; height: 219.4%; left: -88.3%; top: -74.7%; transform: scaleX(-1); }
+.promo.bronze .fan-b { width: 130%; height: 219.4%; left: 58.3%; top: -44.7%; }
+
+button.promo {
+  --serif: "Cormorant Garamond", Georgia, serif;
+  width: 100%;
+  border: 0;
+  border-radius: 24px;
+  cursor: pointer;
+  padding: 11% 8% 10%;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+button.promo:hover { transform: translateY(-2px); }
+button.promo.is-selected {
+  outline: 3px solid #2f3a27;
+  outline-offset: 4px;
+}
+
+.promo-roll-6 {
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 8px;
+  scrollbar-width: none;
+  padding: 8px;
+  margin: -8px;
+}
+.promo-roll-6::-webkit-scrollbar { display: none; }
+.promo-roll-6 > li {
+  flex: 0 0 30.5%;
+  width: 30.5%;
+  min-width: 240px;
+  scroll-snap-align: start;
+}
+
+.offer-tray {
+  margin-top: 18px;
+  padding: 24px 28px;
+  background: color-mix(in srgb, #fff 68%, var(--paper, #efe4d4));
+  border: 2px solid #2f3a27;
+  border-radius: 24px;
+  box-shadow: 0 16px 36px rgb(28 25 22 / 8%);
+}
+.offer-tray-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.offer-tray h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(26px, 2.8vw, 36px);
+  line-height: 1.05;
+  margin: 4px 0 8px;
+}
+.offer-tray p { margin: 0 0 10px; line-height: 1.45; max-width: 46rem; }
+.offer-tray .offer-terms {
+  display: inline-block;
+  margin: 2px 0 14px;
+  padding: 6px 12px;
+  background: rgb(47 58 39 / 0.08);
+  border-radius: 10px;
+  font-size: 14px;
+}
+.offer-tray .offer-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 12px;
+}
+.tray-close {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgb(47 58 39 / 0.3);
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: none;
+}
+
+@media (max-width: 700px) {
+  .promo-roll-6 > li {
+    flex: 0 0 82%;
+    width: 82%;
+    min-width: 0;
+  }
+  .offer-tray { padding: 20px; }
+}
