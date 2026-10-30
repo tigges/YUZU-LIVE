@@ -35,3 +35,10 @@ a.logo-home {
   text-transform: none;
 }
 a.logo-home img { display: block; }
+
+body:has(.version-bar) .fx-bar,
+body:has(.version-bar) .bar,
+body:has(.version-bar) .lb-top,
+body:has(.version-bar) .rs-bar {
+  top: 22px;
+}
