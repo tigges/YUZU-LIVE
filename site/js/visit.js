@@ -185,14 +185,35 @@
       })
     }
 
+    const hashByPromo = {
+      tue: '#tuesdays',
+      wed: '#wednesdays',
+      thu: '#thursdays',
+      refer: '#refer',
+      rebook: '#rebook',
+      blowdry: '#blowdry',
+    }
+    const promoByHash = Object.fromEntries(Object.entries(hashByPromo).map(([k, v]) => [v, k]))
+
     buttons.forEach((b) => {
       b.setAttribute('aria-expanded', 'false')
       b.addEventListener('click', () => {
         const k = b.getAttribute('data-promo')
-        if (!detail.hidden && activePromo === k) closeTray()
-        else openTray(k)
+        if (!detail.hidden && activePromo === k) {
+          closeTray()
+        } else {
+          openTray(k)
+          if (hashByPromo[k] && history.replaceState) {
+            history.replaceState(null, '', hashByPromo[k])
+          }
+        }
       })
     })
+
+    if (promoByHash[location.hash]) {
+      openTray(promoByHash[location.hash])
+      document.getElementById('offers')?.scrollIntoView()
+    }
 
     window.addEventListener('resize', placeTray, { passive: true })
     detail.querySelector('[data-detail-close]')?.addEventListener('click', closeTray)
