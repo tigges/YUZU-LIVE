@@ -28,7 +28,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/site.css?v=31" />
+    <link rel="stylesheet" href="../css/site.css?v=32" />
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -835,6 +835,7 @@
     <div class="round">
       <a class="skip" href="#main">Skip to content</a>
       <header class="round-header">
+        <nav class="version-bar" aria-label="Design versions"><a href="/versions/">Gallery</a><a href="/">Live</a><a href="/versions/blend.html" aria-current="page">Blend</a><a href="/versions/logobar.html">Logo bar</a><a href="/versions/lookbook.html">Lookbook</a><a href="/versions/atelier.html">Atelier</a><a href="/versions/bloom.html">Bloom</a><a href="/versions/split.html">Split</a></nav>
         <div class="wrap round-header-inner">
           <a class="round-logo" href="blend.html">
             <img src="../assets/clean/logo.png?v=2" alt="YUZU hair" width="918" height="520" />
@@ -1410,13 +1411,16 @@
           </p>
         </div>
       </footer>
-      <a class="mobile-book" data-sticky-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      <div class="mobile-sticky" data-sticky-book>
+        <a class="mobile-call" href="tel:+442088402244">Call</a>
+        <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      </div>
     </div>
     <script>
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
     </script>
     <script src="../js/site.js?v=14"></script>
-    <script src="../js/visit.js?v=3"></script>
+    <script src="../js/visit.js?v=4"></script>
     <script>
       (function () {
         var map = { "#cut": "pm-cut", "#colour": "pm-colour", "#highlights": "pm-high", "#treatments": "pm-treat" };
