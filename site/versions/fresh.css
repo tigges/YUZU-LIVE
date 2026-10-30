@@ -34,21 +34,21 @@ body.fx h1, body.fx h2, body.fx h3, body.fx p { margin: 0; }
 
 .fx-bar {
   position: sticky;
-  top: 22px;
+  top: 0;
   z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
-  padding: 0 28px 0 32px;
+  height: 78px;
+  padding: 0 24px 0 28px;
   background: var(--beige);
   border-bottom: 1px solid var(--line);
 }
 .fx-bar .logo-home { align-self: center; }
 .fx-bar .logo-home img {
-  width: 132px;
-  height: auto;
-  transform: translateY(-5%);
+  width: auto;
+  height: 76px;
+  transform: translateY(2px);
 }
 .fx-bar nav {
   display: flex;
