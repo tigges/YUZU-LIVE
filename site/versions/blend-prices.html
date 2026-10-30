@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="brand.css?v=2" />
   <link rel="stylesheet" href="fresh.css?v=6" />
-  <link rel="stylesheet" href="blend.css?v=11" />
+  <link rel="stylesheet" href="blend.css?v=12" />
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="versions-bar.css?v=5" />
 </head>
@@ -57,8 +57,14 @@
       </div>
 
         <!-- yuzu-blend-prices -->
-        <section class="price-panel panel-cut">
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£90&quot;,&quot;senior&quot;:&quot;£75&quot;,&quot;stylist&quot;:&quot;£60&quot;,&quot;junior&quot;:&quot;Up to £30&quot;}'>
+        <section class="price-panel panel-cut" data-who="ladies">
+          <div class="cut-filter" role="group" aria-label="Filter Cut &amp; style by client">
+            <label><input type="radio" name="who" value="" /><span>All</span></label>
+            <label><input type="radio" name="who" value="ladies" checked /><span>Ladies</span></label>
+            <label><input type="radio" name="who" value="gents" /><span>Gents</span></label>
+            <label><input type="radio" name="who" value="children" /><span>Children &amp; teens</span></label>
+          </div>
+          <details class="price-row" data-who="ladies" open data-levels='{&quot;creative&quot;:&quot;£90&quot;,&quot;senior&quot;:&quot;£75&quot;,&quot;stylist&quot;:&quot;£60&quot;,&quot;junior&quot;:&quot;Up to £30&quot;}'>
             <summary>
               <span class="price-name">Ladies wash, cut &amp; style</span>
               <span class="price-fig">£30–£90</span>
@@ -87,11 +93,72 @@
               </li>
             </ul>
           </details>
-          <div class="price-row price-single" data-levels='{&quot;creative&quot;:&quot;£60&quot;}'>
+          <div class="price-row price-single" data-who="gents" data-levels='{&quot;creative&quot;:&quot;£60&quot;}'>
             <span class="price-name">Gents wash, cut &amp; style<small>Creative Director only</small></span>
             <span class="price-fig">£60</span>
           </div>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£60&quot;,&quot;senior&quot;:&quot;£52&quot;,&quot;stylist&quot;:&quot;£45&quot;,&quot;junior&quot;:&quot;£35&quot;}'>
+          <details class="price-row" data-who="children" data-levels='{&quot;senior&quot;:&quot;£30&quot;,&quot;stylist&quot;:&quot;£25&quot;,&quot;junior&quot;:&quot;£15&quot;}'>
+            <summary>
+              <span class="price-name">Girls, 12 and under</span>
+              <span class="price-fig">£15–£30</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:33.3%"></span></span>
+                <span class="price-fig">£30</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:27.8%"></span></span>
+                <span class="price-fig">£25</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:16.7%"></span></span>
+                <span class="price-fig">£15</span>
+              </li>
+            </ul>
+          </details>
+          <div class="price-row price-single" data-who="children" data-levels='{&quot;creative&quot;:&quot;£35&quot;}'>
+            <span class="price-name">Boys, 12 and under<small>Creative Director only</small></span>
+            <span class="price-fig">£35</span>
+          </div>
+          <details class="price-row" data-who="children" data-levels='{&quot;creative&quot;:&quot;£55&quot;,&quot;senior&quot;:&quot;£50&quot;,&quot;stylist&quot;:&quot;£40&quot;,&quot;junior&quot;:&quot;£20&quot;}'>
+            <summary>
+              <span class="price-name">Teen girls, 13–16</span>
+              <span class="price-fig">£20–£55</span>
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <ul class="chairs">
+              <li>
+                <span>Creative Director</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:61.1%"></span></span>
+                <span class="price-fig">£55</span>
+              </li>
+              <li>
+                <span>Senior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:55.6%"></span></span>
+                <span class="price-fig">£50</span>
+              </li>
+              <li>
+                <span>Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:44.4%"></span></span>
+                <span class="price-fig">£40</span>
+              </li>
+              <li>
+                <span>Junior Stylist</span>
+                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:22.2%"></span></span>
+                <span class="price-fig">£20</span>
+              </li>
+            </ul>
+          </details>
+          <div class="price-row price-single" data-who="children" data-levels='{&quot;creative&quot;:&quot;£45&quot;}'>
+            <span class="price-name">Teen boys, 13–16<small>Creative Director only</small></span>
+            <span class="price-fig">£45</span>
+          </div>
+          <details class="price-row" data-who="ladies" open data-levels='{&quot;creative&quot;:&quot;£60&quot;,&quot;senior&quot;:&quot;£52&quot;,&quot;stylist&quot;:&quot;£45&quot;,&quot;junior&quot;:&quot;£35&quot;}'>
             <summary>
               <span class="price-name">Blow-dry</span>
               <span class="price-fig">£35–£60</span>
@@ -120,71 +187,7 @@
               </li>
             </ul>
           </details>
-          <details class="price-more">
-            <summary><span class="more-name">Children and teens</span><span class="more-count">4 services</span><span class="chev" aria-hidden="true"></span></summary>
-          <div class="price-row price-single" data-levels='{&quot;creative&quot;:&quot;£35&quot;}'>
-            <span class="price-name">Kids (12 &amp; under)<small>Creative Director only</small></span>
-            <span class="price-fig">£35</span>
-          </div>
-          <details class="price-row" data-levels='{&quot;senior&quot;:&quot;£30&quot;,&quot;stylist&quot;:&quot;£25&quot;,&quot;junior&quot;:&quot;£15&quot;}'>
-            <summary>
-              <span class="price-name">Kids, girls (12 &amp; under)</span>
-              <span class="price-fig">£15–£30</span>
-              <span class="chev" aria-hidden="true"></span>
-            </summary>
-            <ul class="chairs">
-              <li>
-                <span>Senior Stylist</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:33.3%"></span></span>
-                <span class="price-fig">£30</span>
-              </li>
-              <li>
-                <span>Stylist</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:27.8%"></span></span>
-                <span class="price-fig">£25</span>
-              </li>
-              <li>
-                <span>Junior Stylist</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:16.7%"></span></span>
-                <span class="price-fig">£15</span>
-              </li>
-            </ul>
-          </details>
-          <div class="price-row price-single" data-levels='{&quot;creative&quot;:&quot;£45&quot;}'>
-            <span class="price-name">Teens (13–16) boys<small>Creative Director only</small></span>
-            <span class="price-fig">£45</span>
-          </div>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£55&quot;,&quot;senior&quot;:&quot;£50&quot;,&quot;stylist&quot;:&quot;£40&quot;,&quot;junior&quot;:&quot;£20&quot;}'>
-            <summary>
-              <span class="price-name">Teens (13–16) girls</span>
-              <span class="price-fig">£20–£55</span>
-              <span class="chev" aria-hidden="true"></span>
-            </summary>
-            <ul class="chairs">
-              <li>
-                <span>Creative Director</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:61.1%"></span></span>
-                <span class="price-fig">£55</span>
-              </li>
-              <li>
-                <span>Senior Stylist</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:55.6%"></span></span>
-                <span class="price-fig">£50</span>
-              </li>
-              <li>
-                <span>Stylist</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:44.4%"></span></span>
-                <span class="price-fig">£40</span>
-              </li>
-              <li>
-                <span>Junior Stylist</span>
-                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:22.2%"></span></span>
-                <span class="price-fig">£20</span>
-              </li>
-            </ul>
-          </details>
-          </details>
-          <div class="packages">
+          <div class="packages" data-who="ladies">
             <h3>Packages</h3>
             <ul>
               <li><span>4 blow-drys</span><strong>£156</strong></li>
@@ -642,8 +645,24 @@
           row.classList.toggle('is-missing', !price);
           if (level && row.tagName === 'DETAILS') row.open = false;
         });
+        if (!level) syncCutOpen();
         desc.textContent = text[level];
       }
+      var panelCut = board.querySelector('.panel-cut');
+      function syncCutOpen() {
+        if (!panelCut || board.hasAttribute('data-level')) return;
+        var who = panelCut.getAttribute('data-who') || '';
+        panelCut.querySelectorAll('details.price-row').forEach(function (d) {
+          d.open = Boolean(who && d.getAttribute('data-who') === who);
+        });
+      }
+      board.querySelectorAll('input[name="who"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          if (r.value) panelCut.setAttribute('data-who', r.value);
+          else panelCut.removeAttribute('data-who');
+          syncCutOpen();
+        });
+      });
       document.querySelectorAll('input[name="level"]').forEach(function (input) {
         input.addEventListener('change', function () { apply(input.value); });
       });
