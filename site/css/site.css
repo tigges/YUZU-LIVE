@@ -1042,6 +1042,7 @@ body.is-locked { overflow: hidden; }
 @media (max-width: 700px) {
   .round:has([data-book-end]) { padding-bottom: 0; }
   .round-gallery,
+  .round-services,
   .round-reviews {
     display: flex;
     flex-wrap: nowrap;
@@ -1052,13 +1053,16 @@ body.is-locked { overflow: hidden; }
     scrollbar-width: none;
   }
   .round-gallery::-webkit-scrollbar,
+  .round-services::-webkit-scrollbar,
   .round-reviews::-webkit-scrollbar { display: none; }
   /* position: relative keeps the visually hidden link text inside the row, or the phone page widens. */
   .round-gallery > li,
+  .round-services > li,
   .round-reviews > li {
     position: relative;
     flex: 0 0 80%;
     width: 80%;
+    height: auto;
     min-width: 0;
     scroll-snap-align: start;
   }
