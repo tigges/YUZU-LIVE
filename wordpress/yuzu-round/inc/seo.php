@@ -100,6 +100,36 @@ function yuzu_round_robots_txt(): string
     ]);
 }
 
+function yuzu_round_rewrite_version_urls(string $html, string $static_base): string
+{
+    $static_base = rtrim($static_base, '/') . '/';
+    $pages = function_exists('yuzu_round_public_paths') ? yuzu_round_public_paths() : [];
+    $map = [
+        '../assets/' => $static_base . 'assets/',
+        '../css/' => $static_base . 'css/',
+        '../js/' => $static_base . 'js/',
+        '../versions/' => $static_base . 'versions/',
+        '../favicon.svg' => $static_base . 'favicon.svg',
+    ];
+    $html = strtr($html, $map);
+    if ($pages !== []) {
+        $rewritten = preg_replace_callback(
+            '/\s(href|src|action)="\.\.\/([^"#?]+)((?:[?][^"#]*)?(?:#[^"]*)?)"/',
+            static function (array $m) use ($pages): string {
+                if (isset($pages[$m[2]])) {
+                    return ' ' . $m[1] . '="' . $pages[$m[2]] . $m[3] . '"';
+                }
+                return $m[0];
+            },
+            $html
+        );
+        if (is_string($rewritten)) {
+            $html = $rewritten;
+        }
+    }
+    return $html;
+}
+
 function yuzu_round_serve_version_request(): void
 {
     $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
@@ -152,7 +182,7 @@ function yuzu_round_serve_version_request(): void
     header('Cache-Control: no-cache');
     if ($ext === 'html' && function_exists('get_template_directory_uri')) {
         $html = file_get_contents($real);
-        $assets = trailingslashit(get_template_directory_uri() . '/static/assets');
+        $static_base = trailingslashit(get_template_directory_uri() . '/static');
         if (is_string($html) && function_exists('yuzu_round_prices_apply_version')) {
             try {
                 $html = yuzu_round_prices_apply_version($html, $rel);
@@ -161,7 +191,7 @@ function yuzu_round_serve_version_request(): void
             }
         }
         if (is_string($html)) {
-            echo str_replace('../assets/', $assets, $html);
+            echo yuzu_round_rewrite_version_urls($html, $static_base);
             exit;
         }
     }
