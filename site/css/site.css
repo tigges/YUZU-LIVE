@@ -511,6 +511,12 @@ section[id] { scroll-margin-top: 118px; }
   letter-spacing: 0.12em;
   margin: 0 0 8px;
 }
+.round-reviews .review-author {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+}
 
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 701px) {
@@ -1116,7 +1122,8 @@ body.is-locked { overflow: hidden; }
   .round-services .price-from { margin: 8px 0 6px; font-size: 0.95rem; }
   .round-services .service-links { flex-direction: column; gap: 4px; }
   .round-gallery,
-  .round-reviews {
+  .round-reviews,
+  .round-extras {
     display: flex;
     flex-wrap: nowrap;
     gap: 12px;
@@ -1126,10 +1133,12 @@ body.is-locked { overflow: hidden; }
     scrollbar-width: none;
   }
   .round-gallery::-webkit-scrollbar,
-  .round-reviews::-webkit-scrollbar { display: none; }
+  .round-reviews::-webkit-scrollbar,
+  .round-extras::-webkit-scrollbar { display: none; }
   /* position: relative keeps the visually hidden link text inside the row, or the phone page widens. */
   .round-gallery > li,
-  .round-reviews > li {
+  .round-reviews > li,
+  .round-extras > li {
     position: relative;
     flex: 0 0 80%;
     width: 80%;
