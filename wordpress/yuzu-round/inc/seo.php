@@ -137,6 +137,15 @@ function yuzu_round_serve_version_request(): void
     if (!is_string($path) || preg_match('#^/versions(?:/(.*))?$#', $path, $match) !== 1) {
         return;
     }
+    if ($path === '/versions') {
+        $qs = isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] !== '' ? '?' . $_SERVER['QUERY_STRING'] : '';
+        if (function_exists('wp_redirect')) {
+            wp_redirect(home_url('/versions/' . $qs), 301);
+        } else {
+            header('Location: /versions/' . $qs, true, 301);
+        }
+        exit;
+    }
     $rel = rawurldecode($match[1] ?? '');
     $rel = str_replace('\\', '/', $rel);
     if ($rel === '' || str_ends_with($rel, '/')) {
