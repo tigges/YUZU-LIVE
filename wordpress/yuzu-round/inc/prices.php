@@ -463,11 +463,11 @@ function yuzu_round_prices_blend_cut_rows(array $rows): array
  * T-section under extras, Aura rows become one row by length, and packages
  * sit with roots (Colour) or otherwise Cut & style.
  */
-function yuzu_round_prices_blend_board_html(array $data): string
+function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '../patch.html'): string
 {
     $catalog = yuzu_round_prices_catalog();
     $groups = $data['groups'];
-    $patch = "          <p class=\"panel-note\">Colour needs a patch test at least 48 hours before. <a href=\"../patch.html\">About patch testing</a></p>\n";
+    $patch = '          <p class="panel-note">Colour needs a patch test at least 48 hours before. <a href="' . yuzu_round_prices_esc($patch_href) . "\">About patch testing</a></p>\n";
 
     $packages = ['cut' => [], 'colour' => []];
     foreach ($groups['packages'] ?? [] as $row) {
@@ -555,9 +555,9 @@ function yuzu_round_prices_blend_board_html(array $data): string
     return rtrim($out);
 }
 
-function yuzu_round_prices_replace_blend_board(string $html, array $data): string
+function yuzu_round_prices_replace_blend_board(string $html, array $data, string $patch_href = '../patch.html'): string
 {
-    $block = "<!-- yuzu-blend-prices -->\n" . yuzu_round_prices_blend_board_html($data) . "\n        <!-- /yuzu-blend-prices -->";
+    $block = "<!-- yuzu-blend-prices -->\n" . yuzu_round_prices_blend_board_html($data, $patch_href) . "\n        <!-- /yuzu-blend-prices -->";
     return yuzu_round_prices_replace(
         $html,
         '/<!-- yuzu-blend-prices -->.*?<!-- \/yuzu-blend-prices -->/s',
@@ -731,6 +731,7 @@ function yuzu_round_prices_apply_data(string $html, string $file, array $data): 
     }
     $file = basename($file);
     if ($file === 'prices.html') {
+        $html = yuzu_round_prices_replace_blend_board($html, $clean, 'patch.html');
         $html = yuzu_round_prices_replace_groups($html, $clean);
         $html = yuzu_round_prices_replace_schema($html, $clean);
     }
