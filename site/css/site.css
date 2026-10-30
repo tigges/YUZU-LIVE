@@ -1041,6 +1041,12 @@ body.is-locked { overflow: hidden; }
 
 @media (max-width: 700px) {
   .round:has([data-book-end]) { padding-bottom: 0; }
+  .round-services { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .round-services > li { padding: 16px 14px; border-radius: 20px; }
+  .round-services h3 { font-size: 1.25rem; line-height: 1.1; margin-bottom: 4px; }
+  .round-services p[data-yuzu-blurb] { display: none; }
+  .round-services .price-from { margin: 8px 0 6px; font-size: 0.95rem; }
+  .round-services .service-links { flex-direction: column; gap: 4px; }
   .round-gallery,
   .round-reviews {
     display: flex;
