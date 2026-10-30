@@ -158,6 +158,8 @@
 }
 
 .blend .promo { border-radius: 22px; }
+.blend #offers > * { max-width: 1120px; margin-inline: auto; }
+.blend #offers .today-offer { margin: 0 auto 16px; }
 
 .blend .join {
   display: grid;

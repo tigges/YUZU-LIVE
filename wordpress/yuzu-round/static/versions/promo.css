@@ -224,11 +224,15 @@ body.page-poster {
 button.promo {
   --serif: "Cormorant Garamond", Georgia, serif;
   width: 100%;
+  aspect-ratio: 4 / 3;
   border: 0;
   border-radius: 24px;
   cursor: pointer;
-  padding: 11% 8% 10%;
+  padding: 7% 7% 6%;
   transition: transform 0.18s ease, opacity 0.18s ease;
+}
+button.promo .promo-copy {
+  padding-block: 4%;
 }
 button.promo:hover { transform: translateY(-2px); }
 button.promo:focus:not(:focus-visible) { outline: none; }
