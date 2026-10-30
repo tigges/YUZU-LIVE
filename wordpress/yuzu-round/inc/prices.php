@@ -318,14 +318,16 @@ function yuzu_round_prices_blend_title(string $label): string
  * One Blend row from a list of [label, display] pairs. $levels maps the
  * chair key to its display price for the level switch, or is empty.
  */
-function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, float $scale, string $only = '', string $note = ''): string
+function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, float $scale, string $only = '', string $note = '', bool $open = false, string $who = ''): string
 {
     $e = 'yuzu_round_prices_esc';
     $data = $levels === [] ? '' : " data-levels='" . $e((string) json_encode($levels, JSON_UNESCAPED_UNICODE)) . "'";
+    $who_attr = $who === '' ? '' : ' data-who="' . $e($who) . '"';
+    $open_attr = $open ? ' open' : '';
     $numbers = array_values(array_filter(array_map(static fn ($p) => yuzu_round_prices_number($p[1]), $pairs), static fn ($n) => $n !== null));
     if (count($pairs) === 1) {
         $small = $only === '' ? '' : '<small>' . $e($only) . '</small>';
-        return "          <div class=\"price-row price-single\"{$data}>\n"
+        return "          <div class=\"price-row price-single\"{$who_attr}{$data}>\n"
             . '            <span class="price-name">' . $e($name) . $small . "</span>\n"
             . '            <span class="price-fig">' . $e($pairs[0][1]) . "</span>\n"
             . "          </div>\n";
@@ -333,7 +335,7 @@ function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, 
     $min = $numbers === [] ? 0 : min($numbers);
     $max = $numbers === [] ? 0 : max($numbers);
     $range = $min === $max ? yuzu_round_prices_money($max) : yuzu_round_prices_money($min) . '–' . yuzu_round_prices_money($max);
-    $html = "          <details class=\"price-row\"{$data}>\n"
+    $html = "          <details class=\"price-row\"{$who_attr}{$open_attr}{$data}>\n"
         . "            <summary>\n"
         . '              <span class="price-name">' . $e($name) . "</span>\n"
         . '              <span class="price-fig">' . $e($range) . "</span>\n"
@@ -355,7 +357,7 @@ function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, 
     return $html . "          </details>\n";
 }
 
-function yuzu_round_prices_blend_table_row(array $row, array $columns, float $scale): string
+function yuzu_round_prices_blend_table_row(array $row, array $columns, float $scale, bool $open = false, string $who = ''): string
 {
     $pairs = [];
     $levels = [];
@@ -372,10 +374,10 @@ function yuzu_round_prices_blend_table_row(array $row, array $columns, float $sc
     }
     $same = count(array_unique(array_column($pairs, 1))) === 1;
     if ($same && count($pairs) === count($columns)) {
-        return yuzu_round_prices_blend_row((string) $row['name'], [['Any stylist', $pairs[0][1]]], [], $scale);
+        return yuzu_round_prices_blend_row((string) $row['name'], [['Any stylist', $pairs[0][1]]], [], $scale, '', '', $open, $who);
     }
     $only = count($pairs) === 1 ? $pairs[0][0] . ' only' : '';
-    return yuzu_round_prices_blend_row((string) $row['name'], $pairs, $levels, $scale, $only);
+    return yuzu_round_prices_blend_row((string) $row['name'], $pairs, $levels, $scale, $only, '', $open, $who);
 }
 
 function yuzu_round_prices_blend_scale(array $rows, array $keys): float
@@ -401,23 +403,65 @@ function yuzu_round_prices_blend_more(string $title, string $rows): string
         . "          </details>\n";
 }
 
-function yuzu_round_prices_blend_packages(array $rows): string
+function yuzu_round_prices_blend_packages(array $rows, string $who = ''): string
 {
     if ($rows === []) {
         return '';
     }
-    $html = "          <div class=\"packages\">\n            <h3>Packages</h3>\n            <ul>\n";
+    $who_attr = $who === '' ? '' : ' data-who="' . yuzu_round_prices_esc($who) . '"';
+    $html = "          <div class=\"packages\"{$who_attr}>\n            <h3>Packages</h3>\n            <ul>\n";
     foreach ($rows as $row) {
         $html .= '              <li><span>' . yuzu_round_prices_esc((string) $row['name']) . '</span><strong>' . yuzu_round_prices_esc((string) $row['price']) . "</strong></li>\n";
     }
     return $html . "            </ul>\n          </div>\n";
 }
 
+function yuzu_round_prices_blend_cut_who(string $name): string
+{
+    if (preg_match('/^(kids|teens?|girls|boys|children)/i', $name) === 1) {
+        return 'children';
+    }
+    if (preg_match('/^(gents|men)/i', $name) === 1) {
+        return 'gents';
+    }
+    return 'ladies';
+}
+
+function yuzu_round_prices_blend_cut_rows(array $rows): array
+{
+    $rename = [
+        'Kids (12 & under)' => 'Boys, 12 and under',
+        'Kids, girls (12 & under)' => 'Girls, 12 and under',
+        'Teens (13–16) boys' => 'Teen boys, 13–16',
+        'Teens (13–16) girls' => 'Teen girls, 13–16',
+    ];
+    $mapped = [];
+    foreach ($rows as $row) {
+        $name = (string) ($row['name'] ?? '');
+        if (isset($rename[$name])) {
+            $row['name'] = $rename[$name];
+        }
+        $mapped[] = $row;
+    }
+    // Keep Girls before Boys in each age pair when both are adjacent.
+    for ($i = 0, $n = count($mapped); $i + 1 < $n; $i++) {
+        $a = (string) $mapped[$i]['name'];
+        $b = (string) $mapped[$i + 1]['name'];
+        if (($a === 'Boys, 12 and under' && $b === 'Girls, 12 and under')
+            || ($a === 'Teen boys, 13–16' && $b === 'Teen girls, 13–16')) {
+            [$mapped[$i], $mapped[$i + 1]] = [$mapped[$i + 1], $mapped[$i]];
+            $i++;
+        }
+    }
+    return $mapped;
+}
+
 /**
- * The Blend price board panels. Names decide the grouping: Kids and Teens
- * fold under Children and teens, In-between under In-between colour, every
- * highlight after T-section under the extras, Aura rows become one row by
- * length, and packages sit with roots (Colour) or otherwise Cut & style.
+ * The Blend price board panels. Cut & style includes client filter pills
+ * (All, Ladies, Gents, Children & teens) with Ladies selected and expanded
+ * by default; In-between folds under In-between colour, every highlight after
+ * T-section under extras, Aura rows become one row by length, and packages
+ * sit with roots (Colour) or otherwise Cut & style.
  */
 function yuzu_round_prices_blend_board_html(array $data): string
 {
@@ -430,8 +474,8 @@ function yuzu_round_prices_blend_board_html(array $data): string
         $packages[preg_match('/root|colour/i', (string) $row['name']) ? 'colour' : 'cut'][] = $row;
     }
 
-    $panel = static function (string $class, string $body): string {
-        return "        <section class=\"price-panel {$class}\">\n{$body}        </section>\n";
+    $panel = static function (string $class, string $body, string $attrs = ''): string {
+        return "        <section class=\"price-panel {$class}\"{$attrs}>\n{$body}        </section>\n";
     };
     $table = static function (string $id, callable $is_extra) use ($catalog, $groups): array {
         $columns = $catalog[$id]['columns'];
@@ -450,8 +494,22 @@ function yuzu_round_prices_blend_board_html(array $data): string
         return [$main, $extra];
     };
 
-    [$main, $extra] = $table('cut', static fn ($name) => preg_match('/^(kids|teens)/i', $name) === 1);
-    $out = $panel('panel-cut', $main . yuzu_round_prices_blend_more('Children and teens', $extra) . yuzu_round_prices_blend_packages($packages['cut']));
+    $cut_columns = $catalog['cut']['columns'];
+    $cut_rows = yuzu_round_prices_blend_cut_rows($groups['cut'] ?? []);
+    $cut_scale = yuzu_round_prices_blend_scale($cut_rows, array_keys($cut_columns));
+    $cut_filter = "          <div class=\"cut-filter\" role=\"group\" aria-label=\"Filter Cut &amp; style by client\">\n"
+        . "            <label><input type=\"radio\" name=\"who\" value=\"\" /><span>All</span></label>\n"
+        . "            <label><input type=\"radio\" name=\"who\" value=\"ladies\" checked /><span>Ladies</span></label>\n"
+        . "            <label><input type=\"radio\" name=\"who\" value=\"gents\" /><span>Gents</span></label>\n"
+        . "            <label><input type=\"radio\" name=\"who\" value=\"children\" /><span>Children &amp; teens</span></label>\n"
+        . "          </div>\n";
+    $cut_body = $cut_filter;
+    foreach ($cut_rows as $row) {
+        $who = yuzu_round_prices_blend_cut_who((string) $row['name']);
+        $cut_body .= yuzu_round_prices_blend_table_row($row, $cut_columns, $cut_scale, $who === 'ladies', $who);
+    }
+    $cut_body .= yuzu_round_prices_blend_packages($packages['cut'], 'ladies');
+    $out = $panel('panel-cut', $cut_body, ' data-who="ladies"');
 
     [$main, $extra] = $table('colour', static fn ($name) => preg_match('/^in-between/i', $name) === 1);
     $out .= $panel('panel-colour', $patch . $main . yuzu_round_prices_blend_more('In-between colour', $extra) . yuzu_round_prices_blend_packages($packages['colour']));
