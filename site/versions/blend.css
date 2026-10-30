@@ -125,8 +125,11 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: stretch;
 }
 .blend .reviews li {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border-radius: 22px;
   background: color-mix(in srgb, var(--beige) 70%, white);
@@ -136,7 +139,12 @@
   height: 168px;
   object-fit: cover;
 }
-.blend .reviews li > div { padding: 18px 18px 22px; }
+.blend .reviews li > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px 18px 22px;
+}
 .blend .reviews h3 {
   margin-top: 8px;
   font-family: var(--serif);
@@ -152,14 +160,17 @@
   text-underline-offset: 3px;
 }
 .blend .reviews .review-author {
-  margin-top: 12px;
+  margin-top: auto;
+  padding-top: 14px;
   font-size: 14px;
   font-weight: 500;
 }
 
 .blend .promo { border-radius: 22px; }
-.blend #offers > * { max-width: 1120px; margin-inline: auto; }
-.blend #offers .today-offer { margin: 0 auto 16px; }
+.blend .fx-bar nav a[aria-current="page"]:not(.fx-book) {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
 
 .blend .join {
   display: grid;

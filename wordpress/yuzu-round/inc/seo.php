@@ -222,7 +222,7 @@ function yuzu_round_sitemap_xml(): string
     $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
     foreach ($urls as $url) {
-        $xml .= '  <url><loc>' . htmlspecialchars($url, ENT_QUOTES | ENT_XML1, 'UTF-8') . "</loc></url>\n";
+        $xml .= '  <url><loc>' . htmlspecialchars($url, ENT_QUOTES | ENT_XML1, 'UTF-8') . "</loc><lastmod>2026-10-30</lastmod></url>\n";
     }
     $xml .= "</urlset>\n";
     return $xml;
