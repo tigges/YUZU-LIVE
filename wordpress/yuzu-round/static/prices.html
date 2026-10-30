@@ -1023,7 +1023,7 @@
         </section>
         <section class="price-panel panel-colour">
           <p class="panel-note">Colour needs a patch test at least 48 hours before. <a href="patch.html">About patch testing</a></p>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£105&quot;,&quot;senior&quot;:&quot;£97&quot;,&quot;stylist&quot;:&quot;£90&quot;,&quot;junior&quot;:&quot;£65&quot;}'>
+          <details class="price-row" open data-levels='{&quot;creative&quot;:&quot;£105&quot;,&quot;senior&quot;:&quot;£97&quot;,&quot;stylist&quot;:&quot;£90&quot;,&quot;junior&quot;:&quot;£65&quot;}'>
             <summary>
               <span class="price-name">Full head</span>
               <span class="price-fig">£65–£105</span>
@@ -1052,7 +1052,7 @@
               </li>
             </ul>
           </details>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£90&quot;,&quot;senior&quot;:&quot;£85&quot;,&quot;stylist&quot;:&quot;£80&quot;,&quot;junior&quot;:&quot;£55&quot;}'>
+          <details class="price-row" open data-levels='{&quot;creative&quot;:&quot;£90&quot;,&quot;senior&quot;:&quot;£85&quot;,&quot;stylist&quot;:&quot;£80&quot;,&quot;junior&quot;:&quot;£55&quot;}'>
             <summary>
               <span class="price-name">Roots</span>
               <span class="price-fig">£55–£90</span>
@@ -1081,7 +1081,7 @@
               </li>
             </ul>
           </details>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£135&quot;,&quot;senior&quot;:&quot;£125&quot;,&quot;stylist&quot;:&quot;£115&quot;}'>
+          <details class="price-row" open data-levels='{&quot;creative&quot;:&quot;£135&quot;,&quot;senior&quot;:&quot;£125&quot;,&quot;stylist&quot;:&quot;£115&quot;}'>
             <summary>
               <span class="price-name">Illumia colour</span>
               <span class="price-fig">£115–£135</span>
@@ -1165,7 +1165,7 @@
         </section>
         <section class="price-panel panel-high">
           <p class="panel-note">Colour needs a patch test at least 48 hours before. <a href="patch.html">About patch testing</a></p>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£155&quot;,&quot;senior&quot;:&quot;£127&quot;,&quot;stylist&quot;:&quot;£100&quot;}'>
+          <details class="price-row" open data-levels='{&quot;creative&quot;:&quot;£155&quot;,&quot;senior&quot;:&quot;£127&quot;,&quot;stylist&quot;:&quot;£100&quot;}'>
             <summary>
               <span class="price-name">Full head</span>
               <span class="price-fig">£100–£155</span>
@@ -1189,7 +1189,7 @@
               </li>
             </ul>
           </details>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£120&quot;,&quot;senior&quot;:&quot;£100&quot;,&quot;stylist&quot;:&quot;£80&quot;}'>
+          <details class="price-row" open data-levels='{&quot;creative&quot;:&quot;£120&quot;,&quot;senior&quot;:&quot;£100&quot;,&quot;stylist&quot;:&quot;£80&quot;}'>
             <summary>
               <span class="price-name">Half head</span>
               <span class="price-fig">£80–£120</span>
@@ -1213,7 +1213,7 @@
               </li>
             </ul>
           </details>
-          <details class="price-row" data-levels='{&quot;creative&quot;:&quot;£95&quot;,&quot;senior&quot;:&quot;£82&quot;,&quot;stylist&quot;:&quot;£70&quot;}'>
+          <details class="price-row" open data-levels='{&quot;creative&quot;:&quot;£95&quot;,&quot;senior&quot;:&quot;£82&quot;,&quot;stylist&quot;:&quot;£70&quot;}'>
             <summary>
               <span class="price-name">T-section</span>
               <span class="price-fig">£70–£95</span>
@@ -1330,7 +1330,7 @@
           </details>
         </section>
         <section class="price-panel panel-treat">
-          <details class="price-row">
+          <details class="price-row" open>
             <summary>
               <span class="price-name">Aura smoothing, by length</span>
               <span class="price-fig">£165–£360</span>
@@ -1360,7 +1360,7 @@
             </ul>
             <p class="price-note">Upgrade to 4–6 months, with shampoo and conditioner: +£175.</p>
           </details>
-          <details class="price-more">
+          <details class="price-more" open>
             <summary><span class="more-name">Fillers and K2.0</span><span class="more-count">6 services</span><span class="chev" aria-hidden="true"></span></summary>
           <div class="price-row price-single">
             <span class="price-name">Nashi filler express</span>
@@ -1455,10 +1455,15 @@
         }
         var panelCut = board.querySelector('.panel-cut');
         function syncCutOpen() {
-          if (!panelCut || board.hasAttribute('data-level')) return;
-          var who = panelCut.getAttribute('data-who') || '';
-          panelCut.querySelectorAll('details.price-row').forEach(function (d) {
-            d.open = Boolean(who && d.getAttribute('data-who') === who);
+          if (board.hasAttribute('data-level')) return;
+          if (panelCut) {
+            var who = panelCut.getAttribute('data-who') || '';
+            panelCut.querySelectorAll('details.price-row').forEach(function (d) {
+              d.open = Boolean(who && d.getAttribute('data-who') === who);
+            });
+          }
+          board.querySelectorAll('.panel-colour > details.price-row, .panel-high > details.price-row, .panel-treat > details.price-row').forEach(function (d) {
+            d.open = true;
           });
         }
         board.querySelectorAll('input[name="who"]').forEach(function (r) {
