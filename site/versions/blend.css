@@ -238,8 +238,7 @@
 }
 .blend .socials svg { width: 15px; height: 15px; display: block; }
 
-body.blend a.blend-book { display: none; }
-body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); pointer-events: none; }
+.blend-sticky { display: none; }
 
 .blend .open-status {
   display: flex;
@@ -264,7 +263,6 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
 }
 .blend .today-offer:empty { display: none; }
 .blend .today-offer strong { margin-right: 6px; }
-.blend .promo.is-today { outline: 3px solid var(--forest); outline-offset: 4px; }
 .blend .promo.is-today::before {
   content: attr(data-flag);
   position: absolute;
@@ -334,21 +332,41 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
   .blend .extras li { position: relative; flex: 0 0 82%; min-width: 0; scroll-snap-align: start; }
   .blend .reviews img { height: 150px; }
   .blend .join { gap: 18px; padding: 24px 18px; }
-  body.blend a.blend-book {
+  .blend-sticky {
     display: flex;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    gap: 8px;
     position: fixed;
     z-index: 40;
     left: 12px;
     right: 12px;
     bottom: 12px;
+  }
+  .blend-call {
+    flex: 0 0 34%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    border-radius: 999px;
+    background: var(--beige);
+    color: var(--forest);
+    border: 1.5px solid var(--forest);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgb(47 58 39 / 18%);
+  }
+  body.blend a.blend-book {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
     min-height: 52px;
     border-radius: 999px;
     box-shadow: 0 10px 30px rgb(47 58 39 / 22%);
   }
   body.blend { padding-bottom: 84px; }
-  body.blend:has([data-book-end]) { padding-bottom: 0; }
-  .fx-bar.open ~ .blend-book { display: none; }
+  .fx-bar.open ~ .blend-sticky { display: none; }
   .blend .fx-bar { height: 62px; }
   .blend .fx-bar .logo-home img { width: auto; height: 65px; transform: translateY(3px); }
   .blend .section { padding: 24px 18px; }

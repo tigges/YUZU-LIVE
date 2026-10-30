@@ -212,13 +212,32 @@ section[id] { scroll-margin-top: 118px; }
 .menu-icon { display: grid; gap: 5px; }
 .menu-icon i { display: block; width: 18px; height: 1.5px; background: currentColor; }
 
-.mobile-book {
+.mobile-sticky {
   display: none;
   position: fixed;
   z-index: 45;
   left: 12px;
   right: 12px;
   bottom: 12px;
+  gap: 8px;
+}
+.mobile-call {
+  flex: 0 0 34%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--book);
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgb(28 25 22 / 18%);
+}
+.mobile-book {
+  flex: 1 1 auto;
+  display: flex;
   min-height: 52px;
   border-radius: 999px;
   background: var(--book);
@@ -959,6 +978,7 @@ body.is-locked { overflow: hidden; }
     padding: 0 1.2rem;
   }
 
+  .round-header.open ~ .mobile-sticky,
   .round-header.open ~ .mobile-book {
     display: none;
   }
@@ -971,7 +991,7 @@ body.is-locked { overflow: hidden; }
 @media (max-width: 700px) {
   .wrap { width: min(var(--max), calc(100% - 28px)); }
   .round { padding-bottom: 84px; }
-  .mobile-book { display: flex; }
+  .mobile-sticky { display: flex; }
 
   .round-gallery,
   .round-services,
@@ -1094,7 +1114,6 @@ body.is-locked { overflow: hidden; }
 .today-offer { margin: 0 0 18px; padding: 14px 18px; border-radius: 18px; background: #fffdfb; line-height: 1.45; }
 .today-offer:empty { display: none; }
 .today-offer strong { margin-right: 6px; }
-.promo.is-today { outline: 3px solid #2f3a27; outline-offset: 4px; }
 .promo.is-today::before {
   content: attr(data-flag);
   position: absolute;
@@ -1114,7 +1133,6 @@ body.is-locked { overflow: hidden; }
 .mobile-book.is-hidden { opacity: 0; transform: translateY(16px); pointer-events: none; }
 
 @media (max-width: 700px) {
-  .round:has([data-book-end]) { padding-bottom: 0; }
   .round-services { grid-template-columns: 1fr 1fr; gap: 10px; }
   .round-services > li { padding: 16px 14px; border-radius: 20px; }
   .round-services h3 { font-size: 1.25rem; line-height: 1.1; margin-bottom: 4px; }

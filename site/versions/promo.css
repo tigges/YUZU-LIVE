@@ -228,43 +228,52 @@ button.promo {
   border-radius: 24px;
   cursor: pointer;
   padding: 11% 8% 10%;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.18s ease, opacity 0.18s ease;
 }
 button.promo:hover { transform: translateY(-2px); }
+button.promo:focus:not(:focus-visible) { outline: none; }
 button.promo.is-selected {
-  outline: 3px solid #2f3a27;
-  outline-offset: 4px;
+  outline: 1.5px solid #2f3a27;
+  outline-offset: 3px;
+}
+.promo-roll-6:has(button.promo.is-selected) button.promo:not(.is-selected) {
+  opacity: 0.78;
 }
 
 .promo-roll-6 {
   list-style: none;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 14px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: 8px;
-  scrollbar-width: none;
-  padding: 8px;
-  margin: -8px;
-}
-.promo-roll-6::-webkit-scrollbar { display: none; }
-.promo-roll-6 > li {
-  flex: 0 0 30.5%;
-  width: 30.5%;
-  min-width: 240px;
-  scroll-snap-align: start;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
 }
 
 .offer-tray {
-  margin-top: 18px;
+  grid-column: 1 / -1;
+  position: relative;
+  margin: 4px 0 6px;
   padding: 24px 28px;
   background: color-mix(in srgb, #fff 68%, var(--paper, #efe4d4));
-  border: 2px solid #2f3a27;
+  border: 1px solid rgb(47 58 39 / 0.35);
   border-radius: 24px;
-  box-shadow: 0 16px 36px rgb(28 25 22 / 8%);
+  box-shadow: 0 14px 32px rgb(28 25 22 / 7%);
 }
+.offer-tray[data-col]::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  width: 12px;
+  height: 12px;
+  background: color-mix(in srgb, #fff 68%, var(--paper, #efe4d4));
+  border-top: 1px solid rgb(47 58 39 / 0.35);
+  border-left: 1px solid rgb(47 58 39 / 0.35);
+  transform: translateX(-50%) rotate(45deg);
+}
+.offer-tray[data-col="0"]::before { left: 16.66%; }
+.offer-tray[data-col="1"]::before { left: 50%; }
+.offer-tray[data-col="2"]::before { left: 83.33%; }
 .offer-tray-head {
   display: flex;
   align-items: flex-start;
@@ -307,10 +316,25 @@ button.promo.is-selected {
 }
 
 @media (max-width: 700px) {
+  .promo-roll-6 {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 8px;
+    scrollbar-width: none;
+    padding: 8px;
+    margin: -8px;
+  }
+  .promo-roll-6::-webkit-scrollbar { display: none; }
   .promo-roll-6 > li {
     flex: 0 0 82%;
     width: 82%;
     min-width: 0;
+    scroll-snap-align: start;
   }
-  .offer-tray { padding: 20px; }
+  .offer-tray { margin-top: 16px; padding: 20px; }
+  .offer-tray[data-col]::before { display: none; }
 }

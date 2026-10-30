@@ -62,14 +62,9 @@
     el.replaceChildren(lead, ` ${title}: ${line}.`)
   })
 
-  const sticky = document.querySelector('[data-sticky-book]')
-  const end = document.querySelector('[data-book-end]')
-  if (sticky && end && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => sticky.classList.toggle('is-hidden', entry.isIntersecting && scrollY > 0)).observe(end)
-  }
-
   const detail = document.querySelector('[data-offer-detail]')
   if (detail) {
+    const roll = document.querySelector('.promo-roll-6')
     const pricesHref = detail.getAttribute('data-prices-href') || 'prices.html#cut'
     const promoDetails = {
       tue: {
@@ -136,6 +131,23 @@
     const buttons = [...document.querySelectorAll('[data-promo]')]
     let activePromo = ''
 
+    const placeTray = () => {
+      if (!roll || !activePromo || detail.hidden) return
+      const idx = buttons.findIndex((b) => b.getAttribute('data-promo') === activePromo)
+      if (idx < 0) return
+      detail.dataset.col = String(idx % 3)
+      if (window.innerWidth > 700) {
+        const items = [...roll.querySelectorAll(':scope > li')]
+        if (idx < 3 && items[2]) {
+          items[2].after(detail)
+        } else {
+          roll.appendChild(detail)
+        }
+      } else {
+        roll.after(detail)
+      }
+    }
+
     const closeTray = () => {
       detail.hidden = true
       activePromo = ''
@@ -165,6 +177,7 @@
         }
       }
       detail.hidden = false
+      placeTray()
       buttons.forEach((b) => {
         const match = b.getAttribute('data-promo') === promoKey
         b.classList.toggle('is-selected', match)
@@ -181,6 +194,7 @@
       })
     })
 
+    window.addEventListener('resize', placeTray, { passive: true })
     detail.querySelector('[data-detail-close]')?.addEventListener('click', closeTray)
   }
 })()
