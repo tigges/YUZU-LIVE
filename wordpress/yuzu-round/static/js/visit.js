@@ -217,5 +217,8 @@
 
     window.addEventListener('resize', placeTray, { passive: true })
     detail.querySelector('[data-detail-close]')?.addEventListener('click', closeTray)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !detail.hidden) closeTray()
+    })
   }
 })()
