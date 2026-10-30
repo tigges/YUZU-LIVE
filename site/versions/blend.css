@@ -4,7 +4,7 @@
   height: 78px;
   padding: 0 24px 0 28px;
 }
-.blend .fx-bar .logo-home img { width: 104px; }
+.blend .fx-bar .logo-home img { width: auto; height: 76px; transform: translateY(2px); }
 .blend .fx-bar nav { gap: 18px; }
 .blend .fx-bar ~ [id],
 .blend .fx-bar ~ * [id] { scroll-margin-top: 112px; }
@@ -16,8 +16,22 @@
   max-height: 560px;
   border-radius: 28px;
 }
+.blend .hero-photo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4.6%;
+  background: url("../assets/clean/hero.jpg") center top / 100% auto no-repeat;
+  transform: scaleY(-1);
+}
 /* The eyes sit at the photo's top edge, so any crop must come off the bottom. */
-.blend .hero-photo img { object-position: center top; }
+.blend .hero-photo img {
+  position: relative;
+  object-position: center top;
+  transform: translateY(4.5%);
+}
 .blend .hero-copy {
   position: relative;
   z-index: 2;
@@ -336,7 +350,7 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
   body.blend:has([data-book-end]) { padding-bottom: 0; }
   .fx-bar.open ~ .blend-book { display: none; }
   .blend .fx-bar { height: 62px; }
-  .blend .fx-bar .logo-home img { width: auto; height: 46px; }
+  .blend .fx-bar .logo-home img { width: auto; height: 65px; transform: translateY(3px); }
   .blend .section { padding: 24px 18px; }
   .blend .visit {
     grid-template-columns: 1fr;
@@ -541,7 +555,7 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
 
 .price-tabs {
   position: sticky;
-  top: 84px;
+  top: 78px;
   z-index: 5;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -625,7 +639,7 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
   .level-options { gap: 5px; }
   .level-options label { flex: 1 1 auto; text-align: center; }
   .level-options span { font-size: 13px; padding: 8px 6px; }
-  .price-tabs { flex-wrap: wrap; gap: 5px; margin: 16px 0 0; padding: 10px 0; }
+  .price-tabs { flex-wrap: wrap; gap: 5px; margin: 16px 0 0; padding: 10px 0; top: 62px; }
   .price-tabs label { flex: 1 1 auto; text-align: center; padding: 8px 5px; font-size: 11px; letter-spacing: 0.03em; white-space: nowrap; }
   .cut-filter { gap: 5px; }
   .cut-filter label { flex: 1 1 auto; text-align: center; }

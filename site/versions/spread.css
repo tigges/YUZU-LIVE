@@ -47,17 +47,17 @@ body.spread h1, body.spread h2, body.spread p { margin: 0; }
 .lookbook { background: var(--cream); }
 .lb-top {
   position: sticky;
-  top: 22px;
+  top: 0;
   z-index: 30;
-  height: 84px;
+  height: 78px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 36px;
+  padding: 0 24px 0 28px;
   background: var(--forest);
   color: var(--cream);
 }
-.lb-top img { width: 132px; height: auto; }
+.lb-top img { width: auto; height: 76px; transform: translateY(2px); }
 .lb-top .menu-toggle {
   display: none;
   width: 44px;
