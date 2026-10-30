@@ -381,7 +381,7 @@ section[id] { scroll-margin-top: 118px; }
 
 .round-services {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 14px;
   align-items: stretch;
 }
@@ -398,6 +398,7 @@ section[id] { scroll-margin-top: 118px; }
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding: 24px;
 }
 
 .round-services li .price-from { margin-top: auto; }
