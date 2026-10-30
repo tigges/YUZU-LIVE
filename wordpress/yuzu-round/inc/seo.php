@@ -5,7 +5,7 @@
 
 function yuzu_round_public_paths(): array
 {
-    $paths = [];
+    $paths = ['send.php' => '/wp-admin/admin-ajax.php?action=yuzu_send'];
     foreach (yuzu_round_pages() as $slug => $page) {
         $paths[$page['file']] = $slug === 'home' ? '/' : '/' . $slug . '/';
     }
@@ -262,7 +262,215 @@ function yuzu_round_sync_root_robots(): void
     update_option('yuzu_round_robots_synced', '1', false);
 }
 
+function yuzu_round_handle_send_form(): void
+{
+    header('X-Content-Type-Options: nosniff');
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+        if (function_exists('status_header')) {
+            status_header(405);
+        }
+        header('Allow: POST');
+        echo 'Method not allowed';
+        exit;
+    }
+
+    $wantsJson = str_contains((string) ($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json');
+    $fail = static function (int $status, string $message) use ($wantsJson): void {
+        if (function_exists('status_header')) {
+            status_header($status);
+        } else {
+            http_response_code($status);
+        }
+        if ($wantsJson) {
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['ok' => false, 'error' => $message]);
+            exit;
+        }
+        echo $message;
+        exit;
+    };
+
+    $raw = function_exists('wp_unslash') ? wp_unslash($_POST) : $_POST;
+    $to = 'info@yuzuhairandbeauty.co.uk';
+    $from = 'website@yuzu.hair';
+    $name = trim((string) ($raw['name'] ?? ''));
+    $email = trim((string) ($raw['email'] ?? ''));
+    $phone = trim((string) ($raw['phone'] ?? ''));
+    $role = trim((string) ($raw['role'] ?? ''));
+    $message = trim((string) ($raw['message'] ?? ''));
+    $subject = trim((string) ($raw['subject'] ?? 'Message from yuzu.hair'));
+
+    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $fail(400, 'Please include a valid email address.');
+    }
+
+    $subject = preg_replace('/[\r\n]+/', ' ', $subject) ?: 'Message from yuzu.hair';
+
+    $contentLength = (int) ($_SERVER['CONTENT_LENGTH'] ?? 0);
+    $contentType = (string) ($_SERVER['CONTENT_TYPE'] ?? '');
+    if (
+        $contentLength > 0
+        && stripos($contentType, 'multipart/form-data') !== false
+        && $_POST === []
+        && $_FILES === []
+    ) {
+        $fail(400, 'That file is too large for the server. Please use a PDF, Word or text file under 5 MB.');
+    }
+
+    $attachment = null;
+    $tmpDir = '';
+    $tmpPath = '';
+    $file = $_FILES['cv'] ?? null;
+    if (is_array($file) && (int) ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+        $error = (int) $file['error'];
+        if ($error === UPLOAD_ERR_INI_SIZE || $error === UPLOAD_ERR_FORM_SIZE) {
+            $fail(400, 'That file is too large. Please use a PDF, Word or text file under 5 MB.');
+        }
+        if ($error !== UPLOAD_ERR_OK || !is_uploaded_file((string) $file['tmp_name'])) {
+            $fail(400, 'The CV could not be uploaded. Please try again.');
+        }
+        if ((int) $file['size'] > 5 * 1024 * 1024) {
+            $fail(400, 'That file is too large. Please use a PDF, Word or text file under 5 MB.');
+        }
+
+        $original = (string) ($file['name'] ?? 'cv');
+        $ext = strtolower(pathinfo($original, PATHINFO_EXTENSION));
+        $allowed = [
+            'pdf' => ['application/pdf'],
+            'doc' => ['application/msword', 'application/vnd.ms-office', 'application/octet-stream'],
+            'docx' => [
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/zip',
+                'application/octet-stream',
+            ],
+            'txt' => ['text/plain', 'text/x-plain', 'application/octet-stream'],
+            'rtf' => ['text/rtf', 'application/rtf', 'application/octet-stream'],
+        ];
+        if (!isset($allowed[$ext])) {
+            $fail(400, 'Please attach a PDF, Word or text file.');
+        }
+
+        $detected = '';
+        if (class_exists('finfo')) {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $detected = (string) $finfo->file((string) $file['tmp_name']);
+        }
+        $blocked = ['text/html', 'application/x-php', 'application/x-httpd-php', 'image/svg+xml', 'application/javascript', 'text/x-php'];
+        if ($detected !== '' && (in_array($detected, $blocked, true) || !in_array($detected, $allowed[$ext], true))) {
+            $fail(400, 'Please attach a PDF, Word or text file.');
+        }
+
+        $bytes = file_get_contents((string) $file['tmp_name']);
+        if ($bytes === false || $bytes === '') {
+            $fail(400, 'The CV could not be read. Please try again.');
+        }
+        if (preg_match('/<\?(php|=)/i', substr($bytes, 0, 200)) === 1) {
+            $fail(400, 'Please attach a PDF, Word or text file.');
+        }
+
+        $safeName = preg_replace('/[^A-Za-z0-9._-]+/', '-', $original) ?: ('cv.' . $ext);
+        $safeName = trim($safeName, '.-');
+        if (!str_ends_with(strtolower($safeName), '.' . $ext)) {
+            $safeName .= '.' . $ext;
+        }
+
+        $attachment = [
+            'name' => $safeName,
+            'mime' => $detected !== '' ? $detected : $allowed[$ext][0],
+            'bytes' => $bytes,
+        ];
+    }
+
+    $body = "Name: {$name}\nEmail: {$email}\nPhone: {$phone}\n";
+    if ($role !== '') {
+        $body .= "Role: {$role}\n";
+    }
+    if ($attachment !== null) {
+        $body .= "CV: {$attachment['name']}\n";
+    }
+    $body .= "\n{$message}\n";
+
+    $sent = false;
+    try {
+        if (function_exists('wp_mail')) {
+            $wpAttachments = [];
+            if ($attachment !== null) {
+                $tmpDir = rtrim(sys_get_temp_dir(), '/\\') . '/yuzu-cv-' . bin2hex(random_bytes(8));
+                if (@mkdir($tmpDir, 0700, true)) {
+                    $tmpPath = $tmpDir . '/' . $attachment['name'];
+                    if (@file_put_contents($tmpPath, $attachment['bytes']) !== false) {
+                        $wpAttachments[] = $tmpPath;
+                    }
+                }
+            }
+            $wpHeaders = [
+                'Reply-To: ' . $email,
+                'Content-Type: text/plain; charset=UTF-8',
+            ];
+            $fromNameCb = static fn (): string => 'YUZU hair website';
+            if (function_exists('add_filter')) {
+                add_filter('wp_mail_from_name', $fromNameCb);
+            }
+            $sent = (bool) @wp_mail($to, $subject, $body, $wpHeaders, $wpAttachments);
+            if (function_exists('remove_filter')) {
+                remove_filter('wp_mail_from_name', $fromNameCb);
+            }
+        }
+
+        if (!$sent) {
+            $headers = [
+                'From: YUZU hair website <' . $from . '>',
+                'Reply-To: ' . $email,
+                'MIME-Version: 1.0',
+            ];
+            if ($attachment === null) {
+                $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+                $payload = $body;
+            } else {
+                $boundary = 'yuzu_' . bin2hex(random_bytes(8));
+                $headers[] = 'Content-Type: multipart/mixed; boundary="' . $boundary . '"';
+                $payload = "--{$boundary}\r\n";
+                $payload .= "Content-Type: text/plain; charset=UTF-8\r\n";
+                $payload .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+                $payload .= $body . "\r\n";
+                $payload .= "--{$boundary}\r\n";
+                $payload .= 'Content-Type: ' . $attachment['mime'] . '; name="' . $attachment['name'] . "\"\r\n";
+                $payload .= "Content-Transfer-Encoding: base64\r\n";
+                $payload .= 'Content-Disposition: attachment; filename="' . $attachment['name'] . "\"\r\n\r\n";
+                $payload .= chunk_split(base64_encode($attachment['bytes']));
+                $payload .= "--{$boundary}--\r\n";
+            }
+            $sent = (bool) @mail($to, $subject, $payload, implode("\r\n", $headers));
+        }
+    } finally {
+        if ($tmpPath !== '' && is_file($tmpPath)) {
+            @unlink($tmpPath);
+        }
+        if ($tmpDir !== '' && is_dir($tmpDir)) {
+            @rmdir($tmpDir);
+        }
+    }
+
+    if ($wantsJson) {
+        if (!$sent) {
+            $fail(500, 'The message could not be sent. Please email info@yuzuhairandbeauty.co.uk.');
+        }
+        if (function_exists('status_header')) {
+            status_header(200);
+        }
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['ok' => true]);
+        exit;
+    }
+
+    header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/') . '#visit');
+    exit;
+}
+
 if (function_exists('add_action')) {
+    add_action('wp_ajax_yuzu_send', 'yuzu_round_handle_send_form');
+    add_action('wp_ajax_nopriv_yuzu_send', 'yuzu_round_handle_send_form');
+
     add_filter('wp_sitemaps_enabled', '__return_false');
 
     add_filter('robots_txt', static function ($output, $public) {
@@ -270,6 +478,12 @@ if (function_exists('add_action')) {
     }, 99, 2);
 
     add_action('init', static function (): void {
+        if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
+            $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+            if ($path === '/send.php') {
+                yuzu_round_handle_send_form();
+            }
+        }
         yuzu_round_serve_version_request();
     }, 0);
 
