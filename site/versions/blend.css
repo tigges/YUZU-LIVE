@@ -675,3 +675,305 @@
 }
 .blend a[href^="tel:"] { white-space: nowrap; }
 .blend .extras a.extra-link { display: block; text-decoration: none; color: inherit; }
+.blend .review-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+
+/* Sub-pages (Offers, Team, About, Contact, Questions, Patch, 404) in Blend theme */
+.blend .sub-main { min-height: 62vh; }
+.blend .round-prose { max-width: 44rem; line-height: 1.55; }
+.blend .round-prose h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.05;
+  margin: 26px 0 8px;
+}
+.blend .round-prose p { margin: 0 0 14px; }
+.blend .round-prose a { text-decoration: underline; text-underline-offset: 3px; }
+.blend .patch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.blend .round-about-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  gap: 32px;
+  align-items: center;
+  padding: 28px;
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 24px;
+}
+.blend .round-about-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+.blend .round-about-grid h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(32px, 3.6vw, 44px);
+  line-height: 1;
+  margin: 0 0 12px;
+}
+.blend .round-about-grid p { margin: 0 0 12px; line-height: 1.55; }
+
+.blend .faq { border-top: 1px solid var(--line); max-width: 52rem; }
+.blend .faq details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+.blend .faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.15;
+}
+.blend .faq summary::-webkit-details-marker { display: none; }
+.blend .faq summary::after {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.blend .faq details[open] > summary::after { transform: rotate(225deg); }
+.blend .faq p { margin: 10px 0 4px; line-height: 1.5; max-width: 44rem; }
+.blend .faq p a { text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+
+.blend .offer-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  align-items: center;
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 24px;
+  padding: 22px;
+  margin: 0 0 18px;
+}
+.blend .offer-card .promo {
+  --serif: "Cormorant Garamond", Georgia, serif;
+  border-radius: 20px;
+  pointer-events: none;
+}
+.blend .offer-body { padding: 4px 8px 4px 0; }
+.blend .offer-body h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1;
+  margin: 6px 0 10px;
+}
+.blend .offer-body p { margin: 0 0 10px; line-height: 1.45; }
+.blend .offer-terms {
+  display: inline-block;
+  margin: 2px 0 14px;
+  padding: 6px 12px;
+  background: rgb(47 58 39 / 0.08);
+  border-radius: 10px;
+  font-size: 14px;
+}
+.blend .offer-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 12px; }
+.blend .offer-steps { margin: 10px 0 12px; padding-left: 1.2rem; font-size: 15px; line-height: 1.45; }
+.blend .offer-steps li + li { margin-top: 6px; }
+.blend .loyalty-head { margin: 38px 0 16px; }
+.blend .loyalty-head h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(32px, 3.6vw, 44px);
+  line-height: 1;
+  margin: 0 0 6px;
+}
+.blend .loyalty-head p { margin: 0; opacity: 0.8; }
+.blend .loyalty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.blend .loyalty-card {
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 22px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.blend .loyalty-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgb(47 58 39 / 0.1);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.blend .loyalty-card h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.05;
+  margin: 0 0 8px;
+}
+.blend .loyalty-card p { margin: 0 0 10px; font-size: 15px; line-height: 1.45; }
+.blend .loyalty-card details { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); }
+.blend .loyalty-card summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.blend .loyalty-card summary::-webkit-details-marker { display: none; }
+.blend .loyalty-card details[open] > summary .chev::before { top: 7px; transform: rotate(225deg); }
+
+.blend .ig-frame {
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 24px;
+  padding: 14px;
+}
+.blend .ig-stills {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blend .ig-stills img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 16px;
+}
+.blend .ig-frame-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 6px 4px;
+}
+.blend .ig-frame-foot p { margin: 0; }
+.blend .ig-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  flex: none;
+}
+.blend .ig-mark svg { width: 18px; height: 18px; display: block; }
+.blend .round-roles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+.blend .round-roles li {
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 22px;
+  padding: 22px;
+}
+.blend .round-roles h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.05;
+  margin: 0 0 8px;
+}
+.blend .round-roles p { margin: 0; line-height: 1.45; }
+
+.blend .round-form {
+  display: grid;
+  gap: 14px;
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 48rem;
+}
+.blend .round-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.blend .round-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.blend .round-form input,
+.blend .round-form textarea,
+.blend .round-form select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fffdfb;
+  color: var(--forest);
+  font-family: var(--sans);
+  font-size: 15px;
+}
+.blend .round-form textarea { resize: vertical; min-height: 120px; }
+.blend .round-form input[type="file"] { padding: 10px 12px; font-size: 14px; }
+.blend .round-form button[type="submit"] {
+  justify-self: start;
+  min-height: 46px;
+  padding: 0 28px;
+  border: 0;
+  background: var(--terra);
+  color: var(--beige);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.blend .file-hint { margin: -4px 0 0; font-size: 13px; opacity: 0.78; }
+.blend .form-error { margin: 0; color: #8a3b2a; font-size: 14px; }
+.blend .round-thanks {
+  background: color-mix(in srgb, var(--beige) 72%, white);
+  border-radius: 24px;
+  padding: 28px;
+  max-width: 48rem;
+}
+.blend .round-thanks h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 34px;
+  margin: 0 0 8px;
+}
+
+@media (max-width: 980px) {
+  .blend .offer-card { grid-template-columns: 220px 1fr; gap: 20px; }
+  .blend .loyalty-grid,
+  .blend .round-roles,
+  .blend .round-about-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .blend .offer-card { grid-template-columns: 1fr; gap: 16px; padding: 18px; }
+  .blend .offer-card .promo { max-width: 240px; }
+  .blend .offer-body { padding: 0; }
+  .blend .ig-stills { grid-template-columns: 1fr 1fr; }
+  .blend .ig-stills img { height: 140px; }
+  .blend .round-form-row { grid-template-columns: 1fr; }
+}

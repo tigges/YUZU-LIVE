@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="versions/fonts/fonts.css" />
   <link rel="stylesheet" href="versions/brand.css?v=2" />
   <link rel="stylesheet" href="versions/fresh.css?v=9" />
-  <link rel="stylesheet" href="versions/blend.css?v=21" />
+  <link rel="stylesheet" href="versions/blend.css?v=22" />
   <link rel="stylesheet" href="versions/versions-bar.css?v=6" />
   <script type="application/ld+json">
       {
@@ -1391,7 +1391,7 @@
       <h2>Contact</h2>
       <p>5 Dickens Yard<br />Longfield Avenue<br />Ealing, W5 2TD</p>
       <p><a href="tel:+442088402244">020 8840 2244</a><br /><a href="mailto:info@yuzuhairandbeauty.co.uk">info@yuzuhairandbeauty.co.uk</a></p>
-      <p><a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Get directions<span class="vh"> (opens in a new tab)</span></a></p>
+      <p><a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Get directions<span class="vh"> (opens in a new tab)</span></a> · <a href="contact.html">Send a message</a></p>
     </div>
     <div>
       <h2>Opening hours</h2>
@@ -1432,7 +1432,7 @@
   </div>
   <script src="versions/menu.js?v=2"></script>
   <script src="versions/logo-home.js?v=1"></script>
-  <script src="js/visit.js?v=4"></script>
+  <script src="js/visit.js?v=5"></script>
   <script>
     (function () {
       var map = { "#cut": "pm-cut", "#colour": "pm-colour", "#highlights": "pm-high", "#treatments": "pm-treat" };
@@ -1527,8 +1527,14 @@
         var label = tabs.querySelector('label[for="' + radio.id + '"]');
         tabs.scrollTo({ left: label.offsetLeft - tabs.offsetLeft - 18, behavior: behavior });
       }
+      var hashByRadio = { "pm-cut": "#cut", "pm-colour": "#colour", "pm-high": "#highlights", "pm-treat": "#treatments" };
       board.querySelectorAll('.price-radio').forEach(function (radio) {
-        radio.addEventListener('change', function () { showTab(radio, 'smooth'); });
+        radio.addEventListener('change', function () {
+          showTab(radio, 'smooth');
+          if (hashByRadio[radio.id] && history.replaceState) {
+            history.replaceState(null, '', hashByRadio[radio.id]);
+          }
+        });
         if (radio.checked) showTab(radio, 'auto');
       });
       board.addEventListener('click', function (e) {
