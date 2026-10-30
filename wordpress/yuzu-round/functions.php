@@ -13,6 +13,9 @@ if (function_exists('add_action') && is_readable(__DIR__ . '/inc/copy.php')) {
 if (is_readable(__DIR__ . '/inc/seo.php')) {
     require_once __DIR__ . '/inc/seo.php';
 }
+if (is_readable(__DIR__ . '/inc/reviews.php')) {
+    require_once __DIR__ . '/inc/reviews.php';
+}
 
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
