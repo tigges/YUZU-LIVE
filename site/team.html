@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/site.css?v=31" />
+    <link rel="stylesheet" href="css/site.css?v=32" />
     <style>
       .ig-frame { background: #fffdfb; border-radius: 24px; padding: 12px; overflow: hidden; }
       .ig-stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
@@ -167,7 +167,10 @@
           </p>
         </div>
       </footer>
-      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      <div class="mobile-sticky" data-sticky-book>
+        <a class="mobile-call" href="tel:+442088402244">Call</a>
+        <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      </div>
     </div>
     <script>
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
