@@ -176,7 +176,10 @@ body.page-poster {
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 8px;
     scrollbar-width: none;
+    padding: 8px;
+    margin: -8px;
   }
   .offers.promo-row::-webkit-scrollbar,
   .lb-offers .promo-row::-webkit-scrollbar,
