@@ -616,30 +616,94 @@ section[id] { scroll-margin-top: 118px; }
 .faq summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
 .faq p { color: var(--muted); margin: 10px 0 4px; }
 
-.offer-block {
+.offer-card {
+  --mustard: #bb861b;
+  --olive: #9e9870;
+  --terra: #bb7451;
   display: grid;
-  grid-template-columns: minmax(200px, 280px) 1fr;
-  gap: 22px;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
   align-items: center;
   background: var(--paper);
   border-radius: 28px;
-  padding: 12px 22px 12px 12px;
-  margin: 0 0 14px;
+  padding: 22px;
+  margin: 0 0 18px;
 }
-
-.offer-block img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: contain;
+.offer-card .promo {
+  --serif: "Cormorant Garamond", Georgia, serif;
   border-radius: 20px;
-  background: #f3eee6;
+  pointer-events: none;
 }
+.offer-body { padding: 4px 8px 4px 0; }
+.offer-body h2 { font-size: clamp(1.55rem, 2.6vw, 2.05rem); margin: 4px 0 10px; }
+.offer-body p { color: var(--muted); margin: 0 0 10px; }
+.offer-terms {
+  display: inline-block;
+  margin: 2px 0 14px;
+  padding: 6px 12px;
+  background: #f3ece2;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--ink) !important;
+}
+.offer-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 12px; }
+.offer-steps { margin: 10px 0 12px; padding-left: 1.2rem; color: var(--muted); font-size: 0.94rem; }
+.offer-steps li + li { margin-top: 6px; }
+.loyalty-head { margin: 38px 0 16px; }
+.loyalty-head h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 4px; }
+.loyalty-head p { color: var(--muted); margin: 0; }
+.loyalty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.loyalty-card {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.loyalty-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: #f3ece2;
+  color: var(--book);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.loyalty-card h2 { font-size: 1.45rem; margin: 0 0 8px; }
+.loyalty-card p { color: var(--muted); margin: 0 0 10px; font-size: 0.95rem; }
+.loyalty-card details { margin-top: auto; padding-top: 10px; border-top: 1px solid #f0e9df; }
+.loyalty-card summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.loyalty-card summary::-webkit-details-marker { display: none; }
+.loyalty-card[open] summary .chev::before,
+.loyalty-card details[open] > summary .chev::before { top: 7px; transform: rotate(225deg); }
+.round-extras a.extra-link { display: block; text-decoration: none; color: inherit; }
 
-.offer-block h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 8px; }
-.offer-block p,
-.offer-block li { color: var(--muted); }
-.offer-note { grid-template-columns: 1fr; padding: 22px 24px; }
+@media (max-width: 860px) {
+  .offer-card { grid-template-columns: 220px 1fr; gap: 20px; }
+  .loyalty-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .offer-card { grid-template-columns: 1fr; gap: 16px; padding: 18px; }
+  .offer-card .promo { max-width: 240px; }
+  .offer-body { padding: 0; }
+}
 
 .ig-frame {
   background: var(--paper);

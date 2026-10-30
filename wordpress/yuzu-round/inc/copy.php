@@ -412,11 +412,25 @@ function yuzu_round_copy_rename_gallery_heading(): void
         return;
     }
     $stored = get_option('yuzu_round_copy');
-    if (!is_array($stored) || ($stored['home']['home-gallery-title'] ?? '') !== 'Gallery') {
+    if (!is_array($stored)) {
         return;
     }
-    $stored['home']['home-gallery-title'] = 'Looks';
-    update_option('yuzu_round_copy', $stored);
+    $changed = false;
+    if (($stored['home']['home-gallery-title'] ?? '') === 'Gallery') {
+        $stored['home']['home-gallery-title'] = 'Looks';
+        $changed = true;
+    }
+    if (isset($stored['offers']) && is_array($stored['offers'])) {
+        $legacy_tue = ($stored['offers']['offers-tue-kicker'] ?? '') === 'Colour Tuesdays · Senior stylist';
+        $legacy_thu = ($stored['offers']['offers-thu-kicker'] ?? '') === 'Thursdays · Stylist';
+        if ($legacy_tue || $legacy_thu) {
+            unset($stored['offers']);
+            $changed = true;
+        }
+    }
+    if ($changed) {
+        update_option('yuzu_round_copy', $stored);
+    }
 }
 
 function yuzu_round_copy_apply(string $html, string $file): string

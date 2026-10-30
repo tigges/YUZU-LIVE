@@ -27,7 +27,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/site.css?v=25" />
+    <link rel="stylesheet" href="css/site.css?v=26" />
+    <link rel="stylesheet" href="versions/promo.css?v=4" />
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -63,75 +64,119 @@
 
       <main id="main" class="round-section round-sub">
         <div class="wrap">
-          <a class="round-back" href="index.html">← Home</a>
+          <a class="round-back" href="index.html" data-back>← Home</a>
           <div class="section-head">
             <h1 data-yuzu-copy="offers-title">Exclusive Offers</h1>
-            <p data-yuzu-copy="offers-intro">Are you ready to elevate your salon visits? Get ready to indulge in exclusive offers just for you.</p>
+            <p data-yuzu-copy="offers-intro">Weekday colour and smoothing offers, plus ongoing rewards when you refer a friend or rebook in the salon.</p>
+          </div>
+          <p class="today-offer" data-today-offer></p>
+
+          <article class="offer-card" id="tuesdays">
+            <div class="promo tue" aria-hidden="true">
+              <span class="draw fruit-a"></span>
+              <span class="draw fruit-b"></span>
+              <span class="promo-copy">
+                <span class="promo-lead"><span class="promo-title">Colour Tuesdays</span>
+                <span class="promo-sub">with a Creative Director</span></span>
+                <span class="promo-off">50% Off</span>
+                <span class="promo-fine">Your most expensive colour<br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
+              </span>
+            </div>
+            <div class="offer-body">
+              <p class="kicker" data-yuzu-copy="offers-tue-kicker">Every Tuesday · Creative Director</p>
+              <h2 data-yuzu-copy="offers-tue-title">Don’t go back to black with this deal</h2>
+              <p data-yuzu-copy="offers-tue-p1">Say goodbye to dull hair with our vibrant colour celebration. Every Tuesday, enjoy a kaleidoscope of shades to express your unique style and personality at 50% off with our Creative Director.</p>
+              <p class="offer-terms" data-yuzu-copy="offers-tue-p2">50% off your most expensive colour service · requires a full-priced wash, cut &amp; blow-dry · patch test 48h prior</p>
+              <div class="offer-ctas">
+                <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book Tuesday colour<span class="vh"> (opens in a new tab)</span></a>
+                <a class="btn btn-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="offer-card" id="wednesdays">
+            <div class="promo wed" aria-hidden="true">
+              <span class="draw bloom bloom-a"></span>
+              <span class="draw bloom bloom-b"></span>
+              <span class="promo-copy">
+                <span class="promo-lead"><span class="promo-title">Smooth</span>
+                <span class="promo-title">Wednesdays</span></span>
+                <span class="promo-off">25% Off</span>
+                <span class="promo-fine">Our three to six month<br />smoothing treatment</span>
+              </span>
+            </div>
+            <div class="offer-body">
+              <p class="kicker" data-yuzu-copy="offers-wed-kicker">Every Wednesday · Aura Smoothing</p>
+              <h2 data-yuzu-copy="offers-wed-title">Blow everyone away with this deal</h2>
+              <p data-yuzu-copy="offers-wed-p1">Every Wednesday at YUZU hair, we’re turning up the glam and offering 25% off our Brazilian blow-dry and Aura smoothing treatments.</p>
+              <p class="offer-terms" data-yuzu-copy="offers-wed-p2">25% off our 3–6 month smoothing / straightening treatment · formaldehyde &amp; ammonia free</p>
+              <div class="offer-ctas">
+                <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book Wednesday smoothing<span class="vh"> (opens in a new tab)</span></a>
+                <a class="btn btn-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="offer-card" id="thursdays">
+            <div class="promo thu" aria-hidden="true">
+              <span class="draw fan fan-a"></span>
+              <span class="draw fan fan-b"></span>
+              <span class="promo-copy">
+                <span class="promo-lead"><span class="promo-title">Colour Thursdays</span>
+                <span class="promo-sub">with a Senior Stylist and Stylist</span></span>
+                <span class="promo-off">50% Off</span>
+                <span class="promo-fine">Your most expensive colour<br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
+              </span>
+            </div>
+            <div class="offer-body">
+              <p class="kicker" data-yuzu-copy="offers-thu-kicker">Every Thursday · Senior Stylist &amp; Stylist</p>
+              <h2 data-yuzu-copy="offers-thu-title">Thursdays are the new Tuesdays</h2>
+              <p data-yuzu-copy="offers-thu-p1">Say goodbye to dull hair with our vibrant colour celebration. Every Thursday, enjoy a kaleidoscope of shades to express your unique style and personality at 50% off with a Senior Stylist or Stylist.</p>
+              <p class="offer-terms" data-yuzu-copy="offers-thu-p2">50% off your most expensive colour service · requires a full-priced wash, cut &amp; blow-dry · patch test 48h prior</p>
+              <div class="offer-ctas">
+                <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book Thursday colour<span class="vh"> (opens in a new tab)</span></a>
+                <a class="btn btn-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
+              </div>
+            </div>
+          </article>
+
+          <div class="loyalty-head">
+            <h2>Always on · Loyalty &amp; packages</h2>
+            <p>Available all week in the salon.</p>
           </div>
 
-          <article class="offer-block" id="tuesdays">
-            <img src="assets/clean/offer-tuesdays.jpg" alt="Colour Tuesdays, 50% off with a senior stylist" width="1024" height="1024" />
-            <div>
-              <p class="kicker" data-yuzu-copy="offers-tue-kicker">Colour Tuesdays · Senior stylist</p>
-              <h2 data-yuzu-copy="offers-tue-title">Don’t go back to black with this deal!</h2>
-              <p data-yuzu-copy="offers-tue-p1">Say goodbye to dull hair with our vibrant colour celebration! Every Tuesday, enjoy a kaleidoscope of shades to express your unique style and personality at a discounted rate of 50%.</p>
-              <p data-yuzu-copy="offers-tue-p2">Your most expensive colour service, with a full-priced wash, cut and blow-dry. Visit our salon or give us a call to learn more about this exciting deal.</p>
-              <p class="round-actions"><a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a></p>
-            </div>
-          </article>
+          <div class="loyalty-grid">
+            <article class="loyalty-card" id="refer">
+              <span class="loyalty-badge">£10 credit · Unlimited</span>
+              <h2 data-yuzu-copy="offers-refer-title">Refer a friend</h2>
+              <p data-yuzu-copy="offers-refer-end">When a friend you recommend completes their first appointment at YUZU hair, you receive £10 credit towards your next visit—with no limit on referrals.</p>
+              <details>
+                <summary><span>How it works (4 steps)</span><span class="chev" aria-hidden="true"></span></summary>
+                <ol class="offer-steps">
+                  <li data-yuzu-copy="offers-refer-1">Spread the word: share your love for YUZU hair with friends, family, colleagues — anyone who deserves a pampering salon experience.</li>
+                  <li data-yuzu-copy="offers-refer-2">They book, you earn: when your recommended friend books and completes their first appointment with us, you receive £10 credit towards your next visit.</li>
+                  <li data-yuzu-copy="offers-refer-3">Unlimited rewards: there’s no limit to the number of friends you can refer or credits you can earn.</li>
+                  <li data-yuzu-copy="offers-refer-4">Luxury awaits: redeem your credit across our wide range of cuts, colour, and hair treatments.</li>
+                </ol>
+              </details>
+            </article>
 
-          <article class="offer-block" id="wednesdays">
-            <img src="assets/clean/offer-wednesdays.jpg" alt="Smooth Wednesdays, 25% off smoothing treatments" width="1024" height="1024" />
-            <div>
-              <p class="kicker" data-yuzu-copy="offers-wed-kicker">Smooth Wednesdays</p>
-              <h2 data-yuzu-copy="offers-wed-title">BLOW everyone away with this deal!</h2>
-              <p data-yuzu-copy="offers-wed-p1">Every Wednesday at YUZU hair, we’re turning up the glam and offering an exclusive deal just for you: 25% off our Brazilian blow-dry services.</p>
-              <p data-yuzu-copy="offers-wed-p2">Formaldehyde and ammonia free smoothing / straightening treatment for hair. Find out more about this deal by popping into our salon or giving us a ring!</p>
-              <p class="round-actions"><a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a></p>
-            </div>
-          </article>
-
-          <article class="offer-block" id="thursdays">
-            <img src="assets/clean/offer-thursdays.jpg" alt="Thursdays are the new Tuesdays, 50% off with a stylist" width="1024" height="1024" />
-            <div>
-              <p class="kicker" data-yuzu-copy="offers-thu-kicker">Thursdays · Stylist</p>
-              <h2 data-yuzu-copy="offers-thu-title">Don’t go back to black with this deal!</h2>
-              <p data-yuzu-copy="offers-thu-p1">Say goodbye to dull hair with our vibrant colour celebration! Every Thursday, enjoy a kaleidoscope of shades to express your unique style and personality at a discounted rate of 50%.</p>
-              <p data-yuzu-copy="offers-thu-p2">Colour celebration with a full-priced wash, cut and blow-dry. Stylist. Visit our salon or give us a call to learn more about this exciting deal.</p>
-              <p class="round-actions"><a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a></p>
-            </div>
-          </article>
-
-          <article class="offer-block offer-note" id="refer">
-            <div>
-              <h2 data-yuzu-copy="offers-refer-title">Refer a friend!</h2>
-              <ol>
-                <li data-yuzu-copy="offers-refer-1">Spread the word: share your love for YUZU hair with friends, family, colleagues — anyone who deserves a pampering salon experience.</li>
-                <li data-yuzu-copy="offers-refer-2">They book, you earn: when your recommended friend books and completes their first appointment with us, you both win! They’ll enjoy top-notch salon services, and you’ll receive a generous £10 credit towards your next visit as our way of saying thank you.</li>
-                <li data-yuzu-copy="offers-refer-3">Unlimited rewards: there’s no limit to the number of friends you can refer or credits you can earn. The more you spread the word, the more you save!</li>
-                <li data-yuzu-copy="offers-refer-4">Luxury awaits: with your credit in hand, indulge in our wide range of salon services, from luxurious hair treatments to stunning haircuts and vibrant colour transformations.</li>
-              </ol>
-              <p data-yuzu-copy="offers-refer-end">Ready to start earning? Simply refer your friends to YUZU hair today and watch the rewards roll in. It’s that easy!</p>
-            </div>
-          </article>
-
-          <article class="offer-block offer-note" id="rebook">
-            <div>
+            <article class="loyalty-card" id="rebook">
+              <span class="loyalty-badge">10% off next visit</span>
               <h2 data-yuzu-copy="offers-rebook-title">Rebook the same day</h2>
-              <p data-yuzu-copy="offers-rebook-text">At YUZU hair, we value loyalty and appreciate our fabulous clients. Rebook with us on the same day as your appointment and receive 10% off your next appointment as a token of our gratitude. Don’t miss out on this opportunity for extra savings — we look forward to welcoming you back for another fabulous salon experience!</p>
-            </div>
-          </article>
+              <p data-yuzu-copy="offers-rebook-text">At YUZU hair, we value loyalty and appreciate our clients. Rebook with us on the same day as your appointment and receive 10% off your next appointment as a token of our gratitude.</p>
+            </article>
 
-          <article class="offer-block offer-note" id="blowdry-pack">
-            <div>
+            <article class="loyalty-card" id="blowdry-pack">
+              <span class="loyalty-badge">£156 · 4 visits</span>
               <h2 data-yuzu-copy="offers-blow-title">4 blow-drys for £156</h2>
               <p data-yuzu-copy="offers-blow-text">Valid 6 months. Haircuts are not included. Not applicable for hair extensions. A no-call no-show will have 1 blow-dry deducted from the package. Package is non-refundable.</p>
-            </div>
-          </article>
+            </article>
+          </div>
         </div>
       </main>
 
-      <footer class="round-footer">
+      <footer class="round-footer" data-book-end>
         <div class="wrap">
           <p>© <span data-year>2026</span> YUZU hair</p>
           <p>
@@ -142,11 +187,35 @@
           </p>
         </div>
       </footer>
-      <a class="mobile-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      <a class="mobile-book" data-sticky-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
     </div>
     <script>
       document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear() })
+      ;(function () {
+        if (location.hash === '#refer') {
+          var d = document.querySelector('#refer details');
+          if (d) d.open = true;
+        }
+        var back = document.querySelector('[data-back]');
+        if (!back) return;
+        var fromOffers = /^#(tuesdays|wednesdays|thursdays|refer|rebook|blowdry-pack|offers)$/.test(location.hash);
+        var ref = '';
+        try {
+          if (document.referrer) {
+            var u = new URL(document.referrer);
+            if (u.origin === location.origin) ref = u.pathname;
+          }
+        } catch (e) {}
+        if (/\/versions\/blend\.html$/.test(ref)) {
+          back.textContent = fromOffers ? '← Offers' : '← Blend';
+          back.setAttribute('href', fromOffers ? '/versions/blend.html#offers' : '/versions/blend.html');
+        } else if (fromOffers) {
+          back.textContent = '← Offers';
+          back.setAttribute('href', back.getAttribute('href').split('#')[0] + '#offers');
+        }
+      })();
     </script>
     <script src="js/site.js?v=13"></script>
+    <script src="js/visit.js?v=1"></script>
   </body>
 </html>
