@@ -67,4 +67,120 @@
   if (sticky && end && 'IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => sticky.classList.toggle('is-hidden', entry.isIntersecting && scrollY > 0)).observe(end)
   }
+
+  const detail = document.querySelector('[data-offer-detail]')
+  if (detail) {
+    const pricesHref = detail.getAttribute('data-prices-href') || 'prices.html#cut'
+    const promoDetails = {
+      tue: {
+        kicker: 'Every Tuesday · Creative Director',
+        headline: 'Don’t go back to black with this deal',
+        text: 'Say goodbye to dull hair with our vibrant colour celebration. Every Tuesday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with our Creative Director.',
+        terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
+        bookLabel: 'Book Tuesday colour',
+        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        external: true,
+      },
+      wed: {
+        kicker: 'Every Wednesday · Aura Smoothing',
+        headline: 'Blow everyone away with this deal',
+        text: 'Every Wednesday at YUZU hair, enjoy 25% off our Brazilian blow-dry and Aura smoothing treatments—our formaldehyde- and ammonia-free smoothing and straightening treatment lasting 3 to 6 months.',
+        terms: '25% off 3–6 month smoothing treatment · formaldehyde & ammonia free',
+        bookLabel: 'Book Wednesday smoothing',
+        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        external: true,
+      },
+      thu: {
+        kicker: 'Every Thursday · Senior Stylist & Stylist',
+        headline: 'Thursdays are the new Tuesdays',
+        text: 'Every Thursday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with a Senior Stylist or Stylist.',
+        terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
+        bookLabel: 'Book Thursday colour',
+        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        external: true,
+      },
+      refer: {
+        kicker: 'Ongoing reward · Unlimited referrals',
+        headline: 'Spread the word, earn £10 credit',
+        text: 'Share YUZU hair with friends, family, or colleagues. When your recommended friend books and completes their first appointment with us, you receive £10 credit towards your next visit—with no limit on how many friends you refer.',
+        terms: '£10 credit per new client referred · unlimited referrals · redeemable on any service',
+        bookLabel: 'Book an appointment',
+        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        external: true,
+      },
+      rebook: {
+        kicker: 'In-salon loyalty reward',
+        headline: 'Hair today, gone tomorrow (but not really)',
+        text: 'At YUZU hair, we value loyalty. Book your next appointment at reception on the same day as your visit and receive 10% off that next appointment as a token of our gratitude.',
+        terms: '10% off your next appointment when booked in-salon on the day of your visit',
+        bookLabel: 'Book your visit',
+        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        external: true,
+      },
+      blowdry: {
+        kicker: 'Package · Save on regular styling',
+        headline: '4 blow-drys for £156',
+        text: 'Keep your hair styled for less with our 4-visit blow-dry bundle. Ask at reception on your next visit or call us to purchase.',
+        terms: 'Valid 6 months · haircuts not included · not applicable for extensions · no-show deducts 1 blow-dry · non-refundable',
+        bookLabel: 'View in price list',
+        bookHref: pricesHref,
+        external: false,
+      },
+    }
+
+    const kickerEl = detail.querySelector('[data-detail-kicker]')
+    const headlineEl = detail.querySelector('[data-detail-headline]')
+    const textEl = detail.querySelector('[data-detail-text]')
+    const termsEl = detail.querySelector('[data-detail-terms]')
+    const bookEl = detail.querySelector('[data-detail-book]')
+    const buttons = [...document.querySelectorAll('[data-promo]')]
+    let activePromo = ''
+
+    const closeTray = () => {
+      detail.hidden = true
+      activePromo = ''
+      buttons.forEach((b) => {
+        b.classList.remove('is-selected')
+        b.setAttribute('aria-expanded', 'false')
+      })
+    }
+
+    const openTray = (promoKey) => {
+      const p = promoDetails[promoKey]
+      if (!p) return
+      activePromo = promoKey
+      if (kickerEl) kickerEl.textContent = p.kicker
+      if (headlineEl) headlineEl.textContent = p.headline
+      if (textEl) textEl.textContent = p.text
+      if (termsEl) termsEl.textContent = p.terms
+      if (bookEl) {
+        bookEl.textContent = p.bookLabel
+        bookEl.setAttribute('href', p.bookHref)
+        if (p.external) {
+          bookEl.setAttribute('target', '_blank')
+          bookEl.setAttribute('rel', 'noreferrer')
+        } else {
+          bookEl.removeAttribute('target')
+          bookEl.removeAttribute('rel')
+        }
+      }
+      detail.hidden = false
+      buttons.forEach((b) => {
+        const match = b.getAttribute('data-promo') === promoKey
+        b.classList.toggle('is-selected', match)
+        b.setAttribute('aria-expanded', String(match))
+      })
+    }
+
+    buttons.forEach((b) => {
+      b.setAttribute('aria-expanded', 'false')
+      b.addEventListener('click', () => {
+        const k = b.getAttribute('data-promo')
+        if (!detail.hidden && activePromo === k) closeTray()
+        else openTray(k)
+      })
+    })
+
+    detail.querySelector('[data-detail-close]')?.addEventListener('click', closeTray)
+  }
 })()
