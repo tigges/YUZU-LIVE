@@ -51,7 +51,10 @@
     el.dataset.flag = flag
     const row = el.closest('ul')
     const item = el.closest('li')
-    if (row && item && row.scrollWidth > row.clientWidth) row.scrollLeft += item.getBoundingClientRect().left - row.getBoundingClientRect().left
+    if (row && item && row.scrollWidth > row.clientWidth) {
+      const pad = parseFloat(getComputedStyle(row).paddingLeft) || 0
+      row.scrollLeft += item.getBoundingClientRect().left - row.getBoundingClientRect().left - pad
+    }
   })
   document.querySelectorAll('[data-today-offer]').forEach((el) => {
     const lead = document.createElement('strong')
