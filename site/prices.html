@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/site.css?v=24" />
+    <link rel="stylesheet" href="css/site.css?v=25" />
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -842,9 +842,7 @@
           <nav class="round-nav" aria-label="Primary">
             <a href="index.html#looks">Looks</a>
             <a href="prices.html" aria-current="page">Services</a>
-            <a href="index.html#reviews">Reviews</a>
             <a href="offers.html">Offers</a>
-            <a href="team.html">Join</a>
             <a href="index.html#visit">Visit</a>
             <a class="btn btn-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
           </nav>
@@ -856,7 +854,7 @@
 
       <main id="main" class="round-section round-sub">
         <div class="wrap">
-          <a class="round-back" href="index.html">← Home</a>
+          <a class="round-back" href="index.html" data-back>← Home</a>
           <div class="section-head">
             <h1>Prices</h1>
           </div>
@@ -1423,9 +1421,41 @@
       (function () {
         var map = { "#cut": "pm-cut", "#colour": "pm-colour", "#highlights": "pm-high", "#treatments": "pm-treat" };
         var id = map[location.hash];
-        if (!id) return;
-        var input = document.getElementById(id);
-        if (input) input.checked = true;
+        if (id) {
+          var input = document.getElementById(id);
+          if (input) input.checked = true;
+        }
+        var back = document.querySelector('[data-back]');
+        if (back) {
+          var homeBase = back.getAttribute('href').split('#')[0];
+          var fromServices = /^#(cut|colour|highlights|treatments|services)$/.test(location.hash);
+          var ref = '';
+          try {
+            if (document.referrer) {
+              var u = new URL(document.referrer);
+              if (u.origin === location.origin) ref = u.pathname;
+            }
+          } catch (e) {}
+          if (fromServices) {
+            back.textContent = '← Services';
+            back.setAttribute('href', homeBase + '#services');
+          } else if (/\/patch(\.html|\/)?$/.test(ref)) {
+            back.textContent = '← Patch testing';
+            back.setAttribute('href', document.referrer);
+          } else if (/\/offers(\.html|\/)?$/.test(ref)) {
+            back.textContent = '← Offers';
+            back.setAttribute('href', document.referrer);
+          } else if (/\/questions(\.html|\/)?$/.test(ref)) {
+            back.textContent = '← Questions';
+            back.setAttribute('href', document.referrer);
+          } else if (/\/team(\.html|\/)?$/.test(ref)) {
+            back.textContent = '← Join our team';
+            back.setAttribute('href', document.referrer);
+          } else if (/\/about(\.html|\/)?$/.test(ref)) {
+            back.textContent = '← About';
+            back.setAttribute('href', document.referrer);
+          }
+        }
       })();
     </script>
     <script>
