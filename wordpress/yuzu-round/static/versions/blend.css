@@ -525,7 +525,9 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
 }
 .level-options input:checked + span { background: var(--terra); border-color: var(--terra); color: #fff; }
 .level-options input:focus-visible + span { outline: 2px solid var(--forest); outline-offset: 3px; }
-.level-tail { font-style: normal; }
+.level-tail,
+.level-mob { font-style: normal; }
+.level-mob { display: none; }
 .level-desc { margin: 10px 0 0; font-size: 14px; opacity: 0.8; }
 
 .price-tabs {
@@ -610,10 +612,11 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
 
 @media (max-width: 700px) {
   .level-tail { display: none; }
+  .level-mob { display: inline; }
   .level-options { gap: 5px; }
   .level-options label { flex: 1 1 auto; text-align: center; }
   .level-options span { font-size: 13px; padding: 8px 6px; }
-  .price-tabs { gap: 5px; margin: 16px 0 0; padding: 10px 0; }
+  .price-tabs { flex-wrap: wrap; gap: 5px; margin: 16px 0 0; padding: 10px 0; }
   .price-tabs label { flex: 1 1 auto; text-align: center; padding: 8px 5px; font-size: 11px; letter-spacing: 0.03em; white-space: nowrap; }
   .cut-filter { gap: 5px; }
   .cut-filter label { flex: 1 1 auto; text-align: center; }
@@ -626,6 +629,7 @@ body.blend a.blend-book.is-hidden { opacity: 0; transform: translateY(16px); poi
   .price-single,
   .chairs,
   .packages li { padding-right: 34px; }
+  .chairs li > span:first-child { flex: 0 0 126px; }
   .chairs .track { min-width: 48px; }
 }
 .blend a[href^="tel:"] { white-space: nowrap; }

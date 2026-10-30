@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="brand.css?v=2" />
   <link rel="stylesheet" href="fresh.css?v=6" />
-  <link rel="stylesheet" href="blend.css?v=13" />
+  <link rel="stylesheet" href="blend.css?v=14" />
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="versions-bar.css?v=5" />
 </head>
@@ -37,12 +37,12 @@
       <legend>Prices for</legend>
       <div class="level-options">
         <label><input type="radio" name="level" value="" checked /><span>All<i class="level-tail"> levels</i></span></label>
-        <label><input type="radio" name="level" value="creative" /><span>Creative<i class="level-tail"> Director</i></span></label>
+        <label><input type="radio" name="level" value="creative" /><span><i class="level-mob" aria-hidden="true">CD</i><i class="level-tail">Creative Director</i></span></label>
         <label><input type="radio" name="level" value="senior" /><span>Senior<i class="level-tail"> Stylist</i></span></label>
         <label><input type="radio" name="level" value="stylist" /><span>Stylist</span></label>
         <label><input type="radio" name="level" value="junior" /><span>Junior<i class="level-tail"> Stylist</i></span></label>
       </div>
-      <p class="level-desc" data-level-desc aria-live="polite">Price ranges from Junior Stylist to Creative Director.</p>
+      <p class="level-desc" data-level-desc aria-live="polite">Price ranges from Junior Stylist to Creative Director (CD).</p>
     </fieldset>
     <div class="price-board">
       <input class="price-radio" type="radio" name="price-menu" id="pm-cut" checked />
@@ -629,8 +629,8 @@
       var desc = document.querySelector('[data-level-desc]');
       var rows = document.querySelectorAll('[data-levels]');
       var text = {
-        '': 'Price ranges from Junior Stylist to Creative Director.',
-        creative: 'Creative Director: lead stylist and salon visionary.',
+        '': 'Price ranges from Junior Stylist to Creative Director (CD).',
+        creative: 'Creative Director (CD): lead stylist and salon visionary.',
         senior: 'Senior Stylist: extensive experience, advanced cutting and colour.',
         stylist: 'Stylist: fully qualified, all cuts and colour.',
         junior: 'Junior Stylist: newly qualified, under senior guidance.'
