@@ -41,6 +41,7 @@
 .blend .hero-copy .actions { margin-top: 16px; justify-content: center; }
 .blend .center-cta { text-align: center; margin-top: 28px; }
 .blend .section { padding: 28px 40px; }
+.blend .blend-back { display: inline-block; margin-bottom: 14px; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
 .blend .section-head { margin-bottom: 16px; }
 .blend .section-head h1 {
   font-family: var(--serif);

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="brand.css?v=2" />
   <link rel="stylesheet" href="fresh.css?v=6" />
-  <link rel="stylesheet" href="blend.css?v=14" />
+  <link rel="stylesheet" href="blend.css?v=15" />
   <meta name="robots" content="noindex" />
   <link rel="stylesheet" href="versions-bar.css?v=5" />
 </head>
@@ -30,6 +30,7 @@
     </nav>
   </header>
   <main class="section" id="prices">
+    <a class="blend-back" href="blend.html" data-back>← Home</a>
     <div class="section-head">
       <h1>Prices</h1>
     </div>
@@ -618,9 +619,41 @@
     (function () {
       var map = { "#cut": "pm-cut", "#colour": "pm-colour", "#highlights": "pm-high", "#treatments": "pm-treat" };
       var id = map[location.hash];
-      if (!id) return;
-      var input = document.getElementById(id);
-      if (input) input.checked = true;
+      if (id) {
+        var input = document.getElementById(id);
+        if (input) input.checked = true;
+      }
+      var back = document.querySelector('[data-back]');
+      if (back) {
+        var homeBase = back.getAttribute('href').split('#')[0];
+        var fromServices = /^#(cut|colour|highlights|treatments|services)$/.test(location.hash);
+        var ref = '';
+        try {
+          if (document.referrer) {
+            var u = new URL(document.referrer);
+            if (u.origin === location.origin) ref = u.pathname;
+          }
+        } catch (e) {}
+        if (fromServices) {
+          back.textContent = '← Services';
+          back.setAttribute('href', homeBase + '#services');
+        } else if (/\/patch(\.html|\/)?$/.test(ref)) {
+          back.textContent = '← Patch testing';
+          back.setAttribute('href', document.referrer);
+        } else if (/\/offers(\.html|\/)?$/.test(ref)) {
+          back.textContent = '← Offers';
+          back.setAttribute('href', document.referrer);
+        } else if (/\/questions(\.html|\/)?$/.test(ref)) {
+          back.textContent = '← Questions';
+          back.setAttribute('href', document.referrer);
+        } else if (/\/team(\.html|\/)?$/.test(ref)) {
+          back.textContent = '← Join our team';
+          back.setAttribute('href', document.referrer);
+        } else if (/\/about(\.html|\/)?$/.test(ref)) {
+          back.textContent = '← About';
+          back.setAttribute('href', document.referrer);
+        }
+      }
     })();
   </script>
   <script>
