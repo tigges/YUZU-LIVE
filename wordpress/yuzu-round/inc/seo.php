@@ -5,7 +5,10 @@
 
 function yuzu_round_public_paths(): array
 {
-    $paths = ['send.php' => '/wp-admin/admin-ajax.php?action=yuzu_send'];
+    $paths = [
+        'send.php' => '/wp-admin/admin-ajax.php?action=yuzu_send',
+        'offers.html' => '/#offers',
+    ];
     foreach (yuzu_round_pages() as $slug => $page) {
         $paths[$page['file']] = $slug === 'home' ? '/' : '/' . $slug . '/';
     }
@@ -230,10 +233,20 @@ function yuzu_round_sitemap_xml(): string
         }
         $urls[] = 'https://yuzu.hair/' . $slug . '/';
     }
+    $lastmod = '2026-10-31';
+    if (function_exists('yuzu_round_static_dir')) {
+        $idx = yuzu_round_static_dir() . '/index.html';
+        if (is_file($idx)) {
+            $mtime = @filemtime($idx);
+            if (is_int($mtime) && $mtime > 0) {
+                $lastmod = gmdate('Y-m-d', $mtime);
+            }
+        }
+    }
     $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
     foreach ($urls as $url) {
-        $xml .= '  <url><loc>' . htmlspecialchars($url, ENT_QUOTES | ENT_XML1, 'UTF-8') . "</loc><lastmod>2026-10-30</lastmod></url>\n";
+        $xml .= '  <url><loc>' . htmlspecialchars($url, ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc><lastmod>' . $lastmod . "</lastmod></url>\n";
     }
     $xml .= "</urlset>\n";
     return $xml;
@@ -281,6 +294,18 @@ function yuzu_round_sync_root_robots(): void
     }
     file_put_contents($path, yuzu_round_robots_txt());
     update_option('yuzu_round_robots_synced', '1', false);
+}
+
+function yuzu_round_sync_root_sitemap(): void
+{
+    if (get_option('yuzu_round_sitemap_synced') === 'v2' || !defined('ABSPATH')) {
+        return;
+    }
+    $path = ABSPATH . 'sitemap.xml';
+    if (is_file($path) && is_writable($path)) {
+        @file_put_contents($path, yuzu_round_sitemap_xml());
+    }
+    update_option('yuzu_round_sitemap_synced', 'v2', false);
 }
 
 function yuzu_round_handle_send_form(): void
@@ -525,6 +550,7 @@ if (function_exists('add_action')) {
         try {
             yuzu_round_retire_default_content();
             yuzu_round_sync_root_robots();
+            yuzu_round_sync_root_sitemap();
         } catch (Throwable $e) {
             // Cleanup must not take the salon down.
         }
@@ -535,6 +561,10 @@ if (function_exists('add_action')) {
             return;
         }
         $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+        if (is_string($path) && preg_match('#^/offers(?:\.html|/)?$#i', $path) === 1) {
+            wp_redirect(home_url('/#offers'), 301);
+            exit;
+        }
         if (is_string($path) && preg_match('#^/([A-Za-z0-9-]+)\.html$#', $path, $match) === 1) {
             $file = $match[1] === 'index' ? 'index.html' : $match[1] . '.html';
             $pages = yuzu_round_public_paths();
