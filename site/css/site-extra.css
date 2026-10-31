@@ -1,0 +1,184 @@
+/* Pieces added after Blend: notice banner, holiday hours, forms, service pages. */
+
+.shine picture { display: contents; }
+
+.blend .rating-stars {
+  background: linear-gradient(90deg, var(--mustard) calc(var(--rating, 4.5) * 20%), var(--line) calc(var(--rating, 4.5) * 20%));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.blend .visit-email { margin-top: 10px; }
+.blend .visit-email a { text-decoration: underline; text-underline-offset: 3px; }
+
+.blend .visit-special {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.blend .visit-special li { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }
+.blend .visit-special strong { font-weight: 500; }
+
+/* Notice banner, managed in wp-admin → Salon details. */
+.site-notice {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 18px;
+  flex-wrap: wrap;
+  padding: 10px 52px 10px 20px;
+  background: var(--forest);
+  color: var(--beige);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}
+.site-notice[hidden] { display: none; }
+.site-notice.tone-terra { background: var(--terra); color: #fff; }
+.site-notice.tone-cream { background: var(--beige); color: var(--forest); border-bottom: 1px solid var(--line); }
+.site-notice p { margin: 0; }
+.site-notice a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.site-notice .notice-close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.site-notice .notice-close:focus-visible { outline: 1px solid currentColor; }
+
+/* Forms: spam trap stays out of sight; consent line under the button. */
+.blend .form-trap {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.blend .form-consent { margin: 10px 0 0; font-size: 13px; opacity: 0.8; }
+.blend .form-consent a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Price page: one heading per panel for screen readers and search. */
+.blend .panel-more { margin: 14px 0 0; font-size: 14px; }
+.blend .panel-more a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Homepage service titles link to their own pages. */
+.blend .services h3 a { color: inherit; text-decoration: none; }
+.blend .services h3 a:hover,
+.blend .services h3 a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Service pages (/haircut-ealing/ and friends). */
+.blend .service-page { max-width: 1180px; margin: 0 auto; }
+.blend .service-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 32px;
+  align-items: start;
+}
+.blend .service-intro .section-head h1 { margin-bottom: 14px; }
+.blend .service-intro .round-prose p { margin: 0 0 12px; }
+.blend .service-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.blend .service-photos img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 22px;
+}
+.blend .service-photos .shine { border-radius: 22px; }
+.blend .service-photos .shine:first-child { grid-column: 1 / -1; }
+.blend .service-photos .shine:first-child img { aspect-ratio: 3 / 2; }
+.blend .service-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.blend .service-points li {
+  padding: 18px 20px;
+  background: var(--paper);
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgb(47 58 39 / 0.08);
+}
+.blend .service-points h3 {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.1;
+}
+.blend .service-points p { margin: 0; font-size: 15px; line-height: 1.5; }
+.blend .service-prices { margin-top: 32px; }
+.blend .service-prices > h2,
+.blend .service-faq > h2,
+.blend .service-more > h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 40px);
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+.blend .service-board .price-panel { display: block; }
+.blend .service-board .price-tabs,
+.blend .service-board .price-radio { display: none; }
+.blend .service-faq { margin-top: 32px; max-width: 46rem; }
+.blend .service-faq details {
+  border-top: 1px solid var(--line);
+  padding: 12px 0;
+}
+.blend .service-faq details:last-child { border-bottom: 1px solid var(--line); }
+.blend .service-faq summary { cursor: pointer; font-weight: 500; }
+.blend .service-faq details p { margin: 8px 0 0; line-height: 1.55; }
+.blend .service-more { margin-top: 32px; }
+.blend .service-more ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.blend .service-more a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+}
+.blend .service-more a:hover,
+.blend .service-more a:focus-visible { border-color: var(--forest); }
+.blend .service-ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+@media (max-width: 900px) {
+  .blend .service-intro { grid-template-columns: 1fr; }
+  .blend .service-points { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .site-notice { font-size: 13px; padding: 9px 46px 9px 14px; }
+}
