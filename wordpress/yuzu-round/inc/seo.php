@@ -96,6 +96,7 @@ function yuzu_round_robots_txt(): string
         'Allow: /wp-content/themes/yuzu-round/static/js/',
         'Allow: /wp-content/themes/yuzu-round/static/versions/',
         'Allow: /wp-content/themes/yuzu-round/static/favicon.svg',
+        'Allow: /wp-content/themes/yuzu-round/wordpress/yuzu-round/static/',
         '',
         'Sitemap: ' . $sitemap,
         '',
