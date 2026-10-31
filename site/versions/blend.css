@@ -434,15 +434,15 @@
 .blend .promo.is-today::before {
   content: attr(data-flag);
   position: absolute;
-  top: 10px;
-  left: 12px;
+  top: 14px;
+  left: 14px;
   z-index: 3;
-  padding: 3px 9px;
+  padding: 4px 12px;
   background: var(--beige);
   color: var(--forest);
   font-family: var(--sans);
-  font-size: 10.5px;
-  line-height: 1.35;
+  font-size: 12px;
+  line-height: 1.4;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
