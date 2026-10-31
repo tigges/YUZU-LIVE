@@ -342,6 +342,9 @@ function yuzu_round_copy_sync_faq(string $html, array $values): string
 function yuzu_round_copy_source(string $file): string
 {
     $paths = [];
+    if (function_exists('yuzu_round_static_dir')) {
+        $paths[] = yuzu_round_static_dir() . '/' . basename($file);
+    }
     if (function_exists('get_template_directory')) {
         $paths[] = get_template_directory() . '/static/' . basename($file);
     }
