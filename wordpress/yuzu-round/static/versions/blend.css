@@ -196,37 +196,140 @@
 .blend .join-links { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 .blend .visit {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-  gap: 20px 32px;
-  padding: 28px 40px 16px;
+  position: relative;
+  display: block;
+  background: transparent;
+  color: var(--forest);
+  padding: 28px 40px 28px;
 }
-.blend .visit > div:nth-child(2) { justify-self: center; }
+.blend .visit-card {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 28px 40px;
+  align-items: stretch;
+  padding: 36px 44px;
+  background: var(--forest);
+  color: var(--beige);
+  border-radius: 28px;
+}
+.blend .visit-card::before,
+.blend .visit-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 220px;
+  height: 100%;
+  background: var(--beige);
+  opacity: 0.26;
+  pointer-events: none;
+  z-index: 0;
+}
+.blend .visit-card::before {
+  left: 19%;
+  -webkit-mask: url("img/woman-beige.png") no-repeat bottom center / contain;
+  mask: url("img/woman-beige.png") no-repeat bottom center / contain;
+}
+.blend .visit-card::after {
+  right: -28px;
+  -webkit-mask: url("img/man-beige.png") no-repeat bottom right / contain;
+  mask: url("img/man-beige.png") no-repeat bottom right / contain;
+}
+.blend .visit-card > div {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
 .blend .visit h2 { font-size: 22px; margin-bottom: 6px; }
 .blend .visit p { font-size: 14px; line-height: 1.35; }
 .blend .visit p + p { margin-top: 8px; }
+.blend .visit-hours {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  width: 100%;
+}
+.blend .visit-hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgb(239 228 212 / 0.16);
+  font-size: 14px;
+}
+.blend .visit-hours li:last-child { border-bottom: 0; }
+.blend .visit-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgb(239 228 212 / 0.5);
+  color: var(--beige);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.blend .visit-ghost:hover { background: rgb(239 228 212 / 0.1); }
+.blend .visit-left-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+.blend .visit-left-actions .visit-ghost { width: min(100%, 220px); }
 .blend .visit .legal {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 24px;
   width: 100%;
   max-width: none;
-  margin: 6px 0 0;
-  padding-top: 14px;
-  border-top: 1px solid rgb(239 228 212 / 0.28);
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--forest) 45%, transparent);
+  color: var(--forest);
   font-size: 13px;
   line-height: 1.4;
+}
+.blend .kanji-foot {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.blend .kanji-foot::before {
+  content: "";
+  width: 26px;
+  height: 26px;
+  background: var(--forest);
+  -webkit-mask: url("img/kanji-cream.png") no-repeat center / contain;
+  mask: url("img/kanji-cream.png") no-repeat center / contain;
 }
 .blend .legal-links { text-align: right; }
 .blend .visit-book {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-self: end;
+  align-items: center;
+  justify-self: stretch;
   gap: 10px;
-  text-align: right;
+  text-align: center;
 }
+.blend .visit-stack-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(100%, 250px);
+  margin: auto 0;
+}
+.blend .visit-stack-ctas a { width: 100%; }
+.blend .visit-book .socials { margin-top: auto; padding-top: 14px; justify-content: center; }
 .blend .socials {
   display: flex;
   gap: 10px;
@@ -381,9 +484,16 @@
   .blend .fx-bar.open nav a.fx-book { margin: 8px 0 0; }
   .blend .section { padding: 24px 18px; }
   .blend .visit {
-    grid-template-columns: 1fr;
-    padding: 22px 18px 14px;
+    padding: 20px 18px 20px;
   }
+  .blend .visit-card {
+    grid-template-columns: 1fr;
+    padding: 26px 22px;
+  }
+  .blend .visit-card::before { left: auto; right: -10px; top: 0; height: 48%; }
+  .blend .visit-book { align-items: flex-start; text-align: left; }
+  .blend .visit-stack-ctas { margin: 12px 0; }
+  .blend .visit-book .socials { justify-content: flex-start; }
   .blend .visit .legal { flex-direction: column; align-items: flex-start; gap: 8px; }
   .blend .legal-links { text-align: left; }
   .chairs { padding-left: 0; }

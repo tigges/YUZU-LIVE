@@ -161,7 +161,7 @@ function yuzu_round_file_for_request(): string
 
 function yuzu_round_static_dir(): string
 {
-    $dir = get_template_directory();
+    $dir = function_exists('get_template_directory') ? get_template_directory() : __DIR__;
     if (is_dir($dir . '/wordpress/yuzu-round/static')) {
         return $dir . '/wordpress/yuzu-round/static';
     }
@@ -173,8 +173,8 @@ function yuzu_round_static_dir(): string
 
 function yuzu_round_static_uri(): string
 {
-    $dir = get_template_directory();
-    $uri = get_template_directory_uri();
+    $dir = function_exists('get_template_directory') ? get_template_directory() : __DIR__;
+    $uri = function_exists('get_template_directory_uri') ? get_template_directory_uri() : '';
     if (is_dir($dir . '/wordpress/yuzu-round/static')) {
         return $uri . '/wordpress/yuzu-round/static';
     }
