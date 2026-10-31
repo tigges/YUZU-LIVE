@@ -21,10 +21,10 @@
     <meta name="twitter:description" content="How the YUZU hair website and salon handle your details." />
     <meta name="twitter:image" content="https://yuzu.hair/assets/clean/hero.jpg?v=3" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="versions/fonts/fonts.css" />
+    <link rel="stylesheet" href="versions/fonts/fonts.css?v=2" />
     <link rel="stylesheet" href="versions/brand.css?v=2" />
     <link rel="stylesheet" href="versions/fresh.css?v=9" />
-    <link rel="stylesheet" href="versions/blend.css?v=34" />
+    <link rel="stylesheet" href="versions/blend.css?v=35" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -47,13 +47,13 @@
     <nav aria-label="Primary">
       <a href="index.html#looks">Looks</a>
       <a href="prices.html">Services</a>
-      <a href="offers.html">Offers</a>
+      <a href="index.html#offers">Offers</a>
       <a href="index.html#visit">Visit</a>
       <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
     </nav>
   </header>
   <main id="main" class="section sub-main" data-sub-art="fruit">
-    <a class="blend-back" href="index.html">← Home</a>
+    <a class="blend-back" href="index.html" data-back>← Home</a>
     <div class="section-head">
       <h1 data-yuzu-copy="privacy-title">Privacy</h1>
       <p data-yuzu-copy="privacy-intro">How this website and the salon handle your details.</p>
@@ -74,7 +74,7 @@
     </div>
   </main>
   <footer class="visit" data-book-end>
-    <p class="legal"><span class="kanji-foot">© <span data-year>2026</span> YUZU hair</span><span class="legal-links"><a href="about.html">About</a> · <a href="team.html">Careers</a> · <a href="questions.html">Questions</a> · <a href="patch.html">Patch testing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span></p>
+    <p class="legal"><span class="kanji-foot">© <span data-year>2026</span> YUZU hair</span><span class="legal-links"><a href="about.html">About</a> · <a href="team.html">Careers</a> · <a href="questions.html">Questions</a> · <a href="patch.html">Patch testing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html" aria-current="page">Privacy</a></span></p>
   </footer>
   <div class="blend-sticky" data-sticky-book>
     <a class="blend-call" href="tel:+442088402244">Call</a>
@@ -83,7 +83,6 @@
   <script>document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
   <script src="versions/menu.js?v=3"></script>
   <script src="versions/logo-home.js?v=1"></script>
-  <script src="js/site.js?v=14"></script>
-  <script src="js/visit.js?v=6"></script>
+  <script src="js/visit.js?v=7"></script>
 </body>
 </html>

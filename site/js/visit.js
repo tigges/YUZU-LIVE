@@ -65,7 +65,7 @@
   const detail = document.querySelector('[data-offer-detail]')
   if (detail) {
     const roll = document.querySelector('.promo-roll-6')
-    const pricesHref = detail.getAttribute('data-prices-href') || 'prices.html#cut'
+    const pricesBase = (detail.getAttribute('data-prices-href') || 'prices.html#cut').split('#')[0]
     const promoDetails = {
       tue: {
         kicker: 'Every Tuesday · Creative Director',
@@ -74,6 +74,7 @@
         terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
         bookLabel: 'Book Tuesday colour',
         bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        pricesHref: `${pricesBase}#colour`,
         external: true,
       },
       wed: {
@@ -83,6 +84,7 @@
         terms: '25% off 3–6 month smoothing treatment · formaldehyde & ammonia free',
         bookLabel: 'Book Wednesday smoothing',
         bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        pricesHref: `${pricesBase}#treatments`,
         external: true,
       },
       thu: {
@@ -92,6 +94,7 @@
         terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
         bookLabel: 'Book Thursday colour',
         bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        pricesHref: `${pricesBase}#colour`,
         external: true,
       },
       refer: {
@@ -101,6 +104,7 @@
         terms: '£10 credit per new client referred · unlimited referrals · redeemable on any service',
         bookLabel: 'Book an appointment',
         bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        pricesHref: `${pricesBase}#cut`,
         external: true,
       },
       rebook: {
@@ -110,6 +114,7 @@
         terms: '10% off your next appointment when booked in-salon on the day of your visit',
         bookLabel: 'Book your visit',
         bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
+        pricesHref: `${pricesBase}#cut`,
         external: true,
       },
       blowdry: {
@@ -118,7 +123,8 @@
         text: 'Keep your hair styled for less with our 4-visit blow-dry bundle. Ask at reception on your next visit or call us to purchase.',
         terms: 'Valid 6 months · haircuts not included · not applicable for extensions · no-show deducts 1 blow-dry · non-refundable',
         bookLabel: 'View in price list',
-        bookHref: pricesHref,
+        bookHref: `${pricesBase}#cut`,
+        pricesHref: '',
         external: false,
       },
     }
@@ -128,6 +134,7 @@
     const textEl = detail.querySelector('[data-detail-text]')
     const termsEl = detail.querySelector('[data-detail-terms]')
     const bookEl = detail.querySelector('[data-detail-book]')
+    const pricesEl = detail.querySelector('[data-detail-prices]')
     const buttons = [...document.querySelectorAll('[data-promo]')]
     let activePromo = ''
 
@@ -176,6 +183,14 @@
           bookEl.removeAttribute('rel')
         }
       }
+      if (pricesEl) {
+        if (p.pricesHref) {
+          pricesEl.hidden = false
+          pricesEl.setAttribute('href', p.pricesHref)
+        } else {
+          pricesEl.hidden = true
+        }
+      }
       detail.hidden = false
       placeTray()
       buttons.forEach((b) => {
@@ -220,5 +235,34 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !detail.hidden) closeTray()
     })
+  }
+
+  const back = document.querySelector('a.blend-back[data-back]')
+  if (back && !document.querySelector('.price-board')) {
+    try {
+      if (document.referrer) {
+        const u = new URL(document.referrer)
+        if (u.origin === location.origin && u.pathname !== location.pathname) {
+          const labels = [
+            [/\/prices(\.html|\/)?$/, '← Price list'],
+            [/\/questions(\.html|\/)?$/, '← Questions'],
+            [/\/patch(\.html|\/)?$/, '← Patch testing'],
+            [/\/offers(\.html|\/)?$/, '← Offers'],
+            [/\/team(\.html|\/)?$/, '← Careers'],
+            [/\/about(\.html|\/)?$/, '← About'],
+            [/\/contact(\.html|\/)?$/, '← Contact'],
+            [/\/terms(\.html|\/)?$/, '← Terms'],
+            [/\/privacy(\.html|\/)?$/, '← Privacy'],
+          ]
+          for (const [re, text] of labels) {
+            if (re.test(u.pathname)) {
+              back.textContent = text
+              back.setAttribute('href', document.referrer)
+              break
+            }
+          }
+        }
+      }
+    } catch {}
   }
 })()
