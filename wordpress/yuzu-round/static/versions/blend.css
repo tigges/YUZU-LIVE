@@ -24,21 +24,8 @@
   max-height: 560px;
   border-radius: 28px;
 }
-.blend .hero-photo::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4.6%;
-  background: url("../assets/clean/hero.jpg") center top / 100% auto no-repeat;
-  transform: scaleY(-1);
-}
-/* The eyes sit at the photo's top edge, so any crop must come off the bottom. */
 .blend .hero-photo img {
-  position: relative;
-  object-position: center top;
-  transform: translateY(4.5%);
+  object-position: center 44%;
 }
 .blend .hero-copy {
   position: relative;
