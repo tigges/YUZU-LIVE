@@ -158,7 +158,8 @@ function yuzu_round_serve_version_request(): void
     if (!function_exists('get_template_directory')) {
         return;
     }
-    $root_real = realpath(get_template_directory() . '/static/versions');
+    $static_dir = function_exists('yuzu_round_static_dir') ? yuzu_round_static_dir() : (get_template_directory() . '/static');
+    $root_real = realpath($static_dir . '/versions');
     if ($root_real === false) {
         return;
     }
@@ -193,7 +194,8 @@ function yuzu_round_serve_version_request(): void
     header('Cache-Control: no-cache');
     if ($ext === 'html' && function_exists('get_template_directory_uri')) {
         $html = file_get_contents($real);
-        $static_base = trailingslashit(get_template_directory_uri() . '/static');
+        $static_uri = function_exists('yuzu_round_static_uri') ? yuzu_round_static_uri() : (get_template_directory_uri() . '/static');
+        $static_base = trailingslashit($static_uri);
         if (is_string($html) && function_exists('yuzu_round_prices_apply_version')) {
             try {
                 $html = yuzu_round_prices_apply_version($html, $rel);
