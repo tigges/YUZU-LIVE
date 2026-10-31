@@ -1452,6 +1452,38 @@ body.is-locked { overflow: hidden; }
 .price-foot p a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .price-foot .google-rating { margin-top: 0; }
 
+.round-sub .wrap[data-sub-art] {
+  position: relative;
+}
+.round-sub .wrap[data-sub-art]::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 72px;
+  width: 310px;
+  height: 340px;
+  background: var(--book);
+  opacity: 0.2;
+  pointer-events: none;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: top right;
+  mask-position: top right;
+}
+.round-sub .wrap[data-sub-art="fan"]::after {
+  -webkit-mask-image: url("../versions/img/fan-beige.png");
+  mask-image: url("../versions/img/fan-beige.png");
+}
+.round-sub .wrap[data-sub-art="fruit"]::after {
+  -webkit-mask-image: url("../versions/img/fruit-2-beige.png");
+  mask-image: url("../versions/img/fruit-2-beige.png");
+}
+@media (max-width: 1080px) {
+  .round-sub .wrap[data-sub-art]::after { display: none; }
+}
+
 @media (max-width: 700px) {
   .level-tail { display: none; }
   .level-mob { display: inline; }
