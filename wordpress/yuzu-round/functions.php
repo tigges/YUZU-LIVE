@@ -159,9 +159,34 @@ function yuzu_round_file_for_request(): string
     return '404.html';
 }
 
+function yuzu_round_static_dir(): string
+{
+    $dir = get_template_directory();
+    if (is_dir($dir . '/static')) {
+        return $dir . '/static';
+    }
+    if (is_dir($dir . '/wordpress/yuzu-round/static')) {
+        return $dir . '/wordpress/yuzu-round/static';
+    }
+    return $dir . '/site';
+}
+
+function yuzu_round_static_uri(): string
+{
+    $dir = get_template_directory();
+    $uri = get_template_directory_uri();
+    if (is_dir($dir . '/static')) {
+        return $uri . '/static';
+    }
+    if (is_dir($dir . '/wordpress/yuzu-round/static')) {
+        return $uri . '/wordpress/yuzu-round/static';
+    }
+    return $uri . '/site';
+}
+
 function yuzu_round_render(string $file): void
 {
-    $path = get_template_directory() . '/static/' . basename($file);
+    $path = yuzu_round_static_dir() . '/' . basename($file);
     if (!is_readable($path)) {
         if (function_exists('status_header')) {
             status_header(500);
@@ -201,7 +226,7 @@ function yuzu_round_render(string $file): void
         }
     }
 
-    $base = trailingslashit(get_template_directory_uri() . '/static');
+    $base = trailingslashit(yuzu_round_static_uri());
     if (function_exists('yuzu_round_rewrite_public_urls')) {
         $html = yuzu_round_rewrite_public_urls($html, $base);
     }
