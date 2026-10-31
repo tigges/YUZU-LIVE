@@ -570,7 +570,6 @@
 .price-tabs label {
   padding: 8px 14px;
   border: 1px solid var(--line);
-  border-radius: 999px;
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -734,7 +733,6 @@
   display: block;
   padding: 9px 16px;
   border: 1px solid color-mix(in srgb, var(--forest) 45%, transparent);
-  border-radius: 999px;
   font-size: 15px;
   white-space: nowrap;
 }
@@ -784,7 +782,6 @@
   display: block;
   padding: 6px 13px;
   border: 1px solid var(--line);
-  border-radius: 999px;
   font-size: 13px;
   white-space: nowrap;
 }
