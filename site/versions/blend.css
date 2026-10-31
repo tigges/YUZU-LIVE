@@ -126,12 +126,10 @@
   justify-content: space-between;
   padding: 26px 175px 22px 28px;
   border-radius: 22px;
-  border: 1px solid rgb(47 58 39 / 0.16);
   background: color-mix(in srgb, var(--beige) 62%, white);
-  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .blend .services li:hover {
-  border-color: var(--forest);
   transform: translateY(-2px);
   box-shadow: 0 12px 26px rgb(28 25 22 / 6%);
 }
@@ -212,6 +210,9 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+}
+.blend .services .service-links a.card-main:focus:not(:focus-visible) {
+  outline: none;
 }
 .blend .services .service-links a.patch-link {
   position: relative;
