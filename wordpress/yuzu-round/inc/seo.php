@@ -46,7 +46,26 @@ function yuzu_round_rewrite_public_urls(string $html, string $asset_base, ?array
         },
         $html
     );
-    return is_string($rewritten) ? $rewritten : $html;
+    $html = is_string($rewritten) ? $rewritten : $html;
+
+    $sets = preg_replace_callback(
+        '/\s(srcset|imagesrcset)="([^"]*)"/',
+        static function (array $match) use ($asset_base): string {
+            $candidates = array_map('trim', explode(',', $match[2]));
+            foreach ($candidates as $i => $candidate) {
+                if ($candidate !== '' && preg_match('/^(https?:|\/|data:)/', $candidate) !== 1) {
+                    $candidates[$i] = $asset_base . $candidate;
+                }
+            }
+            return ' ' . $match[1] . '="' . implode(', ', $candidates) . '"';
+        },
+        $html
+    );
+    $html = is_string($sets) ? $sets : $html;
+
+    // Social cards and structured data name files as yuzu.hair/assets/…, which
+    // only exist inside the theme.
+    return str_replace('https://yuzu.hair/assets/', $asset_base . 'assets/', $html);
 }
 
 function yuzu_round_is_salon_front(): bool
@@ -226,30 +245,41 @@ function yuzu_round_serve_version_request(): void
 
 function yuzu_round_sitemap_xml(): string
 {
-    $urls = ['https://yuzu.hair/'];
-    foreach (yuzu_round_pages() as $slug => $page) {
-        if ($slug === 'home') {
-            continue;
-        }
-        $urls[] = 'https://yuzu.hair/' . $slug . '/';
-    }
-    $lastmod = '2026-10-31';
-    if (function_exists('yuzu_round_static_dir')) {
-        $idx = yuzu_round_static_dir() . '/index.html';
-        if (is_file($idx)) {
-            $mtime = @filemtime($idx);
-            if (is_int($mtime) && $mtime > 0) {
-                $lastmod = gmdate('Y-m-d', $mtime);
-            }
-        }
-    }
+    $static = function_exists('yuzu_round_static_dir') ? yuzu_round_static_dir() : '';
+    $edits = function_exists('get_option') ? get_option('yuzu_round_edited_at') : [];
+    $edits = is_array($edits) ? $edits : [];
     $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
-    foreach ($urls as $url) {
+    foreach (yuzu_round_pages() as $slug => $page) {
+        $url = $slug === 'home' ? 'https://yuzu.hair/' : 'https://yuzu.hair/' . $slug . '/';
+        $stamp = 0;
+        if ($static !== '' && is_file($static . '/' . $page['file'])) {
+            $stamp = (int) @filemtime($static . '/' . $page['file']);
+        }
+        $stamp = max($stamp, (int) ($edits[$slug] ?? 0));
+        $lastmod = $stamp > 0 ? gmdate('Y-m-d', $stamp) : '2026-10-31';
         $xml .= '  <url><loc>' . htmlspecialchars($url, ENT_QUOTES | ENT_XML1, 'UTF-8') . '</loc><lastmod>' . $lastmod . "</lastmod></url>\n";
     }
     $xml .= "</urlset>\n";
     return $xml;
+}
+
+/**
+ * Remember when wp-admin changed the words or prices on a page, for the
+ * sitemap's lastmod.
+ */
+function yuzu_round_mark_edited(array $slugs): void
+{
+    if (!function_exists('get_option') || !function_exists('update_option')) {
+        return;
+    }
+    $edits = get_option('yuzu_round_edited_at');
+    $edits = is_array($edits) ? $edits : [];
+    foreach ($slugs as $slug) {
+        $edits[(string) $slug] = time();
+    }
+    update_option('yuzu_round_edited_at', $edits, false);
+    yuzu_round_write_root_sitemap();
 }
 
 function yuzu_round_retire_default_content(): void
@@ -298,14 +328,26 @@ function yuzu_round_sync_root_robots(): void
 
 function yuzu_round_sync_root_sitemap(): void
 {
-    if (get_option('yuzu_round_sitemap_synced') === 'v2' || !defined('ABSPATH')) {
+    if (get_option('yuzu_round_sitemap_synced') === 'v3' || !defined('ABSPATH')) {
+        return;
+    }
+    yuzu_round_write_root_sitemap();
+    update_option('yuzu_round_sitemap_synced', 'v3', false);
+}
+
+/**
+ * Apache serves a real sitemap.xml in the web root before WordPress runs, so
+ * keep that copy in step with the generated one.
+ */
+function yuzu_round_write_root_sitemap(): void
+{
+    if (!defined('ABSPATH')) {
         return;
     }
     $path = ABSPATH . 'sitemap.xml';
     if (is_file($path) && is_writable($path)) {
         @file_put_contents($path, yuzu_round_sitemap_xml());
     }
-    update_option('yuzu_round_sitemap_synced', 'v2', false);
 }
 
 function yuzu_round_handle_send_form(): void
@@ -346,8 +388,26 @@ function yuzu_round_handle_send_form(): void
     $message = trim((string) ($raw['message'] ?? ''));
     $subject = trim((string) ($raw['subject'] ?? 'Message from yuzu.hair'));
 
+    $trap = trim((string) ($raw['website'] ?? ''));
+    $stamp = (int) ($raw['form_ts'] ?? 0);
+    if ($trap !== '' || ($stamp > 0 && time() - $stamp < 3)) {
+        // Bots get a quiet success so they do not retry.
+        if ($wantsJson) {
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode(['ok' => true]);
+        }
+        exit;
+    }
+
+    if (!yuzu_round_form_rate_ok()) {
+        $fail(429, 'Too many messages in a short time. Please call 020 8840 2244 or email info@yuzuhairandbeauty.co.uk.');
+    }
+
     if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $fail(400, 'Please include a valid email address.');
+    }
+    if ($message === '' && empty($_FILES['cv']['name'])) {
+        $fail(400, 'Please add a short message.');
     }
 
     $subject = preg_replace('/[\r\n]+/', ' ', $subject) ?: 'Message from yuzu.hair';
@@ -509,8 +569,36 @@ function yuzu_round_handle_send_form(): void
         exit;
     }
 
-    header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '/') . '#visit');
+    $back = function_exists('home_url') ? home_url('/') : '/';
+    $referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
+    if ($referer !== '' && function_exists('wp_validate_redirect')) {
+        $back = wp_validate_redirect(strtok($referer, '#'), $back);
+    }
+    header('Location: ' . $back . '#visit');
     exit;
+}
+
+/**
+ * Five messages per visitor in ten minutes. The IP is hashed with the site
+ * salt and only kept in a short-lived transient.
+ */
+function yuzu_round_form_rate_ok(): bool
+{
+    if (!function_exists('get_transient') || !function_exists('set_transient')) {
+        return true;
+    }
+    $ip = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
+    if ($ip === '') {
+        return true;
+    }
+    $salt = function_exists('wp_salt') ? wp_salt('nonce') : 'yuzu';
+    $key = 'yuzu_form_' . substr(hash('sha256', $salt . $ip), 0, 24);
+    $count = (int) get_transient($key);
+    if ($count >= 5) {
+        return false;
+    }
+    set_transient($key, $count + 1, 10 * 60);
+    return true;
 }
 
 if (function_exists('add_action')) {

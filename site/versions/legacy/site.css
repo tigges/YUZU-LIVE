@@ -3,28 +3,28 @@
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url("../versions/fonts/cormorant-italic-500.ttf") format("truetype");
+  src: url("../fonts/cormorant-italic-500.woff2") format("woff2");
 }
 @font-face {
   font-family: "Cormorant Garamond";
   font-style: italic;
   font-weight: 600;
   font-display: swap;
-  src: url("../versions/fonts/cormorant-italic-600.ttf") format("truetype");
+  src: url("../fonts/cormorant-italic-600.woff2") format("woff2");
 }
 @font-face {
   font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../versions/fonts/cormorant-500.ttf") format("truetype");
+  src: url("../fonts/cormorant-500.woff2") format("woff2");
 }
 @font-face {
   font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("../versions/fonts/cormorant-600.ttf") format("truetype");
+  src: url("../fonts/cormorant-600.woff2") format("woff2");
 }
 
 :root {
@@ -1473,12 +1473,12 @@ body.is-locked { overflow: hidden; }
   mask-position: top right;
 }
 .round-sub .wrap[data-sub-art="fan"]::after {
-  -webkit-mask-image: url("../versions/img/fan-beige.png");
-  mask-image: url("../versions/img/fan-beige.png");
+  -webkit-mask-image: url("../img/fan-beige.png");
+  mask-image: url("../img/fan-beige.png");
 }
 .round-sub .wrap[data-sub-art="fruit"]::after {
-  -webkit-mask-image: url("../versions/img/fruit-2-beige.png");
-  mask-image: url("../versions/img/fruit-2-beige.png");
+  -webkit-mask-image: url("../img/fruit-2-beige.png");
+  mask-image: url("../img/fruit-2-beige.png");
 }
 @media (max-width: 1080px) {
   .round-sub .wrap[data-sub-art]::after { display: none; }

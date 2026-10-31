@@ -15,19 +15,20 @@
     <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content="YUZU hair" />
     <meta property="og:url" content="https://yuzu.hair/team/" />
-    <meta property="og:image" content="https://yuzu.hair/assets/clean/hero.jpg?v=3" />
-    <meta property="og:image:width" content="1920" />
-    <meta property="og:image:height" content="660" />
-    <meta property="og:image:alt" content="YUZU hair, Ealing Broadway" />
+    <meta property="og:image" content="https://yuzu.hair/assets/share/yuzu-hair.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="YUZU hair, Japanese-inspired hair salon at Dickens Yard, Ealing Broadway" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Hair Stylist Careers &amp; Salon Jobs in Ealing | YUZU hair" />
     <meta name="twitter:description" content="Think you’ve got what it takes to join the YUZU hair team? Senior stylists, stylists and models at 5 Dickens Yard, Ealing Broadway. Email your CV to info@yuzuhairandbeauty.co.uk." />
-    <meta name="twitter:image" content="https://yuzu.hair/assets/clean/hero.jpg?v=3" />
+    <meta name="twitter:image" content="https://yuzu.hair/assets/share/yuzu-hair.jpg" />
+<!-- @include head -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="versions/fonts/fonts.css?v=2" />
-    <link rel="stylesheet" href="versions/brand.css?v=2" />
-    <link rel="stylesheet" href="versions/fresh.css?v=9" />
-    <link rel="stylesheet" href="versions/blend.css?v=45" />
+    <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-500.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400.woff2" crossorigin />
+    <link rel="stylesheet" href="css/yuzu.css?v=3683218617" />
+<!-- /@include -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -91,10 +92,11 @@
       ]
     </script>
   </head>
-  <body class="fx blend">
+<body class="fx blend">
+<!-- @include header -->
   <header class="fx-bar">
     <a class="logo-home" href="index.html">
-      <img src="versions/img/logo-green.png" alt="YUZU hair" />
+      <img src="assets/img/logo-green.png" alt="YUZU hair" width="480" height="320" />
     </a>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
       <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -104,9 +106,10 @@
       <a href="prices.html">Services</a>
       <a href="index.html#offers">Offers</a>
       <a href="#visit">Visit</a>
-      <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book<span class="vh"> (opens in a new tab)</span></a>
     </nav>
   </header>
+<!-- /@include -->
   <main id="main" class="section sub-main">
           <a class="blend-back" href="index.html" data-back>← Home</a>
           <div class="section-head">
@@ -117,14 +120,14 @@
 
           <div class="ig-frame">
             <ul class="ig-stills">
-              <li><img src="versions/img/join/booth.jpg" alt="The YUZU hair team in the photo booth" width="720" height="350" loading="lazy" decoding="async" /></li>
-              <li><img src="versions/img/join/mic.jpg" alt="A stylist with a microphone outside the salon" width="720" height="480" loading="lazy" decoding="async" /></li>
-              <li><img src="versions/img/join/drink.jpg" alt="A stylist with a drink outside the salon" width="660" height="600" loading="lazy" decoding="async" /></li>
-              <li><img src="versions/img/join/table.jpg" alt="The YUZU hair team gathered around a table" width="480" height="440" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/join/booth.webp" alt="The YUZU hair team in the photo booth" width="720" height="350" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/join/mic.webp" alt="A stylist with a microphone outside the salon" width="720" height="480" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/join/drink.webp" alt="A stylist with a drink outside the salon" width="660" height="600" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/img/join/table.webp" alt="The YUZU hair team gathered around a table" width="480" height="440" loading="lazy" decoding="async" /></li>
             </ul>
             <div class="ig-frame-foot">
               <p data-yuzu-copy="team-caption">The team, from the salon Instagram.</p>
-              <a class="ig-mark" href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer" aria-label="Instagram (opens in a new tab)">
+              <a class="ig-mark" href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
               </a>
             </div>
@@ -160,6 +163,10 @@
           <div data-form-box>
             <form class="round-form" data-yuzu-form action="send.php" method="post" enctype="multipart/form-data">
               <input type="hidden" name="subject" value="Joining the YUZU hair team" />
+              <div class="form-trap" aria-hidden="true">
+                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
+              </div>
+              <input type="hidden" name="form_ts" value="" />
               <div class="round-form-row">
                 <label>Name <input name="name" autocomplete="name" required /></label>
                 <label>Email <input name="email" type="email" autocomplete="email" required /></label>
@@ -184,6 +191,7 @@
               <p class="file-hint">PDF, Word or plain text. Up to 5 MB.</p>
               <p class="form-error" data-form-error hidden></p>
               <button class="fx-book" type="submit">Submit</button>
+              <p class="form-consent">We use your details only to reply and to consider your application. See our <a href="privacy.html">privacy notice</a>.</p>
             </form>
             <div class="round-thanks" data-form-thanks hidden tabindex="-1">
               <h2>Thanks for submitting!</h2>
@@ -192,45 +200,47 @@
           </div>
         
   </main>
+<!-- @include visit -->
   <footer class="visit" id="visit" data-book-end>
     <div class="visit-card">
       <div>
         <h2>Contact</h2>
-        <p>5 Dickens Yard<br />Longfield Avenue<br />Ealing, W5 2TD</p>
-        <p style="margin-top:10px"><a href="mailto:info@yuzuhairandbeauty.co.uk" style="text-decoration:underline;text-underline-offset:3px">info@yuzuhairandbeauty.co.uk</a></p>
+        <p data-yuzu-copy="home-address">5 Dickens Yard<br />Longfield Avenue<br />Ealing, W5 2TD</p>
+        <p class="visit-email"><a href="mailto:info@yuzuhairandbeauty.co.uk">info@yuzuhairandbeauty.co.uk</a></p>
         <div class="visit-left-actions">
           <a class="visit-ghost" href="contact.html">Message us</a>
           <a class="visit-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
         </div>
       </div>
       <div>
-        <h2>Opening hours</h2>
+        <h2 data-yuzu-copy="home-hours-title">Opening hours</h2>
         <p class="open-status" data-open-status></p>
         <ul class="visit-hours">
           <li><span>Tuesday – Friday</span><span>10am – 8pm</span></li>
           <li><span>Saturday</span><span>9am – 6pm</span></li>
           <li><span>Monday &amp; Sunday</span><span>Closed</span></li>
         </ul>
+        <!-- yuzu-special-hours --><!-- /yuzu-special-hours -->
       </div>
       <div class="visit-book">
-        <h2>Ready to book?</h2>
+        <h2 data-yuzu-copy="home-book-title">Ready to book?</h2>
         <div class="visit-stack-ctas">
-          <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
-          <a class="visit-ghost" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Get directions<span class="vh"> (opens in a new tab)</span></a>
+          <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
+          <a class="visit-ghost" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener">Get directions<span class="vh"> (opens in a new tab)</span></a>
         </div>
         <ul class="socials">
           <li>
-            <a href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer" aria-label="Instagram (opens in a new tab)">
+            <a href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
             </a>
           </li>
           <li>
-            <a href="https://www.tiktok.com/@yuzuhairandbeauty.est16" target="_blank" rel="noreferrer" aria-label="TikTok (opens in a new tab)">
+            <a href="https://www.tiktok.com/@yuzuhairandbeauty.est16" target="_blank" rel="noopener" aria-label="TikTok (opens in a new tab)">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.2 3h2.3c.2 1.7 1.2 3.2 2.7 4.1 1 .6 2.1.9 3.2.9v2.4c-1.6 0-3.1-.5-4.4-1.3v6.6c0 3.4-2.7 6.2-6.2 6.3-3.4 0-6.2-2.8-6.2-6.3s2.8-6.2 6.2-6.2c.3 0 .6 0 .9.1v2.5c-.3-.1-.6-.2-.9-.2-2 0-3.6 1.6-3.6 3.7s1.6 3.7 3.6 3.7 3.6-1.6 3.6-3.7V3Z"/></svg>
             </a>
           </li>
           <li>
-            <a href="https://www.facebook.com/YUZUHairandBeauty/" target="_blank" rel="noreferrer" aria-label="Facebook (opens in a new tab)">
+            <a href="https://www.facebook.com/YUZUHairandBeauty/" target="_blank" rel="noopener" aria-label="Facebook (opens in a new tab)">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.7.5-1.1 1.2-1.1h1.3V3h-2.3C12.3 3 11 4.4 11 6.6v2H9v2.7h2V21h3.5v-9.8h2.3l.4-2.7h-2.7Z"/></svg>
             </a>
           </li>
@@ -246,12 +256,12 @@
   </footer>
   <div class="blend-sticky" data-sticky-book>
     <a class="blend-call" href="tel:+442088402244">Call</a>
-    <a class="fx-book blend-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+    <a class="fx-book blend-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book<span class="vh"> (opens in a new tab)</span></a>
   </div>
-  <script>document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
-  <script src="versions/menu.js?v=3"></script>
-  <script src="versions/logo-home.js?v=1"></script>
-  <script src="js/site.js?v=15"></script>
-  <script src="js/visit.js?v=8"></script>
+<!-- /@include -->
+<!-- @include scripts -->
+  <script type="application/json" id="yuzu-hours">{"week":[null,null,["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["09:00","18:00"]],"special":[]}</script>
+  <script src="js/yuzu.js?v=c07070faa8"></script>
+<!-- /@include -->
 </body>
 </html>
