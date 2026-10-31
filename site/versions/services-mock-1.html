@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services Mockup 1 — Framed Warm Paper + Aligned Footer Row | YUZU hair</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="fonts/fonts.css?v=2" />
+  <link rel="stylesheet" href="brand.css?v=2" />
+  <link rel="stylesheet" href="promo.css?v=14" />
+  <link rel="stylesheet" href="fresh.css?v=9" />
+  <link rel="stylesheet" href="blend.css?v=41" />
+  <style>
+    .mock-switch {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 0 40px 8px;
+      padding: 10px 14px;
+      background: color-mix(in srgb, var(--beige) 70%, white);
+      border: 1px solid var(--line);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .mock-switch strong { margin-right: 6px; }
+    .mock-switch a {
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--forest);
+    }
+    .mock-switch a[aria-current="page"] {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: var(--beige) !important;
+    }
+    @media (max-width: 700px) {
+      .mock-switch { margin: 0 18px 8px; }
+    }
+    
+.blend .services.sm1 {
+  gap: 16px;
+  align-items: stretch;
+}
+.blend .services.sm1 li {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px 175px 22px 28px;
+  background: color-mix(in srgb, var(--beige) 62%, white);
+  border: 1px solid rgb(47 58 39 / 0.16);
+  border-radius: 22px;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.blend .services.sm1 li:hover {
+  border-color: var(--forest);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgb(28 25 22 / 6%);
+}
+.blend .services.sm1 li::after {
+  right: 8px;
+  bottom: -10px;
+  width: 158px;
+  height: 158px;
+  opacity: 0.22;
+}
+.blend .services.sm1 li:nth-child(1)::after { width: 168px; height: 168px; }
+.blend .services.sm1 h3 { font-size: 36px; margin: 0; }
+.blend .services.sm1 .sm-desc {
+  margin: 8px 0 18px;
+  font-size: 15px;
+  line-height: 1.48;
+  opacity: 0.88;
+}
+.blend .services.sm1 .sm1-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgb(47 58 39 / 0.14);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+.blend .services.sm1 .from {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 28px;
+  font-variant-numeric: lining-nums;
+  line-height: 1;
+}
+.blend .services.sm1 .from strong {
+  color: var(--terra);
+  font-weight: 600;
+}
+.blend .services.sm1 .sm1-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+.blend .services.sm1 .sm1-links a {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.blend .services.sm1 .sm1-links a.card-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.blend .services.sm1 .sm1-links a.patch-link {
+  position: relative;
+  z-index: 2;
+  color: var(--terra);
+}
+@media (max-width: 700px) {
+  .blend .services.sm1 li { padding: 18px 14px 16px; }
+  .blend .services.sm1 .sm-desc { display: none; }
+  .blend .services.sm1 .sm1-foot { flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 10px; padding-top: 10px; }
+  .blend .services.sm1 .from { font-size: 22px; }
+}
+
+  </style>
+</head>
+<body class="fx blend">
+  <header class="fx-bar">
+    <a class="logo-home" href="../index.html">
+      <img src="img/logo-green.png" alt="YUZU hair" />
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <nav aria-label="Primary">
+      <a href="../index.html#looks">Looks</a>
+      <a href="#services" aria-current="page">Services</a>
+      <a href="../index.html#offers">Offers</a>
+      <a href="../index.html#visit">Visit</a>
+      <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+    </nav>
+  </header>
+  <div class="mock-switch">
+    <strong>Services Mockups:</strong>
+    <a href="services-mock-1.html" aria-current="page">Mockup 1 · Framed Warm Paper + Aligned Footer Row</a>
+    <a href="services-mock-2.html" >Mockup 2 · Editorial Price Badges + Square Action Pills</a>
+    <a href="services-mock-3.html" >Mockup 3 · Brand Palette Tonal Cards</a>
+  </div>
+  <main id="main">
+    <section class="section" id="services">
+      <div class="section-head">
+        <h2 class="section-head-seal">Services</h2>
+        <p>Creative director, senior stylist, stylist and junior menus.</p>
+      </div>
+      
+      <ul class="services sm1">
+        <li>
+          <div>
+            <h3>Cut &amp; styling</h3>
+            <p class="sm-desc">From blow-outs to sleek cuts, crafted with precision and passion across Creative Director, Senior Stylist, Stylist and Junior Stylist chairs.</p>
+          </div>
+          <div class="sm1-foot">
+            <p class="from">From <strong>£30</strong></p>
+            <div class="sm1-links">
+              <a class="card-main" href="../prices.html#cut">See cut prices →</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Colour</h3>
+            <p class="sm-desc">Roots, tints and full head colour, including Wella Illumina. All colour guests—existing and new—require a patch test 48 hours before.</p>
+          </div>
+          <div class="sm1-foot">
+            <p class="from">From <strong>£55</strong></p>
+            <div class="sm1-links">
+              <a class="patch-link" href="../patch.html">48h patch test</a>
+              <a class="card-main" href="../prices.html#colour">See colour prices →</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Highlights &amp; balayage</h3>
+            <p class="sm-desc">Classic highlights, freehand balayage and foiliage with bespoke toner and root blending. Patch test required 48 hours prior.</p>
+          </div>
+          <div class="sm1-foot">
+            <p class="from">From <strong>£70</strong></p>
+            <div class="sm1-links">
+              <a class="patch-link" href="../patch.html">48h patch test</a>
+              <a class="card-main" href="../prices.html#highlights">See balayage prices →</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Treatments</h3>
+            <p class="sm-desc">Nashi filler therapy, K2.0 intense moisture, and 3-to-6 month Lakmé Aura smoothing—100% formaldehyde and ammonia free.</p>
+          </div>
+          <div class="sm1-foot">
+            <p class="from">From <strong>£35</strong></p>
+            <div class="sm1-links">
+              <a class="card-main" href="../prices.html#treatments">See treatment prices →</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p class="center-cta review-ctas"><a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment</a><a class="fx-ghost" href="../prices.html#services">Full price list</a></p>
+
+    </section>
+  </main>
+  <div class="blend-sticky" data-sticky-book>
+    <a class="blend-call" href="tel:+442088402244">Call</a>
+    <a class="fx-book blend-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+  </div>
+  <script src="menu.js?v=3"></script>
+</body>
+</html>
