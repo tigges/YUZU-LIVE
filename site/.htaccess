@@ -33,6 +33,7 @@ ErrorDocument 404 /404.html
   RewriteRule ^join-our-team/?$ /team/ [R=301,L]
   RewriteRule ^terms/?$ /terms.html [L]
   RewriteRule ^privacy/?$ /privacy.html [L]
+  RewriteRule ^(haircut|hair-colour|balayage|hair-smoothing)-ealing/?$ /$1-ealing.html [L]
 </IfModule>
 
 <IfModule mod_expires.c>
@@ -42,5 +43,7 @@ ErrorDocument 404 /404.html
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
   ExpiresByType application/pdf "access plus 7 days"
 </IfModule>

@@ -608,7 +608,7 @@ function yuzu_round_salon_admin_page(): void
     echo '</form>';
 
     if (function_exists('yuzu_round_clicks_render')) {
-        echo '<section class="yuzu-box"><h2>Website clicks</h2>';
+        echo '<section class="yuzu-box" id="yuzu-clicks"><h2>Website clicks</h2>';
         yuzu_round_clicks_render();
         echo '</section>';
     }
@@ -663,7 +663,7 @@ function yuzu_round_salon_handle_post(): void
     $clean = yuzu_round_salon_sanitize(wp_unslash($_POST['yuzu_salon'] ?? []));
     update_option('yuzu_round_salon', $clean, true);
     if (function_exists('yuzu_round_mark_edited')) {
-        yuzu_round_mark_edited(['home']);
+        yuzu_round_mark_edited(array_keys(yuzu_round_pages()));
     }
     $cleared = function_exists('yuzu_round_prices_purge_cache') && yuzu_round_prices_purge_cache();
     wp_safe_redirect(add_query_arg(['yuzu_saved' => '1', 'yuzu_cache' => $cleared ? '1' : '0'], admin_url('admin.php?page=yuzu-salon')));

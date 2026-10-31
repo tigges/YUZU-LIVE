@@ -3,6 +3,34 @@
  * Editors for the words on the locked pages. Pictures, buttons and layout stay put.
  */
 
+function yuzu_round_copy_offer_names(): array
+{
+    return [
+        'tue' => 'Colour Tuesdays',
+        'wed' => 'Smooth Wednesdays',
+        'thu' => 'Colour Thursdays',
+        'refer' => 'Refer a Friend',
+        'rebook' => 'Same-day rebook',
+        'blowdry' => 'Blow-dry package',
+    ];
+}
+
+function yuzu_round_copy_service_pages(): array
+{
+    return [
+        'haircut-ealing' => 'Haircuts page',
+        'hair-colour-ealing' => 'Hair colour page',
+        'balayage-ealing' => 'Balayage page',
+        'hair-smoothing-ealing' => 'Smoothing page',
+    ];
+}
+
+/** Visit-card words that appear on every page and are edited once, under Home. */
+function yuzu_round_copy_shared_keys(): array
+{
+    return ['home-address', 'home-hours-title', 'home-book-title'];
+}
+
 function yuzu_round_copy_catalog(): array
 {
     $line = static function (string $key, string $label, string $group = ''): array {
@@ -14,6 +42,33 @@ function yuzu_round_copy_catalog(): array
     $lines = static function (string $key, string $label, string $group = ''): array {
         return ['key' => $key, 'label' => $label, 'type' => 'lines', 'group' => $group];
     };
+
+    $offer_fields = [];
+    foreach (yuzu_round_copy_offer_names() as $offer => $name) {
+        $offer_fields[] = $line('offer-' . $offer . '-kicker', 'Label', 'Offer details · ' . $name);
+        $offer_fields[] = $line('offer-' . $offer . '-headline', 'Headline', 'Offer details · ' . $name);
+        $offer_fields[] = $paragraph('offer-' . $offer . '-text', 'Text', 'Offer details · ' . $name);
+        $offer_fields[] = $paragraph('offer-' . $offer . '-terms', 'Small print', 'Offer details · ' . $name);
+    }
+
+    $service_pages = [];
+    foreach (yuzu_round_copy_service_pages() as $slug => $menu) {
+        $fields = [
+            $line($slug . '-title', 'Page heading', 'Page'),
+            $paragraph($slug . '-intro', 'Introduction', 'Page'),
+            $paragraph($slug . '-p1', 'First paragraph', 'Page'),
+            $paragraph($slug . '-p2', 'Second paragraph', 'Page'),
+        ];
+        for ($i = 1; $i <= 3; $i++) {
+            $fields[] = $line($slug . '-point-' . $i . '-title', 'Heading', 'Highlight ' . $i);
+            $fields[] = $paragraph($slug . '-point-' . $i . '-text', 'Text', 'Highlight ' . $i);
+        }
+        for ($i = 1; $i <= 4; $i++) {
+            $fields[] = $line($slug . '-faq-' . $i . '-q', 'Question', 'Question ' . $i);
+            $fields[] = $paragraph($slug . '-faq-' . $i . '-a', 'Answer', 'Question ' . $i);
+        }
+        $service_pages[$slug] = ['menu' => $menu, 'file' => $slug . '.html', 'fields' => $fields];
+    }
 
     return [
         'home' => [
@@ -37,15 +92,10 @@ function yuzu_round_copy_catalog(): array
                 $paragraph('home-review-3-text', 'Third review', 'Reviews'),
                 $line('home-offers-title', 'Heading', 'Offers on the homepage'),
                 $paragraph('home-offers-intro', 'Introduction', 'Offers on the homepage'),
-                $lines('home-address', 'Address, one line each', 'Visit'),
-                $line('home-hours-title', 'Hours heading', 'Visit'),
-                $line('home-hours-week-label', 'Weekday label', 'Visit'),
-                $line('home-hours-week', 'Weekday hours', 'Visit'),
-                $line('home-hours-sat-label', 'Saturday label', 'Visit'),
-                $line('home-hours-sat', 'Saturday hours', 'Visit'),
-                $line('home-hours-sun-label', 'Closed days label', 'Visit'),
-                $line('home-hours-sun', 'Closed days text', 'Visit'),
-                $line('home-book-title', 'Booking heading', 'Visit'),
+                $lines('home-address', 'Address, one line each', 'Visit card on every page'),
+                $line('home-hours-title', 'Hours heading', 'Visit card on every page'),
+                $line('home-book-title', 'Booking heading', 'Visit card on every page'),
+                ...$offer_fields,
             ],
         ],
         'team' => [
@@ -148,6 +198,7 @@ function yuzu_round_copy_catalog(): array
                 $paragraph('terms-online-2', 'Second paragraph', 'Online booking'),
             ],
         ],
+        ...$service_pages,
         'privacy' => [
             'menu' => 'Privacy',
             'file' => 'privacy.html',
@@ -271,23 +322,29 @@ function yuzu_round_copy_apply_values(string $html, string $slug, array $values)
         $html = yuzu_round_copy_replace_value($html, $key, yuzu_round_copy_inner_html($values[$key], $field['type']));
     }
     if ($slug === 'questions') {
-        $html = yuzu_round_copy_sync_faq($html, $values);
+        $html = yuzu_round_copy_sync_faq($html, $values, [
+            ['questions-cut-q', 'questions-cut-a'],
+            ['questions-patch-q', 'questions-patch-a'],
+            ['questions-where-q', 'questions-where-a'],
+            ['questions-open-q', 'questions-open-a'],
+            ['questions-book-q', 'questions-book-a'],
+            ['questions-cancel-q', 'questions-cancel-a'],
+            ['questions-offers-q', 'questions-offers-a'],
+            ['questions-join-q', 'questions-join-a'],
+        ]);
+    }
+    if (isset(yuzu_round_copy_service_pages()[$slug])) {
+        $pairs = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $pairs[] = [$slug . '-faq-' . $i . '-q', $slug . '-faq-' . $i . '-a'];
+        }
+        $html = yuzu_round_copy_sync_faq($html, $values, $pairs);
     }
     return $html;
 }
 
-function yuzu_round_copy_sync_faq(string $html, array $values): string
+function yuzu_round_copy_sync_faq(string $html, array $values, array $pairs): string
 {
-    $pairs = [
-        ['questions-cut-q', 'questions-cut-a'],
-        ['questions-patch-q', 'questions-patch-a'],
-        ['questions-where-q', 'questions-where-a'],
-        ['questions-open-q', 'questions-open-a'],
-        ['questions-book-q', 'questions-book-a'],
-        ['questions-cancel-q', 'questions-cancel-a'],
-        ['questions-offers-q', 'questions-offers-a'],
-        ['questions-join-q', 'questions-join-a'],
-    ];
     $pattern = '/<script type="application\/ld\+json">\s*(\{(?:(?!<\/script>).)*?"@type": "FAQPage"(?:(?!<\/script>).)*?\})\s*<\/script>/s';
     if (!preg_match($pattern, $html, $matches)) {
         return $html;
@@ -409,6 +466,14 @@ function yuzu_round_copy_rename_gallery_heading(): void
             $changed = true;
         }
     }
+    $legacy_offer = static fn ($text): bool => is_string($text)
+        && (str_contains($text, 'Senior Stylist or Stylist') || str_contains($text, 'Aura smoothing') || str_contains($text, '3 to 6 month'));
+    foreach ([['questions', 'questions-offers-a'], ['terms', 'terms-offers']] as [$page, $key]) {
+        if (isset($stored[$page][$key]) && $legacy_offer($stored[$page][$key])) {
+            unset($stored[$page][$key]);
+            $changed = true;
+        }
+    }
     if ($changed) {
         update_option('yuzu_round_copy', $stored);
     }
@@ -431,7 +496,23 @@ function yuzu_round_copy_apply(string $html, string $file): string
         }
         $html = yuzu_round_copy_apply_values($html, $slug, $stored[$slug]);
     }
+    if ($file !== 'index.html' && isset($stored['home']) && is_array($stored['home'])) {
+        foreach (yuzu_round_copy_shared_keys() as $key) {
+            $field = yuzu_round_copy_field('home', $key);
+            $value = $stored['home'][$key] ?? '';
+            if ($field !== null && is_string($value) && $value !== '') {
+                $html = yuzu_round_copy_replace_value($html, $key, yuzu_round_copy_inner_html($value, $field['type']));
+            }
+        }
+    }
     return $html;
+}
+
+function yuzu_round_copy_mark_edited(string $slug): void
+{
+    if (function_exists('yuzu_round_mark_edited')) {
+        yuzu_round_mark_edited($slug === 'home' ? array_keys(yuzu_round_pages()) : [$slug]);
+    }
 }
 
 function yuzu_round_copy_admin_slug(string $page): string
@@ -496,6 +577,9 @@ function yuzu_round_copy_admin_page(): void
         if ($field['group'] !== '' && $field['group'] !== $group) {
             $group = $field['group'];
             echo '<h2>' . esc_html($group) . '</h2>';
+            if ($group === 'Visit card on every page') {
+                echo '<p class="description">Opening hours, holidays and the notice banner are set under <a href="' . esc_url(admin_url('admin.php?page=yuzu-salon')) . '">Salon details</a>.</p>';
+            }
         }
         $id = 'yuzu-copy-' . $field['key'];
         $value = (string) ($values[$field['key']] ?? '');
@@ -553,6 +637,7 @@ function yuzu_round_copy_handle_post(): void
         $previous = yuzu_round_copy_current($slug);
         $all[$slug] = yuzu_round_copy_sanitize_page($slug, wp_unslash($_POST['yuzu_copy'] ?? null), $previous);
         update_option('yuzu_round_copy', $all, false);
+        yuzu_round_copy_mark_edited($slug);
         $cleared = function_exists('yuzu_round_prices_purge_cache') && yuzu_round_prices_purge_cache();
         wp_safe_redirect(add_query_arg(['yuzu_saved' => '1', 'yuzu_cache' => $cleared ? '1' : '0'], $url));
         exit;
@@ -564,6 +649,7 @@ function yuzu_round_copy_handle_post(): void
             unset($all[$slug]);
             update_option('yuzu_round_copy', $all, false);
         }
+        yuzu_round_copy_mark_edited($slug);
         if (function_exists('yuzu_round_prices_purge_cache')) {
             yuzu_round_prices_purge_cache();
         }
