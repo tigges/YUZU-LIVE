@@ -3,47 +3,46 @@
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url("cormorant-italic-500.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Cormorant Garamond";
-  font-style: italic;
-  font-weight: 600;
-  font-display: swap;
-  src: url("cormorant-italic-600.ttf") format("truetype");
+  src: url("cormorant-italic-500.woff2") format("woff2"),
+       url("cormorant-italic-500.ttf") format("truetype");
 }
 @font-face {
   font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("cormorant-500.ttf") format("truetype");
+  src: url("cormorant-500.woff2") format("woff2"),
+       url("cormorant-500.ttf") format("truetype");
 }
 @font-face {
   font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("cormorant-600.ttf") format("truetype");
+  src: url("cormorant-600.woff2") format("woff2"),
+       url("cormorant-600.ttf") format("truetype");
 }
 @font-face {
   font-family: "Outfit";
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("outfit-300.ttf") format("truetype");
+  src: url("outfit-300.woff2") format("woff2"),
+       url("outfit-300.ttf") format("truetype");
 }
 @font-face {
   font-family: "Outfit";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("outfit-400.ttf") format("truetype");
+  src: url("outfit-400.woff2") format("woff2"),
+       url("outfit-400.ttf") format("truetype");
 }
 @font-face {
   font-family: "Outfit";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("outfit-500.ttf") format("truetype");
+  src: url("outfit-500.woff2") format("woff2"),
+       url("outfit-500.ttf") format("truetype");
 }
