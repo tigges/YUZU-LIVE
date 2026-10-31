@@ -126,7 +126,12 @@
   justify-content: space-between;
   padding: 26px 175px 22px 28px;
   border-radius: 22px;
-  background: color-mix(in srgb, var(--beige) 72%, white);
+  background: color-mix(in srgb, var(--beige) 62%, white);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.blend .services li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgb(28 25 22 / 6%);
 }
 .blend .services li::after {
   content: "";
@@ -200,7 +205,18 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.blend .services .service-links a.card-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.blend .services .service-links a.card-main:focus:not(:focus-visible) {
+  outline: none;
+}
 .blend .services .service-links a.patch-link {
+  position: relative;
+  z-index: 2;
   color: var(--terra);
 }
 
