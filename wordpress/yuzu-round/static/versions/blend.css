@@ -29,6 +29,7 @@
 }
 .blend .hero-copy {
   position: relative;
+  overflow: hidden;
   z-index: 2;
   width: min(680px, calc(100% - 72px));
   margin: -44px auto 0;
@@ -38,6 +39,19 @@
   border: 1px solid rgb(47 58 39 / 0.1);
   border-radius: 24px;
   box-shadow: 0 18px 40px rgb(47 58 39 / 0.1);
+}
+.blend .hero-copy::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  width: 34px;
+  height: 34px;
+  background: var(--terra);
+  opacity: 0.52;
+  pointer-events: none;
+  -webkit-mask: url("img/kanji-cream.png") no-repeat center / contain;
+  mask: url("img/kanji-cream.png") no-repeat center / contain;
 }
 .blend .hero-copy h1 {
   margin: 8px 0 10px;
@@ -61,6 +75,21 @@
 .blend .section-head p a { text-decoration: underline; text-underline-offset: 3px; }
 .blend .section-head .price-note { margin: 12px 0 0; }
 .blend .section-head h2 { line-height: 1.04; margin-bottom: 6px; }
+.blend .section-head-seal {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.blend .section-head-seal::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  flex: none;
+  background: var(--terra);
+  opacity: 0.85;
+  -webkit-mask: url("img/kanji-cream.png") no-repeat center / contain;
+  mask: url("img/kanji-cream.png") no-repeat center / contain;
+}
 .blend .hero-copy .book-note { margin: 10px 0 0; font-size: 13px; text-align: center; opacity: 0.75; }
 
 .blend .looks {
@@ -89,10 +118,34 @@
   padding: 0;
 }
 .blend .services li {
+  position: relative;
+  overflow: hidden;
   padding: 24px;
   border-radius: 22px;
   background: color-mix(in srgb, var(--beige) 72%, white);
 }
+.blend .services li::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: -14px;
+  width: 170px;
+  height: 170px;
+  background: var(--forest);
+  opacity: 0.2;
+  pointer-events: none;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: bottom right;
+  mask-position: bottom right;
+}
+.blend .services li:nth-child(1)::after { -webkit-mask-image: url("img/woman-beige.png"); mask-image: url("img/woman-beige.png"); width: 180px; height: 180px; }
+.blend .services li:nth-child(2)::after { -webkit-mask-image: url("img/flower-beige.png"); mask-image: url("img/flower-beige.png"); }
+.blend .services li:nth-child(3)::after { -webkit-mask-image: url("img/fan-beige.png"); mask-image: url("img/fan-beige.png"); }
+.blend .services li:nth-child(4)::after { -webkit-mask-image: url("img/fruit-2-beige.png"); mask-image: url("img/fruit-2-beige.png"); }
+.blend .services li > * { position: relative; z-index: 1; }
 .blend .services h3 {
   font-family: var(--serif);
   font-weight: 500;
@@ -394,10 +447,9 @@
   .blend .services,
   .blend .reviews { grid-template-columns: 1fr 1fr; }
   .blend .join { grid-template-columns: 1fr; padding: 28px 18px; }
-  .blend .visit { grid-template-columns: 1fr 1fr; }
-  .blend .visit > div:nth-child(2),
-  .blend .visit-book { justify-self: start; }
+  .blend .visit-card { grid-template-columns: 1fr 1fr; }
   .blend .visit-book { align-items: flex-start; text-align: left; }
+  .blend .visit-book .socials { justify-content: flex-start; }
 }
 
 @media (max-width: 700px) {
@@ -421,6 +473,8 @@
   .blend .looks li { flex: 0 0 78%; scroll-snap-align: start; }
   .blend .services { grid-template-columns: 1fr 1fr; gap: 10px; }
   .blend .services li { padding: 16px 14px; }
+  .blend .services li::after,
+  .blend .services li:nth-child(1)::after { width: 92px; height: 92px; right: -6px; bottom: -8px; opacity: 0.16; }
   .blend .services h3 { font-size: 24px; line-height: 1.05; }
   .blend .services li > p:not(.from) { display: none; }
   .blend .services .from { margin: 8px 0 0; font-size: 20px; }
