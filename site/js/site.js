@@ -72,6 +72,8 @@
       const body = new FormData(form)
       const error = form.querySelector('[data-form-error]')
       const file = body.get('cv')
+      const submitBtn = form.querySelector('button[type="submit"]')
+      const origLabel = submitBtn ? submitBtn.textContent : ''
       if (error) error.hidden = true
       if (file instanceof File && file.size > 0) {
         const allowed = /\.(pdf|docx?|txt|rtf)$/i.test(file.name)
@@ -82,6 +84,11 @@
           }
           return
         }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true
+        submitBtn.textContent = 'Sending…'
       }
 
       try {
@@ -122,6 +129,11 @@
         }
         window.location.href = `mailto:info@yuzuhairandbeauty.co.uk?subject=${subject}&body=${encodeURIComponent(lines.join('\n'))}`
         return
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false
+          submitBtn.textContent = origLabel
+        }
       }
 
       if (thanks) {
