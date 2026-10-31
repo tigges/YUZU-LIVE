@@ -302,12 +302,13 @@ function yuzu_round_copy_read_value(string $html, string $key, string $type): st
 function yuzu_round_copy_replace_value(string $html, string $key, string $inner): string
 {
     $pattern = '/(<[a-z0-9]+\s[^>]*?\sdata-yuzu-copy="' . preg_quote($key, '/') . '"[^>]*>)(.*?)(<\/[a-z0-9]+>)/s';
+    $put = static fn (array $m): string => $m[1] . $inner . $m[3];
     $count = 0;
-    $next = preg_replace($pattern, '$1' . $inner . '$3', $html, 1, $count);
+    $next = preg_replace_callback($pattern, $put, $html, 1, $count);
     if (!is_string($next) || $count !== 1) {
         $pattern = '/(<[a-z0-9]+[^>]*data-yuzu-copy="' . preg_quote($key, '/') . '"[^>]*>)(.*?)(<\/[a-z0-9]+>)/s';
         $count = 0;
-        $next = preg_replace($pattern, '$1' . $inner . '$3', $html, 1, $count);
+        $next = preg_replace_callback($pattern, $put, $html, 1, $count);
     }
     return is_string($next) && $count === 1 ? $next : $html;
 }
