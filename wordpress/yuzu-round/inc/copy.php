@@ -37,8 +37,6 @@ function yuzu_round_copy_catalog(): array
                 $paragraph('home-review-3-text', 'Third review', 'Reviews'),
                 $line('home-offers-title', 'Heading', 'Offers on the homepage'),
                 $paragraph('home-offers-intro', 'Introduction', 'Offers on the homepage'),
-                $line('home-team-title', 'Heading', 'Join our team'),
-                $paragraph('home-team-text', 'Text', 'Join our team'),
                 $lines('home-address', 'Address, one line each', 'Visit'),
                 $line('home-hours-title', 'Hours heading', 'Visit'),
                 $line('home-hours-week-label', 'Weekday label', 'Visit'),
@@ -93,6 +91,10 @@ function yuzu_round_copy_catalog(): array
                 $paragraph('questions-open-a', 'Answer', 'Opening hours'),
                 $line('questions-book-q', 'Question', 'Booking'),
                 $paragraph('questions-book-a', 'Answer', 'Booking'),
+                $line('questions-cancel-q', 'Question', 'Cancellation policy'),
+                $paragraph('questions-cancel-a', 'Answer', 'Cancellation policy'),
+                $line('questions-offers-q', 'Question', 'Offers and loyalty'),
+                $paragraph('questions-offers-a', 'Answer', 'Offers and loyalty'),
                 $line('questions-join-q', 'Question', 'Joining the team'),
                 $paragraph('questions-join-a', 'Answer', 'Joining the team'),
             ],
@@ -282,6 +284,8 @@ function yuzu_round_copy_sync_faq(string $html, array $values): string
         ['questions-where-q', 'questions-where-a'],
         ['questions-open-q', 'questions-open-a'],
         ['questions-book-q', 'questions-book-a'],
+        ['questions-cancel-q', 'questions-cancel-a'],
+        ['questions-offers-q', 'questions-offers-a'],
         ['questions-join-q', 'questions-join-a'],
     ];
     $pattern = '/<script type="application\/ld\+json">\s*(\{(?:(?!<\/script>).)*?"@type": "FAQPage"(?:(?!<\/script>).)*?\})\s*<\/script>/s';
@@ -387,6 +391,14 @@ function yuzu_round_copy_rename_gallery_heading(): void
     $changed = false;
     if (($stored['home']['home-gallery-title'] ?? '') === 'Gallery') {
         $stored['home']['home-gallery-title'] = 'Looks';
+        $changed = true;
+    }
+    if (($stored['home']['home-offers-intro'] ?? '') === 'Tuesday, Wednesday and Thursday.') {
+        $stored['home']['home-offers-intro'] = 'Weekday colour and smoothing offers, plus ongoing salon rewards — tap any offer for details.';
+        $changed = true;
+    }
+    if (isset($stored['about']['about-p2']) && !str_contains((string) $stored['about']['about-p2'], 'Ealing Town Hall')) {
+        $stored['about']['about-p2'] = 'Located in Dickens Yard behind Ealing Town Hall, a 4-minute walk from Ealing Broadway station (Elizabeth, Central and District lines) with Dickens Yard underground car park right below the courtyard. Open Tuesday to Friday 10am to 8pm and Saturday 9am to 6pm. Guests describe the room as calm, and one Google review calls Jasmine “a brilliant artist working in hair”.';
         $changed = true;
     }
     if (isset($stored['offers']) && is_array($stored['offers'])) {

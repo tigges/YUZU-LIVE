@@ -265,4 +265,61 @@
       }
     } catch {}
   }
+
+  const sticky = document.querySelector('.blend-sticky')
+  const visitCard = document.querySelector('.visit-card')
+  if (sticky && visitCard) {
+    const syncSticky = () => {
+      const r = visitCard.getBoundingClientRect()
+      const visible = r.top < window.innerHeight * 0.42 && r.bottom > 100
+      sticky.classList.toggle('is-at-visit', visible)
+    }
+    window.addEventListener('scroll', syncSticky, { passive: true })
+    window.addEventListener('resize', syncSticky, { passive: true })
+    syncSticky()
+  }
+
+  document.querySelectorAll('.blend .looks, .blend .reviews, .blend .promo-roll-6').forEach((row) => {
+    const items = [...row.querySelectorAll(':scope > li')]
+    if (items.length < 2) return
+    const dots = document.createElement('div')
+    dots.className = 'scroll-dots'
+    dots.setAttribute('aria-label', 'Carousel position')
+    const btns = items.map((_, idx) => {
+      const b = document.createElement('button')
+      b.type = 'button'
+      b.setAttribute('aria-label', `Item ${idx + 1} of ${items.length}`)
+      if (idx === 0) b.setAttribute('aria-current', 'true')
+      b.addEventListener('click', () => {
+        const pad = parseFloat(getComputedStyle(row).paddingLeft) || 0
+        row.scrollTo({
+          left: row.scrollLeft + items[idx].getBoundingClientRect().left - row.getBoundingClientRect().left - pad,
+          behavior: 'smooth',
+        })
+      })
+      dots.appendChild(b)
+      return b
+    })
+    row.after(dots)
+    const syncDots = () => {
+      if (row.scrollWidth <= row.clientWidth) return
+      const rowLeft = row.getBoundingClientRect().left
+      let best = 0
+      let bestDist = Infinity
+      items.forEach((li, i) => {
+        const d = Math.abs(li.getBoundingClientRect().left - rowLeft)
+        if (d < bestDist) {
+          bestDist = d
+          best = i
+        }
+      })
+      btns.forEach((b, i) => {
+        if (i === best) b.setAttribute('aria-current', 'true')
+        else b.removeAttribute('aria-current')
+      })
+    }
+    row.addEventListener('scroll', syncDots, { passive: true })
+    window.addEventListener('resize', syncDots, { passive: true })
+    setTimeout(syncDots, 60)
+  })
 })()
