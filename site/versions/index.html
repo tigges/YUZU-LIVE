@@ -3,24 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>YUZU hair homepage gallery</title>
+  <title>YUZU hair — Versions &amp; Team Mockups</title>
+  <meta name="robots" content="noindex" />
   <link rel="icon" href="/versions/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/versions/fonts/fonts.css?v=2" />
   <link rel="stylesheet" href="/versions/brand.css?v=2" />
+  <link rel="stylesheet" href="/versions/versions-bar.css?v=7" />
   <style>
     body { margin: 0; background: var(--beige); color: var(--forest); font-family: Outfit, sans-serif; }
-    header, .grid { width: min(1440px, 100%); margin-inline: auto; box-sizing: border-box; }
+    header, .section-wrap, .grid { width: min(1440px, 100%); margin-inline: auto; box-sizing: border-box; }
     header { padding: 56px 64px 8px; }
     .kicker { letter-spacing: 0.22em; text-transform: uppercase; font-size: 12px; margin: 0; }
     h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 64px; line-height: 0.95; margin: 10px 0 12px; }
     header p { max-width: 720px; font-size: 18px; line-height: 1.45; margin: 0; }
-    .mock-note { margin-top: 14px; font-size: 16px; }
-    .mock-note a { color: inherit; }
+    .section-wrap { padding: 8px 64px 28px; }
+    .sub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .sub-card {
+      display: block;
+      padding: 20px 22px;
+      background: color-mix(in srgb, var(--beige) 72%, white);
+      border: 1px solid color-mix(in srgb, var(--forest) 16%, transparent);
+      color: inherit;
+      text-decoration: none;
+    }
+    .sub-card:hover { border-color: var(--forest); }
+    .sub-card .num { display: block; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terra); margin-bottom: 4px; }
+    .sub-card h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 26px; margin: 0 0 6px; }
+    .sub-card p { margin: 0; font-size: 14px; line-height: 1.4; opacity: 0.85; }
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 28px 24px;
-      padding: 36px 64px 72px;
+      padding: 28px 64px 72px;
     }
     a.tile { color: inherit; text-decoration: none; }
     .shot {
@@ -36,30 +55,63 @@
     h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 28px; margin: 0; }
     .meta p { margin: 4px 0 0; font-size: 15px; line-height: 1.35; }
     @media (max-width: 800px) {
-      header { padding: 28px 20px 8px; }
+      header, .section-wrap { padding: 24px 20px 8px; }
       h1 { font-size: 40px; }
       .grid { grid-template-columns: 1fr; padding: 24px 20px 48px; gap: 22px; }
       .shot { height: 220px; }
     }
   </style>
-<meta name="robots" content="noindex" />
-  <link rel="stylesheet" href="/versions/versions-bar.css?v=7" />
-  </head>
+</head>
 <body>
-  <nav class="version-bar" aria-label="Design versions"><a href="/versions/" aria-current="page">Gallery</a><a href="/">Live</a><a href="/versions/blend.html">Blend</a><a href="/versions/logobar.html">Logo bar</a><a href="/versions/lookbook.html">Lookbook</a><a href="/versions/atelier.html">Atelier</a><a href="/versions/bloom.html">Bloom</a><a href="/versions/split.html">Split</a></nav>
+  <nav class="version-bar" aria-label="Design versions"><a href="/versions/" aria-current="page">Versions</a><a href="/">Live</a><a href="/versions/blend.html">Round</a><a href="/versions/logobar.html">Logo bar</a><a href="/versions/lookbook.html">Lookbook</a><a href="/versions/atelier.html">Atelier</a><a href="/versions/bloom.html">Bloom</a><a href="/versions/split.html">Split</a></nav>
   <header>
-    <p class="kicker">Live, Blend, and the rooms beside them</p>
-    <h1>Homepage gallery</h1>
-    <p>All design versions live here under <code>/versions/</code>, while the public live site runs without the top switcher bar.</p>
+    <p class="kicker">Bookmarked design versions &amp; team mockups</p>
+    <h1>Versions</h1>
+    <p>All bookmarked design versions and team mockups live here under <code>/versions/</code> (<code>noindex</code>), while the public live site runs at <code>/</code>.</p>
   </header>
+  <section class="section-wrap">
+    <h2>Team Mockups &amp; In-Salon Kit</h2>
+    <div class="sub-grid">
+      <a class="sub-card" href="/versions/team-mock-a.html">
+        <span class="num">Team A</span>
+        <h3>Editorial Chair Cards</h3>
+        <p>Portrait cards with level badges, specialities, and direct booking links.</p>
+      </a>
+      <a class="sub-card" href="/versions/team-mock-b.html">
+        <span class="num">Team B</span>
+        <h3>Interactive Stylist Drawer</h3>
+        <p>Compact team grid with expandable bio and signature look preview.</p>
+      </a>
+      <a class="sub-card" href="/versions/team-mock-c.html">
+        <span class="num">Team C</span>
+        <h3>Level-Grouped Roster</h3>
+        <p>Stylists grouped by Creative Director, Senior Stylist, Stylist, and Junior Stylist.</p>
+      </a>
+      <a class="sub-card" href="/versions/blend-team-mock.html">
+        <span class="num">Team · Blend</span>
+        <h3>Blend Team Section</h3>
+        <p>Meet-the-team section styled inside the Blend homepage flow.</p>
+      </a>
+      <a class="sub-card" href="/versions/live-team-mock.html">
+        <span class="num">Team · Round</span>
+        <h3>Round Team Section</h3>
+        <p>Meet-the-team section styled inside the previous Round homepage flow.</p>
+      </a>
+      <a class="sub-card" href="/versions/review-kit.html">
+        <span class="num">In-Salon Kit</span>
+        <h3>Google Review QR &amp; NFC Kit</h3>
+        <p>Printable counter stand, mirror sticker, receipt QR, and NFC programming guide.</p>
+      </a>
+    </div>
+  </section>
   <main class="grid">
     <a class="tile" href="/">
       <span class="shot"><img src="/versions/previews/blend.jpg?v=2" alt="Live homepage" /></span>
-      <span class="meta"><span class="num">01</span><span><h2>Live</h2><p>Live’s photographs and interactive price list, set in warm rounded rooms.</p></span></span>
+      <span class="meta"><span class="num">01</span><span><h2>Live (Blend)</h2><p>Current live site with the 6-offer roll, interactive price list, and standalone Visit card.</p></span></span>
     </a>
     <a class="tile" href="/versions/blend.html">
-      <span class="shot"><img src="/versions/previews/live.jpg" alt="Blend homepage" /></span>
-      <span class="meta"><span class="num">02</span><span><h2>Blend</h2><p>The rounded paper-card layout with the YUZU hair mark.</p></span></span>
+      <span class="shot"><img src="/versions/previews/live.jpg" alt="Round homepage" /></span>
+      <span class="meta"><span class="num">02</span><span><h2>Round (Previous Live)</h2><p>The previous Round layout and price list (<a href="/versions/blend-prices.html">prices</a>).</p></span></span>
     </a>
     <a class="tile" href="/versions/logobar.html">
       <span class="shot"><img src="/versions/previews/logobar.jpg" alt="Forest logo bar" /></span>

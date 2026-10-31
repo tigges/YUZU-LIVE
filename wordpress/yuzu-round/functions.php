@@ -45,6 +45,76 @@ add_action('init', static function () {
     }
 }, 20);
 
+function yuzu_round_rm_tree(string $dir): void
+{
+    if (!is_dir($dir)) {
+        return;
+    }
+    $items = @scandir($dir);
+    if (!is_array($items)) {
+        return;
+    }
+    foreach ($items as $item) {
+        if ($item === '.' || $item === '..') {
+            continue;
+        }
+        $p = $dir . DIRECTORY_SEPARATOR . $item;
+        if (is_dir($p) && !is_link($p)) {
+            yuzu_round_rm_tree($p);
+            @rmdir($p);
+        } else {
+            @unlink($p);
+        }
+    }
+}
+
+add_action('init', static function (): void {
+    if (!function_exists('get_option') || !function_exists('update_option')) {
+        return;
+    }
+    try {
+        $static = yuzu_round_static_dir();
+        $sig = implode(':', [
+            (string) @filemtime($static . '/index.html'),
+            (string) @filemtime($static . '/versions/blend.css'),
+            (string) @filemtime($static . '/versions/promo.css'),
+        ]);
+        if ($sig === '::' || get_option('yuzu_round_deploy_sig') === $sig) {
+            return;
+        }
+        update_option('yuzu_round_deploy_sig', $sig, false);
+
+        if (function_exists('do_action')) {
+            do_action('breeze_clear_all_cache');
+            do_action('breeze_clear_varnish');
+        }
+        if (function_exists('wp_cache_flush')) {
+            @wp_cache_flush();
+        }
+        if (defined('WP_CONTENT_DIR')) {
+            yuzu_round_rm_tree(WP_CONTENT_DIR . '/cache/breeze');
+            yuzu_round_rm_tree(WP_CONTENT_DIR . '/cache/breeze-minification');
+            $adv = WP_CONTENT_DIR . '/advanced-cache.php';
+            if (!defined('BREEZE_VERSION') && !is_dir(WP_CONTENT_DIR . '/plugins/breeze') && is_file($adv)) {
+                $contents = (string) @file_get_contents($adv);
+                if (stripos($contents, 'breeze') !== false) {
+                    @unlink($adv);
+                }
+            }
+        }
+        if (function_exists('wp_remote_request') && function_exists('home_url')) {
+            @wp_remote_request(home_url('/.*'), [
+                'method' => 'PURGE',
+                'timeout' => 1,
+                'blocking' => false,
+                'headers' => ['X-Purge-Method' => 'regex'],
+            ]);
+        }
+    } catch (Throwable $e) {
+        // Cache cleanup must never interrupt a request.
+    }
+}, 25);
+
 function yuzu_round_locked_post($post): bool
 {
     return $post instanceof WP_Post
