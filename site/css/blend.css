@@ -488,10 +488,13 @@
 .blend .promo.is-today::before {
   content: attr(data-flag);
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
   z-index: 3;
-  padding: 4px 12px;
+  padding: 12px 5px;
+  border-radius: 6px 0 0 6px;
   background: var(--beige);
   color: var(--forest);
   font-family: var(--sans);
@@ -584,9 +587,7 @@
   .blend .reviews img { height: 150px; }
   .blend .join { gap: 18px; padding: 24px 18px; }
   .blend .promo.is-today::before {
-    top: 8px;
-    left: 10px;
-    padding: 2px 7px;
+    padding: 9px 3px;
     font-size: 9.5px;
   }
   .blend-sticky {
@@ -662,7 +663,15 @@
   .blend .fx-bar .logo-home img { width: auto; height: 65px; transform: translateY(3px); }
   .blend .fx-bar.open nav { gap: 2px; }
   .blend .fx-bar.open nav a:not(.fx-book) { padding: 9px 14px; }
-  .blend .fx-bar.open nav a.fx-book { margin: 8px 0 0; }
+  .blend .fx-bar.open nav a.fx-book { margin: 8px 0 0 14px; padding: 0 32px 0 22px; }
+  .blend .services .card-main .svc-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
   .blend .section { padding: 24px 18px; }
   .blend .visit {
     padding: 20px 18px 20px;
