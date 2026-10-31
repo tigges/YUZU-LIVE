@@ -1121,7 +1121,6 @@ body.is-locked { overflow: hidden; }
   left: 14px;
   z-index: 3;
   padding: 4px 12px;
-  border-radius: 999px;
   background: #fffdfb;
   color: #2f3a27;
   font: 600 0.78rem/1.4 var(--sans);
