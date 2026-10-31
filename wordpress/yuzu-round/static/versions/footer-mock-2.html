@@ -48,10 +48,10 @@
     }
     .fm-switcher-links { display: flex; flex-wrap: wrap; gap: 6px; }
     .fm-switcher-links a {
-      padding: 5px 12px;
+      padding: 5px 11px;
       border: 1px solid rgb(239 228 212 / 0.3);
-      font-size: 12px;
-      letter-spacing: 0.06em;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
     }
     .fm-switcher-links a[aria-current="page"] {
@@ -80,18 +80,23 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 0 16px;
-      border: 1px solid rgb(239 228 212 / 0.45);
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgb(239 228 212 / 0.5);
       color: var(--beige);
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
     }
     .fm-ghost-light:hover { background: rgb(239 228 212 / 0.1); }
+    .fm-kanji-foot {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .fm-kanji-foot img { width: 26px; height: 26px; opacity: 0.88; }
 
-    /* Illustration Approach 2: Kanji section seal + Review card botanical watermarks */
     .section-head-seal {
       display: flex;
       align-items: center;
@@ -112,12 +117,12 @@
     .blend .reviews li > div::after {
       content: "";
       position: absolute;
-      right: -10px;
-      bottom: -14px;
-      width: 118px;
-      height: 118px;
+      right: -8px;
+      bottom: -12px;
+      width: 124px;
+      height: 124px;
       background: var(--forest);
-      opacity: 0.08;
+      opacity: 0.11;
       pointer-events: none;
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
@@ -130,7 +135,6 @@
     .blend .reviews li:nth-child(2) > div::after { -webkit-mask-image: url("img/fruit-2-beige.png"); mask-image: url("img/fruit-2-beige.png"); }
     .blend .reviews li:nth-child(3) > div::after { -webkit-mask-image: url("img/fan-beige.png"); mask-image: url("img/fan-beige.png"); }
 
-    /* Footer Mockup 2: Top Booking Banner + 3 Equal Columns + Kanji Legal Divider */
     .blend .visit.fm-visit-2 {
       position: relative;
       overflow: hidden;
@@ -159,12 +163,6 @@
     }
     .fm-cta-band p { margin-top: 6px; font-size: 15px; opacity: 0.82; }
     .fm-cta-buttons { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-    .fm-kanji-foot {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .fm-kanji-foot img { width: 26px; height: 26px; opacity: 0.85; }
     @media (max-width: 700px) {
       .blend .visit.fm-visit-2 { grid-template-columns: 1fr; padding: 32px 18px 20px; }
     }
@@ -173,11 +171,12 @@
 </head>
 <body class="fx blend">
   <div class="fm-switcher" role="navigation" aria-label="Footer and illustration mockups">
-    <span><strong>Mockup 2 · Split Booking Banner Footer + Kanji Seals & Review Botanicals</strong></span>
+    <span><strong>Mockup 2 · Section Kanji Stamps + Review Botanicals + Banner Footer</strong></span>
     <div class="fm-switcher-links">
-      <a href="footer-mock-1.html">Mockup 1 · 4-Col Seal + Service Watermarks</a>
-      <a href="footer-mock-2.html" aria-current="page">Mockup 2 · CTA Banner + Review Botanicals</a>
-      <a href="footer-mock-3.html">Mockup 3 · Framed Card + Portrait Pair</a>
+      <a href="footer-mock-1.html">Mockup 1 · Service Watermarks</a>
+      <a href="footer-mock-2.html" aria-current="page">Mockup 2 · Kanji Seals &amp; Reviews</a>
+      <a href="footer-mock-3.html">Mockup 3 · Margin Botanicals &amp; Join</a>
+      <a href="footer-mock-4.html">Mockup 4 · New 4th Footer</a>
     </div>
   </div>
   <header class="fx-bar">
