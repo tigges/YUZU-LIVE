@@ -56,16 +56,24 @@ function yuzu_round_is_salon_front(): bool
 
 function yuzu_round_locked_file(): ?string
 {
-    if (!function_exists('get_queried_object')) {
-        return null;
-    }
-    $queried = get_queried_object();
-    if (!$queried instanceof WP_Post || $queried->post_type !== 'page') {
-        return null;
-    }
     $pages = yuzu_round_pages();
-    $slug = (string) $queried->post_name;
-    return $pages[$slug]['file'] ?? null;
+    if (function_exists('get_queried_object')) {
+        $queried = get_queried_object();
+        if ($queried instanceof WP_Post && $queried->post_type === 'page') {
+            $slug = (string) $queried->post_name;
+            if (isset($pages[$slug]['file'])) {
+                return $pages[$slug]['file'];
+            }
+        }
+    }
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    if (is_string($path)) {
+        $slug = trim($path, '/');
+        if ($slug !== '' && $slug !== 'home' && isset($pages[$slug]['file'])) {
+            return $pages[$slug]['file'];
+        }
+    }
+    return null;
 }
 
 function yuzu_round_force_404(): void
@@ -538,7 +546,17 @@ if (function_exists('add_action')) {
         if ((function_exists('is_robots') && is_robots()) || (function_exists('is_favicon') && is_favicon())) {
             return;
         }
-        if (yuzu_round_is_salon_front() || yuzu_round_locked_file() !== null) {
+        $locked = yuzu_round_locked_file();
+        if (yuzu_round_is_salon_front() || $locked !== null) {
+            if ($locked !== null) {
+                global $wp_query;
+                if ($wp_query instanceof WP_Query && $wp_query->is_404) {
+                    $wp_query->is_404 = false;
+                }
+                if (function_exists('status_header')) {
+                    status_header(200);
+                }
+            }
             return;
         }
         yuzu_round_force_404();
