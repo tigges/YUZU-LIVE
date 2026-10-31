@@ -48,10 +48,10 @@
     }
     .fm-switcher-links { display: flex; flex-wrap: wrap; gap: 6px; }
     .fm-switcher-links a {
-      padding: 5px 12px;
+      padding: 5px 11px;
       border: 1px solid rgb(239 228 212 / 0.3);
-      font-size: 12px;
-      letter-spacing: 0.06em;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
     }
     .fm-switcher-links a[aria-current="page"] {
@@ -80,18 +80,55 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 0 16px;
-      border: 1px solid rgb(239 228 212 / 0.45);
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgb(239 228 212 / 0.5);
       color: var(--beige);
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
     }
     .fm-ghost-light:hover { background: rgb(239 228 212 / 0.1); }
+    .fm-kanji-foot {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .fm-kanji-foot img { width: 26px; height: 26px; opacity: 0.88; }
 
-    /* Illustration Approach 3: Woman & Man kimono portraits flanking Join our team + Footer card */
+    .blend #services .section-head,
+    .blend #reviews .section-head {
+      position: relative;
+      max-width: none;
+      padding-right: 140px;
+    }
+    .blend #services .section-head::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: -12px;
+      width: 115px;
+      height: 115px;
+      background: var(--forest);
+      opacity: 0.13;
+      pointer-events: none;
+      -webkit-mask: url("img/fruit-2-beige.png") no-repeat center / contain;
+      mask: url("img/fruit-2-beige.png") no-repeat center / contain;
+    }
+    .blend #reviews .section-head::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: -8px;
+      width: 110px;
+      height: 110px;
+      background: var(--forest);
+      opacity: 0.13;
+      pointer-events: none;
+      -webkit-mask: url("img/flower-beige.png") no-repeat center / contain;
+      mask: url("img/flower-beige.png") no-repeat center / contain;
+    }
     .blend #team .join {
       position: relative;
       overflow: hidden;
@@ -105,42 +142,20 @@
       position: absolute;
       right: 16px;
       bottom: -16px;
-      width: 210px;
-      height: 210px;
+      width: 215px;
+      height: 215px;
       background: var(--forest);
-      opacity: 0.085;
+      opacity: 0.13;
       pointer-events: none;
       -webkit-mask: url("img/woman-beige.png") no-repeat bottom right / contain;
       mask: url("img/woman-beige.png") no-repeat bottom right / contain;
     }
 
-    /* Footer Mockup 3: Architectural Framed Card inside Forest Stage + Centered 3rd Column */
     .blend .visit.fm-visit-3 {
       position: relative;
       overflow: hidden;
       display: block;
       padding: 40px 40px 24px;
-    }
-    .blend .visit.fm-visit-3::before,
-    .blend .visit.fm-visit-3::after {
-      content: "";
-      position: absolute;
-      bottom: 48px;
-      width: 240px;
-      height: 240px;
-      background: var(--beige);
-      opacity: 0.065;
-      pointer-events: none;
-    }
-    .blend .visit.fm-visit-3::before {
-      left: -20px;
-      -webkit-mask: url("img/woman-beige.png") no-repeat bottom left / contain;
-      mask: url("img/woman-beige.png") no-repeat bottom left / contain;
-    }
-    .blend .visit.fm-visit-3::after {
-      right: -20px;
-      -webkit-mask: url("img/man-beige.png") no-repeat bottom right / contain;
-      mask: url("img/man-beige.png") no-repeat bottom right / contain;
     }
     .fm-card-inner {
       position: relative;
@@ -150,8 +165,8 @@
       gap: 28px 40px;
       align-items: stretch;
       padding: 32px 36px;
-      background: rgb(239 228 212 / 0.06);
-      border: 1px solid rgb(239 228 212 / 0.22);
+      background: rgb(239 228 212 / 0.05);
+      border: 1px solid rgb(239 228 212 / 0.24);
       border-radius: 24px;
     }
     .fm-card-inner > div {
@@ -183,11 +198,12 @@
 </head>
 <body class="fx blend">
   <div class="fm-switcher" role="navigation" aria-label="Footer and illustration mockups">
-    <span><strong>Mockup 3 · Architectural Framed Footer Card + Woman & Man Portrait Pair</strong></span>
+    <span><strong>Mockup 3 · Margin Botanicals + Join Portrait + Framed Footer</strong></span>
     <div class="fm-switcher-links">
-      <a href="footer-mock-1.html">Mockup 1 · 4-Col Seal + Service Watermarks</a>
-      <a href="footer-mock-2.html">Mockup 2 · CTA Banner + Review Botanicals</a>
-      <a href="footer-mock-3.html" aria-current="page">Mockup 3 · Framed Card + Portrait Pair</a>
+      <a href="footer-mock-1.html">Mockup 1 · Service Watermarks</a>
+      <a href="footer-mock-2.html">Mockup 2 · Kanji Seals &amp; Reviews</a>
+      <a href="footer-mock-3.html" aria-current="page">Mockup 3 · Margin Botanicals &amp; Join</a>
+      <a href="footer-mock-4.html">Mockup 4 · New 4th Footer</a>
     </div>
   </div>
   <header class="fx-bar">

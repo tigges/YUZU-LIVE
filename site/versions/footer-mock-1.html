@@ -48,10 +48,10 @@
     }
     .fm-switcher-links { display: flex; flex-wrap: wrap; gap: 6px; }
     .fm-switcher-links a {
-      padding: 5px 12px;
+      padding: 5px 11px;
       border: 1px solid rgb(239 228 212 / 0.3);
-      font-size: 12px;
-      letter-spacing: 0.06em;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
     }
     .fm-switcher-links a[aria-current="page"] {
@@ -80,18 +80,37 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 0 16px;
-      border: 1px solid rgb(239 228 212 / 0.45);
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgb(239 228 212 / 0.5);
       color: var(--beige);
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
     }
     .fm-ghost-light:hover { background: rgb(239 228 212 / 0.1); }
+    .fm-kanji-foot {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .fm-kanji-foot img { width: 26px; height: 26px; opacity: 0.88; }
 
-    /* Illustration Approach 1: Subtle line-art watermarks in the 2x2 Service Cards */
+    .blend .hero-copy { position: relative; overflow: hidden; }
+    .blend .hero-copy::after {
+      content: "";
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      width: 34px;
+      height: 34px;
+      background: var(--terra);
+      opacity: 0.35;
+      pointer-events: none;
+      -webkit-mask: url("img/kanji-cream.png") no-repeat center / contain;
+      mask: url("img/kanji-cream.png") no-repeat center / contain;
+    }
     .blend .services li {
       position: relative;
       overflow: hidden;
@@ -99,12 +118,12 @@
     .blend .services li::after {
       content: "";
       position: absolute;
-      right: -12px;
-      bottom: -18px;
-      width: 165px;
-      height: 165px;
+      right: -10px;
+      bottom: -14px;
+      width: 170px;
+      height: 170px;
       background: var(--forest);
-      opacity: 0.085;
+      opacity: 0.11;
       pointer-events: none;
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
@@ -113,12 +132,11 @@
       -webkit-mask-position: bottom right;
       mask-position: bottom right;
     }
-    .blend .services li:nth-child(1)::after { -webkit-mask-image: url("img/woman-beige.png"); mask-image: url("img/woman-beige.png"); width: 175px; height: 175px; }
+    .blend .services li:nth-child(1)::after { -webkit-mask-image: url("img/woman-beige.png"); mask-image: url("img/woman-beige.png"); width: 180px; height: 180px; }
     .blend .services li:nth-child(2)::after { -webkit-mask-image: url("img/flower-beige.png"); mask-image: url("img/flower-beige.png"); }
     .blend .services li:nth-child(3)::after { -webkit-mask-image: url("img/fan-beige.png"); mask-image: url("img/fan-beige.png"); }
     .blend .services li:nth-child(4)::after { -webkit-mask-image: url("img/fruit-2-beige.png"); mask-image: url("img/fruit-2-beige.png"); }
 
-    /* Footer Mockup 1: 4-Column Editorial Seal + Yuzu Branch Corner Watermark */
     .blend .visit.fm-visit-1 {
       position: relative;
       overflow: hidden;
@@ -137,7 +155,7 @@
       width: 300px;
       height: 300px;
       background: var(--beige);
-      opacity: 0.08;
+      opacity: 0.12;
       pointer-events: none;
       -webkit-mask: url("img/fruit-2-beige.png") no-repeat bottom right / contain;
       mask: url("img/fruit-2-beige.png") no-repeat bottom right / contain;
@@ -174,11 +192,12 @@
 </head>
 <body class="fx blend">
   <div class="fm-switcher" role="navigation" aria-label="Footer and illustration mockups">
-    <span><strong>Mockup 1 · 4-Column Seal Footer + Service Card Line-Art Watermarks</strong></span>
+    <span><strong>Mockup 1 · Hero Kanji Seal + 2×2 Service Watermarks + 4-Col Footer</strong></span>
     <div class="fm-switcher-links">
-      <a href="footer-mock-1.html" aria-current="page">Mockup 1 · 4-Col Seal + Service Watermarks</a>
-      <a href="footer-mock-2.html">Mockup 2 · CTA Banner + Review Botanicals</a>
-      <a href="footer-mock-3.html">Mockup 3 · Framed Card + Portrait Pair</a>
+      <a href="footer-mock-1.html" aria-current="page">Mockup 1 · Service Watermarks</a>
+      <a href="footer-mock-2.html">Mockup 2 · Kanji Seals &amp; Reviews</a>
+      <a href="footer-mock-3.html">Mockup 3 · Margin Botanicals &amp; Join</a>
+      <a href="footer-mock-4.html">Mockup 4 · New 4th Footer</a>
     </div>
   </div>
   <header class="fx-bar">
