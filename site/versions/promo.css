@@ -318,7 +318,7 @@ button.promo.is-selected {
 }
 .tray-close {
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: 0;
   border: 1px solid rgb(47 58 39 / 0.3);
   background: transparent;
   color: inherit;
