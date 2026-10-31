@@ -270,18 +270,35 @@ function yuzu_round_copy_esc(string $text): string
     return htmlspecialchars($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 
+function yuzu_round_copy_hours_phrase(): string
+{
+    return function_exists('yuzu_round_hours_phrase')
+        ? yuzu_round_hours_phrase()
+        : 'Tuesday to Friday 10am to 8pm, Saturday 9am to 6pm; closed Monday and Sunday';
+}
+
+/** {hours} in page copy stands for the weekly hours set under Salon details. */
+function yuzu_round_copy_fill_hours(string $text, bool $html): string
+{
+    if (!str_contains($text, '{hours}')) {
+        return $text;
+    }
+    $phrase = yuzu_round_copy_hours_phrase();
+    return str_replace('{hours}', $html ? '<span data-yuzu-hours>' . yuzu_round_copy_esc($phrase) . '</span>' : $phrase, $text);
+}
+
 function yuzu_round_copy_inner_html(string $text, string $type): string
 {
     if ($type === 'lines') {
         $parts = [];
         foreach (preg_split('/\n/u', $text) ?: [] as $line) {
             if ($line !== '') {
-                $parts[] = yuzu_round_copy_esc($line);
+                $parts[] = yuzu_round_copy_fill_hours(yuzu_round_copy_esc($line), true);
             }
         }
         return implode("<br />\n", $parts);
     }
-    return yuzu_round_copy_esc($text);
+    return yuzu_round_copy_fill_hours(yuzu_round_copy_esc($text), true);
 }
 
 function yuzu_round_copy_read_value(string $html, string $key, string $type): string
@@ -294,6 +311,7 @@ function yuzu_round_copy_read_value(string $html, string $key, string $type): st
         }
     }
     $inner = preg_replace('/<br\s*\/?>/i', "\n", $matches[3]) ?? $matches[3];
+    $inner = preg_replace('/<span data-yuzu-hours>.*?<\/span>/s', '{hours}', $inner) ?? $inner;
     $text = html_entity_decode(strip_tags($inner), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $text = str_replace("\xC2\xA0", ' ', $text);
     return yuzu_round_copy_clean($text, $type);
@@ -362,7 +380,7 @@ function yuzu_round_copy_sync_faq(string $html, array $values, array $pairs): st
             $data['mainEntity'][$index]['name'] = $values[$pair[0]];
         }
         if (!empty($values[$pair[1]]) && is_string($values[$pair[1]]) && isset($data['mainEntity'][$index]['acceptedAnswer']) && is_array($data['mainEntity'][$index]['acceptedAnswer'])) {
-            $data['mainEntity'][$index]['acceptedAnswer']['text'] = $values[$pair[1]];
+            $data['mainEntity'][$index]['acceptedAnswer']['text'] = yuzu_round_copy_fill_hours($values[$pair[1]], false);
         }
     }
     $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
@@ -456,8 +474,18 @@ function yuzu_round_copy_rename_gallery_heading(): void
         $changed = true;
     }
     if (isset($stored['about']['about-p2']) && !str_contains((string) $stored['about']['about-p2'], 'Ealing Town Hall')) {
-        $stored['about']['about-p2'] = 'Located in Dickens Yard behind Ealing Town Hall, a 4-minute walk from Ealing Broadway station (Elizabeth, Central and District lines) with Dickens Yard underground car park right below the courtyard. Open Tuesday to Friday 10am to 8pm and Saturday 9am to 6pm. Guests describe the room as calm, and one Google review calls Jasmine “a brilliant artist working in hair”.';
+        $stored['about']['about-p2'] = 'Located in Dickens Yard behind Ealing Town Hall, a 4-minute walk from Ealing Broadway station (Elizabeth, Central and District lines) with Dickens Yard underground car park right below the courtyard. Open {hours}. Guests describe the room as calm, and one Google review calls Jasmine “a brilliant artist working in hair”.';
         $changed = true;
+    }
+    $fixed_hours = [
+        ['about', 'about-p2', 'Open Tuesday to Friday 10am to 8pm and Saturday 9am to 6pm.', 'Open {hours}.'],
+        ['questions', 'questions-open-a', 'Tuesday to Friday, 10am to 8pm. Saturday, 9am to 6pm. Monday and Sunday closed.', '{hours}.'],
+    ];
+    foreach ($fixed_hours as [$page, $key, $old, $new]) {
+        if (isset($stored[$page][$key]) && is_string($stored[$page][$key]) && str_contains($stored[$page][$key], $old)) {
+            $stored[$page][$key] = str_replace($old, $new, $stored[$page][$key]);
+            $changed = true;
+        }
     }
     if (isset($stored['offers']) && is_array($stored['offers'])) {
         $legacy_tue = ($stored['offers']['offers-tue-kicker'] ?? '') === 'Colour Tuesdays · Senior stylist';
@@ -590,6 +618,9 @@ function yuzu_round_copy_admin_page(): void
         } else {
             $rows = $field['type'] === 'lines' ? 4 : 5;
             echo '<textarea class="large-text" id="' . esc_attr($id) . '" name="yuzu_copy[' . esc_attr($field['key']) . ']" rows="' . esc_attr((string) $rows) . '">' . esc_textarea($value) . '</textarea>';
+        }
+        if (str_contains($value, '{hours}')) {
+            echo '<br /><span class="description"><code>{hours}</code> shows the opening hours from <a href="' . esc_url(admin_url('admin.php?page=yuzu-salon')) . '">Salon details</a>, currently “' . esc_html(yuzu_round_copy_hours_phrase()) . '”.</span>';
         }
         echo '</p>';
     }

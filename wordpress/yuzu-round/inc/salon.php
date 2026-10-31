@@ -244,6 +244,75 @@ function yuzu_round_salon_week_rows(array $week): array
     return $rows;
 }
 
+/**
+ * The weekly hours as a phrase for running text, e.g. "Tuesday to Friday 10am
+ * to 8pm, Saturday 9am to 6pm; closed Monday and Sunday". Page copy shows it
+ * wherever an editor writes {hours}.
+ */
+function yuzu_round_salon_hours_phrase(array $data): string
+{
+    $names = yuzu_round_salon_day_names();
+    $clock = static fn (string $from, string $to): string => yuzu_round_salon_clock($from) . ' to ' . yuzu_round_salon_clock($to);
+    $runs = [];
+    $closed = [];
+    foreach ([1, 2, 3, 4, 5, 6, 0] as $day) {
+        $d = $data['week'][$day];
+        if (!$d['open']) {
+            $closed[] = $names[$day];
+            continue;
+        }
+        $last = count($runs) - 1;
+        if ($last >= 0 && $runs[$last]['end'] === $day - 1 && $runs[$last]['from'] === $d['from'] && $runs[$last]['to'] === $d['to']) {
+            $runs[$last]['end'] = $day;
+            continue;
+        }
+        $runs[] = ['start' => $day, 'end' => $day, 'from' => $d['from'], 'to' => $d['to']];
+    }
+    $parts = [];
+    foreach ($runs as $r) {
+        $span = $r['end'] - $r['start'];
+        $label = $span === 0 ? $names[$r['start']]
+            : ($span === 1 ? $names[$r['start']] . ' and ' . $names[$r['end']] : $names[$r['start']] . ' to ' . $names[$r['end']]);
+        $parts[] = $label . ' ' . $clock($r['from'], $r['to']);
+    }
+    if ($parts === []) {
+        return 'closed all week';
+    }
+    $phrase = implode(', ', $parts);
+    if ($closed !== []) {
+        $last = array_pop($closed);
+        $phrase .= '; closed ' . ($closed === [] ? $last : implode(', ', $closed) . ' and ' . $last);
+    }
+    return $phrase;
+}
+
+function yuzu_round_hours_phrase(): string
+{
+    return yuzu_round_salon_hours_phrase(yuzu_round_salon_current());
+}
+
+/** Fills every <span data-yuzu-hours> and the same words inside structured data. */
+function yuzu_round_salon_apply_hours_text(string $html, array $data): string
+{
+    if (!str_contains($html, 'data-yuzu-hours')) {
+        return $html;
+    }
+    $phrase = yuzu_round_salon_esc(yuzu_round_salon_hours_phrase($data));
+    $old = [];
+    $html = preg_replace_callback('/(<span data-yuzu-hours>)(.*?)(<\/span>)/s', static function (array $m) use ($phrase, &$old): string {
+        $old[] = html_entity_decode($m[2], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        return $m[1] . $phrase . $m[3];
+    }, $html) ?? $html;
+    $plain = yuzu_round_salon_hours_phrase($data);
+    $old = array_values(array_unique(array_filter($old, static fn ($o) => $o !== '' && $o !== $plain)));
+    if ($old === []) {
+        return $html;
+    }
+    return preg_replace_callback('/<script type="application\/ld\+json">.*?<\/script>/s', static function (array $m) use ($old, $plain): string {
+        return str_replace($old, $plain, $m[0]);
+    }, $html) ?? $html;
+}
+
 function yuzu_round_salon_short_date(string $iso): string
 {
     $d = DateTimeImmutable::createFromFormat('!Y-m-d', $iso, new DateTimeZone('Europe/London'));
@@ -473,6 +542,8 @@ function yuzu_round_salon_apply_data(string $html, string $file, array $data): s
         ) ?? $html;
     }
 
+    $html = yuzu_round_salon_apply_hours_text($html, $data);
+
     $week = yuzu_round_salon_week_html($data);
     $html = preg_replace_callback('/<ul class="visit-hours">.*?<\/ul>/s', static fn () => $week, $html, 1) ?? $html;
 
@@ -530,12 +601,12 @@ function yuzu_round_salon_admin_page(): void
         echo $cache ? 'The Breeze cache was cleared.' : 'Purge the Breeze cache if the old hours are still showing.';
         echo '</p></div>';
     }
-    echo '<p class="yuzu-lead">Opening hours, holidays and the banner at the top of the site. The visit card, the “Open now” line and Google’s data all update from here.</p>';
+    echo '<p class="yuzu-lead">Opening hours, holidays and the banner at the top of the site. The visit card, the “Open now” line, Google’s data and the hours mentioned in the About and Questions text all update from here.</p>';
     echo '<form method="post">';
     wp_nonce_field('yuzu_round_salon_save');
     echo '<input type="hidden" name="yuzu_salon_action" value="save" />';
 
-    echo '<section class="yuzu-box"><h2>Opening hours</h2><table class="widefat striped yuzu-week"><thead><tr><th>Day</th><th>Open</th><th>From</th><th>Until</th></tr></thead><tbody>';
+    echo '<section class="yuzu-box"><h2>Opening hours</h2><p class="description">In sentences these read: <strong>' . esc_html(yuzu_round_salon_hours_phrase($data)) . '</strong></p><table class="widefat striped yuzu-week"><thead><tr><th>Day</th><th>Open</th><th>From</th><th>Until</th></tr></thead><tbody>';
     foreach ([1, 2, 3, 4, 5, 6, 0] as $day) {
         $d = $data['week'][$day];
         $base = 'yuzu_salon[week][' . $day . ']';
