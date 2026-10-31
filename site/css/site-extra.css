@@ -182,3 +182,24 @@
 @media (max-width: 700px) {
   .site-notice { font-size: 13px; padding: 9px 46px 9px 14px; }
 }
+
+/* Price list: line drawing beside the title and level pills. */
+.blend #prices { position: relative; }
+.blend .prices-art {
+  position: absolute;
+  top: 18px;
+  right: max(24px, calc((100% - 1180px) / 2));
+  width: 210px;
+  height: 226px;
+  background: var(--forest);
+  opacity: 0.85;
+  pointer-events: none;
+  -webkit-mask: url("../assets/img/art/woman.webp") no-repeat center / contain;
+  mask: url("../assets/img/art/woman.webp") no-repeat center / contain;
+}
+@media (max-width: 900px) {
+  .blend .prices-art { width: 150px; height: 162px; }
+}
+@media (max-width: 700px) {
+  .blend .prices-art { top: 30px; right: 16px; width: 92px; height: 99px; }
+}
