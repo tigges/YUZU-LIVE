@@ -357,6 +357,11 @@
   align-items: center;
   gap: 10px;
 }
+.blend .legal-links a[aria-current="page"] {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .blend .kanji-foot::before {
   content: "";
   width: 26px;
