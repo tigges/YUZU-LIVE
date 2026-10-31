@@ -1232,7 +1232,6 @@ body.is-locked { overflow: hidden; }
   padding: 9px 16px;
   background: var(--paper);
   border: 1px solid #cfc6ba;
-  border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 500;
   white-space: nowrap;
