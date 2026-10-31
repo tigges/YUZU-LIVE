@@ -873,7 +873,7 @@
 .blend .sub-main {
   position: relative;
   overflow: hidden;
-  min-height: 62vh;
+  min-height: calc(100vh - 190px);
 }
 .blend .sub-main > * {
   position: relative;
