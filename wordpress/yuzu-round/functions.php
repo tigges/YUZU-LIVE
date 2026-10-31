@@ -16,6 +16,12 @@ if (is_readable(__DIR__ . '/inc/seo.php')) {
 if (is_readable(__DIR__ . '/inc/reviews.php')) {
     require_once __DIR__ . '/inc/reviews.php';
 }
+if (is_readable(__DIR__ . '/inc/salon.php')) {
+    require_once __DIR__ . '/inc/salon.php';
+}
+if (is_readable(__DIR__ . '/inc/insights.php')) {
+    require_once __DIR__ . '/inc/insights.php';
+}
 
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
@@ -24,14 +30,14 @@ add_action('after_setup_theme', static function () {
 add_action('after_switch_theme', static function () {
     try {
         yuzu_round_seed_pages();
-        update_option('yuzu_round_seed', 'v3-all-pages');
+        update_option('yuzu_round_seed', 'v4-service-pages');
     } catch (Throwable $e) {
         // Page setup must not take the salon or wp-admin down.
     }
 });
 
 add_action('init', static function () {
-    if (!function_exists('get_option') || get_option('yuzu_round_seed') === 'v3-all-pages') {
+    if (!function_exists('get_option') || get_option('yuzu_round_seed') === 'v4-service-pages') {
         return;
     }
     try {
@@ -39,7 +45,7 @@ add_action('init', static function () {
         if (function_exists('flush_rewrite_rules')) {
             flush_rewrite_rules(false);
         }
-        update_option('yuzu_round_seed', 'v3-all-pages');
+        update_option('yuzu_round_seed', 'v4-service-pages');
     } catch (Throwable $e) {
         // Page setup must not take the salon or wp-admin down.
     }
@@ -76,13 +82,16 @@ add_action('init', static function (): void {
         $static = yuzu_round_static_dir();
         $sig = implode(':', [
             (string) @filemtime($static . '/index.html'),
-            (string) @filemtime($static . '/versions/blend.css'),
-            (string) @filemtime($static . '/versions/promo.css'),
+            (string) @filemtime($static . '/css/yuzu.css'),
+            (string) @filemtime($static . '/js/yuzu.js'),
         ]);
         if ($sig === '::' || get_option('yuzu_round_deploy_sig') === $sig) {
             return;
         }
         update_option('yuzu_round_deploy_sig', $sig, false);
+        if (function_exists('yuzu_round_write_root_sitemap')) {
+            yuzu_round_write_root_sitemap();
+        }
 
         if (function_exists('do_action')) {
             do_action('breeze_clear_all_cache');
@@ -189,6 +198,10 @@ function yuzu_round_pages(): array
         'patch' => ['title' => 'Patch testing', 'file' => 'patch.html'],
         'terms' => ['title' => 'Terms and conditions', 'file' => 'terms.html'],
         'privacy' => ['title' => 'Privacy', 'file' => 'privacy.html'],
+        'haircut-ealing' => ['title' => 'Haircuts in Ealing', 'file' => 'haircut-ealing.html'],
+        'hair-colour-ealing' => ['title' => 'Hair colour in Ealing', 'file' => 'hair-colour-ealing.html'],
+        'balayage-ealing' => ['title' => 'Balayage in Ealing', 'file' => 'balayage-ealing.html'],
+        'hair-smoothing-ealing' => ['title' => 'Hair smoothing in Ealing', 'file' => 'hair-smoothing-ealing.html'],
     ];
 }
 
@@ -313,6 +326,17 @@ function yuzu_round_render(string $file): void
             }
         } catch (Throwable $e) {
             // A bad price record must not take the page down.
+        }
+    }
+
+    if (function_exists('yuzu_round_salon_apply')) {
+        try {
+            $salon = yuzu_round_salon_apply($html, basename($file));
+            if (is_string($salon) && $salon !== '') {
+                $html = $salon;
+            }
+        } catch (Throwable $e) {
+            // Bad salon details must not take the page down.
         }
     }
 

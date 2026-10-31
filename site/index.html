@@ -6,29 +6,28 @@
   <title>YUZU hair | Japanese hair salon, Ealing Broadway</title>
   <meta name="description" content="Welcome to YUZU hair, where tradition meets trend. Japanese-inspired cuts, colour and smoothing at 5 Dickens Yard, a short walk from Ealing Broadway station." />
   <link rel="canonical" href="https://yuzu.hair/" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<!-- @include head -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-500.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400.woff2" crossorigin />
+    <link rel="stylesheet" href="css/yuzu.css?v=a49220db6f" />
+<!-- /@include -->
   <meta property="og:title" content="YUZU hair, Ealing Broadway" />
   <meta property="og:description" content="Where tradition meets trend in the art of hair care. Book at Dickens Yard, Ealing." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:url" content="https://yuzu.hair/" />
-  <meta property="og:image" content="https://yuzu.hair/assets/clean/hero.jpg?v=3" />
-  <meta property="og:image:width" content="1920" />
-  <meta property="og:image:height" content="660" />
-  <meta property="og:image:alt" content="Wavy brunette hair, photographed in the salon at YUZU hair, Ealing" />
+  <meta property="og:image" content="https://yuzu.hair/assets/share/yuzu-hair.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="YUZU hair, Japanese-inspired hair salon at Dickens Yard, Ealing Broadway" />
   <meta property="og:site_name" content="YUZU hair" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="YUZU hair, Ealing Broadway" />
   <meta name="twitter:description" content="Where tradition meets trend in the art of hair care. Book at Dickens Yard, Ealing." />
-  <meta name="twitter:image" content="https://yuzu.hair/assets/clean/hero.jpg?v=3" />
-  <link rel="preload" as="image" href="assets/clean/hero.jpg?v=3" />
-  <link rel="preload" as="font" type="font/woff2" href="versions/fonts/cormorant-500.woff2" crossorigin />
-  <link rel="preload" as="font" type="font/woff2" href="versions/fonts/outfit-400.woff2" crossorigin />
-  <link rel="stylesheet" href="versions/fonts/fonts.css?v=2" />
-  <link rel="stylesheet" href="versions/brand.css?v=2" />
-  <link rel="stylesheet" href="versions/promo.css?v=15" />
-  <link rel="stylesheet" href="versions/fresh.css?v=9" />
-  <link rel="stylesheet" href="versions/blend.css?v=45" />
+  <meta name="twitter:image" content="https://yuzu.hair/assets/share/yuzu-hair.jpg" />
+  <link rel="preload" as="image" href="assets/clean/hero-mobile.webp" media="(max-width: 700px)" />
+  <link rel="preload" as="image" href="assets/clean/hero.webp" imagesrcset="assets/clean/hero-960.webp 960w, assets/clean/hero.webp 1920w" imagesizes="100vw" media="(min-width: 701px)" />
   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -90,53 +89,23 @@
           "https://www.tiktok.com/@yuzuhairandbeauty.est16"
         ],
         "hasMap": "https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8",
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.5",
-          "reviewCount": "217",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "review": [
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Alexa" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "name": "Amazing — focused on every detail",
-            "reviewBody": "Listened to my requests and delivered exactly what I wanted. I already booked my follow-up."
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Rachel" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "name": "I always leave feeling a million dollars",
-            "reviewBody": "Cut and colour once again exactly how I asked. Calm, expert and friendly throughout."
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Steve" },
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "name": "A brilliant artist working in hair",
-            "reviewBody": "Jasmine is not just another haircut, but a brilliant artist working in hair."
-          }
-        ],
         "makesOffer": [
           {
             "@type": "Offer",
             "name": "Colour Tuesdays — 50% off colour with a Creative Director",
-            "description": "50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with a Creative Director on Tuesdays.",
+            "description": "50% off your most expensive colour service with a full priced wash, cut and blow-dry with a Creative Director, every Tuesday.",
             "url": "https://yuzu.hair/#tuesdays"
           },
           {
             "@type": "Offer",
-            "name": "Smooth Wednesdays — 25% off Aura smoothing",
-            "description": "25% off our 3 to 6 month formaldehyde- and ammonia-free smoothing treatment on Wednesdays.",
+            "name": "Smooth Wednesdays — 25% off our smoothing treatment",
+            "description": "25% off our three to six month smoothing treatment, every Wednesday.",
             "url": "https://yuzu.hair/#wednesdays"
           },
           {
             "@type": "Offer",
-            "name": "Colour Thursdays — 50% off colour with a Senior Stylist or Stylist",
-            "description": "50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with a Senior Stylist or Stylist on Thursdays.",
+            "name": "Colour Thursdays — 50% off colour with a Senior Stylist and Stylist",
+            "description": "50% off your most expensive colour service with a full priced wash, cut and blow-dry with a Senior Stylist and Stylist, every Thursday.",
             "url": "https://yuzu.hair/#thursdays"
           },
           {
@@ -178,9 +147,10 @@
     </script>
 </head>
 <body class="fx blend">
+<!-- @include header -->
   <header class="fx-bar">
     <a class="logo-home" href="#">
-      <img src="versions/img/logo-green.png" alt="YUZU hair" />
+      <img src="assets/img/logo-green.png" alt="YUZU hair" width="480" height="320" />
     </a>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
       <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -190,20 +160,21 @@
       <a href="#services">Services</a>
       <a href="#offers">Offers</a>
       <a href="#visit">Visit</a>
-      <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+      <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book<span class="vh"> (opens in a new tab)</span></a>
     </nav>
   </header>
+<!-- /@include -->
   <section class="hero hero-float">
-    <span class="shine hero-photo"><img src="assets/clean/hero.jpg?v=3" alt="Wavy brunette hair, photographed in the salon at YUZU hair, Ealing" width="1920" height="660" fetchpriority="high" /></span>
+    <span class="shine hero-photo"><picture><source media="(max-width: 700px)" srcset="assets/clean/hero-mobile.webp" width="720" height="600" /><img src="assets/clean/hero.webp" srcset="assets/clean/hero-960.webp 960w, assets/clean/hero.webp 1920w" sizes="100vw" alt="Wavy brunette hair, photographed in the salon at YUZU hair, Ealing" width="1920" height="660" fetchpriority="high" /></picture></span>
     <div class="hero-copy">
       <p class="kicker" data-yuzu-copy="home-hero-kicker">Dickens Yard · Ealing Broadway</p>
       <h1 data-yuzu-copy="home-hero-title">Where tradition meets trend</h1>
       <p class="lede" data-yuzu-copy="home-hero-text">Japanese-inspired cuts, colour and smoothing, a short walk from Ealing Broadway station.</p>
       <div class="actions">
-        <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
+        <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
         <a class="fx-ghost" href="#services">See services</a>
       </div>
-      <a class="hero-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer"><strong>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true">★★★★★</span><span>217 Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
+      <a class="hero-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener"><strong data-yuzu-rating>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true" style="--rating: 4.5">★★★★★</span><span><span data-yuzu-rating-count>217</span> Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
       <p class="book-note">Online booking opens Phorest in a new tab.</p>
     </div>
   </section>
@@ -215,19 +186,19 @@
     <ul class="looks">
       <li>
         <figure>
-          <span class="shine"><img src="versions/img/looks/blonde-layers.jpg" alt="Soft blonde layered haircut and blow-dry at YUZU hair salon, Ealing Broadway" width="1080" height="1080" loading="lazy" decoding="async" /></span>
+          <span class="shine"><img src="assets/img/looks/blonde-layers.webp" alt="Soft blonde layered haircut and blow-dry at YUZU hair salon, Ealing Broadway" width="1080" height="1080" loading="lazy" decoding="async" /></span>
           <figcaption>Soft blonde</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <span class="shine"><img src="versions/img/looks/copper-balayage.jpg" alt="Copper balayage and waves styled at YUZU hair, Dickens Yard Ealing" width="1080" height="1137" loading="lazy" decoding="async" /></span>
+          <span class="shine"><img src="assets/img/looks/copper-balayage.webp" alt="Copper balayage and waves styled at YUZU hair, Dickens Yard Ealing" width="1080" height="1137" loading="lazy" decoding="async" /></span>
           <figcaption>Copper balayage</figcaption>
         </figure>
       </li>
       <li>
         <figure>
-          <span class="shine"><img src="versions/img/looks/long-straight.jpg" alt="Sleek long straight hair with Aura smoothing at YUZU hair salon, Ealing" width="1080" height="1080" loading="lazy" decoding="async" /></span>
+          <span class="shine"><img src="assets/img/looks/long-straight.webp" alt="Sleek long straight hair with Aura smoothing at YUZU hair salon, Ealing" width="1080" height="1080" loading="lazy" decoding="async" /></span>
           <figcaption>Long and straight</figcaption>
         </figure>
       </li>
@@ -241,7 +212,7 @@
     <ul class="services">
       <li>
         <div>
-          <h3>Cut &amp; styling</h3>
+          <h3><a href="haircut-ealing.html">Cut &amp; styling</a></h3>
           <p data-yuzu-blurb="cut">From blow-outs to sleek cuts, crafted with precision and passion across Creative Director, Senior Stylist, Stylist and Junior Stylist chairs.</p>
         </div>
         <div class="service-foot">
@@ -253,7 +224,7 @@
       </li>
       <li>
         <div>
-          <h3>Colour</h3>
+          <h3><a href="hair-colour-ealing.html">Colour</a></h3>
           <p data-yuzu-blurb="colour">Roots, tints and full head colour, including Wella Illumina. All colour guests—existing and new—require a patch test 48 hours before.</p>
         </div>
         <div class="service-foot">
@@ -266,7 +237,7 @@
       </li>
       <li>
         <div>
-          <h3>Highlights &amp; balayage</h3>
+          <h3><a href="balayage-ealing.html">Highlights &amp; balayage</a></h3>
           <p data-yuzu-blurb="highlights">Classic highlights, freehand balayage and foiliage with bespoke toner and root blending. Patch test required 48 hours prior.</p>
         </div>
         <div class="service-foot">
@@ -279,7 +250,7 @@
       </li>
       <li>
         <div>
-          <h3>Treatments</h3>
+          <h3><a href="hair-smoothing-ealing.html">Treatments</a></h3>
           <p data-yuzu-blurb="treatments">Nashi filler therapy, K2.0 intense moisture, and 3-to-6 month Lakmé Aura smoothing—100% formaldehyde and ammonia free.</p>
         </div>
         <div class="service-foot">
@@ -290,17 +261,17 @@
         </div>
       </li>
     </ul>
-    <p class="center-cta review-ctas"><a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment<span class="vh"> (opens in a new tab)</span></a><a class="fx-ghost" href="prices.html#services">Full price list</a></p>
+    <p class="center-cta review-ctas"><a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book your appointment<span class="vh"> (opens in a new tab)</span></a><a class="fx-ghost" href="prices.html#services">Full price list</a></p>
   </section>
   <section class="section" id="reviews">
     <div class="section-head">
       <h2 data-yuzu-copy="home-reviews-title">What clients say</h2>
       <p data-yuzu-copy="home-reviews-intro">Five-star notes from Google reviews.</p>
-      <a class="google-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer"><strong>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true">★★★★★</span><span>217 Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
+      <a class="google-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener"><strong data-yuzu-rating>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true" style="--rating: 4.5">★★★★★</span><span><span data-yuzu-rating-count>217</span> Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
     </div>
     <ul class="reviews">
       <li>
-        <img src="assets/reviews/1.jpg?v=2" alt="The salon at Dickens Yard" width="590" height="332" loading="lazy" decoding="async" />
+        <img src="assets/reviews/1.webp" alt="Curly black bob with a fringe, cut at YUZU hair, Ealing" width="590" height="332" loading="lazy" decoding="async" />
         <div>
           <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
           <h3 data-yuzu-copy="home-review-1-title">“Amazing — focused on every detail”</h3>
@@ -309,7 +280,7 @@
         </div>
       </li>
       <li>
-        <img src="assets/reviews/2.jpg?v=2" alt="The salon at Dickens Yard" width="590" height="332" loading="lazy" decoding="async" />
+        <img src="assets/reviews/2.webp" alt="Copper red colour with soft waves, finished at YUZU hair, Ealing" width="590" height="332" loading="lazy" decoding="async" />
         <div>
           <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
           <h3 data-yuzu-copy="home-review-2-title">“I always leave feeling a million dollars”</h3>
@@ -318,7 +289,7 @@
         </div>
       </li>
       <li>
-        <img src="assets/reviews/3.jpg?v=2" alt="The salon at Dickens Yard" width="590" height="332" loading="lazy" decoding="async" />
+        <img src="assets/reviews/3.webp" alt="Long layered brunette hair with curtain bangs, cut at YUZU hair, Ealing" width="590" height="332" loading="lazy" decoding="async" />
         <div>
           <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
           <h3 data-yuzu-copy="home-review-3-title">“A brilliant artist working in hair”</h3>
@@ -327,7 +298,7 @@
         </div>
       </li>
     </ul>
-    <p class="center-cta review-ctas"><a class="fx-book" href="/review" target="_blank" rel="noreferrer">Leave a review<span class="vh"> (opens in a new tab)</span></a><a class="fx-ghost" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">All Google reviews<span class="vh"> (opens in a new tab)</span></a></p>
+    <p class="center-cta review-ctas"><a class="fx-book" href="/review" target="_blank" rel="noopener">Leave a review<span class="vh"> (opens in a new tab)</span></a><a class="fx-ghost" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener">All Google reviews<span class="vh"> (opens in a new tab)</span></a></p>
   </section>
   <section class="section fx-offers" id="offers">
     <div class="section-head">
@@ -346,6 +317,12 @@
               <span class="promo-fine">Your most expensive colour <br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
             </span>
           </button>
+          <div class="promo-detail" data-promo-detail="tue" data-book-label="Book Tuesday colour" data-prices-hash="#colour" hidden>
+            <p data-part="kicker" data-yuzu-copy="offer-tue-kicker">Every Tuesday · Creative Director</p>
+            <p data-part="headline" data-yuzu-copy="offer-tue-headline">Don’t go back to black with this deal</p>
+            <p data-part="text" data-yuzu-copy="offer-tue-text">Every Tuesday, enjoy 50% off your most expensive colour service with a full priced wash, cut &amp; blow-dry with a Creative Director.</p>
+            <p data-part="terms" data-yuzu-copy="offer-tue-terms">50% off your most expensive colour service · with a full priced wash, cut &amp; blow-dry · Creative Director · patch test 48 hours before</p>
+          </div>
         </li>
         <li>
           <button type="button" class="promo wed" data-promo="wed">
@@ -358,6 +335,12 @@
               <span class="promo-fine">Our three to six month<br />smoothing treatment</span>
             </span>
           </button>
+          <div class="promo-detail" data-promo-detail="wed" data-book-label="Book Wednesday smoothing" data-prices-hash="#treatments" hidden>
+            <p data-part="kicker" data-yuzu-copy="offer-wed-kicker">Every Wednesday · Smoothing</p>
+            <p data-part="headline" data-yuzu-copy="offer-wed-headline">Blow everyone away with this deal</p>
+            <p data-part="text" data-yuzu-copy="offer-wed-text">Every Wednesday, enjoy 25% off our three to six month smoothing treatment — formaldehyde and ammonia free.</p>
+            <p data-part="terms" data-yuzu-copy="offer-wed-terms">25% off our three to six month smoothing treatment · Wednesdays</p>
+          </div>
         </li>
         <li>
           <button type="button" class="promo thu" data-promo="thu">
@@ -370,6 +353,12 @@
               <span class="promo-fine">Your most expensive colour <br />service with a full priced<br />Wash, Cut &amp; Blowdry</span>
             </span>
           </button>
+          <div class="promo-detail" data-promo-detail="thu" data-book-label="Book Thursday colour" data-prices-hash="#colour" hidden>
+            <p data-part="kicker" data-yuzu-copy="offer-thu-kicker">Every Thursday · Senior Stylist and Stylist</p>
+            <p data-part="headline" data-yuzu-copy="offer-thu-headline">Thursdays are the new Tuesdays</p>
+            <p data-part="text" data-yuzu-copy="offer-thu-text">Every Thursday, enjoy 50% off your most expensive colour service with a full priced wash, cut &amp; blow-dry with a Senior Stylist and Stylist.</p>
+            <p data-part="terms" data-yuzu-copy="offer-thu-terms">50% off your most expensive colour service · with a full priced wash, cut &amp; blow-dry · Senior Stylist and Stylist · patch test 48 hours before</p>
+          </div>
         </li>
         <li>
           <button type="button" class="promo forest" data-promo="refer">
@@ -382,6 +371,12 @@
               <span class="promo-fine">Credit for every new client<br />you recommend to YUZU hair</span>
             </span>
           </button>
+          <div class="promo-detail" data-promo-detail="refer" data-book-label="Book an appointment" data-prices-hash="#cut" hidden>
+            <p data-part="kicker" data-yuzu-copy="offer-refer-kicker">Ongoing reward · Unlimited referrals</p>
+            <p data-part="headline" data-yuzu-copy="offer-refer-headline">Spread the word, earn £10 credit</p>
+            <p data-part="text" data-yuzu-copy="offer-refer-text">Share YUZU hair with friends, family, or colleagues. When your recommended friend books and completes their first appointment with us, you receive £10 credit towards your next visit—with no limit on how many friends you refer.</p>
+            <p data-part="terms" data-yuzu-copy="offer-refer-terms">£10 credit per new client referred · unlimited referrals · redeemable on any service</p>
+          </div>
         </li>
         <li>
           <button type="button" class="promo cream-tile" data-promo="rebook">
@@ -394,6 +389,12 @@
               <span class="promo-fine">Book your next appointment<br />in the salon before you leave</span>
             </span>
           </button>
+          <div class="promo-detail" data-promo-detail="rebook" data-book-label="Book your visit" data-prices-hash="#cut" hidden>
+            <p data-part="kicker" data-yuzu-copy="offer-rebook-kicker">In-salon loyalty reward</p>
+            <p data-part="headline" data-yuzu-copy="offer-rebook-headline">Hair today, gone tomorrow (but not really)</p>
+            <p data-part="text" data-yuzu-copy="offer-rebook-text">At YUZU hair, we value loyalty. Book your next appointment at reception on the same day as your visit and receive 10% off that next appointment as a token of our gratitude.</p>
+            <p data-part="terms" data-yuzu-copy="offer-rebook-terms">10% off your next appointment when booked in-salon on the day of your visit</p>
+          </div>
         </li>
         <li>
           <button type="button" class="promo bronze" data-promo="blowdry">
@@ -406,6 +407,12 @@
               <span class="promo-fine">Four blow-drys · valid<br />for six months</span>
             </span>
           </button>
+          <div class="promo-detail" data-promo-detail="blowdry" data-book-label="View in price list" data-prices-hash="#cut" data-in-salon hidden>
+            <p data-part="kicker" data-yuzu-copy="offer-blowdry-kicker">Package · Save on regular styling</p>
+            <p data-part="headline" data-yuzu-copy="offer-blowdry-headline">4 blow-drys for £156</p>
+            <p data-part="text" data-yuzu-copy="offer-blowdry-text">Keep your hair styled for less with our 4-visit blow-dry bundle. Ask at reception on your next visit or call us to purchase.</p>
+            <p data-part="terms" data-yuzu-copy="offer-blowdry-terms">Valid 6 months · haircuts not included · not applicable for extensions · no-show deducts 1 blow-dry · non-refundable</p>
+          </div>
         </li>
       </ul>
       <div class="offer-tray" data-offer-detail data-prices-href="prices.html#cut" hidden>
@@ -419,18 +426,19 @@
         <p data-detail-text></p>
         <p class="offer-terms" data-detail-terms></p>
         <div class="offer-ctas">
-          <a class="fx-book" data-detail-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment</a>
+          <a class="fx-book" data-detail-book href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book your appointment</a>
           <a class="fx-ghost" data-detail-prices href="prices.html">See prices</a>
           <a class="fx-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
         </div>
       </div>
   </section>
+<!-- @include visit -->
   <footer class="visit" id="visit" data-book-end>
     <div class="visit-card">
       <div>
         <h2>Contact</h2>
         <p data-yuzu-copy="home-address">5 Dickens Yard<br />Longfield Avenue<br />Ealing, W5 2TD</p>
-        <p style="margin-top:10px"><a href="mailto:info@yuzuhairandbeauty.co.uk" style="text-decoration:underline;text-underline-offset:3px">info@yuzuhairandbeauty.co.uk</a></p>
+        <p class="visit-email"><a href="mailto:info@yuzuhairandbeauty.co.uk">info@yuzuhairandbeauty.co.uk</a></p>
         <div class="visit-left-actions">
           <a class="visit-ghost" href="contact.html">Message us</a>
           <a class="visit-ghost" href="tel:+442088402244">Call 020 8840 2244</a>
@@ -440,30 +448,31 @@
         <h2 data-yuzu-copy="home-hours-title">Opening hours</h2>
         <p class="open-status" data-open-status></p>
         <ul class="visit-hours">
-          <li><span data-yuzu-copy="home-hours-week-label">Tuesday – Friday</span><span data-yuzu-copy="home-hours-week">10am – 8pm</span></li>
-          <li><span data-yuzu-copy="home-hours-sat-label">Saturday</span><span data-yuzu-copy="home-hours-sat">9am – 6pm</span></li>
-          <li><span data-yuzu-copy="home-hours-sun-label">Monday &amp; Sunday</span><span data-yuzu-copy="home-hours-sun">closed</span></li>
+          <li><span>Tuesday – Friday</span><span>10am – 8pm</span></li>
+          <li><span>Saturday</span><span>9am – 6pm</span></li>
+          <li><span>Monday &amp; Sunday</span><span>Closed</span></li>
         </ul>
+        <!-- yuzu-special-hours --><!-- /yuzu-special-hours -->
       </div>
       <div class="visit-book">
         <h2 data-yuzu-copy="home-book-title">Ready to book?</h2>
         <div class="visit-stack-ctas">
-          <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
-          <a class="visit-ghost" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noreferrer">Get directions<span class="vh"> (opens in a new tab)</span></a>
+          <a class="fx-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book your appointment<span class="vh"> (opens in a new tab)</span></a>
+          <a class="visit-ghost" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener">Get directions<span class="vh"> (opens in a new tab)</span></a>
         </div>
         <ul class="socials">
           <li>
-            <a href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noreferrer" aria-label="Instagram (opens in a new tab)">
+            <a href="https://www.instagram.com/yuzuhairandbeauty/" target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
             </a>
           </li>
           <li>
-            <a href="https://www.tiktok.com/@yuzuhairandbeauty.est16" target="_blank" rel="noreferrer" aria-label="TikTok (opens in a new tab)">
+            <a href="https://www.tiktok.com/@yuzuhairandbeauty.est16" target="_blank" rel="noopener" aria-label="TikTok (opens in a new tab)">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.2 3h2.3c.2 1.7 1.2 3.2 2.7 4.1 1 .6 2.1.9 3.2.9v2.4c-1.6 0-3.1-.5-4.4-1.3v6.6c0 3.4-2.7 6.2-6.2 6.3-3.4 0-6.2-2.8-6.2-6.3s2.8-6.2 6.2-6.2c.3 0 .6 0 .9.1v2.5c-.3-.1-.6-.2-.9-.2-2 0-3.6 1.6-3.6 3.7s1.6 3.7 3.6 3.7 3.6-1.6 3.6-3.7V3Z"/></svg>
             </a>
           </li>
           <li>
-            <a href="https://www.facebook.com/YUZUHairandBeauty/" target="_blank" rel="noreferrer" aria-label="Facebook (opens in a new tab)">
+            <a href="https://www.facebook.com/YUZUHairandBeauty/" target="_blank" rel="noopener" aria-label="Facebook (opens in a new tab)">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.7.5-1.1 1.2-1.1h1.3V3h-2.3C12.3 3 11 4.4 11 6.6v2H9v2.7h2V21h3.5v-9.8h2.3l.4-2.7h-2.7Z"/></svg>
             </a>
           </li>
@@ -479,10 +488,12 @@
   </footer>
   <div class="blend-sticky" data-sticky-book>
     <a class="blend-call" href="tel:+442088402244">Call</a>
-    <a class="fx-book blend-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noreferrer">Book<span class="vh"> (opens in a new tab)</span></a>
+    <a class="fx-book blend-book" href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener">Book<span class="vh"> (opens in a new tab)</span></a>
   </div>
-  <script src="versions/menu.js?v=3"></script>
-  <script src="versions/logo-home.js?v=1"></script>
-  <script src="js/visit.js?v=8"></script>
+<!-- /@include -->
+<!-- @include scripts -->
+  <script type="application/json" id="yuzu-hours">{"week":[null,null,["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["09:00","18:00"]],"special":[]}</script>
+  <script src="js/yuzu.js?v=c07070faa8"></script>
+<!-- /@include -->
 </body>
 </html>

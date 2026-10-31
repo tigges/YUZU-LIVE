@@ -11,6 +11,7 @@ RewriteRule ^questions\.html$ /questions/ [R=301,L]
 RewriteRule ^patch\.html$ /patch/ [R=301,L]
 RewriteRule ^terms\.html$ /terms/ [R=301,L]
 RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
+RewriteRule ^(haircut|hair-colour|balayage|hair-smoothing)-ealing\.html$ /$1-ealing/ [R=301,L]
 RewriteRule ^404\.html$ / [R=301,L]
 RewriteRule ^sitemap\.xml$ /sitemap.xml [R=301,L]
 </IfModule>

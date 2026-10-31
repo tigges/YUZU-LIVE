@@ -2,50 +2,114 @@
   const params = new URLSearchParams(location.search)
   const keys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
   const names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  const hours = { 2: [10, 20], 3: [10, 20], 4: [10, 20], 5: [10, 20], 6: [9, 18] }
-  const offers = {
-    2: ['tue', 'Colour Tuesdays', '50% off colour with a creative director, with a full-price wash, cut and blow-dry'],
-    3: ['wed', 'Smooth Wednesdays', '25% off our three to six month smoothing treatment'],
-    4: ['thu', 'Colour Thursdays', '50% off colour with a senior stylist or stylist, with a full-price wash, cut and blow-dry'],
+
+  let schedule = {
+    week: [null, null, ['10:00', '20:00'], ['10:00', '20:00'], ['10:00', '20:00'], ['10:00', '20:00'], ['09:00', '18:00']],
+    special: [],
+  }
+  try {
+    const raw = document.getElementById('yuzu-hours')?.textContent
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed.week) && parsed.week.length === 7) schedule = { week: parsed.week, special: parsed.special || [] }
+    }
+  } catch {}
+
+  const toHour = (t) => {
+    const [h, m] = String(t).split(':').map(Number)
+    return h + (m || 0) / 60
+  }
+  const clock = (h) => {
+    const whole = Math.floor(h)
+    const mins = Math.round((h - whole) * 60)
+    const base = whole % 12 || 12
+    return `${base}${mins ? `:${String(mins).padStart(2, '0')}` : ''}${whole < 12 ? 'am' : 'pm'}`
   }
 
   const parts = Object.fromEntries(
-    new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
+      hourCycle: 'h23',
+    })
       .formatToParts(new Date())
       .map((p) => [p.type, p.value]),
   )
-  let day = keys.indexOf(parts.weekday.toLowerCase().slice(0, 3))
+  let today = new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)))
   let hour = Number(parts.hour) + Number(parts.minute) / 60
-  if (keys.includes(params.get('day'))) day = keys.indexOf(params.get('day'))
+  if (/^\d{4}-\d{2}-\d{2}$/.test(params.get('date') || '')) today = new Date(`${params.get('date')}T00:00:00Z`)
+  if (keys.includes(params.get('day'))) {
+    const shift = (keys.indexOf(params.get('day')) - today.getUTCDay() + 7) % 7
+    today = new Date(today.getTime() + shift * 864e5)
+  }
   if (params.has('hour')) hour = Number(params.get('hour'))
 
-  const clock = (h) => `${h % 12 || 12}${h < 12 ? 'am' : 'pm'}`
-  const nextDay = (from, table) => {
-    let d = (from + 1) % 7
-    while (!table[d]) d = (d + 1) % 7
-    return d
+  const iso = (d) => d.toISOString().slice(0, 10)
+  const addDays = (d, n) => new Date(d.getTime() + n * 864e5)
+  const todayIso = iso(today)
+
+  const dayInfo = (d) => {
+    const key = iso(d)
+    const special = schedule.special.find((s) => s && s.from <= key && key <= (s.to || s.from))
+    if (special) {
+      return {
+        hours: special.open && special.close ? [toHour(special.open), toHour(special.close)] : null,
+        label: special.label || '',
+      }
+    }
+    const week = schedule.week[d.getUTCDay()]
+    return { hours: week ? [toHour(week[0]), toHour(week[1])] : null, label: '' }
   }
 
-  const today = hours[day]
+  const nextOpen = (from) => {
+    for (let i = 1; i <= 21; i++) {
+      const d = addDays(from, i)
+      const info = dayInfo(d)
+      if (info.hours) return { d, info, i }
+    }
+    return null
+  }
+
+  const todayInfo = dayInfo(today)
   let open = false
   let status
-  if (today && hour >= today[0] && hour < today[1]) {
+  const tag = todayInfo.label ? ` · ${todayInfo.label}` : ''
+  if (todayInfo.hours && hour >= todayInfo.hours[0] && hour < todayInfo.hours[1]) {
     open = true
-    status = `Open now · until ${clock(today[1])}`
-  } else if (today && hour < today[0]) {
-    status = `Closed now · opens today at ${clock(today[0])}`
+    status = `Open now · until ${clock(todayInfo.hours[1])}${tag}`
+  } else if (todayInfo.hours && hour < todayInfo.hours[0]) {
+    status = `Closed now · opens today at ${clock(todayInfo.hours[0])}${tag}`
   } else {
-    const d = nextDay(day, hours)
-    status = `Closed now · opens ${d === (day + 1) % 7 ? 'tomorrow' : names[d]} at ${clock(hours[d][0])}`
+    const next = nextOpen(today)
+    const lead = todayInfo.label && !todayInfo.hours ? `Closed today · ${todayInfo.label}` : 'Closed now'
+    status = next
+      ? `${lead} · opens ${next.i === 1 ? 'tomorrow' : names[next.d.getUTCDay()]} at ${clock(next.info.hours[0])}`
+      : lead
   }
   document.querySelectorAll('[data-open-status]').forEach((el) => {
     el.textContent = status
     el.classList.toggle('is-open', open)
   })
 
-  const offerDay = offers[day] ? day : nextDay(day, offers)
-  const [key, title, line] = offers[offerDay]
-  const flag = offerDay === day ? 'Today' : names[offerDay]
+  document.querySelectorAll('[data-special-to]').forEach((el) => {
+    if ((el.getAttribute('data-special-to') || '') < todayIso) el.hidden = true
+  })
+  document.querySelectorAll('.visit-special').forEach((list) => {
+    if (!list.querySelector('[data-special-to]:not([hidden])')) list.hidden = true
+  })
+
+  const offerDays = { 2: 'tue', 3: 'wed', 4: 'thu' }
+  let offerDay = today.getUTCDay()
+  if (!offerDays[offerDay]) {
+    do offerDay = (offerDay + 1) % 7
+    while (!offerDays[offerDay])
+  }
+  const key = offerDays[offerDay]
+  const flag = offerDay === today.getUTCDay() ? 'Today' : names[offerDay]
   document.querySelectorAll(`.promo.${key}`).forEach((el) => {
     el.classList.add('is-today')
     el.dataset.flag = flag
@@ -56,77 +120,28 @@
       row.scrollLeft += item.getBoundingClientRect().left - row.getBoundingClientRect().left - pad
     }
   })
-  document.querySelectorAll('[data-today-offer]').forEach((el) => {
-    const lead = document.createElement('strong')
-    lead.textContent = offerDay === day ? 'Today’s offer' : `Next offer · ${names[offerDay]}`
-    el.replaceChildren(lead, ` ${title}: ${line}.`)
-  })
 
   const detail = document.querySelector('[data-offer-detail]')
   if (detail) {
     const roll = document.querySelector('.promo-roll-6')
     const pricesBase = (detail.getAttribute('data-prices-href') || 'prices.html#cut').split('#')[0]
-    const promoDetails = {
-      tue: {
-        kicker: 'Every Tuesday · Creative Director',
-        headline: 'Don’t go back to black with this deal',
-        text: 'Say goodbye to dull hair with our vibrant colour celebration. Every Tuesday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with our Creative Director.',
-        terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
-        bookLabel: 'Book Tuesday colour',
-        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
-        pricesHref: `${pricesBase}#colour`,
-        external: true,
-      },
-      wed: {
-        kicker: 'Every Wednesday · Aura Smoothing',
-        headline: 'Blow everyone away with this deal',
-        text: 'Every Wednesday at YUZU hair, enjoy 25% off our Brazilian blow-dry and Aura smoothing treatments—our formaldehyde- and ammonia-free smoothing and straightening treatment lasting 3 to 6 months.',
-        terms: '25% off 3–6 month smoothing treatment · formaldehyde & ammonia free',
-        bookLabel: 'Book Wednesday smoothing',
-        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
-        pricesHref: `${pricesBase}#treatments`,
-        external: true,
-      },
-      thu: {
-        kicker: 'Every Thursday · Senior Stylist & Stylist',
-        headline: 'Thursdays are the new Tuesdays',
-        text: 'Every Thursday, enjoy 50% off your most expensive colour service when booked with a full-priced wash, cut and blow-dry with a Senior Stylist or Stylist.',
-        terms: '50% off most expensive colour service · requires full-priced wash, cut & blow-dry · patch test 48h prior',
-        bookLabel: 'Book Thursday colour',
-        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
-        pricesHref: `${pricesBase}#colour`,
-        external: true,
-      },
-      refer: {
-        kicker: 'Ongoing reward · Unlimited referrals',
-        headline: 'Spread the word, earn £10 credit',
-        text: 'Share YUZU hair with friends, family, or colleagues. When your recommended friend books and completes their first appointment with us, you receive £10 credit towards your next visit—with no limit on how many friends you refer.',
-        terms: '£10 credit per new client referred · unlimited referrals · redeemable on any service',
-        bookLabel: 'Book an appointment',
-        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
-        pricesHref: `${pricesBase}#cut`,
-        external: true,
-      },
-      rebook: {
-        kicker: 'In-salon loyalty reward',
-        headline: 'Hair today, gone tomorrow (but not really)',
-        text: 'At YUZU hair, we value loyalty. Book your next appointment at reception on the same day as your visit and receive 10% off that next appointment as a token of our gratitude.',
-        terms: '10% off your next appointment when booked in-salon on the day of your visit',
-        bookLabel: 'Book your visit',
-        bookHref: 'https://www.phorest.com/salon/yuzuhairandbeauty',
-        pricesHref: `${pricesBase}#cut`,
-        external: true,
-      },
-      blowdry: {
-        kicker: 'Package · Save on regular styling',
-        headline: '4 blow-drys for £156',
-        text: 'Keep your hair styled for less with our 4-visit blow-dry bundle. Ask at reception on your next visit or call us to purchase.',
-        terms: 'Valid 6 months · haircuts not included · not applicable for extensions · no-show deducts 1 blow-dry · non-refundable',
-        bookLabel: 'View in price list',
-        bookHref: `${pricesBase}#cut`,
-        pricesHref: '',
-        external: false,
-      },
+    const bookHref = detail.querySelector('[data-detail-book]')?.getAttribute('href') || ''
+    const read = (promoKey) => {
+      const src = document.querySelector(`[data-promo-detail="${promoKey}"]`)
+      if (!src) return null
+      const pick = (name) => src.querySelector(`[data-part="${name}"]`)?.textContent.trim() || ''
+      const pricesHash = src.getAttribute('data-prices-hash') || ''
+      const inSalon = src.hasAttribute('data-in-salon')
+      return {
+        kicker: pick('kicker'),
+        headline: pick('headline'),
+        text: pick('text'),
+        terms: pick('terms'),
+        bookLabel: src.getAttribute('data-book-label') || 'Book your appointment',
+        bookHref: inSalon ? `${pricesBase}${pricesHash || '#cut'}` : bookHref,
+        pricesHref: inSalon || !pricesHash ? '' : `${pricesBase}${pricesHash}`,
+        external: !inSalon,
+      }
     }
 
     const kickerEl = detail.querySelector('[data-detail-kicker]')
@@ -145,11 +160,8 @@
       detail.dataset.col = String(idx % 3)
       if (window.innerWidth > 700) {
         const items = [...roll.querySelectorAll(':scope > li')]
-        if (idx < 3 && items[2]) {
-          items[2].after(detail)
-        } else {
-          roll.appendChild(detail)
-        }
+        if (idx < 3 && items[2]) items[2].after(detail)
+        else roll.appendChild(detail)
       } else {
         roll.after(detail)
       }
@@ -158,6 +170,7 @@
     const closeTray = () => {
       detail.hidden = true
       activePromo = ''
+      detail.removeAttribute('data-active')
       buttons.forEach((b) => {
         b.classList.remove('is-selected')
         b.setAttribute('aria-expanded', 'false')
@@ -165,9 +178,10 @@
     }
 
     const openTray = (promoKey) => {
-      const p = promoDetails[promoKey]
+      const p = read(promoKey)
       if (!p) return
       activePromo = promoKey
+      detail.setAttribute('data-active', promoKey)
       if (kickerEl) kickerEl.textContent = p.kicker
       if (headlineEl) headlineEl.textContent = p.headline
       if (textEl) textEl.textContent = p.text
@@ -177,19 +191,15 @@
         bookEl.setAttribute('href', p.bookHref)
         if (p.external) {
           bookEl.setAttribute('target', '_blank')
-          bookEl.setAttribute('rel', 'noreferrer')
+          bookEl.setAttribute('rel', 'noopener')
         } else {
           bookEl.removeAttribute('target')
           bookEl.removeAttribute('rel')
         }
       }
       if (pricesEl) {
-        if (p.pricesHref) {
-          pricesEl.hidden = false
-          pricesEl.setAttribute('href', p.pricesHref)
-        } else {
-          pricesEl.hidden = true
-        }
+        pricesEl.hidden = !p.pricesHref
+        if (p.pricesHref) pricesEl.setAttribute('href', p.pricesHref)
       }
       detail.hidden = false
       placeTray()
@@ -218,9 +228,7 @@
           closeTray()
         } else {
           openTray(k)
-          if (hashByPromo[k] && history.replaceState) {
-            history.replaceState(null, '', hashByPromo[k])
-          }
+          if (hashByPromo[k] && history.replaceState) history.replaceState(null, '', hashByPromo[k])
         }
       })
     })
@@ -247,7 +255,6 @@
             [/\/prices(\.html|\/)?$/, '← Price list'],
             [/\/questions(\.html|\/)?$/, '← Questions'],
             [/\/patch(\.html|\/)?$/, '← Patch testing'],
-            [/\/offers(\.html|\/)?$/, '← Offers'],
             [/\/team(\.html|\/)?$/, '← Careers'],
             [/\/about(\.html|\/)?$/, '← About'],
             [/\/contact(\.html|\/)?$/, '← Contact'],

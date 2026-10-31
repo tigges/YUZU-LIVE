@@ -464,10 +464,32 @@ function yuzu_round_prices_blend_cut_rows(array $rows): array
  * T-section under extras, Aura rows become one row by length, and packages
  * sit with roots (Colour) or otherwise Cut & style.
  */
-function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '../patch.html'): string
+function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '../patch.html', bool $with_pages = false): string
+{
+    return rtrim(implode('', yuzu_round_prices_blend_panels($data, $patch_href, $with_pages)));
+}
+
+/** Price-board panels and the service landing page that explains each one. */
+function yuzu_round_prices_service_pages(): array
+{
+    return [
+        'cut' => ['file' => 'haircut-ealing.html', 'title' => 'Cut & style prices', 'more' => 'Haircuts at YUZU'],
+        'colour' => ['file' => 'hair-colour-ealing.html', 'title' => 'Colour prices', 'more' => 'Hair colour at YUZU'],
+        'high' => ['file' => 'balayage-ealing.html', 'title' => 'Highlights and balayage prices', 'more' => 'Balayage and highlights at YUZU'],
+        'treat' => ['file' => 'hair-smoothing-ealing.html', 'title' => 'Smoothing and treatment prices', 'more' => 'Aura smoothing at YUZU'],
+    ];
+}
+
+/**
+ * The four panels keyed cut, colour, high, treat. Each opens with a heading
+ * for screen readers and search engines (the visible tabs are labels, not
+ * headings) and, on the price list, ends with a link to its service page.
+ */
+function yuzu_round_prices_blend_panels(array $data, string $patch_href = '../patch.html', bool $with_pages = false, bool $with_headings = true): array
 {
     $catalog = yuzu_round_prices_catalog();
     $groups = $data['groups'];
+    $pages = yuzu_round_prices_service_pages();
     $patch = '          <p class="panel-note">Colour needs a patch test at least 48 hours before. <a href="' . yuzu_round_prices_esc($patch_href) . "\">About patch testing</a></p>\n";
 
     $packages = ['cut' => [], 'colour' => []];
@@ -475,8 +497,13 @@ function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '.
         $packages[preg_match('/root|colour/i', (string) $row['name']) ? 'colour' : 'cut'][] = $row;
     }
 
-    $panel = static function (string $class, string $body, string $attrs = ''): string {
-        return "        <section class=\"price-panel {$class}\"{$attrs}>\n{$body}        </section>\n";
+    $panel = static function (string $key, string $body, string $attrs = '') use ($pages, $with_pages, $with_headings): string {
+        $page = $pages[$key];
+        $heading = $with_headings ? '          <h2 class="vh">' . yuzu_round_prices_esc($page['title']) . "</h2>\n" : '';
+        $more = $with_pages
+            ? '          <p class="panel-more"><a href="' . yuzu_round_prices_esc($page['file']) . '">' . yuzu_round_prices_esc($page['more']) . " →</a></p>\n"
+            : '';
+        return "        <section class=\"price-panel panel-{$key}\"{$attrs}>\n{$heading}{$body}{$more}        </section>\n";
     };
     $table = static function (string $id, callable $is_extra) use ($catalog, $groups): array {
         $columns = $catalog[$id]['columns'];
@@ -511,10 +538,10 @@ function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '.
         $cut_body .= yuzu_round_prices_blend_table_row($row, $cut_columns, $cut_scale, $who === 'ladies', $who);
     }
     $cut_body .= yuzu_round_prices_blend_packages($packages['cut'], 'ladies');
-    $out = $panel('panel-cut', $cut_body, ' data-who="ladies"');
+    $out = ['cut' => $panel('cut', $cut_body, ' data-who="ladies"')];
 
     [$main, $extra] = $table('colour', static fn ($name) => preg_match('/^in-between/i', $name) === 1);
-    $out .= $panel('panel-colour', $patch . $main . yuzu_round_prices_blend_more('In-between colour', $extra) . yuzu_round_prices_blend_packages($packages['colour']));
+    $out['colour'] = $panel('colour', $patch . $main . yuzu_round_prices_blend_more('In-between colour', $extra) . yuzu_round_prices_blend_packages($packages['colour']));
 
     $after_t = false;
     [$main, $extra] = $table('highlights', static function ($name) use (&$after_t) {
@@ -524,7 +551,7 @@ function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '.
         }
         return $extra;
     });
-    $out .= $panel('panel-high', $patch . $main . yuzu_round_prices_blend_more('Added when the hair needs it', $extra));
+    $out['high'] = $panel('high', $patch . $main . yuzu_round_prices_blend_more('Added when the hair needs it', $extra));
 
     $aura = [];
     $note = '';
@@ -552,17 +579,35 @@ function yuzu_round_prices_blend_board_html(array $data, string $patch_href = '.
         $rows .= yuzu_round_prices_blend_row((string) $row['name'], [['', (string) $row['price']]], [], 0);
     }
     $body .= yuzu_round_prices_blend_more('Fillers and K2.0', $rows, true);
-    $out .= $panel('panel-treat', $body);
+    $out['treat'] = $panel('treat', $body);
 
-    return rtrim($out);
+    return $out;
 }
 
-function yuzu_round_prices_replace_blend_board(string $html, array $data, string $patch_href = '../patch.html'): string
+function yuzu_round_prices_replace_blend_board(string $html, array $data, string $patch_href = '../patch.html', bool $with_pages = false): string
 {
-    $block = "<!-- yuzu-blend-prices -->\n" . yuzu_round_prices_blend_board_html($data, $patch_href) . "\n        <!-- /yuzu-blend-prices -->";
+    $block = "<!-- yuzu-blend-prices -->\n" . yuzu_round_prices_blend_board_html($data, $patch_href, $with_pages) . "\n        <!-- /yuzu-blend-prices -->";
     return yuzu_round_prices_replace(
         $html,
         '/<!-- yuzu-blend-prices -->.*?<!-- \/yuzu-blend-prices -->/s',
+        static function () use ($block): string {
+            return $block;
+        }
+    );
+}
+
+/** One panel on a service page, between <!-- yuzu-service-prices:KEY --> markers. */
+function yuzu_round_prices_replace_service_panel(string $html, array $data): string
+{
+    if (preg_match('/<!-- yuzu-service-prices:(cut|colour|high|treat) -->/', $html, $m) !== 1) {
+        return $html;
+    }
+    $key = $m[1];
+    $panels = yuzu_round_prices_blend_panels($data, 'patch.html', false, false);
+    $block = '<!-- yuzu-service-prices:' . $key . " -->\n" . rtrim($panels[$key]) . "\n        <!-- /yuzu-service-prices -->";
+    return yuzu_round_prices_replace(
+        $html,
+        '/<!-- yuzu-service-prices:' . $key . ' -->.*?<!-- \/yuzu-service-prices -->/s',
         static function () use ($block): string {
             return $block;
         }
@@ -733,12 +778,15 @@ function yuzu_round_prices_apply_data(string $html, string $file, array $data): 
     }
     $file = basename($file);
     if ($file === 'prices.html') {
-        $html = yuzu_round_prices_replace_blend_board($html, $clean, 'patch.html');
+        $html = yuzu_round_prices_replace_blend_board($html, $clean, 'patch.html', true);
         $html = yuzu_round_prices_replace_groups($html, $clean);
         $html = yuzu_round_prices_replace_schema($html, $clean);
     }
     if ($file === 'index.html') {
         $html = yuzu_round_prices_replace_home($html, $clean);
+    }
+    if (str_contains($html, '<!-- yuzu-service-prices:')) {
+        $html = yuzu_round_prices_replace_service_panel($html, $clean);
     }
     return $html;
 }
@@ -1036,6 +1084,17 @@ function yuzu_round_prices_admin_page(): void
 JS;
 }
 
+function yuzu_round_prices_mark_edited(): void
+{
+    if (function_exists('yuzu_round_mark_edited')) {
+        $slugs = ['prices', 'home'];
+        foreach (yuzu_round_prices_service_pages() as $page) {
+            $slugs[] = basename($page['file'], '.html');
+        }
+        yuzu_round_mark_edited($slugs);
+    }
+}
+
 function yuzu_round_prices_handle_post(): void
 {
     if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
@@ -1054,6 +1113,7 @@ function yuzu_round_prices_handle_post(): void
             exit;
         }
         update_option('yuzu_round_prices', $clean, true);
+        yuzu_round_prices_mark_edited();
         $cleared = yuzu_round_prices_purge_cache();
         wp_safe_redirect(add_query_arg([
             'yuzu_saved' => '1',
@@ -1064,6 +1124,7 @@ function yuzu_round_prices_handle_post(): void
     if ($action === 'reset') {
         check_admin_referer('yuzu_round_prices_reset');
         delete_option('yuzu_round_prices');
+        yuzu_round_prices_mark_edited();
         yuzu_round_prices_purge_cache();
         wp_safe_redirect(add_query_arg('yuzu_reset', '1', $url));
         exit;

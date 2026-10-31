@@ -32,6 +32,16 @@ $role = trim((string) ($_POST['role'] ?? ''));
 $message = trim((string) ($_POST['message'] ?? ''));
 $subject = trim((string) ($_POST['subject'] ?? 'Message from yuzu.hair'));
 
+$trap = trim((string) ($_POST['website'] ?? ''));
+$stamp = (int) ($_POST['form_ts'] ?? 0);
+if ($trap !== '' || ($stamp > 0 && time() - $stamp < 3)) {
+    if ($wantsJson) {
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['ok' => true]);
+    }
+    exit;
+}
+
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $fail(400, 'Please include a valid email address.');
 }
@@ -157,5 +167,11 @@ if ($wantsJson) {
     exit;
 }
 
-header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? 'index.html') . '#visit');
+$back = 'index.html';
+$referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
+$refererHost = (string) parse_url($referer, PHP_URL_HOST);
+if ($referer !== '' && $refererHost !== '' && strcasecmp($refererHost, (string) ($_SERVER['HTTP_HOST'] ?? '')) === 0) {
+    $back = strtok($referer, '#');
+}
+header('Location: ' . $back . '#visit');
 exit;

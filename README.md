@@ -18,8 +18,10 @@ Intended live hosts: **yuzu.hair** (canonical) and **yuzuhair.com** (301 to yuzu
 site/                     Cloudways document root (static + send.php)
 wordpress/yuzu-round/     WordPress theme that serves those same pages
 wordpress/yuzu-round.zip  Ready-to-upload theme (no terminal needed)
-scripts/pack-theme.sh     Copies site/ into the theme before you zip it
-scripts/pack-theme.ps1    Same packer for Windows PowerShell
+scripts/build.py          Fills shared header/visit/footer from site/partials/, bundles css/yuzu.css and js/yuzu.js
+scripts/sync-prices.php   Re-bakes the price panels in prices.html and the service pages from the default price list
+scripts/pack-theme.sh     Runs build.py, then copies site/ into the theme and zips it
+scripts/pack-theme.ps1    Same packer for Windows PowerShell (needs Python 3)
 asset/                    Design references for the next version (not used on the live site)
 ```
 
@@ -48,7 +50,9 @@ python3 -m http.server 4173 --directory site
 
 Do **not** rebuild this in Elementor, Spectra, Kadence, or the site editor. Those tools will change spacing, radius, and the overlapping hero.
 
-The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTML. WordPress hosts the pages, permalinks, and SSL. The salon edits prices in wp-admin under **Price list**. Saving updates the price tables, the homepage From prices and card sentences, and clears the Breeze cache when that plugin is active. The layout stays locked. Restore original prices puts back the list shipped with the theme.
+Edit the header, visit card and footer once in `site/partials/`, and styles and scripts in the source files under `site/css/` and `site/js/`; `scripts/build.py` writes them into every page and the `yuzu.css` / `yuzu.js` bundles (never edit the bundles by hand).
+
+The **Yuzu Round** theme is a locked WordPress theme: it prints the designed HTML. WordPress hosts the pages, permalinks, and SSL. **Salon details** in wp-admin holds opening hours, holidays and special days, the notice banner above the header, the Google rating, optional cookie-free analytics, and counts of Book, Call, Directions and Email clicks. The salon edits prices in wp-admin under **Price list**. Saving updates the price tables, the homepage From prices and card sentences, and clears the Breeze cache when that plugin is active. The layout stays locked. Restore original prices puts back the list shipped with the theme.
 
 Header: Gallery, Services, Offers, Reviews, Visit, Book. Footer: Questions, Patch testing, Terms, Privacy. There is no price-list PDF and no Join our team item in the menus. The careers band and `/team/` page stay.
 

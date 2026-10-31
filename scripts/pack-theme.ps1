@@ -5,6 +5,12 @@ $dest = Join-Path $root "wordpress\yuzu-round\static"
 $theme = Join-Path $root "wordpress\yuzu-round"
 $zip = Join-Path $root "wordpress\yuzu-round.zip"
 
+$python = if (Get-Command python3 -ErrorAction SilentlyContinue) { "python3" } else { "python" }
+& $python (Join-Path $root "scripts\build.py")
+if ($LASTEXITCODE -ne 0) {
+    throw "scripts/build.py failed"
+}
+
 if (Test-Path $dest) {
     Remove-Item -Recurse -Force $dest
 }
@@ -15,6 +21,10 @@ if (Test-Path $copiedHtaccess) {
     Remove-Item -Force $copiedHtaccess
 }
 Copy-Item -Path (Join-Path $theme "redirect.htaccess") -Destination $copiedHtaccess -Force
+$partials = Join-Path $dest "partials"
+if (Test-Path $partials) {
+    Remove-Item -Recurse -Force $partials
+}
 
 if (Test-Path $zip) {
     Remove-Item -Force $zip
