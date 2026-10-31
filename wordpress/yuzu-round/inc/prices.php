@@ -108,10 +108,10 @@ function yuzu_round_prices_default(): array
             'treatments' => '£35',
         ],
         'blurbs' => [
-            'cut' => 'From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style with a stylist, a senior, or a creative director.',
-            'colour' => 'Roots and full head, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.',
-            'highlights' => 'Classic highlights, balayage and foiliage, with toner and blending.',
-            'treatments' => 'Nashi fillers and K2.0 moisture. Aura smoothing, formaldehyde and ammonia free.',
+            'cut' => 'From blow-outs to sleek cuts, crafted with precision and passion across Creative Director, Senior Stylist, Stylist and Junior Stylist chairs.',
+            'colour' => 'Roots, tints and full head colour, including Wella Illumina. All colour guests—existing and new—require a patch test 48 hours before.',
+            'highlights' => 'Classic highlights, freehand balayage and foiliage with bespoke toner and root blending. Patch test required 48 hours prior.',
+            'treatments' => 'Nashi filler therapy, K2.0 intense moisture, and 3-to-6 month Lakmé Aura smoothing—100% formaldehyde and ammonia free.',
         ],
     ];
 }
@@ -746,10 +746,22 @@ function yuzu_round_prices_apply_data(string $html, string $file, array $data): 
 function yuzu_round_prices_legacy_blurbs(): array
 {
     return [
-        'cut' => 'From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style from £60 with a stylist, £75 with a senior, £90 with a creative director. Kids from £15.',
-        'colour' => 'Roots from £55 and full head from £65, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.',
-        'highlights' => 'Classic highlights, balayage and foiliage — T-section from £70, half head from £80, full head from £100, with toner and blending.',
-        'treatments' => 'Nashi fillers from £35 and K2.0 moisture. Aura smoothing from £165, formaldehyde and ammonia free.',
+        'cut' => [
+            'From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style from £60 with a stylist, £75 with a senior, £90 with a creative director. Kids from £15.',
+            'From blow-outs to sleek cuts, crafted with precision and passion. Ladies wash, cut and style with a stylist, a senior, or a creative director.',
+        ],
+        'colour' => [
+            'Roots from £55 and full head from £65, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.',
+            'Roots and full head, including Illumia colour. Colour guests, including existing clients, need a patch test at least 48 hours before.',
+        ],
+        'highlights' => [
+            'Classic highlights, balayage and foiliage — T-section from £70, half head from £80, full head from £100, with toner and blending.',
+            'Classic highlights, balayage and foiliage, with toner and blending.',
+        ],
+        'treatments' => [
+            'Nashi fillers from £35 and K2.0 moisture. Aura smoothing from £165, formaldehyde and ammonia free.',
+            'Nashi fillers and K2.0 moisture. Aura smoothing, formaldehyde and ammonia free.',
+        ],
     ];
 }
 
@@ -764,8 +776,8 @@ function yuzu_round_prices_refresh_stored_blurbs(): void
     }
     $defaults = yuzu_round_prices_default()['blurbs'];
     $changed = false;
-    foreach (yuzu_round_prices_legacy_blurbs() as $id => $old) {
-        if ((string) ($stored['blurbs'][$id] ?? '') === $old) {
+    foreach (yuzu_round_prices_legacy_blurbs() as $id => $old_list) {
+        if (in_array((string) ($stored['blurbs'][$id] ?? ''), (array) $old_list, true)) {
             $stored['blurbs'][$id] = $defaults[$id];
             $changed = true;
         }
