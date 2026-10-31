@@ -24,11 +24,26 @@ add_action('after_setup_theme', static function () {
 add_action('after_switch_theme', static function () {
     try {
         yuzu_round_seed_pages();
-        update_option('yuzu_round_seed', 'about-contact');
+        update_option('yuzu_round_seed', 'v3-all-pages');
     } catch (Throwable $e) {
         // Page setup must not take the salon or wp-admin down.
     }
 });
+
+add_action('init', static function () {
+    if (!function_exists('get_option') || get_option('yuzu_round_seed') === 'v3-all-pages') {
+        return;
+    }
+    try {
+        yuzu_round_seed_pages();
+        if (function_exists('flush_rewrite_rules')) {
+            flush_rewrite_rules(false);
+        }
+        update_option('yuzu_round_seed', 'v3-all-pages');
+    } catch (Throwable $e) {
+        // Page setup must not take the salon or wp-admin down.
+    }
+}, 20);
 
 function yuzu_round_locked_post($post): bool
 {
@@ -114,6 +129,12 @@ function yuzu_round_seed_pages(): void
     foreach (yuzu_round_pages() as $slug => $page) {
         $existing = get_page_by_path($slug);
         if ($existing instanceof WP_Post) {
+            if ($existing->post_status !== 'publish' && function_exists('wp_update_post')) {
+                wp_update_post([
+                    'ID' => (int) $existing->ID,
+                    'post_status' => 'publish',
+                ]);
+            }
             if ($slug === 'home') {
                 $home_id = (int) $existing->ID;
             }
