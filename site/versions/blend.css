@@ -7,9 +7,11 @@
 .blend .fx-bar .logo-home img { width: auto; height: 76px; transform: translateY(2px); }
 .blend .fx-bar nav { gap: 4px; }
 .blend .fx-bar nav a:not(.fx-book) {
-  padding: 7px 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
   border: 1px solid transparent;
-  border-radius: 999px;
 }
 .blend .fx-bar nav a.fx-book { margin-left: 8px; }
 .blend .fx-bar ~ [id],
@@ -174,8 +176,7 @@
 
 .blend .promo { border-radius: 22px; }
 .blend .fx-bar nav a[aria-current="page"]:not(.fx-book) {
-  border-color: color-mix(in srgb, var(--forest) 45%, transparent);
-  background: color-mix(in srgb, var(--forest) 6%, transparent);
+  border-color: currentColor;
 }
 
 .blend .join {
