@@ -522,6 +522,12 @@
   .blend .extras li { position: relative; flex: 0 0 82%; min-width: 0; scroll-snap-align: start; }
   .blend .reviews img { height: 150px; }
   .blend .join { gap: 18px; padding: 24px 18px; }
+  .blend .promo.is-today::before {
+    top: 8px;
+    left: 10px;
+    padding: 2px 7px;
+    font-size: 9.5px;
+  }
   .blend-sticky {
     display: flex;
     gap: 0;
@@ -530,8 +536,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border-top: 1px solid var(--forest);
-    background: var(--beige);
+    border: 0;
+    background: #e2d5bf;
+    box-shadow: none;
   }
   .blend-call {
     flex: 0 0 38%;
@@ -541,10 +548,9 @@
     min-height: 52px;
     padding-bottom: env(safe-area-inset-bottom, 0px);
     border-radius: 0;
-    background: var(--beige);
+    background: #e2d5bf;
     color: var(--forest);
     border: 0;
-    border-right: 1px solid var(--forest);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.16em;

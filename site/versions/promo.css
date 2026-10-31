@@ -223,36 +223,40 @@ body.page-poster {
 
 button.promo {
   --serif: "Cormorant Garamond", Georgia, serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   aspect-ratio: 16 / 10;
   border: 0;
   border-radius: 24px;
   cursor: pointer;
-  padding: 8% 7%;
-  align-items: center;
+  padding: 16px 20px;
+  align-items: stretch;
   transition: transform 0.18s ease, opacity 0.18s ease;
 }
 button.promo .promo-copy {
-  height: auto;
+  flex: 1 1 auto;
+  height: 100%;
   padding-block: 0;
-  justify-content: center;
-  gap: 2.8cqw;
+  justify-content: space-between;
+  gap: 0;
 }
-button.promo .promo-title { font-size: 8.4cqw; line-height: 0.94; }
-button.promo.wed .promo-title { font-size: 9.2cqw; line-height: 0.9; }
-button.promo.thu .promo-title { font-size: 8.2cqw; line-height: 0.94; }
-button.promo .promo-sub { margin-top: 0.7cqw; font-size: 3.7cqw; line-height: 1.05; }
-button.promo.thu .promo-sub { font-size: 3.5cqw; }
+button.promo .promo-title { font-size: 11.4cqw; line-height: 0.92; }
+button.promo.wed .promo-title { font-size: 10.8cqw; line-height: 0.92; }
+button.promo.thu .promo-title { font-size: 11cqw; line-height: 0.92; }
+button.promo .promo-sub { margin-top: 1cqw; font-size: 5.5cqw; line-height: 1.06; }
+button.promo.thu .promo-sub { font-size: 5.2cqw; }
 button.promo .promo-off {
   position: static;
   transform: none;
   margin: 0;
-  font-size: 9.8cqw;
-  line-height: 0.88;
+  font-size: 14.2cqw;
+  line-height: 0.86;
 }
-button.promo .promo-fine { font-size: 3.5cqw; line-height: 1.12; }
-button.promo.wed .promo-fine { font-size: 3.7cqw; }
-button.promo.thu .promo-fine { font-size: 3.4cqw; }
+button.promo .promo-fine { font-size: 5.2cqw; line-height: 1.14; }
+button.promo.wed .promo-fine { font-size: 5.3cqw; }
+button.promo.thu .promo-fine { font-size: 5.1cqw; }
 button.promo:hover { transform: translateY(-2px); }
 button.promo:focus:not(:focus-visible) { outline: none; }
 button.promo.is-selected {
@@ -359,10 +363,19 @@ button.promo.is-selected {
     scroll-snap-align: start;
   }
   button.promo {
-    aspect-ratio: 16 / 10;
-    padding: 7% 7% 6.5%;
+    aspect-ratio: 10 / 7;
+    padding: 15px 14px 14px;
     border-radius: 20px;
   }
+  button.promo .promo-title { font-size: 12.2cqw; }
+  button.promo.wed .promo-title { font-size: 11.4cqw; }
+  button.promo.thu .promo-title { font-size: 11.6cqw; }
+  button.promo .promo-sub { margin-top: 1cqw; font-size: 6.2cqw; }
+  button.promo.thu .promo-sub { font-size: 5.9cqw; }
+  button.promo .promo-off { font-size: 15.2cqw; }
+  button.promo .promo-fine { font-size: 5.8cqw; line-height: 1.14; }
+  button.promo.wed .promo-fine { font-size: 5.9cqw; }
+  button.promo.thu .promo-fine { font-size: 5.7cqw; }
   .offer-tray { margin-top: 16px; padding: 20px; }
   .offer-tray[data-col]::before { display: none; }
 }
