@@ -112,7 +112,6 @@ function yuzu_round_pages(): array
     return [
         'home' => ['title' => 'Home', 'file' => 'index.html'],
         'prices' => ['title' => 'Prices', 'file' => 'prices.html'],
-        'offers' => ['title' => 'Offers', 'file' => 'offers.html'],
         'team' => ['title' => 'Join our team', 'file' => 'team.html'],
         'about' => ['title' => 'About', 'file' => 'about.html'],
         'contact' => ['title' => 'Contact', 'file' => 'contact.html'],

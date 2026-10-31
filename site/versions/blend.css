@@ -973,6 +973,57 @@
   height: auto;
   border-radius: 18px;
 }
+.blend .about-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.blend .about-visual > img {
+  width: 100%;
+  aspect-ratio: 4 / 4.3;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 18px;
+}
+.blend .about-lockup-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--forest);
+  color: var(--beige);
+  border-radius: 16px;
+}
+.blend .about-lockup-badge img {
+  height: 32px;
+  width: auto;
+  border-radius: 0;
+}
+.blend .about-lockup-seal {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  background: var(--beige);
+  opacity: 0.92;
+  -webkit-mask: url("img/kanji-cream.png") no-repeat center / contain;
+  mask: url("img/kanji-cream.png") no-repeat center / contain;
+}
+.blend .about-head-seal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.blend .about-head-seal::after {
+  content: "";
+  width: 32px;
+  height: 32px;
+  flex: none;
+  background: var(--terra);
+  opacity: 0.85;
+  -webkit-mask: url("img/kanji-cream.png") no-repeat center / contain;
+  mask: url("img/kanji-cream.png") no-repeat center / contain;
+}
 .blend .round-about-grid h2 {
   font-family: var(--serif);
   font-weight: 500;
