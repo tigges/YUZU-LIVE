@@ -381,8 +381,8 @@ button.promo.is-selected {
   button.promo .promo-fine { font-size: 5.6cqw; line-height: 1.14; }
   button.promo.wed .promo-fine { font-size: 5.8cqw; }
   button.promo.thu .promo-fine { font-size: 5.5cqw; }
-  button.promo.tue .promo-fine br:first-of-type,
-  button.promo.thu .promo-fine br:first-of-type { display: none; }
+  button.promo.tue .promo-fine br,
+  button.promo.thu .promo-fine br { display: none; }
   .offer-tray { margin-top: 16px; padding: 20px; }
   .offer-tray[data-col]::before { display: none; }
 }
