@@ -1,0 +1,794 @@
+{
+ "salon": "yuzuhairandbeauty",
+ "book": "https://www.phorest.com/salon/yuzuhairandbeauty",
+ "categories": [
+  {
+   "id": "UDzPd-D9LXu-xl8dfyzzyg",
+   "name": "Aura smoothing treatment"
+  },
+  {
+   "id": "uJ-LQw11Lil9lA175GAYfw",
+   "name": "Creative director colour"
+  },
+  {
+   "id": "COX2AD9lgvuPNXvhXl7tOg",
+   "name": "Creative director finishing services"
+  },
+  {
+   "id": "VmyHi_mcgRNlvFNxAWbjSQ",
+   "name": "Everything Beauty"
+  },
+  {
+   "id": "2OJH1ND9IPht7RqhVTRAsg",
+   "name": "Junior stylist"
+  },
+  {
+   "id": "-XlMXf-vOO3lORDahRh3WA",
+   "name": "Senior stylist"
+  },
+  {
+   "id": "Heg_aZiK2IxYp2X65QRp6Q",
+   "name": "Stylist"
+  },
+  {
+   "id": "m04oCH_CXXu3fh_tn-is_Q",
+   "name": "Treatments"
+  }
+ ],
+ "services": [
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyoMYVmjxY20KrVDr8QN2VXw",
+   "name": "4-6Month Aura",
+   "category": "Aura smoothing treatment",
+   "price": 175.0,
+   "duration": 90,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS44K4Cw_oNr4juiPPgfpAQRk",
+   "name": "Above Shoulder Length",
+   "category": "Aura smoothing treatment",
+   "price": 250.0,
+   "duration": 180,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmym1sqSfET1EBtBpLg0fhxp0",
+   "name": "Beauty keratin",
+   "category": "Aura smoothing treatment",
+   "price": 55.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4xazxlgGUcYLjH3rEj4Psjo",
+   "name": "Below Shoulder Length",
+   "category": "Aura smoothing treatment",
+   "price": 300.0,
+   "duration": 180,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyoWmLB_IS5Qc69fvDr94B9I",
+   "name": "Fringe",
+   "category": "Aura smoothing treatment",
+   "price": 65.0,
+   "duration": 90,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4-Ysden_eCH8eCioOGRtD2A",
+   "name": "Long Hair",
+   "category": "Aura smoothing treatment",
+   "price": 360.0,
+   "duration": 240,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4w-7qAjNJk2bqDwV4C7nFz8",
+   "name": "PIXY Hair Cut",
+   "category": "Aura smoothing treatment",
+   "price": 165.0,
+   "duration": 120,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyvjpm758a5w_8wTzlPqaq6U",
+   "name": "Blending",
+   "category": "Creative director colour",
+   "price": 45.0,
+   "duration": 15,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS43IxQPgnQLAWOcLgNjityUc",
+   "name": "Colour Remover",
+   "category": "Creative director colour",
+   "price": 120.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS44m0mztKaMxHLKoCYBVl82k",
+   "name": "Full Head colour",
+   "category": "Creative director colour",
+   "price": 105.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4wBKHRziDVcw9zvFz8Bkn4U",
+   "name": "Highlights/Lowlights/Balayage - Full Head",
+   "category": "Creative director colour",
+   "price": 155.0,
+   "duration": 120,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4zBc57ls8FIs2JbARBmR9z8",
+   "name": "Highlights/Lowlights/Balayage - Half Head",
+   "category": "Creative director colour",
+   "price": 120.0,
+   "duration": 60,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS45q9zycfsfbW_eO1uqPUDO4",
+   "name": "Highlights/Lowlights/Balayage - T Section",
+   "category": "Creative director colour",
+   "price": 95.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmymdVdNHZw-wwFnZ3kFyX3gw",
+   "name": "Illumina colouring",
+   "category": "Creative director colour",
+   "price": 135.0,
+   "duration": 60,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmykgMGwSlXgSCLcw0drRNNnQ",
+   "name": "In-between colour (full head)",
+   "category": "Creative director colour",
+   "price": 130.0,
+   "duration": 45,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyvEoV4RzW6YKP9BrmVvj2Ug",
+   "name": "In-between colour (roots)",
+   "category": "Creative director colour",
+   "price": 115.0,
+   "duration": 45,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS46zlYR-hZbvoJPw45xlysoc",
+   "name": "Pre-lighten - Full Head",
+   "category": "Creative director colour",
+   "price": 185.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4486fL3sq-pb0XBqq02-gGU",
+   "name": "Pre-lighten - Regrowth",
+   "category": "Creative director colour",
+   "price": 135.0,
+   "duration": 45,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS48LlP6OUANiqB9ESbeRzvn8",
+   "name": "Regrowth",
+   "category": "Creative director colour",
+   "price": 90.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS49iu9aSAGmGJZaeuaPd4ovw",
+   "name": "Toner",
+   "category": "Creative director colour",
+   "price": 40.0,
+   "duration": 15,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS48D_CF-CJThmYr4pBemdjp0",
+   "name": "Blow-Dry",
+   "category": "Creative director finishing services",
+   "price": 60.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS48Xrv7XhWOCink68Y8cMDYA",
+   "name": "Children's Cut & Blow Dry - (13-16 )BOY",
+   "category": "Creative director finishing services",
+   "price": 45.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS49UoL7dRADa8CKyTDWQ4FSk",
+   "name": "Children's Cut & Blow Dry - Ages 12 & Under",
+   "category": "Creative director finishing services",
+   "price": 35.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyh5EiHiKEGFeh5ABc_mGemI",
+   "name": "Childrens Cut & Blow dry (13-16)- GIRL",
+   "category": "Creative director finishing services",
+   "price": 55.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmylcRtBftlxxXMTifzhOyO-8",
+   "name": "Consultation",
+   "category": "Creative director finishing services",
+   "price": 0.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4-Rct9jwVwPbZDXoJrZ6Ryc",
+   "name": "Fringe Trim",
+   "category": "Creative director finishing services",
+   "price": 15.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS48uUrX6ZbTXMJb33I26gOSE",
+   "name": "Gents, Wash And Style",
+   "category": "Creative director finishing services",
+   "price": 60.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS47eVyrTAcoKDJ29zpu6laZE",
+   "name": "Wash, Cut And Style",
+   "category": "Creative director finishing services",
+   "price": 90.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS48owpyM_rqlYK1WFy1mhlWo",
+   "name": "Eyebrow Tidy Up or Reshaping",
+   "category": "Everything Beauty",
+   "price": 9.0,
+   "duration": 10,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS47YDMQNYmC6pNpdigIw5HJI",
+   "name": "Eyebrow Tint",
+   "category": "Everything Beauty",
+   "price": 10.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS47K43Amwzj9nsZfFmYiSg0U",
+   "name": "Eyebrows Shape & Tint",
+   "category": "Everything Beauty",
+   "price": 15.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4_wok4MsQFIiYEpZZS1qmyk",
+   "name": "Eyelashes",
+   "category": "Everything Beauty",
+   "price": 12.0,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4_3dGwVFBQo-94WjSX0iwzw",
+   "name": "Eyelashes & Eyebrows",
+   "category": "Everything Beauty",
+   "price": 18.5,
+   "duration": 30,
+   "patch_test": true
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4xAK5uARP4r7UvlE_q3QE4k",
+   "name": "Full Face",
+   "category": "Everything Beauty",
+   "price": 30.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS46-ptB2qMQJ4SJWrfQ_yKEs",
+   "name": "Full Face incl Neck",
+   "category": "Everything Beauty",
+   "price": 35.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4x5WMDqfgGq-rkUUvQpuzIY",
+   "name": "Lower Lip",
+   "category": "Everything Beauty",
+   "price": 3.5,
+   "duration": 10,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4_EIt2mcxTS8ZapnXqUcJ_E",
+   "name": "Luxury Manicure (Gel Polish)",
+   "category": "Everything Beauty",
+   "price": 58.0,
+   "duration": 90,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS41ewo2a_Mb2JTWCnQbskHxc",
+   "name": "Luxury Manicure (Nail Polish)",
+   "category": "Everything Beauty",
+   "price": 46.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS40HQ2Asvz1bWsL6qRjSQtVE",
+   "name": "Luxury Pedicure (Gel Polish)",
+   "category": "Everything Beauty",
+   "price": 64.0,
+   "duration": 90,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4wUfhYvCsIjitdcE6wluOps",
+   "name": "Luxury Pedicure (Nail Polish)",
+   "category": "Everything Beauty",
+   "price": 52.0,
+   "duration": 75,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyncwv4_h36yEbSOZ1tDvBUY",
+   "name": "Previous client gel removal",
+   "category": "Everything Beauty",
+   "price": 6.0,
+   "duration": 10,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4_OCJzGqWCB472ODghM7504",
+   "name": "Side of the Face",
+   "category": "Everything Beauty",
+   "price": 9.0,
+   "duration": 10,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmym2qR1l-DPSK5lcStly64pI",
+   "name": "Junior Blowdry",
+   "category": "Junior stylist",
+   "price": 35.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyuRwhZ5BSPV6S-4hj7tFyCM",
+   "name": "Junior full head colour",
+   "category": "Junior stylist",
+   "price": 65.0,
+   "duration": 45,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmymDlz8WKCoUQzu6-N4TWMrA",
+   "name": "Junior root color",
+   "category": "Junior stylist",
+   "price": 55.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyii46DF5YTwoSx1cU1AV3Vo",
+   "name": "Full head color",
+   "category": "Senior stylist",
+   "price": 97.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmykVRMNXKdRlZz70eE1H08eQ",
+   "name": "Full head highlights/balayage/foiliage",
+   "category": "Senior stylist",
+   "price": 127.0,
+   "duration": 120,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyh_GPB6HtfLZylaXKzuLC7c",
+   "name": "Half head highlights/balayage/foiliage",
+   "category": "Senior stylist",
+   "price": 100.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyn4Ka9Fdl2BJzFG83e_gqYw",
+   "name": "Illumina colour",
+   "category": "Senior stylist",
+   "price": 125.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmytZz2BhSiaM-tOVWY5hAaaQ",
+   "name": "In- between full head colour",
+   "category": "Senior stylist",
+   "price": 117.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyo569UtWlDlvneMXD25_jfw",
+   "name": "in-between root colour",
+   "category": "Senior stylist",
+   "price": 102.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyqs_xyHDyEN9qM8iCQ8OddM",
+   "name": "Ladies wash,cut and style",
+   "category": "Senior stylist",
+   "price": 75.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmymZDsd-FZIIei7tAq_8T5eI",
+   "name": "Root color",
+   "category": "Senior stylist",
+   "price": 85.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmygGaaCHYLpzlFkQBu_Z4rKc",
+   "name": "Senior blending",
+   "category": "Senior stylist",
+   "price": 45.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyrdIzs_tvJjwZVgdFOvyyag",
+   "name": "Senior colour remover",
+   "category": "Senior stylist",
+   "price": 115.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmygczyPpQnAGGxRBqUaTRj3I",
+   "name": "Senior pre lighten full head",
+   "category": "Senior stylist",
+   "price": 165.0,
+   "duration": 95,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmypcEjGsbAaOrTHvFRvNwEbA",
+   "name": "Senior pre lighten roots",
+   "category": "Senior stylist",
+   "price": 122.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyoW-fjI8dcyiBgH68c0lzTc",
+   "name": "Senior Toner",
+   "category": "Senior stylist",
+   "price": 40.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyu8ckfTq5Z-hz4cUGgCzB1E",
+   "name": "T-section highlights/balayage,foiliage",
+   "category": "Senior stylist",
+   "price": 82.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyjwMMaLjBxyr7pljjS9eoIA",
+   "name": "Teens (Girls 13-16)",
+   "category": "Senior stylist",
+   "price": 50.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmygK7OrvSrSgEIMKKgUjYOAI",
+   "name": "Wash & Blowdry",
+   "category": "Senior stylist",
+   "price": 52.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmysM_PGi9ECBIWG7nmNWWZbw",
+   "name": "Blowdry",
+   "category": "Stylist",
+   "price": 45.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyvzqu2CyyP6GSEOeqoVOF7E",
+   "name": "Highlights Full Head",
+   "category": "Stylist",
+   "price": 100.0,
+   "duration": 120,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyjYGqi4pUWcpYWRErt3soDU",
+   "name": "Highlights Half Head",
+   "category": "Stylist",
+   "price": 80.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyi7866_excs5vKTkJH1sY98",
+   "name": "Highlights/T-Section",
+   "category": "Stylist",
+   "price": 70.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyhNCsTiAVYdJDJh3c3dcbWI",
+   "name": "In-between full head colour",
+   "category": "Stylist",
+   "price": 105.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmygsfZhklYUDQ7fKn8A-FA1o",
+   "name": "In-between roots",
+   "category": "Stylist",
+   "price": 90.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyouN2C9UT-jCowEJvt8Pijg",
+   "name": "Stylist (Girls 12 &under)",
+   "category": "Stylist",
+   "price": 25.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmytUm_O9AzZMO5jt0RdPKtFA",
+   "name": "Stylist blending",
+   "category": "Stylist",
+   "price": 45.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmytxbT2HZDy7DH4Hh8VpyNbE",
+   "name": "Stylist Blowdry",
+   "category": "Stylist",
+   "price": 45.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyl7GTPOzGhLkKsI3mGCyc_U",
+   "name": "Stylist colour remover",
+   "category": "Stylist",
+   "price": 110.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmynubAOJiMofrZ_KBF7Mcz5U",
+   "name": "Stylist full head colour",
+   "category": "Stylist",
+   "price": 90.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyh8bBU_UExj0MrtpeyZl-nk",
+   "name": "Stylist Illumia",
+   "category": "Stylist",
+   "price": 115.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyizrrCsbV0vqH-3U18l_xok",
+   "name": "Stylist Ladies wash,cut and style",
+   "category": "Stylist",
+   "price": 60.0,
+   "duration": 60,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyvtogFli0BANoiQeUzoBYNM",
+   "name": "Stylist pre-lighten full Head",
+   "category": "Stylist",
+   "price": 145.0,
+   "duration": 95,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyqgH-NOwDZaH3PbUGh_fqTY",
+   "name": "Stylist pre-lighten roots",
+   "category": "Stylist",
+   "price": 110.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmylSAzO6uJL2iKIu9cQzubaA",
+   "name": "Stylist Roots",
+   "category": "Stylist",
+   "price": 80.0,
+   "duration": 30,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyqvENmmbftBrkr9WjIt4ecg",
+   "name": "Stylist Teens ( Girls 13-16 )",
+   "category": "Stylist",
+   "price": 40.0,
+   "duration": 45,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyq__xBIS3ia7GvY1OTAVYK8",
+   "name": "Stylist Toner",
+   "category": "Stylist",
+   "price": 40.0,
+   "duration": 15,
+   "patch_test": true
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmykf9bWfAHvm-4GarF-jYs1E",
+   "name": "K2.0 Extra long hair",
+   "category": "Treatments",
+   "price": 80.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmysF9telGlouidfjJZjSk1aI",
+   "name": "K2.0 long hair",
+   "category": "Treatments",
+   "price": 65.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyjjfqJ54JkjTolP3Lr3z7Jk",
+   "name": "K2.0 medium length hair",
+   "category": "Treatments",
+   "price": 55.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmysS3XfZXVUwRPagMGxVoF3o",
+   "name": "K2.0 short",
+   "category": "Treatments",
+   "price": 45.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "vfwohGOPrbn5sfjZYKJmyjNr8D_yER5PDhN2_8FvMNI",
+   "name": "Nashi moisture express",
+   "category": "Treatments",
+   "price": 35.0,
+   "duration": 15,
+   "patch_test": false
+  },
+  {
+   "id": "JAobvRb370mToopyzROS4yXS1Mp09csbNU6o54ft13w",
+   "name": "Nashi moisture intense",
+   "category": "Treatments",
+   "price": 50.0,
+   "duration": 30,
+   "patch_test": false
+  }
+ ],
+ "staff": [
+  {
+   "id": "53QLzJMCZr3CChnS4wsCgA",
+   "name": "Nikita",
+   "level": "Apprentice"
+  },
+  {
+   "id": "52-eDhnRdnEFRcH4iVR3iQ",
+   "name": "Sam",
+   "level": "Beautician/stylist"
+  },
+  {
+   "id": "COX2AD9lgvuPNXvhXl7tOg",
+   "name": "Jasmine",
+   "level": "creative director"
+  },
+  {
+   "id": "d3gESRmh-N7UPH7GddoBxw",
+   "name": "Stefano",
+   "level": "creative director"
+  },
+  {
+   "id": "JmGXT2uTeTBvpmXJW_U5Lw",
+   "name": "Monique",
+   "level": "Front of house"
+  },
+  {
+   "id": "5AsvWczFwsJBhuGo6b4z1w",
+   "name": "kingel",
+   "level": "Junior Stylist"
+  },
+  {
+   "id": "W5wEV43gB4URGkh8AoK31A",
+   "name": "zhane",
+   "level": "Junior Stylist"
+  },
+  {
+   "id": "aIA39Wk3ywNe1ZXSHZZLtA",
+   "name": "Yukiko",
+   "level": "Owner"
+  },
+  {
+   "id": "NsqxZOfh_V0YCeNrgdKHJw",
+   "name": "Patricia",
+   "level": "Receptionist"
+  },
+  {
+   "id": "BWjXI-Lw1EPfsBxqd-Ygag",
+   "name": "Artur",
+   "level": "Rent a chair"
+  },
+  {
+   "id": "e49Xjir0tBisLgYetSRH0A",
+   "name": "Artur NO.1",
+   "level": "Rent a chair"
+  },
+  {
+   "id": "63j-BWEpEKS4bjbnDO39wA",
+   "name": "Angelina",
+   "level": "Senior stylist"
+  },
+  {
+   "id": "P-xbCSbJYJ7oU8GzYcVTlA",
+   "name": "Mia",
+   "level": "Stylist"
+  }
+ ],
+ "courses": [
+  {
+   "id": "JAobvRb370mToopyzROS4_wP7irlfHv_iKrUBEQCwbw",
+   "name": "blowdry pakage senior",
+   "price": 0.0
+  }
+ ]
+}

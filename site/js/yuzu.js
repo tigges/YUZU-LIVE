@@ -188,7 +188,13 @@
     if (!list.querySelector('[data-special-to]:not([hidden])')) list.hidden = true
   })
 
-  const dayCards = [...document.querySelectorAll('.promo[data-day]')]
+  document.querySelectorAll('.promo[data-until]').forEach((el) => {
+    const item = el.closest('li')
+    if (item && el.dataset.until < todayIso) item.hidden = true
+  })
+  const shownPromo = (el) => !el.closest('li[hidden]')
+
+  const dayCards = [...document.querySelectorAll('.promo[data-day]')].filter(shownPromo)
   const offerDays = new Set(dayCards.map((el) => Number(el.dataset.day)))
   if (offerDays.size) {
     let offerDay = today.getUTCDay()
@@ -238,7 +244,7 @@
     const termsEl = detail.querySelector('[data-detail-terms]')
     const bookEl = detail.querySelector('[data-detail-book]')
     const pricesEl = detail.querySelector('[data-detail-prices]')
-    const buttons = [...document.querySelectorAll('[data-promo]')]
+    const buttons = [...document.querySelectorAll('[data-promo]')].filter(shownPromo)
     let activePromo = ''
 
     const placeTray = () => {
@@ -247,7 +253,7 @@
       if (idx < 0) return
       detail.dataset.col = String(idx % 3)
       if (window.innerWidth > 700) {
-        const items = [...roll.querySelectorAll(':scope > li')]
+        const items = [...roll.querySelectorAll(':scope > li:not([hidden])')]
         const rowEnd = items[Math.min(idx - (idx % 3) + 2, items.length - 1)]
         if (rowEnd) rowEnd.after(detail)
         else roll.appendChild(detail)
@@ -374,7 +380,7 @@
   }
 
   document.querySelectorAll('.blend .looks, .blend .reviews, .blend .promo-roll-6').forEach((row) => {
-    const items = [...row.querySelectorAll(':scope > li')]
+    const items = [...row.querySelectorAll(':scope > li:not([hidden])')]
     if (items.length < 2) return
     const dots = document.createElement('div')
     dots.className = 'scroll-dots'
@@ -475,6 +481,31 @@
     junior: 'Junior Stylist: newly qualified, under senior guidance.',
   };
   var panelCut = board.querySelector('.panel-cut');
+  var booked = board.querySelectorAll('[data-book]');
+  var levelName = { creative: 'Creative Director', senior: 'Senior Stylist', stylist: 'Stylist', junior: 'Junior Stylist' };
+
+  function syncBook(level) {
+    booked.forEach(function (row) {
+      var link = row.querySelector('.row-book') || row.querySelector('.price-book');
+      if (!link) return;
+      if (!link.dataset.href) {
+        link.dataset.href = link.getAttribute('href');
+        link.dataset.label = link.getAttribute('aria-label') || '';
+      }
+      var href = level ? JSON.parse(row.dataset.book)[level] : '';
+      var fig = row.querySelector('.price-fig');
+      var price = !level ? '' : row.dataset.levels ? JSON.parse(row.dataset.levels)[level] : fig ? fig.textContent.trim() : '';
+      if (link.classList.contains('row-book')) link.hidden = !(href && price);
+      if (href) {
+        var name = (row.querySelector('.price-name') || {}).firstChild;
+        link.setAttribute('href', href);
+        link.setAttribute('aria-label', 'Book ' + (name ? name.textContent.trim() : '') + ' with a ' + levelName[level] + (price ? ', ' + price : '') + ' (opens Phorest in a new tab)');
+      } else {
+        link.setAttribute('href', link.dataset.href);
+        link.setAttribute('aria-label', link.dataset.label);
+      }
+    });
+  }
 
   function syncCutOpen() {
     if (board.hasAttribute('data-level')) return;
@@ -501,7 +532,9 @@
       if (level && row.tagName === 'DETAILS') row.open = false;
     });
     if (!level) syncCutOpen();
+    syncBook(level);
     if (desc) desc.textContent = text[level];
+    if (board.hasAttribute('data-search')) runSearch();
   }
 
   var lastWho = (board.querySelector('input[name="who"]:checked') || {}).value || '';
@@ -585,7 +618,146 @@
     });
   }
 
+  var search = document.querySelector('[data-price-search]');
+  var q = search && search.querySelector('input');
+  var status = search && search.querySelector('[data-search-status]');
+  var none = search && search.querySelector('[data-search-none]');
+  var panelWords = {
+    'panel-cut': 'cut cuts haircut haircuts trim style styling',
+    'panel-colour': 'colour color colours colors tint dye grey gray coverage',
+    'panel-high': 'highlights highlight balayage foils foil foiliage lowlights babylights ombre blonde bleach lightening lighten',
+    'panel-treat': 'treatment treatments',
+  };
+  var nameWords = [
+    [/aura|smoothing/i, 'keratin straightening straighten smoothing smooth frizz brazilian'],
+    [/nashi|filler|k2/i, 'moisture conditioning conditioner repair mask hydration hydrating dry damaged'],
+    [/blow-?dry/i, 'blowdry blow dry blowout blow-out'],
+    [/kids|boys|girls|teen|children/i, 'kids kid child children boy boys girl girls teen teens teenager'],
+    [/gents/i, 'men mens man male gents gentlemen barber'],
+    [/ladies/i, 'women womens woman female ladies'],
+    [/root/i, 'roots regrowth root'],
+    [/toner/i, 'gloss glaze toning'],
+    [/illumi/i, 'illumina wella'],
+    [/pre-lighten/i, 'bleach lightening lighten'],
+    [/remover/i, 'correction remove removal'],
+    [/blow-drys|roots for|package/i, 'package packages deal bundle offer'],
+  ];
+  var norm = function (t) {
+    return String(t).toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9£]+/g, ' ').trim();
+  };
+  var items = [];
+  board.querySelectorAll('.price-panel').forEach(function (panel) {
+    var base = '';
+    for (var key in panelWords) if (panel.classList.contains(key)) base = panelWords[key];
+    panel.querySelectorAll('.price-row, .packages li').forEach(function (el) {
+      var own = panel.classList.contains('panel-high') && el.closest('.price-more') ? 'highlights' : base;
+      var nameEl = el.querySelector('.price-name') || el.firstElementChild;
+      var name = nameEl ? nameEl.textContent : '';
+      var extra = '';
+      nameWords.forEach(function (pair) {
+        if (pair[0].test(name)) extra += ' ' + pair[1];
+      });
+      items.push({ el: el, words: norm(name + ' ' + own + extra).split(' ') });
+    });
+  });
+  var saved = null;
+  var sent = {};
+  var idle = 0;
+
+  function enterSearch() {
+    if (saved) return;
+    saved = { who: panelCut ? panelCut.getAttribute('data-who') : null, open: [] };
+    board.querySelectorAll('details').forEach(function (d) {
+      saved.open.push([d, d.open]);
+    });
+    if (panelCut) panelCut.removeAttribute('data-who');
+    board.setAttribute('data-search', '');
+  }
+
+  function leaveSearch() {
+    if (!saved) return;
+    board.removeAttribute('data-search');
+    board.querySelectorAll('[data-search-hidden]').forEach(function (el) {
+      el.hidden = false;
+      el.removeAttribute('data-search-hidden');
+    });
+    if (panelCut && saved.who) panelCut.setAttribute('data-who', saved.who);
+    saved.open.forEach(function (pair) {
+      pair[0].open = pair[1];
+    });
+    if (board.hasAttribute('data-level')) {
+      board.querySelectorAll('details.price-row[data-levels]').forEach(function (d) { d.open = false; });
+    } else {
+      syncCutOpen();
+    }
+    saved = null;
+    status.textContent = '';
+    none.hidden = true;
+  }
+
+  function hide(el, off) {
+    el.hidden = off;
+    if (off) el.setAttribute('data-search-hidden', '');
+    else el.removeAttribute('data-search-hidden');
+  }
+
+  function report(query, found) {
+    var slug = norm(query).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+    if (slug.length < 3 || sent[slug]) return;
+    sent[slug] = true;
+    if (typeof window.plausible === 'function') window.plausible('Price search', { props: { q: slug, found: String(found) } });
+    var endpoint = (document.querySelector('meta[name="yuzu-track"]') || {}).content;
+    if (!found && endpoint && navigator.sendBeacon) navigator.sendBeacon(endpoint, new URLSearchParams({ e: 'search-miss', p: 'prices', s: slug }));
+  }
+
+  function runSearch() {
+    var terms = norm(q.value).split(' ').filter(Boolean);
+    if (!terms.length) {
+      leaveSearch();
+      return;
+    }
+    enterSearch();
+    var level = board.hasAttribute('data-level');
+    var found = 0;
+    items.forEach(function (it) {
+      var hit = terms.every(function (t) {
+        return it.words.some(function (w) { return w.indexOf(t) === 0; });
+      });
+      hide(it.el, !hit);
+      if (!hit) return;
+      found++;
+      if (it.el.tagName === 'DETAILS' && !(level && it.el.hasAttribute('data-levels'))) it.el.open = true;
+    });
+    board.querySelectorAll('.price-more, .packages, .price-panel').forEach(function (box) {
+      var any = box.querySelector('.price-row:not([hidden]), .packages li:not([hidden])');
+      hide(box, !any);
+      if (any && box.tagName === 'DETAILS') box.open = true;
+    });
+    status.textContent = found ? found + (found === 1 ? ' service' : ' services') + ' found' : '';
+    none.hidden = found > 0;
+    clearTimeout(idle);
+    var query = q.value;
+    idle = setTimeout(function () { report(query, found); }, 1500);
+  }
+
+  if (q) {
+    search.hidden = false;
+    q.addEventListener('input', runSearch);
+    q.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && q.value) {
+        q.value = '';
+        runSearch();
+      }
+    });
+    var qSearch = qp.get('q');
+    if (qSearch) {
+      q.value = qSearch.slice(0, 60);
+      runSearch();
+    }
+  }
+
   board.addEventListener('click', function (e) {
+    if (e.target.closest('a')) return;
     if (board.hasAttribute('data-level') && e.target.closest('.price-row[data-levels] > summary')) e.preventDefault();
   });
 })();

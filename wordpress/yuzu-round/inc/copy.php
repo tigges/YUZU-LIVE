@@ -188,9 +188,6 @@ function yuzu_round_copy_catalog(): array
                 $paragraph('ig-level-4-text', 'Level 4 text', 'Stylist levels'),
                 $line('ig-prices-title', 'Heading', 'Prices'),
                 $line('ig-offers-title', 'Heading', 'Offers'),
-                $paragraph('ig-offer-1', 'First offer', 'Offers'),
-                $paragraph('ig-offer-2', 'Second offer', 'Offers'),
-                $paragraph('ig-offer-3', 'Third offer', 'Offers'),
             ],
         ],
         'privacy' => [
@@ -271,9 +268,18 @@ function yuzu_round_copy_hours_phrase(): string
         : 'Tuesday to Friday 10am to 8pm, Saturday 9am to 6pm; closed Monday and Sunday';
 }
 
-/** {hours} in page copy stands for the weekly hours set under Salon details. */
+function yuzu_round_copy_offers_phrase(): string
+{
+    return function_exists('yuzu_round_offer_phrase') ? yuzu_round_offer_phrase() : 'seasonal offers';
+}
+
+/** {hours} in page copy stands for the weekly hours set under Salon details, {offers} for the homepage offers. */
 function yuzu_round_copy_fill_hours(string $text, bool $html): string
 {
+    if (str_contains($text, '{offers}')) {
+        $offers = yuzu_round_copy_offers_phrase();
+        $text = str_replace('{offers}', $html ? '<span data-yuzu-offers>' . yuzu_round_copy_esc($offers) . '</span>' : $offers, $text);
+    }
     if (!str_contains($text, '{hours}')) {
         return $text;
     }
@@ -306,6 +312,7 @@ function yuzu_round_copy_read_value(string $html, string $key, string $type): st
     }
     $inner = preg_replace('/<br\s*\/?>/i', "\n", $matches[3]) ?? $matches[3];
     $inner = preg_replace('/<span data-yuzu-hours>.*?<\/span>/s', '{hours}', $inner) ?? $inner;
+    $inner = preg_replace('/<span data-yuzu-offers>.*?<\/span>/s', '{offers}', $inner) ?? $inner;
     $text = html_entity_decode(strip_tags($inner), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $text = str_replace("\xC2\xA0", ' ', $text);
     return yuzu_round_copy_clean($text, $type);
@@ -313,12 +320,12 @@ function yuzu_round_copy_read_value(string $html, string $key, string $type): st
 
 function yuzu_round_copy_replace_value(string $html, string $key, string $inner): string
 {
-    $pattern = '/(<[a-z0-9]+\s[^>]*?\sdata-yuzu-copy="' . preg_quote($key, '/') . '"[^>]*>)(.*?)(<\/[a-z0-9]+>)/s';
-    $put = static fn (array $m): string => $m[1] . $inner . $m[3];
+    $pattern = '/(<([a-z0-9]+)\s[^>]*?\sdata-yuzu-copy="' . preg_quote($key, '/') . '"[^>]*>)(.*?)(<\/\2>)/s';
+    $put = static fn (array $m): string => $m[1] . $inner . $m[4];
     $count = 0;
     $next = preg_replace_callback($pattern, $put, $html, 1, $count);
     if (!is_string($next) || $count !== 1) {
-        $pattern = '/(<[a-z0-9]+[^>]*data-yuzu-copy="' . preg_quote($key, '/') . '"[^>]*>)(.*?)(<\/[a-z0-9]+>)/s';
+        $pattern = '/(<([a-z0-9]+)[^>]*data-yuzu-copy="' . preg_quote($key, '/') . '"[^>]*>)(.*?)(<\/\2>)/s';
         $count = 0;
         $next = preg_replace_callback($pattern, $put, $html, 1, $count);
     }
@@ -462,6 +469,11 @@ function yuzu_round_copy_rename_gallery_heading(): void
     }
     $legacy_offer = static fn ($text): bool => is_string($text)
         && (str_contains($text, 'Senior Stylist or Stylist') || str_contains($text, 'Aura smoothing') || str_contains($text, '3 to 6 month'));
+    $handwritten_terms = 'Promotional offers—including Colour Tuesdays (50% off your most expensive colour service with a full priced wash, cut & blow-dry with a Creative Director), Smooth Wednesdays (25% off our three to six month smoothing treatment), Colour Thursdays (50% off your most expensive colour service with a full priced wash, cut & blow-dry with a Senior Stylist and Stylist), Refer a Friend (£10 credit for each new client you recommend), 10% Same-Day Rebook discount, and the 4 Blow-Drys for £156 package (valid for 6 months)—are subject to availability with participating stylists and cannot be combined with any other discount or offer. Colour offers require a patch test at least 48 hours prior.';
+    if (($stored['terms']['terms-offers'] ?? null) === $handwritten_terms) {
+        unset($stored['terms']['terms-offers']);
+        $changed = true;
+    }
     foreach ([['questions', 'questions-offers-a'], ['terms', 'terms-offers']] as [$page, $key]) {
         if (isset($stored[$page][$key]) && $legacy_offer($stored[$page][$key])) {
             unset($stored[$page][$key]);
@@ -583,6 +595,9 @@ function yuzu_round_copy_admin_page(): void
         } else {
             $rows = $field['type'] === 'lines' ? 4 : 5;
             echo '<textarea class="large-text" id="' . esc_attr($id) . '" name="yuzu_copy[' . esc_attr($field['key']) . ']" rows="' . esc_attr((string) $rows) . '">' . esc_textarea($value) . '</textarea>';
+        }
+        if (str_contains($value, '{offers}')) {
+            echo '<br /><span class="description"><code>{offers}</code> lists the homepage offers from <a href="' . esc_url(admin_url('admin.php?page=yuzu-offers')) . '">Offers</a> (each title with its “In one line”).</span>';
         }
         if (str_contains($value, '{hours}')) {
             echo '<br /><span class="description"><code>{hours}</code> shows the opening hours from <a href="' . esc_url(admin_url('admin.php?page=yuzu-salon')) . '">Salon details</a>, currently “' . esc_html(yuzu_round_copy_hours_phrase()) . '”.</span>';
