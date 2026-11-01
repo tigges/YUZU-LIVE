@@ -923,6 +923,7 @@ function yuzu_round_prices_apply(string $html, string $file): string
     if (!function_exists('get_option')) {
         return $html;
     }
+    $html = yuzu_round_phorest_replace_stylists($html);
     yuzu_round_prices_refresh_stored_blurbs();
     yuzu_round_prices_correct_stored();
     $stored = get_option('yuzu_round_prices');

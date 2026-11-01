@@ -28,6 +28,7 @@ foreach ($files as $file) {
     $next = $file === 'prices.html'
         ? yuzu_round_prices_replace_schema(yuzu_round_prices_replace_groups(yuzu_round_prices_replace_blend_board($html, $data, 'patch.html', true), $data), $data)
         : yuzu_round_prices_replace_service_panel($html, $data);
+    $next = yuzu_round_phorest_replace_stylists($next);
     if ($next !== $html) {
         file_put_contents($path, $next);
         echo "updated site/{$file}\n";
