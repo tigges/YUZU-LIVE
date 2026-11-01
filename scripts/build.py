@@ -108,7 +108,7 @@ def mark_current(html: str, page: str) -> str:
         block = match.group(0).replace(' aria-current="page"', "")
         return block.replace(f'<a href="{page}">', f'<a href="{page}" aria-current="page">', 1)
 
-    return re.sub(r'<span class="legal-links">.*?</span>', legal, html, flags=re.S)
+    return re.sub(r'<span class="legal-links">.*?</span></p>', legal, html, flags=re.S)
 
 
 def fill(page: Path, css_hash: str, js_hash: str) -> bool:
