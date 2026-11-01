@@ -48,6 +48,7 @@ Do not rebuild the pages in Elementor, Spectra, Kadence or the site editor; they
 
 - **Salon details**: opening hours, holidays and special days, the notice banner, the Google rating, analytics, careers listing on Google (hiring on/off, date, pay), the online gift card link, and click counts for Book, Call, Directions and Email.
 - **Price list**: every price table, the homepage From prices and card sentences.
+- **Price list → Booking links**: which Phorest service each price’s ↗ link opens. The theme’s choices live in `wordpress/yuzu-round/inc/phorest-links.json`; a link whose service Phorest no longer has opens that level’s list, then the main booking page.
 - **Page copy**: the words on each page.
 - **Salon details → Instagram photos**: the photos on the Instagram landing page (pick from the Media Library; empty slots keep the theme photo).
 - **Salon details → Site map**: every page, short link and outside link, with where each page is linked from and whether it is on Google. Built from the theme each time it opens.
@@ -57,6 +58,7 @@ Do not rebuild the pages in Elementor, Spectra, Kadence or the site editor; they
 ## Book, maps, social
 
 - Book: https://www.phorest.com/salon/yuzuhairandbeauty
+- Phorest check (GitHub Actions, every Monday): `scripts/phorest_sync.py` refreshes the theme’s copy of the Phorest online menu (`inc/phorest.json`), opens a pull request when it changed, and opens an issue for booking links that stopped working or prices that differ from Phorest.
 - Maps: https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8
 - Instagram: https://www.instagram.com/yuzuhairandbeauty/
 - TikTok: https://www.tiktok.com/@yuzuhairandbeauty.est16
