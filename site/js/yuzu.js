@@ -232,7 +232,7 @@
         text: pick('text'),
         terms: pick('terms'),
         bookLabel: src.getAttribute('data-book-label') || 'Book your appointment',
-        bookHref: inSalon ? `${pricesBase}${pricesHash || '#cut'}` : bookHref,
+        bookHref: inSalon ? `${pricesBase}${pricesHash || '#cut'}` : src.getAttribute('data-book-href') || bookHref,
         pricesHref: inSalon || !pricesHash ? '' : `${pricesBase}${pricesHash}`,
         external: !inSalon,
       }
