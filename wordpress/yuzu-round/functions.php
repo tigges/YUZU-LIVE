@@ -264,29 +264,32 @@ function yuzu_round_file_for_request(): string
     return '404.html';
 }
 
+/**
+ * Folder holding the pages, relative to the theme: site/ for a Git deploy of
+ * the repo, static/ for the packed zip. Leftover folders from older deploys
+ * are skipped unless they still hold the pages.
+ */
+function yuzu_round_static_rel(): string
+{
+    $dir = function_exists('get_template_directory') ? get_template_directory() : __DIR__;
+    foreach (['site', 'static', 'wordpress/yuzu-round/static'] as $rel) {
+        if (is_file($dir . '/' . $rel . '/index.html')) {
+            return $rel;
+        }
+    }
+    return 'site';
+}
+
 function yuzu_round_static_dir(): string
 {
     $dir = function_exists('get_template_directory') ? get_template_directory() : __DIR__;
-    if (is_dir($dir . '/wordpress/yuzu-round/static')) {
-        return $dir . '/wordpress/yuzu-round/static';
-    }
-    if (is_dir($dir . '/static')) {
-        return $dir . '/static';
-    }
-    return $dir . '/site';
+    return $dir . '/' . yuzu_round_static_rel();
 }
 
 function yuzu_round_static_uri(): string
 {
-    $dir = function_exists('get_template_directory') ? get_template_directory() : __DIR__;
     $uri = function_exists('get_template_directory_uri') ? get_template_directory_uri() : '';
-    if (is_dir($dir . '/wordpress/yuzu-round/static')) {
-        return $uri . '/wordpress/yuzu-round/static';
-    }
-    if (is_dir($dir . '/static')) {
-        return $uri . '/static';
-    }
-    return $uri . '/site';
+    return $uri . '/' . yuzu_round_static_rel();
 }
 
 function yuzu_round_render(string $file): void
