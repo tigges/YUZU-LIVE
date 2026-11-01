@@ -425,7 +425,9 @@
   -webkit-mask: url("../assets/img/art/kanji.webp") no-repeat center / contain;
   mask: url("../assets/img/art/kanji.webp") no-repeat center / contain;
 }
-.blend .legal-links { text-align: right; }
+.blend .visit .legal { opacity: 1; }
+.blend .legal-links { text-align: right; font-size: 14px; }
+.blend .legal-links a { display: inline-block; padding: 4px 0; }
 .blend .visit-book {
   display: flex;
   flex-direction: column;

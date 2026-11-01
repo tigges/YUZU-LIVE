@@ -63,6 +63,11 @@ function yuzu_round_copy_catalog(): array
             $fields[] = $line($slug . '-point-' . $i . '-title', 'Heading', 'Highlight ' . $i);
             $fields[] = $paragraph($slug . '-point-' . $i . '-text', 'Text', 'Highlight ' . $i);
         }
+        for ($i = 1; $i <= 2; $i++) {
+            $fields[] = $line($slug . '-review-' . $i . '-title', 'Quote heading', 'Review ' . $i);
+            $fields[] = $paragraph($slug . '-review-' . $i . '-text', 'Review', 'Review ' . $i);
+            $fields[] = $line($slug . '-review-' . $i . '-name', 'First name', 'Review ' . $i);
+        }
         for ($i = 1; $i <= 4; $i++) {
             $fields[] = $line($slug . '-faq-' . $i . '-q', 'Question', 'Question ' . $i);
             $fields[] = $paragraph($slug . '-faq-' . $i . '-a', 'Answer', 'Question ' . $i);

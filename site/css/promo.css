@@ -33,10 +33,10 @@
 }
 
 /* Grounds are deeper than the brand swatches so the small cream lines
-   keep 4.5:1 contrast. */
-.promo.tue { --ground: #906715; --line-ink: #9f7a33; }
-.promo.wed { --ground: #746f4f; --line-ink: #848065; }
-.promo.thu { --ground: #9e5e3e; --line-ink: #ab7356; }
+   keep 4.5:1 contrast, even where they cross the line drawings. */
+.promo.tue { --ground: #7d5a12; --line-ink: #8a6a2c; }
+.promo.wed { --ground: #656145; --line-ink: #736f58; }
+.promo.thu { --ground: #895136; --line-ink: #94634a; }
 
 .promo .draw {
   position: absolute;
@@ -202,7 +202,7 @@ body.page-poster {
 
 .promo.forest { --ground: #2f3b25; --line-ink: #46543a; }
 .promo.cream-tile { --ground: #dfd3bf; --ink: #2f3b25; --line-ink: #cbbca4; }
-.promo.bronze { --ground: #8c5a3c; --line-ink: #a16f50; }
+.promo.bronze { --ground: #7f5136; --line-ink: #926448; }
 .promo.forest .fruit-a,
 .promo.forest .fruit-b {
   -webkit-mask-image: url("../assets/img/art/fruit.webp");
@@ -239,12 +239,12 @@ button.promo .promo-copy {
 button.promo .promo-title { font-size: 10.2cqw; }
 button.promo.wed .promo-title { font-size: 11.8cqw; }
 button.promo.thu .promo-title { font-size: 9.8cqw; }
-button.promo .promo-sub { font-size: 4.3cqw; }
-button.promo.thu .promo-sub { font-size: 4cqw; }
+button.promo .promo-sub { font-size: 4.7cqw; }
+button.promo.thu .promo-sub { font-size: 4.4cqw; }
 button.promo .promo-off { font-size: 11.4cqw; }
-button.promo .promo-fine { font-size: 4cqw; }
-button.promo.wed .promo-fine { font-size: 4.2cqw; }
-button.promo.thu .promo-fine { font-size: 3.9cqw; }
+button.promo .promo-fine { font-size: 4.5cqw; }
+button.promo.wed .promo-fine { font-size: 4.7cqw; }
+button.promo.thu .promo-fine { font-size: 4.4cqw; }
 button.promo:hover { transform: translateY(-2px); }
 button.promo:focus:not(:focus-visible) { outline: none; }
 button.promo.is-selected {
@@ -381,8 +381,8 @@ button.promo.is-selected {
   button.promo .promo-fine { font-size: 5.6cqw; line-height: 1.14; }
   button.promo.wed .promo-fine { font-size: 5.8cqw; }
   button.promo.thu .promo-fine { font-size: 5.5cqw; }
-  button.promo.tue .promo-fine br:first-of-type,
-  button.promo.thu .promo-fine br:first-of-type { display: none; }
+  button.promo.tue .promo-fine br,
+  button.promo.thu .promo-fine br { display: none; }
   .offer-tray { margin-top: 16px; padding: 20px; }
   .offer-tray[data-col]::before { display: none; }
 }
