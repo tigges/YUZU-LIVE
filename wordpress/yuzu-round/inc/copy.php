@@ -63,15 +63,6 @@ function yuzu_round_copy_catalog(): array
             $fields[] = $line($slug . '-point-' . $i . '-title', 'Heading', 'Highlight ' . $i);
             $fields[] = $paragraph($slug . '-point-' . $i . '-text', 'Text', 'Highlight ' . $i);
         }
-        for ($i = 1; $i <= 2; $i++) {
-            $fields[] = $line($slug . '-review-' . $i . '-title', 'Quote heading', 'Review ' . $i);
-            $fields[] = $paragraph($slug . '-review-' . $i . '-text', 'Review', 'Review ' . $i);
-            $fields[] = $line($slug . '-review-' . $i . '-name', 'First name', 'Review ' . $i);
-        }
-        for ($i = 1; $i <= 4; $i++) {
-            $fields[] = $line($slug . '-faq-' . $i . '-q', 'Question', 'Question ' . $i);
-            $fields[] = $paragraph($slug . '-faq-' . $i . '-a', 'Answer', 'Question ' . $i);
-        }
         $service_pages[$slug] = ['menu' => $menu, 'file' => $slug . '.html', 'fields' => $fields];
     }
 
@@ -89,12 +80,6 @@ function yuzu_round_copy_catalog(): array
                 $paragraph('home-services-intro', 'Introduction', 'Services'),
                 $line('home-reviews-title', 'Heading', 'Reviews'),
                 $paragraph('home-reviews-intro', 'Introduction', 'Reviews'),
-                $line('home-review-1-title', 'First quote', 'Reviews'),
-                $paragraph('home-review-1-text', 'First review', 'Reviews'),
-                $line('home-review-2-title', 'Second quote', 'Reviews'),
-                $paragraph('home-review-2-text', 'Second review', 'Reviews'),
-                $line('home-review-3-title', 'Third quote', 'Reviews'),
-                $paragraph('home-review-3-text', 'Third review', 'Reviews'),
                 $line('home-offers-title', 'Heading', 'Offers on the homepage'),
                 $paragraph('home-offers-intro', 'Introduction', 'Offers on the homepage'),
                 $lines('home-address', 'Address, one line each', 'Visit card on every page'),
@@ -136,22 +121,6 @@ function yuzu_round_copy_catalog(): array
             'file' => 'questions.html',
             'fields' => [
                 $line('questions-title', 'Page heading', 'Page'),
-                $line('questions-cut-q', 'Question', 'Haircut'),
-                $paragraph('questions-cut-a', 'Answer', 'Haircut'),
-                $line('questions-patch-q', 'Question', 'Patch test'),
-                $paragraph('questions-patch-a', 'Answer', 'Patch test'),
-                $line('questions-where-q', 'Question', 'Salon address'),
-                $paragraph('questions-where-a', 'Answer', 'Salon address'),
-                $line('questions-open-q', 'Question', 'Opening hours'),
-                $paragraph('questions-open-a', 'Answer', 'Opening hours'),
-                $line('questions-book-q', 'Question', 'Booking'),
-                $paragraph('questions-book-a', 'Answer', 'Booking'),
-                $line('questions-cancel-q', 'Question', 'Cancellation policy'),
-                $paragraph('questions-cancel-a', 'Answer', 'Cancellation policy'),
-                $line('questions-offers-q', 'Question', 'Offers and loyalty'),
-                $paragraph('questions-offers-a', 'Answer', 'Offers and loyalty'),
-                $line('questions-join-q', 'Question', 'Joining the team'),
-                $paragraph('questions-join-a', 'Answer', 'Joining the team'),
             ],
         ],
         'patch' => [
@@ -386,55 +355,7 @@ function yuzu_round_copy_apply_values(string $html, string $slug, array $values)
         }
         $html = yuzu_round_copy_replace_value($html, $key, yuzu_round_copy_inner_html($values[$key], $field['type']));
     }
-    if ($slug === 'questions') {
-        $html = yuzu_round_copy_sync_faq($html, $values, [
-            ['questions-cut-q', 'questions-cut-a'],
-            ['questions-patch-q', 'questions-patch-a'],
-            ['questions-where-q', 'questions-where-a'],
-            ['questions-open-q', 'questions-open-a'],
-            ['questions-book-q', 'questions-book-a'],
-            ['questions-cancel-q', 'questions-cancel-a'],
-            ['questions-offers-q', 'questions-offers-a'],
-            ['questions-join-q', 'questions-join-a'],
-        ]);
-    }
-    if (isset(yuzu_round_copy_service_pages()[$slug])) {
-        $pairs = [];
-        for ($i = 1; $i <= 4; $i++) {
-            $pairs[] = [$slug . '-faq-' . $i . '-q', $slug . '-faq-' . $i . '-a'];
-        }
-        $html = yuzu_round_copy_sync_faq($html, $values, $pairs);
-    }
     return $html;
-}
-
-function yuzu_round_copy_sync_faq(string $html, array $values, array $pairs): string
-{
-    $pattern = '/<script type="application\/ld\+json">\s*(\{(?:(?!<\/script>).)*?"@type": "FAQPage"(?:(?!<\/script>).)*?\})\s*<\/script>/s';
-    if (!preg_match($pattern, $html, $matches)) {
-        return $html;
-    }
-    $data = json_decode($matches[1], true);
-    if (!is_array($data) || !isset($data['mainEntity']) || !is_array($data['mainEntity'])) {
-        return $html;
-    }
-    foreach ($pairs as $index => $pair) {
-        if (!isset($data['mainEntity'][$index]) || !is_array($data['mainEntity'][$index])) {
-            continue;
-        }
-        if (!empty($values[$pair[0]]) && is_string($values[$pair[0]])) {
-            $data['mainEntity'][$index]['name'] = $values[$pair[0]];
-        }
-        if (!empty($values[$pair[1]]) && is_string($values[$pair[1]]) && isset($data['mainEntity'][$index]['acceptedAnswer']) && is_array($data['mainEntity'][$index]['acceptedAnswer'])) {
-            $data['mainEntity'][$index]['acceptedAnswer']['text'] = yuzu_round_copy_fill_hours($values[$pair[1]], false);
-        }
-    }
-    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
-    if (!is_string($json)) {
-        return $html;
-    }
-    $json = preg_replace('/^(.)/m', '      $1', $json) ?? $json;
-    return str_replace($matches[1], ltrim($json), $html);
 }
 
 function yuzu_round_copy_source(string $file): string
