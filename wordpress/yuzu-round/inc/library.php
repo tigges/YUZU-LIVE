@@ -5,7 +5,8 @@
  * Templates mark the spots with <!-- yuzu-reviews --> and <!-- yuzu-faq -->;
  * what sits between the markers is the theme default and is replaced here.
  * Answers may use {hours} (Salon details) and {from:cut|colour|highlights|
- * treatments} (Prices), so they never repeat a price or time by hand.
+ * treatments} (Prices) and {offers} (Offers), so they never repeat a price,
+ * time or offer by hand.
  */
 
 function yuzu_round_lib_review_pages(): array
@@ -75,7 +76,7 @@ function yuzu_round_lib_seed(): array
             ['q' => 'When are you open?', 'a' => '{hours}.', 'link' => '', 'link_text' => '', 'pages' => ['questions'], 'legacy' => [['questions', 'questions-open']]],
             ['q' => 'How do I book?', 'a' => 'Book on Phorest or call 020 8840 2244. Choose creative director, senior stylist, stylist, or junior stylist so the price matches the chair. Colour guests should complete a patch test at least 48 hours first.', 'link' => '', 'link_text' => '', 'pages' => ['questions'], 'legacy' => [['questions', 'questions-book']]],
             ['q' => 'What is your cancellation and deposit policy?', 'a' => 'We ask for 48 working hours’ notice to cancel or reschedule so your deposit remains refundable or transferable. Because we are closed on Sundays and Mondays, changes to Tuesday appointments must be made by the end of Thursday.', 'link' => 'terms.html', 'link_text' => 'Read full terms →', 'pages' => ['questions'], 'legacy' => [['questions', 'questions-cancel']]],
-            ['q' => 'What offers and loyalty rewards do you run?', 'a' => 'Colour Tuesdays and Colour Thursdays give 50% off your most expensive colour service with a full priced wash, cut and blow-dry (with a Creative Director on Tuesdays, a Senior Stylist and Stylist on Thursdays). Smooth Wednesdays give 25% off our three to six month smoothing treatment. We also offer £10 Refer a Friend credit, 10% off when you rebook on the same day, and a 4 blow-drys for £156 package.', 'link' => 'index.html#offers', 'link_text' => 'See current offers →', 'pages' => ['questions'], 'legacy' => [['questions', 'questions-offers']]],
+            ['q' => 'What offers and loyalty rewards do you run?', 'a' => 'We currently run {offers}. Colour offers need a patch test at least 48 hours before.', 'link' => 'index.html#offers', 'link_text' => 'See current offers →', 'pages' => ['questions'], 'legacy' => [['questions', 'questions-offers']]],
             ['q' => 'How do I join the team?', 'a' => 'Think you’ve got what it takes? We welcome senior stylists, stylists, and models. Email your CV to info@yuzuhairandbeauty.co.uk.', 'link' => 'team.html', 'link_text' => 'Join our team', 'pages' => ['questions'], 'legacy' => [['questions', 'questions-join']]],
             ['q' => 'Do you cut men’s and children’s hair?', 'a' => 'Yes. We cut gents’ hair, including fades, and children and teens of all ages.', 'link' => '', 'link_text' => '', 'pages' => ['haircut-ealing'], 'legacy' => [['haircut-ealing', 'haircut-ealing-faq-2']]],
             ['q' => 'Can I book a blow-dry on its own?', 'a' => 'Yes. Blow-dries can be booked on their own, and our 4 blow-drys package saves on regular appointments.', 'link' => '', 'link_text' => '', 'pages' => ['haircut-ealing'], 'legacy' => [['haircut-ealing', 'haircut-ealing-faq-3']]],
@@ -135,11 +136,24 @@ function yuzu_round_lib_from_seed(): array
     return yuzu_round_lib_sanitize($seed);
 }
 
+/** The offers answer as the theme first wrote it out by hand; untouched copies switch to {offers}. */
+function yuzu_round_lib_old_offers_answer(): string
+{
+    return 'Colour Tuesdays and Colour Thursdays give 50% off your most expensive colour service with a full priced wash, cut and blow-dry (with a Creative Director on Tuesdays, a Senior Stylist and Stylist on Thursdays). Smooth Wednesdays give 25% off our three to six month smoothing treatment. We also offer £10 Refer a Friend credit, 10% off when you rebook on the same day, and a 4 blow-drys for £156 package.';
+}
+
 function yuzu_round_lib_current(): array
 {
     $stored = function_exists('get_option') ? get_option('yuzu_round_library') : false;
     if (is_array($stored) && isset($stored['reviews'], $stored['faq'])) {
-        return yuzu_round_lib_sanitize($stored);
+        $lib = yuzu_round_lib_sanitize($stored);
+        foreach ($lib['faq'] as &$item) {
+            if ($item['a'] === yuzu_round_lib_old_offers_answer()) {
+                $item['a'] = 'We currently run {offers}. Colour offers need a patch test at least 48 hours before.';
+            }
+        }
+        unset($item);
+        return $lib;
     }
     return yuzu_round_lib_from_seed();
 }
@@ -243,6 +257,10 @@ function yuzu_round_lib_fill(string $text, bool $html): string
         $value = yuzu_round_lib_from_price($m[1]);
         return $value !== '' ? $value : 'our price list';
     }, $out) ?? $out;
+    if (str_contains($out, '{offers}')) {
+        $offers = function_exists('yuzu_round_offer_phrase') ? yuzu_round_offer_phrase() : 'seasonal offers';
+        $out = str_replace('{offers}', $html ? '<span data-yuzu-offers>' . htmlspecialchars($offers, ENT_QUOTES | ENT_HTML5, 'UTF-8') . '</span>' : $offers, $out);
+    }
     if (str_contains($out, '{hours}')) {
         $phrase = function_exists('yuzu_round_copy_hours_phrase') ? yuzu_round_copy_hours_phrase() : '';
         $out = str_replace('{hours}', $html ? '<span data-yuzu-hours>' . htmlspecialchars($phrase, ENT_QUOTES | ENT_HTML5, 'UTF-8') . '</span>' : $phrase, $out);
@@ -465,7 +483,7 @@ function yuzu_round_lib_admin_page(string $kind): void
     if ($reviews) {
         echo '<p class="ylib-lead">One list for the whole site. Tick the pages each review appears on; pages show them in this order. Copy reviews word for word from <a href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener">Google</a>. The photo only shows on Home.</p>';
     } else {
-        echo '<p class="ylib-lead">One list for the whole site. Tick the pages each question appears on; pages show them in this order, and Google gets the same list. In answers, <code>{hours}</code> shows the opening hours from Salon details and <code>{from:cut}</code>, <code>{from:colour}</code>, <code>{from:highlights}</code> or <code>{from:treatments}</code> show the “from” price set under Prices, so they never go out of date.</p>';
+        echo '<p class="ylib-lead">One list for the whole site. Tick the pages each question appears on; pages show them in this order, and Google gets the same list. In answers, <code>{hours}</code> shows the opening hours from Salon details and <code>{from:cut}</code>, <code>{from:colour}</code>, <code>{from:highlights}</code> or <code>{from:treatments}</code> show the “from” price set under Prices, and <code>{offers}</code> lists the homepage offers from <a href="' . esc_url(admin_url('admin.php?page=yuzu-offers')) . '">Offers</a>, so they never go out of date.</p>';
     }
     echo yuzu_round_lib_summary($items, $pages);
     echo '<form method="post">';

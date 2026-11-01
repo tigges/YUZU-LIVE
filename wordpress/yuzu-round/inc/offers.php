@@ -3,7 +3,9 @@
  * One list of offers. Each offer is a card on the homepage (front) and the tray
  * that opens under it (details). The template marks the cards with
  * <!-- yuzu-offers -->; what sits between the markers is the theme default.
- * The same list feeds the offers Google reads in the homepage structured data.
+ * The same list feeds the offers Google reads in the homepage structured data,
+ * the Instagram page list (<!-- yuzu-ig-offers -->) and every
+ * <span data-yuzu-offers>, which {offers} makes in answers and page copy.
  */
 
 /** Card looks: the ground colour and the line drawing come as a pair. */
@@ -48,6 +50,7 @@ function yuzu_round_offer_seed(): array
             'text' => 'Every Tuesday, enjoy 50% off your most expensive colour service with a full priced wash, cut & blow-dry with a Creative Director.',
             'terms' => '50% off your most expensive colour service · with a full priced wash, cut & blow-dry · Creative Director · patch test 48 hours before',
             'action' => 'book', 'button' => 'Book Tuesday colour', 'prices' => 'colour',
+            'summary' => '50% off your most expensive colour service with a full priced wash, cut & blow-dry, with a Creative Director', 'ig' => true,
         ],
         [
             'id' => 'wednesdays', 'legacy' => 'wed', 'home' => true, 'style' => 'wed', 'day' => '3',
@@ -58,6 +61,7 @@ function yuzu_round_offer_seed(): array
             'text' => 'Every Wednesday, enjoy 25% off our three to six month smoothing treatment — formaldehyde and ammonia free.',
             'terms' => '25% off our three to six month smoothing treatment · Wednesdays',
             'action' => 'book', 'button' => 'Book Wednesday smoothing', 'prices' => 'treatments',
+            'summary' => '25% off our three to six month smoothing treatment', 'ig' => true,
         ],
         [
             'id' => 'thursdays', 'legacy' => 'thu', 'home' => true, 'style' => 'thu', 'day' => '4',
@@ -68,6 +72,7 @@ function yuzu_round_offer_seed(): array
             'text' => 'Every Thursday, enjoy 50% off your most expensive colour service with a full priced wash, cut & blow-dry with a Senior Stylist and Stylist.',
             'terms' => '50% off your most expensive colour service · with a full priced wash, cut & blow-dry · Senior Stylist and Stylist · patch test 48 hours before',
             'action' => 'book', 'button' => 'Book Thursday colour', 'prices' => 'colour',
+            'summary' => '50% off your most expensive colour service with a full priced wash, cut & blow-dry, with a Senior Stylist and Stylist', 'ig' => true,
         ],
         [
             'id' => 'refer', 'legacy' => 'refer', 'home' => true, 'style' => 'forest', 'day' => '',
@@ -78,6 +83,7 @@ function yuzu_round_offer_seed(): array
             'text' => 'Share YUZU hair with friends, family, or colleagues. When your recommended friend books and completes their first appointment with us, you receive £10 credit towards your next visit—with no limit on how many friends you refer.',
             'terms' => '£10 credit per new client referred · unlimited referrals · redeemable on any service',
             'action' => 'book', 'button' => 'Book an appointment', 'prices' => 'cut',
+            'summary' => '£10 credit for each new client you refer, with no limit', 'ig' => false,
         ],
         [
             'id' => 'rebook', 'legacy' => 'rebook', 'home' => true, 'style' => 'cream-tile', 'day' => '',
@@ -88,6 +94,7 @@ function yuzu_round_offer_seed(): array
             'text' => 'At YUZU hair, we value loyalty. Book your next appointment at reception on the same day as your visit and receive 10% off that next appointment as a token of our gratitude.',
             'terms' => '10% off your next appointment when booked in-salon on the day of your visit',
             'action' => 'book', 'button' => 'Book your visit', 'prices' => 'cut',
+            'summary' => '10% off your next appointment when you rebook in the salon on the day of your visit', 'ig' => false,
         ],
         [
             'id' => 'blowdry', 'legacy' => 'blowdry', 'home' => true, 'style' => 'bronze', 'day' => '',
@@ -98,6 +105,7 @@ function yuzu_round_offer_seed(): array
             'text' => 'Keep your hair styled for less with our 4-visit blow-dry bundle. Ask at reception on your next visit or call us to purchase.',
             'terms' => 'Valid 6 months · haircuts not included · not applicable for extensions · no-show deducts 1 blow-dry · non-refundable',
             'action' => 'prices', 'button' => 'View in price list', 'prices' => 'cut',
+            'summary' => 'a package of four blow-drys for £156, valid for six months', 'ig' => false,
         ],
     ];
 }
@@ -153,10 +161,17 @@ function yuzu_round_offer_sanitize(array $input): array
     $days = yuzu_round_offer_days();
     $sections = yuzu_round_offer_price_sections();
     $taken = yuzu_round_offer_reserved_ids();
+    $seed = array_column(yuzu_round_offer_seed(), null, 'id');
     $out = [];
     foreach ($input as $row) {
         if (!is_array($row) || !empty($row['remove'])) {
             continue;
+        }
+        $theme = $seed[(string) ($row['id'] ?? '')] ?? [];
+        foreach (['summary' => '', 'ig' => false] as $key => $blank) {
+            if (!array_key_exists($key, $row)) {
+                $row[$key] = $theme[$key] ?? $blank;
+            }
         }
         $offer = [
             'id' => '',
@@ -174,6 +189,8 @@ function yuzu_round_offer_sanitize(array $input): array
             'action' => ($row['action'] ?? '') === 'prices' ? 'prices' : 'book',
             'button' => yuzu_round_offer_text($row['button'] ?? '', 40),
             'prices' => isset($sections[$row['prices'] ?? '']) ? (string) $row['prices'] : 'cut',
+            'summary' => yuzu_round_offer_text(is_string($row['summary']) ? str_replace('{offers}', '', $row['summary']) : '', 160),
+            'ig' => !empty($row['ig']),
         ];
         if ($offer['title'] === '' && $offer['headline'] === '') {
             continue;
@@ -199,6 +216,40 @@ function yuzu_round_offer_sanitize(array $input): array
 function yuzu_round_offer_plain(string $text): string
 {
     return function_exists('yuzu_round_lib_fill') ? yuzu_round_lib_fill($text, false) : $text;
+}
+
+function yuzu_round_offer_name(array $o): string
+{
+    return str_replace("\n", ' ', $o['title'] !== '' ? $o['title'] : $o['headline']);
+}
+
+function yuzu_round_offer_line(array $o): string
+{
+    return rtrim(yuzu_round_offer_plain($o['summary']), ' .');
+}
+
+/** {offers}: the homepage offers as one phrase, "Colour Tuesdays (50% off …), … and Blow-dry (…)". */
+function yuzu_round_offer_phrase(?array $offers = null): string
+{
+    $parts = [];
+    foreach ($offers ?? yuzu_round_offer_current() as $o) {
+        if ($o['home']) {
+            $line = yuzu_round_offer_line($o);
+            $parts[] = yuzu_round_offer_name($o) . ($line !== '' ? ' (' . $line . ')' : '');
+        }
+    }
+    if ($parts === []) {
+        return 'seasonal offers';
+    }
+    $last = array_pop($parts);
+    return $parts === [] ? $last : implode(', ', $parts) . ' and ' . $last;
+}
+
+function yuzu_round_offer_ig_html(array $o, string $pad): string
+{
+    $e = static fn (string $s): string => htmlspecialchars($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $line = yuzu_round_offer_line($o);
+    return $pad . '<li>' . $e(yuzu_round_offer_name($o)) . ($line !== '' ? ': ' . $e($line) . '.' : '') . "</li>\n";
 }
 
 function yuzu_round_offer_card_html(array $o, string $pad): string
@@ -325,13 +376,29 @@ function yuzu_round_offer_apply(string $html, string $file, ?array $offers = nul
 {
     $home = basename($file) === 'index.html' && str_contains($html, '<!-- yuzu-offers -->');
     $menu = '/\n[ \t]*<a href="(?:index\.html)?#offers">Offers<\/a>/';
-    if (!$home && preg_match($menu, $html) !== 1) {
+    $has_menu = preg_match($menu, $html) === 1;
+    $has_ig = str_contains($html, '<!-- yuzu-ig-offers -->');
+    $has_phrase = str_contains($html, '<span data-yuzu-offers>');
+    if (!$home && !$has_menu && !$has_ig && !$has_phrase) {
         return $html;
     }
     $offers = $offers ?? yuzu_round_offer_current();
     $shown = array_values(array_filter($offers, static fn (array $o): bool => $o['home']));
-    if ($shown === []) {
+    if ($shown === [] && $has_menu) {
         $html = preg_replace($menu, '', $html, 1) ?? $html;
+    }
+    if ($has_phrase) {
+        $phrase = htmlspecialchars(yuzu_round_offer_phrase($offers), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $html = preg_replace_callback('/(<span data-yuzu-offers>)(.*?)(<\/span>)/s', static fn (array $m): string => $m[1] . $phrase . $m[3], $html) ?? $html;
+    }
+    if ($has_ig && function_exists('yuzu_round_lib_replace_block')) {
+        $listed = array_values(array_filter($offers, static fn (array $o): bool => $o['home'] && $o['ig']));
+        $pad = preg_match('/\n([ \t]*)<!-- yuzu-ig-offers -->/', $html, $m) === 1 ? $m[1] : '        ';
+        $inner = '';
+        foreach ($listed as $offer) {
+            $inner .= yuzu_round_offer_ig_html($offer, $pad);
+        }
+        $html = yuzu_round_lib_replace_block($html, 'yuzu-ig-offers', $inner, $listed === []);
     }
     if (!$home) {
         return $html;
@@ -369,6 +436,7 @@ function yuzu_round_offer_admin_card(string $i, array $o): string
     $html = '<div class="yoff-card">';
     $html .= '<div class="yoff-head"><span class="yoff-swatch" style="background:' . esc_attr($swatch) . '"></span><strong class="yoff-name">' . esc_html($name) . '</strong>';
     $html .= '<label class="yoff-home"><input type="checkbox" name="' . $base . '[home]" value="1"' . ($o['home'] ? ' checked' : '') . ' /> Show on homepage</label>';
+    $html .= '<label class="yoff-home"><input type="hidden" name="' . $base . '[ig]" value="0" /><input type="checkbox" name="' . $base . '[ig]" value="1"' . ($o['ig'] ? ' checked' : '') . ' /> Instagram page</label>';
     $html .= '<span class="yoff-tools"><button type="button" class="button-link yoff-up">Move up</button> · <button type="button" class="button-link yoff-down">Move down</button><label class="yoff-remove"><input type="checkbox" name="' . $base . '[remove]" value="1" /> Remove</label></span></div>';
 
     $html .= '<div class="yoff-cols"><div class="yoff-col"><h3>Card</h3>';
@@ -383,6 +451,7 @@ function yuzu_round_offer_admin_card(string $i, array $o): string
     $html .= '<p><label>Headline<input type="text" class="large-text" maxlength="100" name="' . $base . '[headline]" value="' . esc_attr($o['headline']) . '" /></label></p>';
     $html .= '<p><label>Text<textarea rows="3" class="large-text" name="' . $base . '[text]">' . esc_textarea($o['text']) . '</textarea></label></p>';
     $html .= '<p><label>Terms<textarea rows="2" class="large-text" name="' . $base . '[terms]">' . esc_textarea($o['terms']) . '</textarea></label></p>';
+    $html .= '<p><label>In one line <small>(Instagram page, Questions and Terms)</small><input type="text" class="large-text" maxlength="160" name="' . $base . '[summary]" value="' . esc_attr($o['summary']) . '" placeholder="50% off your most expensive colour service" /></label></p>';
     $html .= '<p class="yoff-row"><label>Main button' . yuzu_round_offer_select($base . '[action]', ['book' => 'Book online (Phorest)', 'prices' => 'Buy in salon (opens price list)'], $o['action']) . '</label>';
     $html .= '<label>Button text<input type="text" maxlength="40" name="' . $base . '[button]" value="' . esc_attr($o['button']) . '" placeholder="Book your appointment" /></label>';
     $html .= '<label>Prices section' . yuzu_round_offer_select($base . '[prices]', yuzu_round_offer_price_sections(), $o['prices']) . '</label></p>';
@@ -402,9 +471,9 @@ function yuzu_round_offer_admin_page(): void
     echo '<div class="wrap yoff">';
     echo '<h1>Offers</h1>';
     if (isset($_GET['yuzu_saved'])) {
-        echo '<div class="notice notice-success is-dismissible"><p>Saved. The homepage offers and the offers Google reads have been updated. <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">View offers</a></p></div>';
+        echo '<div class="notice notice-success is-dismissible"><p>Saved. The homepage offers, the offers Google reads, and the offers on the Instagram, Questions and Terms pages have been updated. <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">View offers</a></p></div>';
     }
-    echo '<p class="yoff-lead">Each offer is a card in the homepage <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">Offers</a> section, in this order, three to a row. Tapping a card opens its details with a button. Untick “Show on homepage” to keep an offer here without showing it. Offers with a day get a “Today” flag on that day. The details may use <code>{hours}</code> and <code>{from:cut}</code>, <code>{from:colour}</code>, <code>{from:highlights}</code> or <code>{from:treatments}</code>.</p>';
+    echo '<p class="yoff-lead">Each offer is a card in the homepage <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">Offers</a> section, in this order, three to a row. Tapping a card opens its details with a button. Untick “Show on homepage” to keep an offer here without showing it. Offers with a day get a “Today” flag on that day. Each offer’s title and “In one line” also make up the offers list on the <a href="' . esc_url(home_url('/instagram/')) . '" target="_blank" rel="noopener">Instagram page</a> (tick “Instagram page” as well), the offers answer on the Questions page and the offers paragraph in the Terms (every offer on the homepage). The details may use <code>{hours}</code> and <code>{from:cut}</code>, <code>{from:colour}</code>, <code>{from:highlights}</code> or <code>{from:treatments}</code>.</p>';
     echo '<p class="yoff-count"><strong>' . (int) $shown . '</strong> on the homepage' . ($shown % 3 !== 0 && $shown > 0 ? ' <span>· rows look best with 3 or 6</span>' : '') . ($shown === 0 ? ' <span>· the Offers section is hidden</span>' : '') . '</p>';
     echo '<form method="post">';
     wp_nonce_field('yuzu_round_offers_save');
@@ -414,7 +483,7 @@ function yuzu_round_offer_admin_page(): void
         echo yuzu_round_offer_admin_card((string) $n, $offer);
     }
     echo '</div>';
-    $blank = ['id' => '', 'home' => true, 'style' => 'forest', 'day' => '', 'title' => '', 'sub' => '', 'value' => '', 'fine' => '', 'kicker' => '', 'headline' => '', 'text' => '', 'terms' => '', 'action' => 'book', 'button' => '', 'prices' => 'cut'];
+    $blank = ['id' => '', 'home' => true, 'style' => 'forest', 'day' => '', 'title' => '', 'sub' => '', 'value' => '', 'fine' => '', 'kicker' => '', 'headline' => '', 'text' => '', 'terms' => '', 'action' => 'book', 'button' => '', 'prices' => 'cut', 'summary' => '', 'ig' => false];
     echo '<template id="yoff-blank">' . yuzu_round_offer_admin_card('__i__', $blank) . '</template>';
     echo '<p><button type="button" class="button yoff-add">Add an offer</button></p>';
     submit_button('Save offers');
@@ -472,7 +541,7 @@ function yuzu_round_offer_handle_post(): void
     $clean = yuzu_round_offer_sanitize(is_array($posted) ? array_values($posted) : []);
     update_option('yuzu_round_offers', $clean, true);
     if (function_exists('yuzu_round_mark_edited')) {
-        yuzu_round_mark_edited(['home']);
+        yuzu_round_mark_edited(['home', 'instagram', 'questions', 'terms']);
     }
     if (function_exists('yuzu_round_prices_purge_cache')) {
         yuzu_round_prices_purge_cache();
