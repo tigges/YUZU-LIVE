@@ -782,7 +782,7 @@ function yuzu_round_prices_apply_data(string $html, string $file, array $data): 
         $html = yuzu_round_prices_replace_groups($html, $clean);
         $html = yuzu_round_prices_replace_schema($html, $clean);
     }
-    if ($file === 'index.html') {
+    if ($file === 'index.html' || $file === 'instagram.html') {
         $html = yuzu_round_prices_replace_home($html, $clean);
     }
     if (str_contains($html, '<!-- yuzu-service-prices:')) {

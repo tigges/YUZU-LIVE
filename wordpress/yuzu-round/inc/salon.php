@@ -655,6 +655,7 @@ function yuzu_round_salon_apply_gift(string $html, array $data): string
     $url = yuzu_round_salon_esc($data['gift_url']);
     return preg_replace_callback('/<a ([^>]*?)data-yuzu-gift([^>]*)>(.*?)<\/a>/s', static function (array $m) use ($url): string {
         $attrs = preg_replace('/\s(href|target|rel)="[^"]*"/', '', ' ' . $m[1] . $m[2]) ?? '';
+        $attrs = preg_replace('/\s+/', ' ', $attrs) ?? $attrs;
         $label = preg_match('/data-gift-online="([^"]*)"/', $m[0], $l) === 1 ? $l[1] : 'Buy a gift card online';
         return '<a' . rtrim($attrs) . ' data-yuzu-gift href="' . $url . '" target="_blank" rel="noopener">' . $label . '<span class="vh"> (opens in a new tab)</span></a>';
     }, $html) ?? $html;
