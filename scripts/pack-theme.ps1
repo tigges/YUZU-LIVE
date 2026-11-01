@@ -16,11 +16,6 @@ if (Test-Path $dest) {
 }
 New-Item -ItemType Directory -Path $dest | Out-Null
 Copy-Item -Path (Join-Path $root "site\*") -Destination $dest -Recurse -Force
-$copiedHtaccess = Join-Path $dest ".htaccess"
-if (Test-Path $copiedHtaccess) {
-    Remove-Item -Force $copiedHtaccess
-}
-Copy-Item -Path (Join-Path $theme "redirect.htaccess") -Destination $copiedHtaccess -Force
 $partials = Join-Path $dest "partials"
 if (Test-Path $partials) {
     Remove-Item -Recurse -Force $partials
