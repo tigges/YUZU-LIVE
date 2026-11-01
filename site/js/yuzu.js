@@ -361,8 +361,15 @@
 
   const sticky = document.querySelector('.blend-sticky')
   const visitCard = document.querySelector('.visit-card')
-  if (sticky && visitCard) {
+  const looks = document.getElementById('looks')
+  if (sticky) {
+    let pastLooks = false
     const syncSticky = () => {
+      if (looks && !pastLooks && looks.getBoundingClientRect().bottom < window.innerHeight) {
+        pastLooks = true
+        sticky.classList.add('is-past-looks')
+      }
+      if (!visitCard) return
       const r = visitCard.getBoundingClientRect()
       const visible = r.top < window.innerHeight * 0.42 && r.bottom > 100
       sticky.classList.toggle('is-at-visit', visible)
