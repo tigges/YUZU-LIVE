@@ -181,24 +181,31 @@ function yuzu_round_phorest_money(float $price): string
     return '£' . rtrim(rtrim(number_format($price, 2, '.', ''), '0'), '.');
 }
 
-function yuzu_round_phorest_options_html(string $selected, string $default): string
+function yuzu_round_phorest_choice_label(string $choice): string
+{
+    if ($choice === 'main' || $choice === '') {
+        return 'Main booking page';
+    }
+    if ($choice === 'voucher') {
+        return 'Gift vouchers';
+    }
+    if ($choice === 'course') {
+        return 'Series and packages';
+    }
+    [$kind, $id] = array_pad(explode(':', $choice, 2), 2, '');
+    foreach (yuzu_round_phorest_menu()[$kind === 'svc' ? 'services' : 'categories'] as $item) {
+        if ((string) $item['id'] === $id) {
+            return $kind === 'svc' ? $item['category'] . ' / ' . $item['name'] : $item['name'] . ' (whole list)';
+        }
+    }
+    return $choice;
+}
+
+/** The lists and services as <option>s, grouped by Phorest list. */
+function yuzu_round_phorest_menu_options(string $selected): string
 {
     $menu = yuzu_round_phorest_menu();
-    $label = static function (string $choice) use ($menu): string {
-        if ($choice === 'main') {
-            return 'Main booking page';
-        }
-        [$kind, $id] = explode(':', $choice, 2);
-        foreach ($menu[$kind === 'svc' ? 'services' : 'categories'] as $item) {
-            if ((string) $item['id'] === $id) {
-                return $kind === 'svc' ? $item['category'] . ' / ' . $item['name'] : $item['name'] . ' (whole list)';
-            }
-        }
-        return $choice;
-    };
-    $html = '<option value=""' . ($selected === '' ? ' selected' : '') . '>Theme choice: ' . esc_html($label($default)) . '</option>';
-    $html .= '<option value="main"' . ($selected === 'main' ? ' selected' : '') . '>Main booking page</option>';
-    $html .= '<optgroup label="A whole Phorest list">';
+    $html = '<optgroup label="A whole Phorest list">';
     foreach ($menu['categories'] as $cat) {
         $value = 'cat:' . $cat['id'];
         $html .= '<option value="' . esc_attr($value) . '"' . ($selected === $value ? ' selected' : '') . '>' . esc_html($cat['name']) . '</option>';
@@ -216,6 +223,50 @@ function yuzu_round_phorest_options_html(string $selected, string $default): str
         $html .= '</optgroup>';
     }
     return $html;
+}
+
+function yuzu_round_phorest_options_html(string $selected, string $default): string
+{
+    $html = '<option value=""' . ($selected === '' ? ' selected' : '') . '>Theme choice: ' . esc_html(yuzu_round_phorest_choice_label($default)) . '</option>';
+    $html .= '<option value="main"' . ($selected === 'main' ? ' selected' : '') . '>Main booking page</option>';
+    return $html . yuzu_round_phorest_menu_options($selected);
+}
+
+/**
+ * Where an offer's Book button goes: '' (main booking page), 'voucher',
+ * 'course', 'cat:ID' or 'svc:ID'. Anything else is dropped.
+ */
+function yuzu_round_phorest_target(string $raw): string
+{
+    if ($raw === 'voucher' || $raw === 'course') {
+        return $raw;
+    }
+    return preg_match('/^(svc|cat):[A-Za-z0-9_-]{1,80}$/', $raw) === 1 ? $raw : '';
+}
+
+/** A stored target as a link; one Phorest no longer has opens the main booking page. */
+function yuzu_round_phorest_target_href(string $target): string
+{
+    $base = yuzu_round_phorest_base();
+    if ($target === 'voucher' || $target === 'course') {
+        return $base . '/buy/' . $target;
+    }
+    if (preg_match('/^(svc|cat):(.+)$/', $target, $m) === 1 && yuzu_round_phorest_has($m[1], $m[2])) {
+        return yuzu_round_phorest_href($target);
+    }
+    return $base;
+}
+
+function yuzu_round_phorest_target_options(string $selected): string
+{
+    $html = '';
+    foreach (['' => 'Main booking page', 'voucher' => 'Gift vouchers', 'course' => 'Series and packages'] as $value => $label) {
+        $html .= '<option value="' . esc_attr($value) . '"' . ($selected === $value ? ' selected' : '') . '>' . esc_html($label) . '</option>';
+    }
+    if ($selected !== '' && !in_array($selected, ['voucher', 'course'], true) && yuzu_round_phorest_target_href($selected) === yuzu_round_phorest_base()) {
+        $html .= '<option value="' . esc_attr($selected) . '" selected>No longer in Phorest: opens the main booking page</option>';
+    }
+    return $html . yuzu_round_phorest_menu_options($selected);
 }
 
 function yuzu_round_phorest_service(string $choice): ?array

@@ -8,6 +8,8 @@
  * <span data-yuzu-offers>, which {offers} makes in answers and page copy.
  */
 
+require_once __DIR__ . '/phorest.php';
+
 /** Card looks: the ground colour and the line drawing come as a pair. */
 function yuzu_round_offer_styles(): array
 {
@@ -49,7 +51,7 @@ function yuzu_round_offer_seed(): array
             'headline' => 'Don’t go back to black with this deal',
             'text' => 'Every Tuesday, enjoy 50% off your most expensive colour service with a full priced wash, cut & blow-dry with a Creative Director.',
             'terms' => '50% off your most expensive colour service · with a full priced wash, cut & blow-dry · Creative Director · patch test 48 hours before',
-            'action' => 'book', 'button' => 'Book Tuesday colour', 'prices' => 'colour',
+            'action' => 'book', 'button' => 'Book Tuesday colour', 'prices' => 'colour', 'book' => 'cat:uJ-LQw11Lil9lA175GAYfw',
             'summary' => '50% off your most expensive colour service with a full priced wash, cut & blow-dry, with a Creative Director', 'ig' => true,
         ],
         [
@@ -60,7 +62,7 @@ function yuzu_round_offer_seed(): array
             'headline' => 'Blow everyone away with this deal',
             'text' => 'Every Wednesday, enjoy 25% off our three to six month smoothing treatment — formaldehyde and ammonia free.',
             'terms' => '25% off our three to six month smoothing treatment · Wednesdays',
-            'action' => 'book', 'button' => 'Book Wednesday smoothing', 'prices' => 'treatments',
+            'action' => 'book', 'button' => 'Book Wednesday smoothing', 'prices' => 'treatments', 'book' => 'cat:UDzPd-D9LXu-xl8dfyzzyg',
             'summary' => '25% off our three to six month smoothing treatment', 'ig' => true,
         ],
         [
@@ -187,7 +189,7 @@ function yuzu_round_offer_sanitize(array $input): array
             continue;
         }
         $theme = $seed[(string) ($row['id'] ?? '')] ?? [];
-        foreach (['summary' => '', 'ig' => false, 'from' => '', 'until' => ''] as $key => $blank) {
+        foreach (['summary' => '', 'ig' => false, 'from' => '', 'until' => '', 'book' => ''] as $key => $blank) {
             if (!array_key_exists($key, $row)) {
                 $row[$key] = $theme[$key] ?? $blank;
             }
@@ -212,6 +214,7 @@ function yuzu_round_offer_sanitize(array $input): array
             'ig' => !empty($row['ig']),
             'from' => yuzu_round_offer_date($row['from']),
             'until' => yuzu_round_offer_date($row['until']),
+            'book' => yuzu_round_phorest_target((string) $row['book']),
         ];
         if ($offer['from'] !== '' && $offer['until'] !== '' && $offer['until'] < $offer['from']) {
             [$offer['from'], $offer['until']] = [$offer['until'], $offer['from']];
@@ -315,7 +318,9 @@ function yuzu_round_offer_card_html(array $o, string $pad): string
         . ($copy !== [] ? $in . implode("\n" . $in, $copy) . "\n" : '')
         . $pad . "    </span>\n"
         . $pad . "  </button>\n"
-        . $pad . '  <div class="promo-detail" data-promo-detail="' . $e($o['id']) . '" data-book-label="' . $e($book) . '" data-prices-hash="#' . $e($o['prices']) . '"' . ($o['action'] === 'prices' ? ' data-in-salon' : '') . " hidden>\n";
+        . $pad . '  <div class="promo-detail" data-promo-detail="' . $e($o['id']) . '" data-book-label="' . $e($book) . '"'
+        . ($o['action'] === 'book' ? ' data-book-href="' . $e(yuzu_round_phorest_target_href($o['book'])) . '"' : '')
+        . ' data-prices-hash="#' . $e($o['prices']) . '"' . ($o['action'] === 'prices' ? ' data-in-salon' : '') . " hidden>\n";
     foreach (['kicker', 'headline', 'text', 'terms'] as $part) {
         $html .= $pad . '    <p data-part="' . $part . '">' . $e(yuzu_round_offer_plain($o[$part])) . "</p>\n";
     }
@@ -512,6 +517,7 @@ function yuzu_round_offer_admin_card(string $i, array $o): string
     $html .= '<p class="yoff-row"><label>Main button' . yuzu_round_offer_select($base . '[action]', ['book' => 'Book online (Phorest)', 'prices' => 'Buy in salon (opens price list)'], $o['action']) . '</label>';
     $html .= '<label>Button text<input type="text" maxlength="40" name="' . $base . '[button]" value="' . esc_attr($o['button']) . '" placeholder="Book your appointment" /></label>';
     $html .= '<label>Prices section' . yuzu_round_offer_select($base . '[prices]', yuzu_round_offer_price_sections(), $o['prices']) . '</label></p>';
+    $html .= '<p class="yoff-row"><label>Book online opens <small>(in Phorest)</small><select name="' . $base . '[book]">' . yuzu_round_phorest_target_options($o['book']) . '</select></label></p>';
     $html .= '<p class="yoff-link"><label>Link name<input type="text" maxlength="40" name="' . $base . '[id]" value="' . esc_attr($o['id']) . '" placeholder="made from the title" /></label>';
     $html .= $o['id'] !== '' ? '<a href="' . esc_url(home_url('/#' . $o['id'])) . '" target="_blank" rel="noopener">' . esc_html(preg_replace('#^https?://#', '', home_url('/#' . $o['id']))) . '</a>' : '';
     $html .= '</p></div></div>';
@@ -540,7 +546,7 @@ function yuzu_round_offer_admin_page(): void
         echo yuzu_round_offer_admin_card((string) $n, $offer);
     }
     echo '</div>';
-    $blank = ['id' => '', 'home' => true, 'style' => 'forest', 'day' => '', 'title' => '', 'sub' => '', 'value' => '', 'fine' => '', 'kicker' => '', 'headline' => '', 'text' => '', 'terms' => '', 'action' => 'book', 'button' => '', 'prices' => 'cut', 'summary' => '', 'ig' => false, 'from' => '', 'until' => ''];
+    $blank = ['id' => '', 'home' => true, 'style' => 'forest', 'day' => '', 'title' => '', 'sub' => '', 'value' => '', 'fine' => '', 'kicker' => '', 'headline' => '', 'text' => '', 'terms' => '', 'action' => 'book', 'button' => '', 'prices' => 'cut', 'summary' => '', 'ig' => false, 'from' => '', 'until' => '', 'book' => ''];
     echo '<template id="yoff-blank">' . yuzu_round_offer_admin_card('__i__', $blank) . '</template>';
     echo '<p><button type="button" class="button yoff-add">Add an offer</button></p>';
     submit_button('Save offers');

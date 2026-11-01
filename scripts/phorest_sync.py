@@ -32,7 +32,7 @@ MENU = ROOT / "wordpress/yuzu-round/inc/phorest.json"
 LINKS = ROOT / "wordpress/yuzu-round/inc/phorest-links.json"
 SALON = "yuzuhairandbeauty"
 BOOK = f"https://www.phorest.com/salon/{SALON}"
-PAGES = ["prices/", "haircut-ealing/", "hair-colour-ealing/", "balayage-ealing/", "hair-smoothing-ealing/"]
+PAGES = ["", "prices/", "haircut-ealing/", "hair-colour-ealing/", "balayage-ealing/", "hair-smoothing-ealing/"]
 LEVEL_LABEL = {"creative": "Creative Director", "senior": "Senior Stylist", "stylist": "Stylist", "junior": "Junior Stylist"}
 
 
@@ -129,8 +129,9 @@ def check_site(menu: dict, site: str) -> tuple[list[str], list[str]]:
         except Exception as e:
             broken.append(f"Could not open {url} ({e}).")
             continue
-        for m in re.finditer(r'<a [^>]*href="(https://www\.phorest\.com/salon/[^"]+)"[^>]*>', page):
-            href = html.unescape(m.group(1))
+        found = re.finditer(r'<a [^>]*href="(https://www\.phorest\.com/salon/[^"]+)"[^>]*>|data-book-href="(https://www\.phorest\.com/salon/[^"]+)"', page)
+        for m in found:
+            href = html.unescape(m.group(1) or m.group(2))
             tag = m.group(0)
             svc = re.search(r"/book/services/([A-Za-z0-9_-]+)", href)
             cat = re.search(r"/book/categories/([A-Za-z0-9_-]+)", href)
