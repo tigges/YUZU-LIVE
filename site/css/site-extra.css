@@ -108,6 +108,9 @@
   object-fit: cover;
   border-radius: 22px;
 }
+.blend .crumbs { margin: 0 0 14px; font-size: 14px; }
+.blend .crumbs a { display: inline-block; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+.blend .crumbs [aria-current] { opacity: 0.75; }
 .blend .service-photos .shine { border-radius: 22px; }
 .blend .service-photos .shine:first-child { grid-column: 1 / -1; }
 .blend .service-photos .shine:first-child img { aspect-ratio: 3 / 2; }
@@ -125,7 +128,7 @@
   border-radius: 22px;
   box-shadow: 0 10px 26px rgb(47 58 39 / 0.08);
 }
-.blend .service-points h3 {
+.blend .service-points h2 {
   margin: 0 0 6px;
   font-family: var(--serif);
   font-weight: 500;
@@ -146,6 +149,72 @@
 .blend .service-board .price-panel { display: block; }
 .blend .service-board .price-tabs,
 .blend .service-board .price-radio { display: none; }
+.blend .service-reviews { margin-top: 32px; }
+.blend .service-reviews > h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 40px);
+  line-height: 1.05;
+  margin: 0 0 4px;
+}
+.blend .service-reviews ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.blend .service-reviews li {
+  padding: 18px 20px;
+  background: var(--paper);
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgb(47 58 39 / 0.08);
+}
+.blend .service-reviews .stars { margin: 0; color: var(--mustard); letter-spacing: 0.1em; }
+.blend .service-reviews h3 {
+  margin: 6px 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.1;
+}
+.blend .service-reviews p { margin: 0; font-size: 15px; line-height: 1.5; }
+.blend .service-reviews .review-author { margin-top: 10px; font-size: 13px; opacity: 0.8; }
+.blend .gift-page .service-photos .shine:first-child img { aspect-ratio: 3 / 2; }
+.blend .gift-cta { margin-top: 18px; }
+
+.blend .ig-kicker {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.blend .ig-block { margin-top: 36px; }
+.blend .ig-block > h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(30px, 3.2vw, 40px);
+  line-height: 1.05;
+  margin: 0 0 8px;
+}
+.blend .ig-lead { margin: 0; max-width: 40rem; }
+.blend .ig-levels { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 16px; }
+.blend .ig-levels h3 {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.1;
+}
+.blend .ig-page .services { margin-top: 16px; }
+.blend .ig-page .service-reviews ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.blend .ig-offer-list { margin: 12px 0 0; padding-left: 1.2em; max-width: 46rem; line-height: 1.55; }
+.blend .ig-offer-list li + li { margin-top: 6px; }
+.blend .ig-note { margin: 14px 0 0; }
+.blend .ig-note a { display: inline-block; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+.blend .ig-end { margin-top: 32px; }
 .blend .service-faq { margin-top: 32px; max-width: 46rem; }
 .blend .service-faq details {
   border-top: 1px solid var(--line);
@@ -177,7 +246,10 @@
 
 @media (max-width: 900px) {
   .blend .service-intro { grid-template-columns: 1fr; }
-  .blend .service-points { grid-template-columns: 1fr; }
+  .blend .service-points,
+  .blend .service-reviews ul,
+  .blend .ig-page .service-reviews ul { grid-template-columns: 1fr; }
+  .blend .ig-levels { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 700px) {
   .site-notice { font-size: 13px; padding: 9px 46px 9px 14px; }

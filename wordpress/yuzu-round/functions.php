@@ -30,14 +30,14 @@ add_action('after_setup_theme', static function () {
 add_action('after_switch_theme', static function () {
     try {
         yuzu_round_seed_pages();
-        update_option('yuzu_round_seed', 'v4-service-pages');
+        update_option('yuzu_round_seed', 'v5-gift-instagram');
     } catch (Throwable $e) {
         // Page setup must not take the salon or wp-admin down.
     }
 });
 
 add_action('init', static function () {
-    if (!function_exists('get_option') || get_option('yuzu_round_seed') === 'v4-service-pages') {
+    if (!function_exists('get_option') || get_option('yuzu_round_seed') === 'v5-gift-instagram') {
         return;
     }
     try {
@@ -45,7 +45,7 @@ add_action('init', static function () {
         if (function_exists('flush_rewrite_rules')) {
             flush_rewrite_rules(false);
         }
-        update_option('yuzu_round_seed', 'v4-service-pages');
+        update_option('yuzu_round_seed', 'v5-gift-instagram');
     } catch (Throwable $e) {
         // Page setup must not take the salon or wp-admin down.
     }
@@ -202,6 +202,8 @@ function yuzu_round_pages(): array
         'hair-colour-ealing' => ['title' => 'Hair colour in Ealing', 'file' => 'hair-colour-ealing.html'],
         'balayage-ealing' => ['title' => 'Balayage in Ealing', 'file' => 'balayage-ealing.html'],
         'hair-smoothing-ealing' => ['title' => 'Hair smoothing in Ealing', 'file' => 'hair-smoothing-ealing.html'],
+        'gift-cards' => ['title' => 'Gift cards', 'file' => 'gift-cards.html'],
+        'instagram' => ['title' => 'New to YUZU hair', 'file' => 'instagram.html', 'sitemap' => false],
     ];
 }
 
@@ -339,6 +341,8 @@ function yuzu_round_render(string $file): void
             // Bad salon details must not take the page down.
         }
     }
+
+    $html = preg_replace('/\s*<meta name="robots" content="noindex" data-yuzu-template \/>/', '', $html, 1) ?? $html;
 
     $base = trailingslashit(yuzu_round_static_uri());
     if (function_exists('yuzu_round_rewrite_public_urls')) {

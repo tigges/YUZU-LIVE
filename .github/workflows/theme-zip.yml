@@ -1,0 +1,54 @@
+name: Theme zip
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "wordpress/**"
+      - "scripts/**"
+      - ".github/workflows/theme-zip.yml"
+  pull_request:
+    paths:
+      - "site/**"
+      - "wordpress/**"
+      - "scripts/**"
+      - ".github/workflows/theme-zip.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Lint theme PHP
+        run: find wordpress/yuzu-round functions.php render.php -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Build pages and pack the theme
+        run: bash scripts/pack-theme.sh
+
+      - name: Pages are up to date with partials and bundles
+        run: git diff --exit-code -- site
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yuzu-round
+          path: wordpress/yuzu-round.zip
+
+      - name: Publish to the theme-latest release
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view theme-latest >/dev/null 2>&1; then
+            gh release create theme-latest --title "Yuzu Round theme (latest main)" --notes "Built automatically from main. Upload this zip in WordPress under Appearance → Themes → Add New → Upload Theme." --latest
+          fi
+          gh release upload theme-latest wordpress/yuzu-round.zip --clobber

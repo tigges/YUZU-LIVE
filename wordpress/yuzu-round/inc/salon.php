@@ -39,6 +39,8 @@ function yuzu_round_salon_default(): array
         'auto_days' => 21,
         'rating' => ['value' => '4.5', 'count' => '217'],
         'analytics' => ['provider' => 'none', 'id' => ''],
+        'jobs' => ['on' => true, 'posted' => '2026-10-01', 'pay_min' => '', 'pay_max' => '', 'pay_unit' => 'YEAR'],
+        'gift_url' => '',
     ];
 }
 
@@ -163,6 +165,25 @@ function yuzu_round_salon_sanitize(mixed $input): array
         $id = '';
     }
     $out['analytics'] = ['provider' => $provider, 'id' => $id];
+
+    $jobs = is_array($in['jobs'] ?? null) ? $in['jobs'] : [];
+    $pay = static fn ($raw): string => preg_match('/^\d{1,6}(\.\d{1,2})?$/', str_replace([',', '£', ' '], '', (string) $raw)) === 1
+        ? str_replace([',', '£', ' '], '', (string) $raw)
+        : '';
+    $min = $pay($jobs['pay_min'] ?? '');
+    $max = $pay($jobs['pay_max'] ?? '');
+    if ($min !== '' && $max !== '' && (float) $max < (float) $min) {
+        [$min, $max] = [$max, $min];
+    }
+    $out['jobs'] = [
+        'on' => !empty($jobs['on']),
+        'posted' => yuzu_round_salon_date($jobs['posted'] ?? '') ?: $default['jobs']['posted'],
+        'pay_min' => $min,
+        'pay_max' => $max,
+        'pay_unit' => ($jobs['pay_unit'] ?? '') === 'HOUR' ? 'HOUR' : 'YEAR',
+    ];
+    $gift = yuzu_round_salon_link($in['gift_url'] ?? '');
+    $out['gift_url'] = str_starts_with($gift, 'https://') ? $gift : '';
 
     return $out;
 }
@@ -564,6 +585,10 @@ function yuzu_round_salon_apply_data(string $html, string $file, array $data): s
     if (basename($file) === 'index.html') {
         $html = yuzu_round_salon_apply_schema($html, $data);
     }
+    if (basename($file) === 'team.html') {
+        $html = yuzu_round_salon_apply_jobs($html, $data);
+    }
+    $html = yuzu_round_salon_apply_gift($html, $data);
 
     $head = yuzu_round_salon_head_html($data);
     if ($head !== '') {
@@ -575,6 +600,65 @@ function yuzu_round_salon_apply_data(string $html, string $file, array $data): s
         $html = preg_replace_callback('/<body[^>]*>/', static fn ($m) => $m[0] . $notice, $html, 1) ?? $html;
     }
     return $html;
+}
+
+/** Google job listings follow the Careers settings: dates, pay, or none at all. */
+function yuzu_round_salon_apply_jobs(string $html, array $data): string
+{
+    $pattern = '/\s*<script type="application\/ld\+json">\s*(\[(?:(?!<\/script>).)*?"JobPosting"(?:(?!<\/script>).)*?\])\s*<\/script>/s';
+    if (!preg_match($pattern, $html, $m)) {
+        return $html;
+    }
+    $jobs = $data['jobs'];
+    if (!$jobs['on']) {
+        return str_replace($m[0], '', $html);
+    }
+    $list = json_decode($m[1], true);
+    if (!is_array($list)) {
+        return $html;
+    }
+    $posted = DateTimeImmutable::createFromFormat('!Y-m-d', $jobs['posted'], new DateTimeZone('Europe/London'));
+    foreach ($list as $i => $job) {
+        if (!is_array($job)) {
+            continue;
+        }
+        $job['datePosted'] = $jobs['posted'];
+        if ($posted instanceof DateTimeImmutable) {
+            $job['validThrough'] = $posted->modify('+90 days')->format('Y-m-d') . 'T23:59:00+00:00';
+        }
+        unset($job['baseSalary']);
+        if ($jobs['pay_min'] !== '') {
+            $value = ['@type' => 'QuantitativeValue', 'unitText' => $jobs['pay_unit']];
+            if ($jobs['pay_max'] !== '') {
+                $value['minValue'] = (float) $jobs['pay_min'];
+                $value['maxValue'] = (float) $jobs['pay_max'];
+            } else {
+                $value['value'] = (float) $jobs['pay_min'];
+            }
+            $job['baseSalary'] = ['@type' => 'MonetaryAmount', 'currency' => 'GBP', 'value' => $value];
+        }
+        $list[$i] = $job;
+    }
+    $json = json_encode($list, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
+    if (!is_string($json)) {
+        return $html;
+    }
+    return str_replace($m[1], $json, $html);
+}
+
+/** Gift card buttons call the salon until an online gift card link is saved. */
+function yuzu_round_salon_apply_gift(string $html, array $data): string
+{
+    if ($data['gift_url'] === '' || !str_contains($html, 'data-yuzu-gift')) {
+        return $html;
+    }
+    $url = yuzu_round_salon_esc($data['gift_url']);
+    return preg_replace_callback('/<a ([^>]*?)data-yuzu-gift([^>]*)>(.*?)<\/a>/s', static function (array $m) use ($url): string {
+        $attrs = preg_replace('/\s(href|target|rel)="[^"]*"/', '', ' ' . $m[1] . $m[2]) ?? '';
+        $attrs = preg_replace('/\s+/', ' ', $attrs) ?? $attrs;
+        $label = preg_match('/data-gift-online="([^"]*)"/', $m[0], $l) === 1 ? $l[1] : 'Buy a gift card online';
+        return '<a' . rtrim($attrs) . ' data-yuzu-gift href="' . $url . '" target="_blank" rel="noopener">' . $label . '<span class="vh"> (opens in a new tab)</span></a>';
+    }, $html) ?? $html;
 }
 
 function yuzu_round_salon_apply(string $html, string $file): string
@@ -674,6 +758,20 @@ function yuzu_round_salon_admin_page(): void
     echo '</select></p>';
     echo '<p><label for="yuzu-analytics-id"><strong>Domain or token</strong></label><br /><input id="yuzu-analytics-id" type="text" class="regular-text" name="yuzu_salon[analytics][id]" value="' . esc_attr($a['id']) . '" /></p>';
     echo '</div></section>';
+
+    $j = $data['jobs'];
+    echo '<section class="yuzu-box"><h2>Careers on Google</h2>';
+    echo '<p class="description">The Senior Stylist and Stylist jobs on the Join our team page can appear in Google job search. Google hides a listing 90 days after the date posted, so change the date to today when you advertise again. Untick when you are not hiring.</p>';
+    echo '<p><label><input type="checkbox" name="yuzu_salon[jobs][on]" value="1"' . checked($j['on'], true, false) . ' /> We are hiring: show the jobs to Google</label></p><div class="yuzu-grid">';
+    echo '<p><label for="yuzu-jobs-posted"><strong>Date posted</strong></label><br /><input id="yuzu-jobs-posted" type="date" name="yuzu_salon[jobs][posted]" value="' . esc_attr($j['posted']) . '" /></p>';
+    echo '<p><label for="yuzu-jobs-min"><strong>Pay from (£, optional)</strong></label><br /><input id="yuzu-jobs-min" type="text" inputmode="decimal" class="small-text" name="yuzu_salon[jobs][pay_min]" value="' . esc_attr($j['pay_min']) . '" /> ';
+    echo '<label for="yuzu-jobs-max">to</label> <input id="yuzu-jobs-max" type="text" inputmode="decimal" class="small-text" name="yuzu_salon[jobs][pay_max]" value="' . esc_attr($j['pay_max']) . '" /> ';
+    echo '<select name="yuzu_salon[jobs][pay_unit]" aria-label="Pay per"><option value="YEAR"' . selected($j['pay_unit'], 'YEAR', false) . '>per year</option><option value="HOUR"' . selected($j['pay_unit'], 'HOUR', false) . '>per hour</option></select></p>';
+    echo '</div><p class="description">Listings with pay get more clicks in Google. Leave it empty if you prefer not to say.</p></section>';
+
+    echo '<section class="yuzu-box"><h2>Gift cards</h2>';
+    echo '<p class="description">Paste the link to your Phorest online gift cards (Phorest → Online Store / Gift Cards). Until then, the gift card buttons ask people to call the salon.</p>';
+    echo '<p><label for="yuzu-gift-url"><strong>Online gift card link</strong></label><br /><input id="yuzu-gift-url" type="url" class="large-text" placeholder="https://" name="yuzu_salon[gift_url]" value="' . esc_attr($data['gift_url']) . '" /></p></section>';
 
     submit_button('Save salon details');
     echo '</form>';

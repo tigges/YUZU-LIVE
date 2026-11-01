@@ -199,6 +199,46 @@ function yuzu_round_copy_catalog(): array
             ],
         ],
         ...$service_pages,
+        'gift-cards' => [
+            'menu' => 'Gift cards',
+            'file' => 'gift-cards.html',
+            'fields' => [
+                $line('gift-title', 'Page heading', 'Page'),
+                $paragraph('gift-intro', 'Introduction', 'Page'),
+                $paragraph('gift-p1', 'How to buy', 'Page'),
+                $paragraph('gift-p2', 'Second paragraph', 'Page'),
+                $line('gift-point-1-title', 'Heading', 'Idea 1'),
+                $paragraph('gift-point-1-text', 'Text', 'Idea 1'),
+                $line('gift-point-2-title', 'Heading', 'Idea 2'),
+                $paragraph('gift-point-2-text', 'Text', 'Idea 2'),
+                $line('gift-point-3-title', 'Heading', 'Idea 3'),
+                $paragraph('gift-point-3-text', 'Text', 'Idea 3'),
+            ],
+        ],
+        'instagram' => [
+            'menu' => 'Instagram page',
+            'file' => 'instagram.html',
+            'fields' => [
+                $line('ig-kicker', 'Label', 'Page'),
+                $line('ig-title', 'Page heading', 'Page'),
+                $paragraph('ig-intro', 'Introduction', 'Page'),
+                $line('ig-levels-title', 'Heading', 'Stylist levels'),
+                $paragraph('ig-levels-intro', 'Introduction', 'Stylist levels'),
+                $line('ig-level-1-title', 'Level 1', 'Stylist levels'),
+                $paragraph('ig-level-1-text', 'Level 1 text', 'Stylist levels'),
+                $line('ig-level-2-title', 'Level 2', 'Stylist levels'),
+                $paragraph('ig-level-2-text', 'Level 2 text', 'Stylist levels'),
+                $line('ig-level-3-title', 'Level 3', 'Stylist levels'),
+                $paragraph('ig-level-3-text', 'Level 3 text', 'Stylist levels'),
+                $line('ig-level-4-title', 'Level 4', 'Stylist levels'),
+                $paragraph('ig-level-4-text', 'Level 4 text', 'Stylist levels'),
+                $line('ig-prices-title', 'Heading', 'Prices'),
+                $line('ig-offers-title', 'Heading', 'Offers'),
+                $paragraph('ig-offer-1', 'First offer', 'Offers'),
+                $paragraph('ig-offer-2', 'Second offer', 'Offers'),
+                $paragraph('ig-offer-3', 'Third offer', 'Offers'),
+            ],
+        ],
         'privacy' => [
             'menu' => 'Privacy',
             'file' => 'privacy.html',
@@ -476,6 +516,25 @@ function yuzu_round_copy_rename_gallery_heading(): void
     if (isset($stored['about']['about-p2']) && !str_contains((string) $stored['about']['about-p2'], 'Ealing Town Hall')) {
         $stored['about']['about-p2'] = 'Located in Dickens Yard behind Ealing Town Hall, a 4-minute walk from Ealing Broadway station (Elizabeth, Central and District lines) with Dickens Yard underground car park right below the courtyard. Open {hours}. Guests describe the room as calm, and one Google review calls Jasmine “a brilliant artist working in hair”.';
         $changed = true;
+    }
+    $renamed = [
+        ['about', 'about-title', 'About', 'About YUZU hair, Dickens Yard'],
+        ['questions', 'questions-title', 'Questions', 'Salon questions'],
+        ['contact', 'contact-title', 'Send a message', 'Contact YUZU hair'],
+        ['haircut-ealing', 'haircut-ealing-point-1-title', 'Wash, cut and style', 'Ladies’ cut and style'],
+        ['haircut-ealing', 'haircut-ealing-point-1-text', 'Consultation, wash, cut and a finished blow-dry, for every length.', 'Consultation, wash, cut and a finished blow-dry for every length, or a blow-dry on its own.'],
+        ['haircut-ealing', 'haircut-ealing-point-2-title', 'Gents and children', 'Gents’ cuts and fades'],
+        ['haircut-ealing', 'haircut-ealing-point-2-text', 'Clipper work, fades and scissor cuts for gents, plus kids and teens.', 'Skin fades, clipper work and scissor cuts for men, from a quick tidy-up to a full restyle.'],
+        ['haircut-ealing', 'haircut-ealing-point-3-title', 'Blow-dries', 'Kids’ and teens’ haircuts'],
+        ['haircut-ealing', 'haircut-ealing-point-3-text', 'A blow-dry on its own, or four for a set price with our package.', 'Relaxed, patient cuts for children and teenagers, with the same consultation as every guest.'],
+        ['hair-smoothing-ealing', 'hair-smoothing-ealing-point-1-text', 'Our three to six month smoothing treatment, formaldehyde and ammonia free.', 'A three to six month alternative to a keratin treatment, formaldehyde and ammonia free.'],
+        ['hair-smoothing-ealing', 'hair-smoothing-ealing-p1', 'Aura smoothing calms frizz and cuts drying time while keeping movement in the hair. It is priced by length, from short to long, with an upgrade that lasts longer.', 'Looking for a keratin treatment? Aura smoothing calms frizz and cuts drying time while keeping movement in the hair, without formaldehyde. It is priced by length, from short to long, with an upgrade that lasts longer.'],
+    ];
+    foreach ($renamed as [$page, $key, $old, $new]) {
+        if (($stored[$page][$key] ?? null) === $old) {
+            $stored[$page][$key] = $new;
+            $changed = true;
+        }
     }
     $fixed_hours = [
         ['about', 'about-p2', 'Open Tuesday to Friday 10am to 8pm and Saturday 9am to 6pm.', 'Open {hours}.'],

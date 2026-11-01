@@ -120,14 +120,6 @@ function yuzu_round_robots_txt(): string
         'Disallow: /wp-admin/',
         'Allow: /wp-admin/admin-ajax.php',
         'Disallow: /review',
-        'Disallow: /wp-content/themes/yuzu-round/static/',
-        'Allow: /wp-content/themes/yuzu-round/static/assets/',
-        'Allow: /wp-content/themes/yuzu-round/static/css/',
-        'Allow: /wp-content/themes/yuzu-round/static/js/',
-        'Allow: /wp-content/themes/yuzu-round/static/fonts/',
-        'Allow: /wp-content/themes/yuzu-round/static/versions/',
-        'Allow: /wp-content/themes/yuzu-round/static/favicon.svg',
-        'Allow: /wp-content/themes/yuzu-round/wordpress/yuzu-round/static/',
         '',
         'Sitemap: ' . $sitemap,
         '',
@@ -252,6 +244,9 @@ function yuzu_round_sitemap_xml(): string
     $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
     foreach (yuzu_round_pages() as $slug => $page) {
+        if (($page['sitemap'] ?? true) === false) {
+            continue;
+        }
         $url = $slug === 'home' ? 'https://yuzu.hair/' : 'https://yuzu.hair/' . $slug . '/';
         $stamp = 0;
         if ($static !== '' && is_file($static . '/' . $page['file'])) {

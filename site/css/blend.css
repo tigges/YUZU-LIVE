@@ -202,6 +202,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  padding: 6px 0;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -687,7 +688,9 @@
   .blend .visit-stack-ctas { margin: 12px 0; }
   .blend .visit-book .socials { justify-content: flex-start; }
   .blend .visit .legal { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .blend .legal-links { text-align: left; }
+  .blend .legal-links { display: flex; flex-wrap: wrap; gap: 0 20px; text-align: left; font-size: 15px; }
+  .blend .legal-links .dot { display: none; }
+  .blend .legal-links a { display: inline-block; padding: 7px 0; }
   .chairs { padding-left: 0; }
   .price-note { margin-left: 0; }
 }

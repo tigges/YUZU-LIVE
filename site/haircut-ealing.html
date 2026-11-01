@@ -2,6 +2,7 @@
 <html lang="en-GB">
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex" data-yuzu-template />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Haircuts in Ealing Broadway | Ladies, Gents &amp; Kids | YUZU hair</title>
     <meta name="description" content="Ladies, gents and children’s haircuts at YUZU hair, Dickens Yard, Ealing W5. Choose a Creative Director, Senior Stylist, Stylist or Junior Stylist. Book online." />
@@ -26,7 +27,7 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-500.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400.woff2" crossorigin />
-    <link rel="stylesheet" href="css/yuzu.css?v=96b85ba745" />
+    <link rel="stylesheet" href="css/yuzu.css?v=2ec90b1dd4" />
 <!-- /@include -->
     <script type="application/ld+json">
       {
@@ -121,7 +122,7 @@
 <!-- @include header -->
   <header class="fx-bar">
     <a class="logo-home" href="index.html">
-      <img src="assets/img/logo-green.png" alt="YUZU hair" width="480" height="320" />
+      <img src="assets/img/logo-green.png" srcset="assets/img/logo-green-240.png 240w, assets/img/logo-green.png 480w" sizes="114px" alt="YUZU hair" width="480" height="320" />
     </a>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
       <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -136,7 +137,7 @@
   </header>
 <!-- /@include -->
   <main id="main" class="section sub-main service-page">
-    <a class="blend-back" href="prices.html#cut" data-back>← Price list</a>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true"> › </span><a href="prices.html#cut">Prices</a><span aria-hidden="true"> › </span><span aria-current="page">Haircuts</span></nav>
     <div class="service-intro">
       <div>
         <div class="section-head">
@@ -152,23 +153,23 @@
         </div>
       </div>
       <div class="service-photos">
-        <span class="shine"><img src="assets/img/salon/salon-floor.webp" alt="The salon floor at YUZU hair, Dickens Yard, Ealing, with styling chairs along both walls" width="1086" height="724" loading="eager" decoding="async" /></span>
+        <span class="shine"><img src="assets/img/salon/salon-floor.webp" srcset="assets/img/salon/salon-floor-600.webp 600w, assets/img/salon/salon-floor.webp 1086w" sizes="(max-width: 900px) 92vw, 455px" alt="The salon floor at YUZU hair, Dickens Yard, Ealing, with styling chairs along both walls" width="1086" height="724" loading="eager" decoding="async" /></span>
         <span class="shine"><img src="assets/img/looks/textured-crop.webp" alt="Gents skin fade with long curly top, cut at YUZU hair, Ealing" width="506" height="900" loading="lazy" decoding="async" /></span>
-        <span class="shine"><img src="assets/img/looks/blonde-layers.webp" alt="Soft blonde layered haircut and blow-dry at YUZU hair, Ealing" width="900" height="900" loading="lazy" decoding="async" /></span>
+        <span class="shine"><img src="assets/img/looks/blonde-layers.webp" srcset="assets/img/looks/blonde-layers-600.webp 600w, assets/img/looks/blonde-layers.webp 900w" sizes="(max-width: 900px) 44vw, 221px" alt="Soft blonde layered haircut and blow-dry at YUZU hair, Ealing" width="900" height="900" loading="lazy" decoding="async" /></span>
       </div>
     </div>
     <ul class="service-points">
       <li>
-        <h3 data-yuzu-copy="haircut-ealing-point-1-title">Wash, cut and style</h3>
-        <p data-yuzu-copy="haircut-ealing-point-1-text">Consultation, wash, cut and a finished blow-dry, for every length.</p>
+        <h2 data-yuzu-copy="haircut-ealing-point-1-title">Ladies’ cut and style</h2>
+        <p data-yuzu-copy="haircut-ealing-point-1-text">Consultation, wash, cut and a finished blow-dry for every length, or a blow-dry on its own.</p>
       </li>
       <li>
-        <h3 data-yuzu-copy="haircut-ealing-point-2-title">Gents and children</h3>
-        <p data-yuzu-copy="haircut-ealing-point-2-text">Clipper work, fades and scissor cuts for gents, plus kids and teens.</p>
+        <h2 data-yuzu-copy="haircut-ealing-point-2-title">Gents’ cuts and fades</h2>
+        <p data-yuzu-copy="haircut-ealing-point-2-text">Skin fades, clipper work and scissor cuts for men, from a quick tidy-up to a full restyle.</p>
       </li>
       <li>
-        <h3 data-yuzu-copy="haircut-ealing-point-3-title">Blow-dries</h3>
-        <p data-yuzu-copy="haircut-ealing-point-3-text">A blow-dry on its own, or four for a set price with our package.</p>
+        <h2 data-yuzu-copy="haircut-ealing-point-3-title">Kids’ and teens’ haircuts</h2>
+        <p data-yuzu-copy="haircut-ealing-point-3-text">Relaxed, patient cuts for children and teenagers, with the same consultation as every guest.</p>
       </li>
     </ul>
     <section class="service-prices" aria-labelledby="haircut-ealing-prices">
@@ -176,11 +177,11 @@
     <fieldset class="level-pick">
       <legend>Prices for</legend>
       <div class="level-options">
-        <label><input type="radio" name="level" value="" checked /><span>All<i class="level-tail"> levels</i></span></label>
-        <label><input type="radio" name="level" value="creative" /><span><i class="level-mob" aria-hidden="true">CD</i><i class="level-tail">Creative Director</i></span></label>
-        <label><input type="radio" name="level" value="senior" /><span>Senior<i class="level-tail"> Stylist</i></span></label>
-        <label><input type="radio" name="level" value="stylist" /><span>Stylist</span></label>
-        <label><input type="radio" name="level" value="junior" /><span>Junior<i class="level-tail"> Stylist</i></span></label>
+        <label><input type="radio" name="level" value="" aria-label="All levels" checked /><span>All<i class="level-tail"> levels</i></span></label>
+        <label><input type="radio" name="level" value="creative" aria-label="Creative Director" /><span><i class="level-mob" aria-hidden="true">CD</i><i class="level-tail">Creative Director</i></span></label>
+        <label><input type="radio" name="level" value="senior" aria-label="Senior Stylist" /><span>Senior<i class="level-tail"> Stylist</i></span></label>
+        <label><input type="radio" name="level" value="stylist" aria-label="Stylist" /><span>Stylist</span></label>
+        <label><input type="radio" name="level" value="junior" aria-label="Junior Stylist" /><span>Junior<i class="level-tail"> Stylist</i></span></label>
       </div>
       <p class="level-desc" data-level-desc aria-live="polite">Price ranges from Creative Director (CD) to Junior Stylist.</p>
     </fieldset>
@@ -326,6 +327,24 @@
         <!-- /yuzu-service-prices -->
       </div>
     </section>
+    <section class="service-reviews" aria-labelledby="haircut-ealing-reviews">
+      <h2 id="haircut-ealing-reviews">What guests say</h2>
+      <a class="google-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener"><strong data-yuzu-rating>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true" style="--rating: 4.5">★★★★★</span><span><span data-yuzu-rating-count>217</span> Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
+      <ul>
+        <li>
+          <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+          <h3>“A brilliant artist working in hair”</h3>
+          <p>Jasmine is not just another haircut, but a brilliant artist working in hair.</p>
+          <p class="review-author">Steve · Google review</p>
+        </li>
+        <li>
+          <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+          <h3>“Amazing — focused on every detail”</h3>
+          <p>Listened to my requests and delivered exactly what I wanted. I already booked my follow-up.</p>
+          <p class="review-author">Alexa · Google review</p>
+        </li>
+      </ul>
+    </section>
     <section class="service-faq" aria-labelledby="haircut-ealing-faq">
       <h2 id="haircut-ealing-faq">Questions</h2>
       <details>
@@ -407,7 +426,7 @@
         </ul>
       </div>
     </div>
-    <p class="legal"><span class="kanji-foot">© <span data-year>2026</span> YUZU hair</span><span class="legal-links"><a href="about.html">About</a> · <a href="team.html">Careers</a> · <a href="questions.html">Questions</a> · <a href="patch.html">Patch testing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span></p>
+    <p class="legal"><span class="kanji-foot">© <span data-year>2026</span> YUZU hair</span><span class="legal-links"><a href="about.html">About</a><span class="dot" aria-hidden="true"> · </span><a href="team.html">Careers</a><span class="dot" aria-hidden="true"> · </span><a href="gift-cards.html">Gift cards</a><span class="dot" aria-hidden="true"> · </span><a href="questions.html">Questions</a><span class="dot" aria-hidden="true"> · </span><a href="patch.html">Patch testing</a><span class="dot" aria-hidden="true"> · </span><a href="terms.html">Terms</a><span class="dot" aria-hidden="true"> · </span><a href="privacy.html">Privacy</a></span></p>
   </footer>
   <div class="blend-sticky" data-sticky-book>
     <a class="blend-call" href="tel:+442088402244">Call</a>

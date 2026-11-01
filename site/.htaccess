@@ -1,7 +1,4 @@
 Options -Indexes
-DirectoryIndex index.html index.php
-
-ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
@@ -9,31 +6,24 @@ ErrorDocument 404 /404.html
   Header set X-Frame-Options "SAMEORIGIN"
 </IfModule>
 
+# Direct requests for the theme's HTML copies go to the public page.
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-
-  RewriteCond %{HTTP_HOST} ^www\.(yuzu\.hair|yuzuhair\.com)$ [NC]
-  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
-
-  RewriteCond %{HTTP_HOST} ^(www\.)?yuzuhair\.com$ [NC]
-  RewriteRule ^ https://yuzu.hair%{REQUEST_URI} [R=301,L]
-
-  RewriteCond %{HTTP_HOST} ^(www\.)?yuzuhairandbeauty\.london$ [NC]
-  RewriteRule ^ https://yuzu.hair%{REQUEST_URI} [R=301,L]
-
-  RewriteRule ^price-list\.pdf$ /prices/ [R=301,L]
-  RewriteRule ^patch-testing\.pdf$ /patch/ [R=301,L]
-  RewriteRule ^about/?$ /about.html [L]
-  RewriteRule ^contact/?$ /contact.html [L]
-  RewriteRule ^team/?$ /team.html [L]
-  RewriteRule ^prices/?$ /prices.html [L]
-  RewriteRule ^offers/?$ /offers.html [L]
-  RewriteRule ^questions/?$ /questions.html [L]
-  RewriteRule ^patch/?$ /patch.html [L]
-  RewriteRule ^join-our-team/?$ /team/ [R=301,L]
-  RewriteRule ^terms/?$ /terms.html [L]
-  RewriteRule ^privacy/?$ /privacy.html [L]
-  RewriteRule ^(haircut|hair-colour|balayage|hair-smoothing)-ealing/?$ /$1-ealing.html [L]
+RewriteEngine On
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^prices\.html$ /prices/ [R=301,L]
+RewriteRule ^offers\.html$ /offers/ [R=301,L]
+RewriteRule ^team\.html$ /team/ [R=301,L]
+RewriteRule ^about\.html$ /about/ [R=301,L]
+RewriteRule ^contact\.html$ /contact/ [R=301,L]
+RewriteRule ^questions\.html$ /questions/ [R=301,L]
+RewriteRule ^patch\.html$ /patch/ [R=301,L]
+RewriteRule ^terms\.html$ /terms/ [R=301,L]
+RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
+RewriteRule ^(haircut|hair-colour|balayage|hair-smoothing)-ealing\.html$ /$1-ealing/ [R=301,L]
+RewriteRule ^gift-cards\.html$ /gift-cards/ [R=301,L]
+RewriteRule ^instagram\.html$ /instagram/ [R=301,L]
+RewriteRule ^404\.html$ / [R=301,L]
+RewriteRule ^sitemap\.xml$ /sitemap.xml [R=301,L]
 </IfModule>
 
 <IfModule mod_expires.c>
