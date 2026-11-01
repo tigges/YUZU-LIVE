@@ -83,7 +83,7 @@ function yuzu_round_prices_default(): array
                 ['name' => 'Blending', 'creative' => '£45', 'senior' => '£45', 'stylist' => '£45'],
                 ['name' => 'Colour remover', 'creative' => '£120', 'senior' => '£115', 'stylist' => '£110'],
                 ['name' => 'Pre-lighten full head', 'creative' => '£185', 'senior' => '£165', 'stylist' => '£145'],
-                ['name' => 'Pre-lighten roots', 'creative' => '£155', 'senior' => '£122', 'stylist' => '£110'],
+                ['name' => 'Pre-lighten roots', 'creative' => '£135', 'senior' => '£122', 'stylist' => '£110'],
             ],
             'treatments' => [
                 ['name' => 'Nashi filler express', 'price' => '£35'],
@@ -94,7 +94,7 @@ function yuzu_round_prices_default(): array
                 ['name' => 'K2.0 extra long hair', 'price' => '£80'],
                 ['name' => 'Aura smoothing, 3–4 months, long', 'price' => '£360'],
                 ['name' => 'Aura smoothing, below shoulder', 'price' => '£300'],
-                ['name' => 'Aura smoothing, above shoulder', 'price' => '£230'],
+                ['name' => 'Aura smoothing, above shoulder', 'price' => '£250'],
                 ['name' => 'Aura smoothing, short', 'price' => '£165'],
                 ['name' => 'Aura smoothing, 4–6 months, with shampoo and conditioner', 'price' => '+£175'],
             ],
@@ -873,12 +873,58 @@ function yuzu_round_prices_refresh_stored_blurbs(): void
     }
 }
 
+/**
+ * Corrections to figures that shipped wrong. Each runs once, and only changes
+ * a saved price that still has the old figure.
+ * [id, group, row name, column, old, new]
+ */
+function yuzu_round_prices_corrections(): array
+{
+    return [
+        ['2026-11-aura-above', 'treatments', 'Aura smoothing, above shoulder', 'price', '£230', '£250'],
+        ['2026-11-cd-prelighten-roots', 'highlights', 'Pre-lighten roots', 'creative', '£155', '£135'],
+    ];
+}
+
+function yuzu_round_prices_correct_stored(): void
+{
+    if (!function_exists('get_option') || !function_exists('update_option')) {
+        return;
+    }
+    $done = get_option('yuzu_round_prices_corrected');
+    $done = is_array($done) ? $done : [];
+    $todo = array_filter(yuzu_round_prices_corrections(), static fn ($c) => !in_array($c[0], $done, true));
+    if ($todo === []) {
+        return;
+    }
+    $stored = get_option('yuzu_round_prices');
+    $changed = false;
+    foreach ($todo as [$id, $group, $name, $column, $old, $new]) {
+        $done[] = $id;
+        if (!is_array($stored) || !is_array($stored['groups'][$group] ?? null)) {
+            continue;
+        }
+        foreach ($stored['groups'][$group] as $i => $row) {
+            if (is_array($row) && ($row['name'] ?? '') === $name && ($row[$column] ?? '') === $old) {
+                $stored['groups'][$group][$i][$column] = $new;
+                $changed = true;
+            }
+        }
+    }
+    update_option('yuzu_round_prices_corrected', $done, false);
+    if ($changed) {
+        update_option('yuzu_round_prices', $stored, true);
+        yuzu_round_prices_purge_cache();
+    }
+}
+
 function yuzu_round_prices_apply(string $html, string $file): string
 {
     if (!function_exists('get_option')) {
         return $html;
     }
     yuzu_round_prices_refresh_stored_blurbs();
+    yuzu_round_prices_correct_stored();
     $stored = get_option('yuzu_round_prices');
     if (!is_array($stored)) {
         return $html;
@@ -892,6 +938,7 @@ function yuzu_round_prices_current(): array
     if (!function_exists('get_option')) {
         return $defaults;
     }
+    yuzu_round_prices_correct_stored();
     $stored = get_option('yuzu_round_prices');
     if (!is_array($stored)) {
         return $defaults;
