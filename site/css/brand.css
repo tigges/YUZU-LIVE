@@ -16,7 +16,8 @@
   --olive: #9e9870;
   /* Terracotta */
   --terra: #bb7451;
-  --terra-deep: var(--terra);
+  /* Deeper terracotta for buttons and small text: 5.7:1 with white. */
+  --terra-deep: #9c5236;
 
   /* Light mustard */
   --mustard-light: #c99c4e;

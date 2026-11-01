@@ -95,8 +95,8 @@ body.fx a.fx-ghost {
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-body.fx a.fx-book { background: var(--terra); color: var(--beige); }
-body.fx a.fx-book:hover { background: color-mix(in srgb, var(--terra) 78%, var(--forest)); }
+body.fx a.fx-book { background: var(--terra-deep); color: #fff; }
+body.fx a.fx-book:hover { background: color-mix(in srgb, var(--terra-deep) 80%, var(--forest)); }
 body.fx a.fx-ghost { border: 1px solid currentColor; }
 .fx-bar a.fx-book { min-height: 40px; }
 
