@@ -51,6 +51,7 @@ Do not rebuild the pages in Elementor, Spectra, Kadence or the site editor; they
 - **Page copy**: the words on each page.
 - **Salon details → Instagram photos**: the photos on the Instagram landing page (pick from the Media Library; empty slots keep the theme photo).
 - **Salon details → Site map**: every page, short link and outside link, with where each page is linked from and whether it is on Google. Built from the theme each time it opens.
+- **Reviews & questions**: one list of reviews and one of questions for the whole site; tick the pages each one shows on. Answers can use `{hours}` and `{from:cut}` (or colour, highlights, treatments) so times and prices come from Salon details and Prices.
 
 ## Book, maps, social
 
