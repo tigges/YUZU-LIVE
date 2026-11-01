@@ -25,6 +25,9 @@ if (is_readable(__DIR__ . '/inc/insights.php')) {
 if (is_readable(__DIR__ . '/inc/instagram.php')) {
     require_once __DIR__ . '/inc/instagram.php';
 }
+if (is_readable(__DIR__ . '/inc/map.php')) {
+    require_once __DIR__ . '/inc/map.php';
+}
 
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
