@@ -191,7 +191,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
-.blend .ig-feed { margin-top: 36px; }
+.blend .ig-feed { align-self: start; }
 .blend .ig-feed-head {
   display: flex;
   align-items: center;
@@ -216,8 +216,7 @@
   -webkit-mask: url("../assets/img/art/kanji.webp") no-repeat center / contain;
   mask: url("../assets/img/art/kanji.webp") no-repeat center / contain;
 }
-.blend .ig-feed-head h2 { margin: 0; font-size: 18px; font-weight: 600; }
-.blend .ig-feed-head h2 a { text-decoration: none; }
+.blend .ig-handle { margin: 0; font-size: 17px; font-weight: 600; }
 .blend .ig-feed-head p { margin: 2px 0 0; font-size: 14px; opacity: 0.8; }
 .blend .ig-grid {
   display: grid;
@@ -227,17 +226,13 @@
   padding: 0;
   list-style: none;
 }
-.blend .ig-grid a { display: block; overflow: hidden; }
 .blend .ig-grid img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
-.blend .ig-grid a:hover img,
-.blend .ig-grid a:focus-visible img { transform: scale(1.04); }
 .blend .ig-block { margin-top: 36px; }
 .blend .ig-block > h2 {
   font-family: var(--serif);
