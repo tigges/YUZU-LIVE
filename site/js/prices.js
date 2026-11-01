@@ -54,6 +54,31 @@
     junior: 'Junior Stylist: newly qualified, under senior guidance.',
   };
   var panelCut = board.querySelector('.panel-cut');
+  var booked = board.querySelectorAll('[data-book]');
+  var levelName = { creative: 'Creative Director', senior: 'Senior Stylist', stylist: 'Stylist', junior: 'Junior Stylist' };
+
+  function syncBook(level) {
+    booked.forEach(function (row) {
+      var link = row.querySelector('.row-book') || row.querySelector('.price-book');
+      if (!link) return;
+      if (!link.dataset.href) {
+        link.dataset.href = link.getAttribute('href');
+        link.dataset.label = link.getAttribute('aria-label') || '';
+      }
+      var href = level ? JSON.parse(row.dataset.book)[level] : '';
+      var fig = row.querySelector('.price-fig');
+      var price = !level ? '' : row.dataset.levels ? JSON.parse(row.dataset.levels)[level] : fig ? fig.textContent.trim() : '';
+      if (link.classList.contains('row-book')) link.hidden = !(href && price);
+      if (href) {
+        var name = (row.querySelector('.price-name') || {}).firstChild;
+        link.setAttribute('href', href);
+        link.setAttribute('aria-label', 'Book ' + (name ? name.textContent.trim() : '') + ' with a ' + levelName[level] + (price ? ', ' + price : '') + ' (opens Phorest in a new tab)');
+      } else {
+        link.setAttribute('href', link.dataset.href);
+        link.setAttribute('aria-label', link.dataset.label);
+      }
+    });
+  }
 
   function syncCutOpen() {
     if (board.hasAttribute('data-level')) return;
@@ -80,6 +105,7 @@
       if (level && row.tagName === 'DETAILS') row.open = false;
     });
     if (!level) syncCutOpen();
+    syncBook(level);
     if (desc) desc.textContent = text[level];
   }
 
@@ -165,6 +191,7 @@
   }
 
   board.addEventListener('click', function (e) {
+    if (e.target.closest('a')) return;
     if (board.hasAttribute('data-level') && e.target.closest('.price-row[data-levels] > summary')) e.preventDefault();
   });
 })();

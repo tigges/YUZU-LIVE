@@ -4,6 +4,8 @@
  * the figures and the renderer drops them into the existing tables.
  */
 
+require_once __DIR__ . '/phorest.php';
+
 function yuzu_round_prices_catalog(): array
 {
     $chairs = [
@@ -314,40 +316,65 @@ function yuzu_round_prices_blend_title(string $label): string
     return ucwords($label);
 }
 
+/** The ↗ link that opens Phorest on one price. */
+function yuzu_round_prices_book_link(string $href, string $what, string $display, string $class = 'price-book', bool $hidden = false): string
+{
+    $e = 'yuzu_round_prices_esc';
+    $price = $display === '' ? '' : ' data-price="' . $e($display) . '"';
+    $label = 'Book ' . $what . ($display === '' ? '' : ', ' . $display) . ' (opens Phorest in a new tab)';
+    return '<a class="' . $class . '" href="' . $e($href) . '" target="_blank" rel="noopener" data-place="price-list"' . $price
+        . ' aria-label="' . $e($label) . '"' . ($hidden ? ' hidden' : '') . '><span aria-hidden="true">↗</span></a>';
+}
+
 /**
- * One Blend row from a list of [label, display] pairs. $levels maps the
- * chair key to its display price for the level switch, or is empty.
+ * One Blend row from a list of [label, display, href, what] pairs. $levels
+ * maps the chair key to its display price for the level switch, or is empty;
+ * $book maps the same keys to the Phorest link for that level.
  */
-function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, float $scale, string $only = '', string $note = '', bool $open = false, string $who = ''): string
+function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, float $scale, string $only = '', string $note = '', bool $open = false, string $who = '', array $book = []): string
 {
     $e = 'yuzu_round_prices_esc';
     $data = $levels === [] ? '' : " data-levels='" . $e((string) json_encode($levels, JSON_UNESCAPED_UNICODE)) . "'";
+    $data .= $book === [] ? '' : " data-book='" . $e((string) json_encode($book, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) . "'";
     $who_attr = $who === '' ? '' : ' data-who="' . $e($who) . '"';
     $open_attr = $open ? ' open' : '';
     $numbers = array_values(array_filter(array_map(static fn ($p) => yuzu_round_prices_number($p[1]), $pairs), static fn ($n) => $n !== null));
+    $link = static function (array $pair, string $class = 'price-book', bool $hidden = false) use ($name): string {
+        if (($pair[2] ?? '') === '') {
+            return '';
+        }
+        return yuzu_round_prices_book_link((string) $pair[2], (string) ($pair[3] ?? $name), (string) $pair[1], $class, $hidden);
+    };
     if (count($pairs) === 1) {
         $small = $only === '' ? '' : '<small>' . $e($only) . '</small>';
+        $book_link = $link($pairs[0]);
         return "          <div class=\"price-row price-single\"{$who_attr}{$data}>\n"
             . '            <span class="price-name">' . $e($name) . $small . "</span>\n"
             . '            <span class="price-fig">' . $e($pairs[0][1]) . "</span>\n"
+            . ($book_link === '' ? '' : '            ' . $book_link . "\n")
             . "          </div>\n";
     }
     $min = $numbers === [] ? 0 : min($numbers);
     $max = $numbers === [] ? 0 : max($numbers);
     $range = $min === $max ? yuzu_round_prices_money($max) : yuzu_round_prices_money($min) . '–' . yuzu_round_prices_money($max);
+    $row_book = $book === [] ? '' : '              ' . yuzu_round_prices_book_link(yuzu_round_phorest_base(), $name, '', 'price-book row-book', true) . "\n";
     $html = "          <details class=\"price-row\"{$who_attr}{$open_attr}{$data}>\n"
         . "            <summary>\n"
         . '              <span class="price-name">' . $e($name) . "</span>\n"
         . '              <span class="price-fig">' . $e($range) . "</span>\n"
         . "              <span class=\"chev\" aria-hidden=\"true\"></span>\n"
+        . $row_book
         . "            </summary>\n"
         . "            <ul class=\"chairs\">\n";
-    foreach ($pairs as [$label, $display]) {
+    foreach ($pairs as $pair) {
+        [$label, $display] = $pair;
         $width = $scale > 0 ? round((yuzu_round_prices_number($display) ?? 0) / $scale * 100, 1) : 0;
+        $book_link = $link($pair);
         $html .= "              <li>\n"
             . '                <span>' . $e($label) . "</span>\n"
             . '                <span class="track" aria-hidden="true"><span class="fill" style="--x:0%;--w:' . $width . "%\"></span></span>\n"
             . '                <span class="price-fig">' . $e($display) . "</span>\n"
+            . ($book_link === '' ? '' : '                ' . $book_link . "\n")
             . "              </li>\n";
     }
     $html .= "            </ul>\n";
@@ -357,27 +384,36 @@ function yuzu_round_prices_blend_row(string $name, array $pairs, array $levels, 
     return $html . "          </details>\n";
 }
 
-function yuzu_round_prices_blend_table_row(array $row, array $columns, float $scale, bool $open = false, string $who = ''): string
+/** $row['key'] is the stored price list name when the shown name differs. */
+function yuzu_round_prices_blend_table_row(array $row, array $columns, float $scale, bool $open = false, string $who = '', string $group = ''): string
 {
+    $name = (string) $row['name'];
+    $key_name = (string) ($row['key'] ?? $name);
     $pairs = [];
     $levels = [];
+    $book = [];
     foreach ($columns as $key => $column) {
         $display = (string) ($row[$key] ?? '—');
         if ($display === '—') {
             continue;
         }
-        $pairs[] = [yuzu_round_prices_blend_title($column['label']), $display];
+        $href = $group === '' ? '' : yuzu_round_phorest_book($group, $key_name, $key);
+        $pairs[] = [yuzu_round_prices_blend_title($column['label']), $display, $href, $name . ' with a ' . yuzu_round_prices_blend_title($column['label'])];
         $levels[$key] = $display;
+        if ($href !== '') {
+            $book[$key] = $href;
+        }
     }
     if ($pairs === []) {
         return '';
     }
     $same = count(array_unique(array_column($pairs, 1))) === 1;
     if ($same && count($pairs) === count($columns)) {
-        return yuzu_round_prices_blend_row((string) $row['name'], [['Any stylist', $pairs[0][1]]], [], $scale, '', '', $open, $who);
+        $any = ['Any stylist', $pairs[0][1], $group === '' ? '' : yuzu_round_phorest_base(), $name];
+        return yuzu_round_prices_blend_row($name, [$any], [], $scale, '', '', $open, $who, $book);
     }
     $only = count($pairs) === 1 ? $pairs[0][0] . ' only' : '';
-    return yuzu_round_prices_blend_row((string) $row['name'], $pairs, $levels, $scale, $only, '', $open, $who);
+    return yuzu_round_prices_blend_row($name, $pairs, $levels, $scale, $only, '', $open, $who, $book);
 }
 
 function yuzu_round_prices_blend_scale(array $rows, array $keys): float
@@ -440,6 +476,7 @@ function yuzu_round_prices_blend_cut_rows(array $rows): array
     foreach ($rows as $row) {
         $name = (string) ($row['name'] ?? '');
         if (isset($rename[$name])) {
+            $row['key'] = $name;
             $row['name'] = $rename[$name];
         }
         $mapped[] = $row;
@@ -513,7 +550,7 @@ function yuzu_round_prices_blend_panels(array $data, string $patch_href = '../pa
         $extra = '';
         foreach ($rows as $index => $row) {
             $extra_row = $is_extra((string) $row['name'], $index);
-            $html = yuzu_round_prices_blend_table_row($row, $columns, $scale, !$extra_row);
+            $html = yuzu_round_prices_blend_table_row($row, $columns, $scale, !$extra_row, '', $id);
             if ($extra_row) {
                 $extra .= $html;
             } else {
@@ -535,7 +572,7 @@ function yuzu_round_prices_blend_panels(array $data, string $patch_href = '../pa
     $cut_body = $cut_filter;
     foreach ($cut_rows as $row) {
         $who = yuzu_round_prices_blend_cut_who((string) $row['name']);
-        $cut_body .= yuzu_round_prices_blend_table_row($row, $cut_columns, $cut_scale, $who === 'ladies', $who);
+        $cut_body .= yuzu_round_prices_blend_table_row($row, $cut_columns, $cut_scale, $who === 'ladies', $who, 'cut');
     }
     $cut_body .= yuzu_round_prices_blend_packages($packages['cut'], 'ladies');
     $out = ['cut' => $panel('cut', $cut_body, ' data-who="ladies"')];
@@ -563,7 +600,7 @@ function yuzu_round_prices_blend_panels(array $data, string $patch_href = '../pa
             if (str_starts_with($price, '+')) {
                 $note = 'Upgrade to ' . $m[1] . ': ' . $price . '.';
             } else {
-                $aura[] = [ucfirst($m[1]), $price];
+                $aura[] = [ucfirst($m[1]), $price, yuzu_round_phorest_book('treatments', $name, 'price'), 'Aura smoothing, ' . $m[1]];
             }
             continue;
         }
@@ -576,7 +613,7 @@ function yuzu_round_prices_blend_panels(array $data, string $patch_href = '../pa
     }
     $rows = '';
     foreach ($others as $row) {
-        $rows .= yuzu_round_prices_blend_row((string) $row['name'], [['', (string) $row['price']]], [], 0);
+        $rows .= yuzu_round_prices_blend_row((string) $row['name'], [['', (string) $row['price'], yuzu_round_phorest_book('treatments', (string) $row['name'], 'price'), (string) $row['name']]], [], 0);
     }
     $body .= yuzu_round_prices_blend_more('Fillers and K2.0', $rows, true);
     $out['treat'] = $panel('treat', $body);

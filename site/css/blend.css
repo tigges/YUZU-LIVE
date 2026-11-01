@@ -964,6 +964,31 @@
 .price-board[data-level] .price-row[data-levels] > summary .chev { visibility: hidden; }
 .price-board[data-level] .price-row[data-levels] > .chairs { display: none; }
 .price-row.is-missing { opacity: 0.45; }
+.price-row > summary,
+.price-single,
+.chairs li { position: relative; }
+.price-book { color: inherit; text-decoration: none; }
+.price-book::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 6px; }
+.price-book > span {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 18px;
+  margin-top: -0.6em;
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: center;
+  opacity: 0.5;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+.chairs li > .price-book::after { right: -42px; }
+.chairs li > .price-book > span { right: -42px; }
+.price-book:hover::after { background: color-mix(in srgb, var(--forest) 6%, transparent); }
+.price-book:hover > span,
+.price-book:focus-visible > span { opacity: 1; color: var(--terra-deep); }
+.price-book:focus { outline: none; }
+.price-book:focus-visible::after { outline: 2px solid var(--forest); outline-offset: 2px; }
+.price-row.is-missing .price-book { display: none; }
 
 @media (max-width: 700px) {
   .level-tail { display: none; }
@@ -986,6 +1011,8 @@
   .packages li { padding-right: 34px; }
   .chairs li > span:first-child { flex: 0 0 126px; }
   .chairs .track { min-width: 48px; }
+  .chairs li > .price-book::after,
+  .chairs li > .price-book > span { right: -34px; }
 }
 .blend a[href^="tel:"] { white-space: nowrap; }
 .blend .extras a.extra-link { display: block; text-decoration: none; color: inherit; }
