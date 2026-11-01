@@ -1,4 +1,4 @@
-// Renders review-card.html to a print PDF (A6 + 3 mm bleed) and two PNG previews.
+// Renders review-card.html to a print PDF (5 × 7 in + 3 mm bleed) and two PNG previews.
 // Needs Chrome and playwright-core: CHROME=/path/to/chrome node build.mjs
 import { chromium } from 'playwright-core';
 import { fileURLToPath } from 'node:url';
@@ -10,9 +10,9 @@ const browser = await chromium.launch({ executablePath: process.env.CHROME || '/
 const page = await browser.newPage();
 await page.goto(url, { waitUntil: 'networkidle' });
 await page.emulateMedia({ media: 'print' });
-await page.pdf({ path: path.join(here, 'review-card.pdf'), width: '111mm', height: '154mm', printBackground: true, preferCSSPageSize: true });
+await page.pdf({ path: path.join(here, 'review-card.pdf'), width: '133mm', height: '184mm', printBackground: true, preferCSSPageSize: true });
 
-const shot = await browser.newPage({ viewport: { width: 420, height: 582 }, deviceScaleFactor: 3 });
+const shot = await browser.newPage({ viewport: { width: 503, height: 696 }, deviceScaleFactor: 3 });
 await shot.goto(url, { waitUntil: 'networkidle' });
 await shot.emulateMedia({ media: 'print' });
 for (const [i, name] of [[0, 'front'], [1, 'back']]) {
