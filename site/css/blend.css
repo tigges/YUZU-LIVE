@@ -603,6 +603,8 @@
     box-shadow: none;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
+  /* Home: the hero has its own Book button, so the bar waits until Looks has scrolled by. */
+  body:has(#looks) .blend-sticky:not(.is-past-looks),
   .blend-sticky.is-at-visit {
     opacity: 0;
     pointer-events: none;
