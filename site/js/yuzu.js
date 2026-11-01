@@ -248,7 +248,8 @@
       detail.dataset.col = String(idx % 3)
       if (window.innerWidth > 700) {
         const items = [...roll.querySelectorAll(':scope > li')]
-        if (idx < 3 && items[2]) items[2].after(detail)
+        const rowEnd = items[Math.min(idx - (idx % 3) + 2, items.length - 1)]
+        if (rowEnd) rowEnd.after(detail)
         else roll.appendChild(detail)
       } else {
         roll.after(detail)
