@@ -102,24 +102,26 @@
     if (!list.querySelector('[data-special-to]:not([hidden])')) list.hidden = true
   })
 
-  const offerDays = { 2: 'tue', 3: 'wed', 4: 'thu' }
-  let offerDay = today.getUTCDay()
-  if (!offerDays[offerDay]) {
-    do offerDay = (offerDay + 1) % 7
-    while (!offerDays[offerDay])
+  const dayCards = [...document.querySelectorAll('.promo[data-day]')]
+  const offerDays = new Set(dayCards.map((el) => Number(el.dataset.day)))
+  if (offerDays.size) {
+    let offerDay = today.getUTCDay()
+    while (!offerDays.has(offerDay)) offerDay = (offerDay + 1) % 7
+    const flag = offerDay === today.getUTCDay() ? 'Today' : names[offerDay]
+    let scrolled = false
+    dayCards.forEach((el) => {
+      if (Number(el.dataset.day) !== offerDay) return
+      el.classList.add('is-today')
+      el.dataset.flag = flag
+      const row = el.closest('ul')
+      const item = el.closest('li')
+      if (!scrolled && row && item && row.scrollWidth > row.clientWidth) {
+        const pad = parseFloat(getComputedStyle(row).paddingLeft) || 0
+        row.scrollLeft += item.getBoundingClientRect().left - row.getBoundingClientRect().left - pad
+        scrolled = true
+      }
+    })
   }
-  const key = offerDays[offerDay]
-  const flag = offerDay === today.getUTCDay() ? 'Today' : names[offerDay]
-  document.querySelectorAll(`.promo.${key}`).forEach((el) => {
-    el.classList.add('is-today')
-    el.dataset.flag = flag
-    const row = el.closest('ul')
-    const item = el.closest('li')
-    if (row && item && row.scrollWidth > row.clientWidth) {
-      const pad = parseFloat(getComputedStyle(row).paddingLeft) || 0
-      row.scrollLeft += item.getBoundingClientRect().left - row.getBoundingClientRect().left - pad
-    }
-  })
 
   const detail = document.querySelector('[data-offer-detail]')
   if (detail) {
@@ -160,7 +162,8 @@
       detail.dataset.col = String(idx % 3)
       if (window.innerWidth > 700) {
         const items = [...roll.querySelectorAll(':scope > li')]
-        if (idx < 3 && items[2]) items[2].after(detail)
+        const rowEnd = items[Math.min(idx - (idx % 3) + 2, items.length - 1)]
+        if (rowEnd) rowEnd.after(detail)
         else roll.appendChild(detail)
       } else {
         roll.after(detail)
@@ -210,16 +213,6 @@
       })
     }
 
-    const hashByPromo = {
-      tue: '#tuesdays',
-      wed: '#wednesdays',
-      thu: '#thursdays',
-      refer: '#refer',
-      rebook: '#rebook',
-      blowdry: '#blowdry',
-    }
-    const promoByHash = Object.fromEntries(Object.entries(hashByPromo).map(([k, v]) => [v, k]))
-
     buttons.forEach((b) => {
       b.setAttribute('aria-expanded', 'false')
       b.addEventListener('click', () => {
@@ -228,13 +221,14 @@
           closeTray()
         } else {
           openTray(k)
-          if (hashByPromo[k] && history.replaceState) history.replaceState(null, '', hashByPromo[k])
+          if (history.replaceState) history.replaceState(null, '', `#${k}`)
         }
       })
     })
 
-    if (promoByHash[location.hash]) {
-      openTray(promoByHash[location.hash])
+    const fromHash = decodeURIComponent(location.hash.slice(1))
+    if (fromHash && buttons.some((b) => b.getAttribute('data-promo') === fromHash)) {
+      openTray(fromHash)
       document.getElementById('offers')?.scrollIntoView()
     }
 

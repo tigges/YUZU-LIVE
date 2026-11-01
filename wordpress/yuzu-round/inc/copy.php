@@ -3,18 +3,6 @@
  * Editors for the words on the locked pages. Pictures, buttons and layout stay put.
  */
 
-function yuzu_round_copy_offer_names(): array
-{
-    return [
-        'tue' => 'Colour Tuesdays',
-        'wed' => 'Smooth Wednesdays',
-        'thu' => 'Colour Thursdays',
-        'refer' => 'Refer a Friend',
-        'rebook' => 'Same-day rebook',
-        'blowdry' => 'Blow-dry package',
-    ];
-}
-
 function yuzu_round_copy_service_pages(): array
 {
     return [
@@ -42,14 +30,6 @@ function yuzu_round_copy_catalog(): array
     $lines = static function (string $key, string $label, string $group = ''): array {
         return ['key' => $key, 'label' => $label, 'type' => 'lines', 'group' => $group];
     };
-
-    $offer_fields = [];
-    foreach (yuzu_round_copy_offer_names() as $offer => $name) {
-        $offer_fields[] = $line('offer-' . $offer . '-kicker', 'Label', 'Offer details · ' . $name);
-        $offer_fields[] = $line('offer-' . $offer . '-headline', 'Headline', 'Offer details · ' . $name);
-        $offer_fields[] = $paragraph('offer-' . $offer . '-text', 'Text', 'Offer details · ' . $name);
-        $offer_fields[] = $paragraph('offer-' . $offer . '-terms', 'Small print', 'Offer details · ' . $name);
-    }
 
     $service_pages = [];
     foreach (yuzu_round_copy_service_pages() as $slug => $menu) {
@@ -85,7 +65,6 @@ function yuzu_round_copy_catalog(): array
                 $lines('home-address', 'Address, one line each', 'Visit card on every page'),
                 $line('home-hours-title', 'Hours heading', 'Visit card on every page'),
                 $line('home-book-title', 'Booking heading', 'Visit card on every page'),
-                ...$offer_fields,
             ],
         ],
         'team' => [

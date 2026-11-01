@@ -31,6 +31,9 @@ if (is_readable(__DIR__ . '/inc/map.php')) {
 if (is_readable(__DIR__ . '/inc/library.php')) {
     require_once __DIR__ . '/inc/library.php';
 }
+if (is_readable(__DIR__ . '/inc/offers.php')) {
+    require_once __DIR__ . '/inc/offers.php';
+}
 
 add_action('after_setup_theme', static function () {
     add_theme_support('title-tag');
@@ -337,6 +340,14 @@ function yuzu_round_render(string $file): void
             $html = yuzu_round_lib_apply($html, basename($file));
         } catch (Throwable $e) {
             // Keep the template's own reviews and questions.
+        }
+    }
+
+    if (function_exists('yuzu_round_offer_apply')) {
+        try {
+            $html = yuzu_round_offer_apply($html, basename($file));
+        } catch (Throwable $e) {
+            // Keep the template's own offers.
         }
     }
 
