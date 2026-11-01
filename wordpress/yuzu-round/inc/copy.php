@@ -222,6 +222,7 @@ function yuzu_round_copy_catalog(): array
                 $line('ig-kicker', 'Label', 'Page'),
                 $line('ig-title', 'Page heading', 'Page'),
                 $paragraph('ig-intro', 'Introduction', 'Page'),
+                $line('ig-feed-text', 'Line under @yuzuhairandbeauty', 'Instagram photos'),
                 $line('ig-levels-title', 'Heading', 'Stylist levels'),
                 $paragraph('ig-levels-intro', 'Introduction', 'Stylist levels'),
                 $line('ig-level-1-title', 'Level 1', 'Stylist levels'),

@@ -38,7 +38,7 @@
   text-align: center;
 }
 .site-notice[hidden] { display: none; }
-.site-notice.tone-terra { background: var(--terra); color: #fff; }
+.site-notice.tone-terra { background: var(--terra-deep); color: #fff; }
 .site-notice.tone-cream { background: var(--beige); color: var(--forest); border-bottom: 1px solid var(--line); }
 .site-notice p { margin: 0; }
 .site-notice a {
@@ -191,6 +191,53 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
+.blend .ig-feed { margin-top: 36px; }
+.blend .ig-feed-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.blend .ig-feed-head > div { flex: 1 1 auto; min-width: 0; }
+.blend .ig-avatar {
+  position: relative;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 0 0 2px var(--beige), 0 0 0 4px var(--terra);
+}
+.blend .ig-avatar::after {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  background: var(--beige);
+  -webkit-mask: url("../assets/img/art/kanji.webp") no-repeat center / contain;
+  mask: url("../assets/img/art/kanji.webp") no-repeat center / contain;
+}
+.blend .ig-feed-head h2 { margin: 0; font-size: 18px; font-weight: 600; }
+.blend .ig-feed-head h2 a { text-decoration: none; }
+.blend .ig-feed-head p { margin: 2px 0 0; font-size: 14px; opacity: 0.8; }
+.blend .ig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.blend .ig-grid a { display: block; overflow: hidden; }
+.blend .ig-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.blend .ig-grid a:hover img,
+.blend .ig-grid a:focus-visible img { transform: scale(1.04); }
 .blend .ig-block { margin-top: 36px; }
 .blend .ig-block > h2 {
   font-family: var(--serif);
