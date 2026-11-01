@@ -49,6 +49,7 @@ Do not rebuild the pages in Elementor, Spectra, Kadence or the site editor; they
 - **Salon details**: opening hours, holidays and special days, the notice banner, the Google rating, analytics, careers listing on Google (hiring on/off, date, pay), the online gift card link, and click counts for Book, Call, Directions and Email.
 - **Price list**: every price table, the homepage From prices and card sentences.
 - **Page copy**: the words on each page.
+- **Salon details → Instagram photos**: the photos on the Instagram landing page (pick from the Media Library; empty slots keep the theme photo).
 
 ## Book, maps, social
 
