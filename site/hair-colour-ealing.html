@@ -27,7 +27,7 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-500.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400.woff2" crossorigin />
-    <link rel="stylesheet" href="css/yuzu.css?v=1595027c1c" />
+    <link rel="stylesheet" href="css/yuzu.css?v=8d8bed3f4e" />
 <!-- /@include -->
     <script type="application/ld+json">
       {
@@ -179,11 +179,11 @@
     <fieldset class="level-pick">
       <legend>Prices for</legend>
       <div class="level-options">
-        <label><input type="radio" name="level" value="" checked /><span>All<i class="level-tail"> levels</i></span></label>
-        <label><input type="radio" name="level" value="creative" /><span><i class="level-mob" aria-hidden="true">CD</i><i class="level-tail">Creative Director</i></span></label>
-        <label><input type="radio" name="level" value="senior" /><span>Senior<i class="level-tail"> Stylist</i></span></label>
-        <label><input type="radio" name="level" value="stylist" /><span>Stylist</span></label>
-        <label><input type="radio" name="level" value="junior" /><span>Junior<i class="level-tail"> Stylist</i></span></label>
+        <label><input type="radio" name="level" value="" aria-label="All levels" checked /><span>All<i class="level-tail"> levels</i></span></label>
+        <label><input type="radio" name="level" value="creative" aria-label="Creative Director" /><span><i class="level-mob" aria-hidden="true">CD</i><i class="level-tail">Creative Director</i></span></label>
+        <label><input type="radio" name="level" value="senior" aria-label="Senior Stylist" /><span>Senior<i class="level-tail"> Stylist</i></span></label>
+        <label><input type="radio" name="level" value="stylist" aria-label="Stylist" /><span>Stylist</span></label>
+        <label><input type="radio" name="level" value="junior" aria-label="Junior Stylist" /><span>Junior<i class="level-tail"> Stylist</i></span></label>
       </div>
       <p class="level-desc" data-level-desc aria-live="polite">Price ranges from Creative Director (CD) to Junior Stylist.</p>
     </fieldset>
@@ -334,6 +334,24 @@
         <!-- /yuzu-service-prices -->
       </div>
     </section>
+    <section class="service-reviews" aria-labelledby="hair-colour-ealing-reviews">
+      <h2 id="hair-colour-ealing-reviews">What guests say</h2>
+      <a class="google-rating" href="https://maps.app.goo.gl/bhFS5wwkW3xxAdKd8" target="_blank" rel="noopener"><strong data-yuzu-rating>4.5</strong><span class="vh"> out of 5, </span><span class="rating-stars" aria-hidden="true" style="--rating: 4.5">★★★★★</span><span><span data-yuzu-rating-count>217</span> Google reviews</span><span class="vh"> (opens in a new tab)</span></a>
+      <ul>
+        <li>
+          <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+          <h3>“I always leave feeling a million dollars”</h3>
+          <p>Cut and colour once again exactly how I asked. Calm, expert and friendly throughout.</p>
+          <p class="review-author">Rachel · Google review</p>
+        </li>
+        <li>
+          <p class="stars"><span aria-hidden="true">★★★★★</span><span class="vh">5 stars. </span></p>
+          <h3>“Amazing — focused on every detail”</h3>
+          <p>Listened to my requests and delivered exactly what I wanted. I already booked my follow-up.</p>
+          <p class="review-author">Alexa · Google review</p>
+        </li>
+      </ul>
+    </section>
     <section class="service-faq" aria-labelledby="hair-colour-ealing-faq">
       <h2 id="hair-colour-ealing-faq">Questions</h2>
       <details>
@@ -415,7 +433,7 @@
         </ul>
       </div>
     </div>
-    <p class="legal"><span class="kanji-foot">© <span data-year>2026</span> YUZU hair</span><span class="legal-links"><a href="about.html">About</a> · <a href="team.html">Careers</a> · <a href="questions.html">Questions</a> · <a href="patch.html">Patch testing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span></p>
+    <p class="legal"><span class="kanji-foot">© <span data-year>2026</span> YUZU hair</span><span class="legal-links"><a href="about.html">About</a><span class="dot" aria-hidden="true"> · </span><a href="team.html">Careers</a><span class="dot" aria-hidden="true"> · </span><a href="questions.html">Questions</a><span class="dot" aria-hidden="true"> · </span><a href="patch.html">Patch testing</a><span class="dot" aria-hidden="true"> · </span><a href="terms.html">Terms</a><span class="dot" aria-hidden="true"> · </span><a href="privacy.html">Privacy</a></span></p>
   </footer>
   <div class="blend-sticky" data-sticky-book>
     <a class="blend-call" href="tel:+442088402244">Call</a>
