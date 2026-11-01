@@ -108,6 +108,9 @@
   object-fit: cover;
   border-radius: 22px;
 }
+.blend .crumbs { margin: 0 0 14px; font-size: 14px; }
+.blend .crumbs a { text-decoration: underline; text-underline-offset: 3px; }
+.blend .crumbs [aria-current] { opacity: 0.75; }
 .blend .service-photos .shine { border-radius: 22px; }
 .blend .service-photos .shine:first-child { grid-column: 1 / -1; }
 .blend .service-photos .shine:first-child img { aspect-ratio: 3 / 2; }
@@ -125,7 +128,7 @@
   border-radius: 22px;
   box-shadow: 0 10px 26px rgb(47 58 39 / 0.08);
 }
-.blend .service-points h3 {
+.blend .service-points h2 {
   margin: 0 0 6px;
   font-family: var(--serif);
   font-weight: 500;

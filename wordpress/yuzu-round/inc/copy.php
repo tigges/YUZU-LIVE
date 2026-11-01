@@ -477,6 +477,25 @@ function yuzu_round_copy_rename_gallery_heading(): void
         $stored['about']['about-p2'] = 'Located in Dickens Yard behind Ealing Town Hall, a 4-minute walk from Ealing Broadway station (Elizabeth, Central and District lines) with Dickens Yard underground car park right below the courtyard. Open {hours}. Guests describe the room as calm, and one Google review calls Jasmine “a brilliant artist working in hair”.';
         $changed = true;
     }
+    $renamed = [
+        ['about', 'about-title', 'About', 'About YUZU hair, Dickens Yard'],
+        ['questions', 'questions-title', 'Questions', 'Salon questions'],
+        ['contact', 'contact-title', 'Send a message', 'Contact YUZU hair'],
+        ['haircut-ealing', 'haircut-ealing-point-1-title', 'Wash, cut and style', 'Ladies’ cut and style'],
+        ['haircut-ealing', 'haircut-ealing-point-1-text', 'Consultation, wash, cut and a finished blow-dry, for every length.', 'Consultation, wash, cut and a finished blow-dry for every length, or a blow-dry on its own.'],
+        ['haircut-ealing', 'haircut-ealing-point-2-title', 'Gents and children', 'Gents’ cuts and fades'],
+        ['haircut-ealing', 'haircut-ealing-point-2-text', 'Clipper work, fades and scissor cuts for gents, plus kids and teens.', 'Skin fades, clipper work and scissor cuts for men, from a quick tidy-up to a full restyle.'],
+        ['haircut-ealing', 'haircut-ealing-point-3-title', 'Blow-dries', 'Kids’ and teens’ haircuts'],
+        ['haircut-ealing', 'haircut-ealing-point-3-text', 'A blow-dry on its own, or four for a set price with our package.', 'Relaxed, patient cuts for children and teenagers, with the same consultation as every guest.'],
+        ['hair-smoothing-ealing', 'hair-smoothing-ealing-point-1-text', 'Our three to six month smoothing treatment, formaldehyde and ammonia free.', 'A three to six month alternative to a keratin treatment, formaldehyde and ammonia free.'],
+        ['hair-smoothing-ealing', 'hair-smoothing-ealing-p1', 'Aura smoothing calms frizz and cuts drying time while keeping movement in the hair. It is priced by length, from short to long, with an upgrade that lasts longer.', 'Looking for a keratin treatment? Aura smoothing calms frizz and cuts drying time while keeping movement in the hair, without formaldehyde. It is priced by length, from short to long, with an upgrade that lasts longer.'],
+    ];
+    foreach ($renamed as [$page, $key, $old, $new]) {
+        if (($stored[$page][$key] ?? null) === $old) {
+            $stored[$page][$key] = $new;
+            $changed = true;
+        }
+    }
     $fixed_hours = [
         ['about', 'about-p2', 'Open Tuesday to Friday 10am to 8pm and Saturday 9am to 6pm.', 'Open {hours}.'],
         ['questions', 'questions-open-a', 'Tuesday to Friday, 10am to 8pm. Saturday, 9am to 6pm. Monday and Sunday closed.', '{hours}.'],

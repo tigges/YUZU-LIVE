@@ -33,6 +33,10 @@ DEFAULT_HOURS = {
     "special": [],
 }
 
+# The raw files are reachable inside the theme folder; WordPress strips this tag
+# from the pages it serves, so only those stray copies stay out of Google.
+TEMPLATE_ROBOTS = '<meta name="robots" content="noindex" data-yuzu-template />'
+
 INCLUDE_RE = re.compile(r"<!-- @include ([a-z-]+) -->.*?<!-- /@include -->", re.S)
 STRING_RE = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'')
 
@@ -121,6 +125,8 @@ def fill(page: Path, css_hash: str, js_hash: str) -> bool:
         return f"<!-- @include {name} -->\n{body}\n<!-- /@include -->"
 
     out = mark_current(INCLUDE_RE.sub(include, html), page.name)
+    if TEMPLATE_ROBOTS not in out:
+        out = re.sub(r'(<meta charset="[^"]*"\s*/?>)', lambda m: m.group(1) + "\n    " + TEMPLATE_ROBOTS, out, count=1)
     if out != html:
         page.write_text(out, encoding="utf-8")
     return True

@@ -340,6 +340,8 @@ function yuzu_round_render(string $file): void
         }
     }
 
+    $html = preg_replace('/\s*<meta name="robots" content="noindex" data-yuzu-template \/>/', '', $html, 1) ?? $html;
+
     $base = trailingslashit(yuzu_round_static_uri());
     if (function_exists('yuzu_round_rewrite_public_urls')) {
         $html = yuzu_round_rewrite_public_urls($html, $base);
