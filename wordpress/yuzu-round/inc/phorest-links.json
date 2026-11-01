@@ -1,0 +1,51 @@
+{
+ "about": "Which Phorest service each price books. Rows use the price list names; each level gives “Phorest category / Phorest service”. A price without a service here, or whose service Phorest no longer has, books from the level list in `levels`, then the main booking page. wp-admin → Price list → Booking links can change any of these.",
+ "levels": {
+  "creative": {"cut": "Creative director finishing services", "colour": "Creative director colour", "highlights": "Creative director colour"},
+  "senior": {"cut": "Senior stylist", "colour": "Senior stylist", "highlights": "Senior stylist"},
+  "stylist": {"cut": "Stylist", "colour": "Stylist", "highlights": "Stylist"},
+  "junior": {"colour": "Junior stylist"},
+  "price": {"treatments": "Treatments"}
+ },
+ "rows": {
+  "cut": {
+   "Ladies wash, cut & style": {"creative": "Creative director finishing services / Wash, Cut And Style", "senior": "Senior stylist / Ladies wash,cut and style", "stylist": "Stylist / Stylist Ladies wash,cut and style"},
+   "Gents wash, cut & style": {"creative": "Creative director finishing services / Gents, Wash And Style"},
+   "Kids (12 & under)": {"creative": "Creative director finishing services / Children's Cut & Blow Dry - Ages 12 & Under"},
+   "Kids, girls (12 & under)": {"stylist": "Stylist / Stylist (Girls 12 &under)"},
+   "Teens (13–16) boys": {"creative": "Creative director finishing services / Children's Cut & Blow Dry - (13-16 )BOY"},
+   "Teens (13–16) girls": {"creative": "Creative director finishing services / Childrens Cut & Blow dry (13-16)- GIRL", "senior": "Senior stylist / Teens (Girls 13-16)", "stylist": "Stylist / Stylist Teens ( Girls 13-16 )"},
+   "Blow-dry": {"creative": "Creative director finishing services / Blow-Dry", "senior": "Senior stylist / Wash & Blowdry", "stylist": "Stylist / Stylist Blowdry", "junior": "Junior stylist / Junior Blowdry"}
+  },
+  "colour": {
+   "Full head": {"creative": "Creative director colour / Full Head colour", "senior": "Senior stylist / Full head color", "stylist": "Stylist / Stylist full head colour", "junior": "Junior stylist / Junior full head colour"},
+   "Roots": {"creative": "Creative director colour / Regrowth", "senior": "Senior stylist / Root color", "stylist": "Stylist / Stylist Roots", "junior": "Junior stylist / Junior root color"},
+   "In-between full head": {"creative": "Creative director colour / In-between colour (full head)", "senior": "Senior stylist / In- between full head colour", "stylist": "Stylist / In-between full head colour"},
+   "In-between roots": {"creative": "Creative director colour / In-between colour (roots)", "senior": "Senior stylist / in-between root colour", "stylist": "Stylist / In-between roots"},
+   "Illumia colour": {"creative": "Creative director colour / Illumina colouring", "senior": "Senior stylist / Illumina colour", "stylist": "Stylist / Stylist Illumia"}
+  },
+  "highlights": {
+   "Full head": {"creative": "Creative director colour / Highlights/Lowlights/Balayage - Full Head", "senior": "Senior stylist / Full head highlights/balayage/foiliage", "stylist": "Stylist / Highlights Full Head"},
+   "Half head": {"creative": "Creative director colour / Highlights/Lowlights/Balayage - Half Head", "senior": "Senior stylist / Half head highlights/balayage/foiliage", "stylist": "Stylist / Highlights Half Head"},
+   "T-section": {"creative": "Creative director colour / Highlights/Lowlights/Balayage - T Section", "senior": "Senior stylist / T-section highlights/balayage,foiliage", "stylist": "Stylist / Highlights/T-Section"},
+   "Toner": {"creative": "Creative director colour / Toner", "senior": "Senior stylist / Senior Toner", "stylist": "Stylist / Stylist Toner"},
+   "Blending": {"creative": "Creative director colour / Blending", "senior": "Senior stylist / Senior blending", "stylist": "Stylist / Stylist blending"},
+   "Colour remover": {"creative": "Creative director colour / Colour Remover", "senior": "Senior stylist / Senior colour remover", "stylist": "Stylist / Stylist colour remover"},
+   "Pre-lighten full head": {"creative": "Creative director colour / Pre-lighten - Full Head", "senior": "Senior stylist / Senior pre lighten full head", "stylist": "Stylist / Stylist pre-lighten full Head"},
+   "Pre-lighten roots": {"creative": "Creative director colour / Pre-lighten - Regrowth", "senior": "Senior stylist / Senior pre lighten roots", "stylist": "Stylist / Stylist pre-lighten roots"}
+  },
+  "treatments": {
+   "Nashi filler express": {"price": "Treatments / Nashi moisture express"},
+   "Nashi filler 1, 2, 3 intense moisture": {"price": "Treatments / Nashi moisture intense"},
+   "K2.0 short hair": {"price": "Treatments / K2.0 short"},
+   "K2.0 medium length hair": {"price": "Treatments / K2.0 medium length hair"},
+   "K2.0 long hair": {"price": "Treatments / K2.0 long hair"},
+   "K2.0 extra long hair": {"price": "Treatments / K2.0 Extra long hair"},
+   "Aura smoothing, 3–4 months, long": {"price": "Aura smoothing treatment / Long Hair"},
+   "Aura smoothing, below shoulder": {"price": "Aura smoothing treatment / Below Shoulder Length"},
+   "Aura smoothing, above shoulder": {"price": "Aura smoothing treatment / Above Shoulder Length"},
+   "Aura smoothing, short": {"price": "Aura smoothing treatment / PIXY Hair Cut"},
+   "Aura smoothing, 4–6 months, with shampoo and conditioner": {"price": "Aura smoothing treatment / 4-6Month Aura"}
+  }
+ }
+}

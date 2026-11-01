@@ -26,7 +26,7 @@ foreach ($files as $file) {
     }
     $html = (string) file_get_contents($path);
     $next = $file === 'prices.html'
-        ? yuzu_round_prices_replace_blend_board($html, $data, 'patch.html', true)
+        ? yuzu_round_prices_replace_schema(yuzu_round_prices_replace_groups(yuzu_round_prices_replace_blend_board($html, $data, 'patch.html', true), $data), $data)
         : yuzu_round_prices_replace_service_panel($html, $data);
     if ($next !== $html) {
         file_put_contents($path, $next);
