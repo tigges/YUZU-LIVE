@@ -32,9 +32,11 @@
   background: var(--ground);
 }
 
-.promo.tue { --ground: var(--mustard); --line-ink: #c59743; }
-.promo.wed { --ground: var(--olive); --line-ink: #b0a884; }
-.promo.thu { --ground: var(--terra); --line-ink: #c68a6a; }
+/* Grounds are deeper than the brand swatches so the small cream lines
+   keep 4.5:1 contrast. */
+.promo.tue { --ground: #906715; --line-ink: #9f7a33; }
+.promo.wed { --ground: #746f4f; --line-ink: #848065; }
+.promo.thu { --ground: #9e5e3e; --line-ink: #ab7356; }
 
 .promo .draw {
   position: absolute;
