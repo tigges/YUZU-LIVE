@@ -155,6 +155,25 @@ function yuzu_round_offer_slug(string $raw): string
     return trim(substr($slug, 0, 40), '-');
 }
 
+function yuzu_round_offer_date(mixed $raw): string
+{
+    $raw = is_string($raw) ? trim($raw) : '';
+    $d = DateTimeImmutable::createFromFormat('!Y-m-d', $raw, new DateTimeZone('Europe/London'));
+    return $d instanceof DateTimeImmutable && $d->format('Y-m-d') === $raw ? $raw : '';
+}
+
+function yuzu_round_offer_today(): string
+{
+    return (new DateTimeImmutable('now', new DateTimeZone('Europe/London')))->format('Y-m-d');
+}
+
+/** Shown today: ticked for the homepage and inside its dates. No dates means it runs until unticked. */
+function yuzu_round_offer_live(array $o, ?string $today = null): bool
+{
+    $today = $today ?? yuzu_round_offer_today();
+    return $o['home'] && ($o['from'] === '' || $o['from'] <= $today) && ($o['until'] === '' || $o['until'] >= $today);
+}
+
 function yuzu_round_offer_sanitize(array $input): array
 {
     $styles = yuzu_round_offer_styles();
@@ -168,7 +187,7 @@ function yuzu_round_offer_sanitize(array $input): array
             continue;
         }
         $theme = $seed[(string) ($row['id'] ?? '')] ?? [];
-        foreach (['summary' => '', 'ig' => false] as $key => $blank) {
+        foreach (['summary' => '', 'ig' => false, 'from' => '', 'until' => ''] as $key => $blank) {
             if (!array_key_exists($key, $row)) {
                 $row[$key] = $theme[$key] ?? $blank;
             }
@@ -191,7 +210,12 @@ function yuzu_round_offer_sanitize(array $input): array
             'prices' => isset($sections[$row['prices'] ?? '']) ? (string) $row['prices'] : 'cut',
             'summary' => yuzu_round_offer_text(is_string($row['summary']) ? str_replace('{offers}', '', $row['summary']) : '', 160),
             'ig' => !empty($row['ig']),
+            'from' => yuzu_round_offer_date($row['from']),
+            'until' => yuzu_round_offer_date($row['until']),
         ];
+        if ($offer['from'] !== '' && $offer['until'] !== '' && $offer['until'] < $offer['from']) {
+            [$offer['from'], $offer['until']] = [$offer['until'], $offer['from']];
+        }
         if ($offer['title'] === '' && $offer['headline'] === '') {
             continue;
         }
@@ -233,7 +257,7 @@ function yuzu_round_offer_phrase(?array $offers = null): string
 {
     $parts = [];
     foreach ($offers ?? yuzu_round_offer_current() as $o) {
-        if ($o['home']) {
+        if (yuzu_round_offer_live($o)) {
             $line = yuzu_round_offer_line($o);
             $parts[] = yuzu_round_offer_name($o) . ($line !== '' ? ' (' . $line . ')' : '');
         }
@@ -284,7 +308,7 @@ function yuzu_round_offer_card_html(array $o, string $pad): string
 
     $book = $o['button'] !== '' ? $o['button'] : ($o['action'] === 'prices' ? 'View in price list' : 'Book your appointment');
     $html = $pad . "<li>\n"
-        . $pad . '  <button type="button" class="promo ' . $e($o['style']) . '" data-promo="' . $e($o['id']) . '"' . ($o['day'] !== '' ? ' data-day="' . $e($o['day']) . '"' : '') . ">\n"
+        . $pad . '  <button type="button" class="promo ' . $e($o['style']) . '" data-promo="' . $e($o['id']) . '"' . ($o['day'] !== '' ? ' data-day="' . $e($o['day']) . '"' : '') . ($o['until'] !== '' ? ' data-until="' . $e($o['until']) . '"' : '') . ">\n"
         . $pad . '    <span class="' . $draw[0] . '" aria-hidden="true"></span>' . "\n"
         . $pad . '    <span class="' . $draw[1] . '" aria-hidden="true"></span>' . "\n"
         . $pad . "    <span class=\"promo-copy\">\n"
@@ -352,6 +376,12 @@ function yuzu_round_offer_schema(string $html, array $offers): string
             'description' => yuzu_round_offer_plain($o['text'] !== '' ? $o['text'] : $o['terms']),
             'url' => 'https://yuzu.hair/#' . $o['id'],
         ];
+        if ($o['from'] !== '') {
+            $item['validFrom'] = $o['from'];
+        }
+        if ($o['until'] !== '') {
+            $item['validThrough'] = $o['until'];
+        }
         if ($o['action'] === 'prices' && preg_match('/^£(\d+(?:\.\d{2})?)$/u', $o['value'], $price) === 1) {
             $item['price'] = $price[1];
             $item['priceCurrency'] = 'GBP';
@@ -383,7 +413,7 @@ function yuzu_round_offer_apply(string $html, string $file, ?array $offers = nul
         return $html;
     }
     $offers = $offers ?? yuzu_round_offer_current();
-    $shown = array_values(array_filter($offers, static fn (array $o): bool => $o['home']));
+    $shown = array_values(array_filter($offers, static fn (array $o): bool => yuzu_round_offer_live($o)));
     if ($shown === [] && $has_menu) {
         $html = preg_replace($menu, '', $html, 1) ?? $html;
     }
@@ -392,7 +422,7 @@ function yuzu_round_offer_apply(string $html, string $file, ?array $offers = nul
         $html = preg_replace_callback('/(<span data-yuzu-offers>)(.*?)(<\/span>)/s', static fn (array $m): string => $m[1] . $phrase . $m[3], $html) ?? $html;
     }
     if ($has_ig && function_exists('yuzu_round_lib_replace_block')) {
-        $listed = array_values(array_filter($offers, static fn (array $o): bool => $o['home'] && $o['ig']));
+        $listed = array_values(array_filter($offers, static fn (array $o): bool => $o['ig'] && yuzu_round_offer_live($o)));
         $pad = preg_match('/\n([ \t]*)<!-- yuzu-ig-offers -->/', $html, $m) === 1 ? $m[1] : '        ';
         $inner = '';
         foreach ($listed as $offer) {
@@ -425,6 +455,28 @@ function yuzu_round_offer_select(string $name, array $options, string $current):
     return $html . '</select>';
 }
 
+function yuzu_round_offer_short_date(string $iso): string
+{
+    $d = DateTimeImmutable::createFromFormat('!Y-m-d', $iso, new DateTimeZone('Europe/London'));
+    return $d instanceof DateTimeImmutable ? $d->format('D j M Y') : $iso;
+}
+
+/** What the owner sees next to each offer: whether it is on the site today, and why not. */
+function yuzu_round_offer_status(array $o, ?string $today = null): array
+{
+    $today = $today ?? yuzu_round_offer_today();
+    if (!$o['home']) {
+        return ['off', 'Switched off'];
+    }
+    if ($o['from'] !== '' && $o['from'] > $today) {
+        return ['soon', 'Starts ' . yuzu_round_offer_short_date($o['from'])];
+    }
+    if ($o['until'] !== '' && $o['until'] < $today) {
+        return ['ended', 'Ended ' . yuzu_round_offer_short_date($o['until'])];
+    }
+    return ['live', $o['until'] !== '' ? 'On the site until ' . yuzu_round_offer_short_date($o['until']) : 'On the site · ongoing'];
+}
+
 function yuzu_round_offer_admin_card(string $i, array $o): string
 {
     $base = 'yuzu_offers[' . $i . ']';
@@ -433,9 +485,11 @@ function yuzu_round_offer_admin_card(string $i, array $o): string
     $swatch = $styles[$o['style']]['swatch'] ?? '#2f3b25';
     $name = trim(str_replace("\n", ' ', $o['title'])) !== '' ? str_replace("\n", ' ', $o['title']) : 'New offer';
 
+    [$state, $status] = $o['title'] === '' && $o['headline'] === '' ? ['live', 'New'] : yuzu_round_offer_status($o);
     $html = '<div class="yoff-card">';
     $html .= '<div class="yoff-head"><span class="yoff-swatch" style="background:' . esc_attr($swatch) . '"></span><strong class="yoff-name">' . esc_html($name) . '</strong>';
     $html .= '<label class="yoff-home"><input type="checkbox" name="' . $base . '[home]" value="1"' . ($o['home'] ? ' checked' : '') . ' /> Show on homepage</label>';
+    $html .= '<span class="yoff-status is-' . esc_attr($state) . '">' . esc_html($status) . '</span>';
     $html .= '<label class="yoff-home"><input type="hidden" name="' . $base . '[ig]" value="0" /><input type="checkbox" name="' . $base . '[ig]" value="1"' . ($o['ig'] ? ' checked' : '') . ' /> Instagram page</label>';
     $html .= '<span class="yoff-tools"><button type="button" class="button-link yoff-up">Move up</button> · <button type="button" class="button-link yoff-down">Move down</button><label class="yoff-remove"><input type="checkbox" name="' . $base . '[remove]" value="1" /> Remove</label></span></div>';
 
@@ -446,6 +500,9 @@ function yuzu_round_offer_admin_card(string $i, array $o): string
     $html .= '<p><label>Small print on the card <small>(up to 3 short lines)</small><textarea rows="3" class="large-text" name="' . $base . '[fine]">' . esc_textarea($o['fine']) . '</textarea></label></p>';
     $html .= '<p class="yoff-row"><label>Look' . yuzu_round_offer_select($base . '[style]', $style_options, $o['style']) . '</label>';
     $html .= '<label>Day <small>(shows “Today”)</small>' . yuzu_round_offer_select($base . '[day]', yuzu_round_offer_days(), $o['day']) . '</label></p>';
+    $html .= '<p class="yoff-row yoff-dates"><label>From<input type="date" name="' . $base . '[from]" value="' . esc_attr($o['from']) . '" /></label>';
+    $html .= '<label>Until <small>(last day)</small><input type="date" name="' . $base . '[until]" value="' . esc_attr($o['until']) . '" /></label>';
+    $html .= '<small class="yoff-hint">Leave both empty for an ongoing offer; it then runs until “Show on homepage” is unticked.</small></p>';
     $html .= '</div><div class="yoff-col"><h3>Details <small>(open when the card is tapped)</small></h3>';
     $html .= '<p><label>Label<input type="text" class="large-text" maxlength="80" name="' . $base . '[kicker]" value="' . esc_attr($o['kicker']) . '" placeholder="Every Tuesday · Creative Director" /></label></p>';
     $html .= '<p><label>Headline<input type="text" class="large-text" maxlength="100" name="' . $base . '[headline]" value="' . esc_attr($o['headline']) . '" /></label></p>';
@@ -467,14 +524,14 @@ function yuzu_round_offer_admin_page(): void
         wp_die(esc_html__('Sorry, you are not allowed to edit these.', 'yuzu-round'), '', ['response' => 403]);
     }
     $offers = yuzu_round_offer_current();
-    $shown = count(array_filter($offers, static fn (array $o): bool => $o['home']));
+    $shown = count(array_filter($offers, static fn (array $o): bool => yuzu_round_offer_live($o)));
     echo '<div class="wrap yoff">';
     echo '<h1>Offers</h1>';
     if (isset($_GET['yuzu_saved'])) {
         echo '<div class="notice notice-success is-dismissible"><p>Saved. The homepage offers, the offers Google reads, and the offers on the Instagram, Questions and Terms pages have been updated. <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">View offers</a></p></div>';
     }
-    echo '<p class="yoff-lead">Each offer is a card in the homepage <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">Offers</a> section, in this order, three to a row. Tapping a card opens its details with a button. Untick “Show on homepage” to keep an offer here without showing it. Offers with a day get a “Today” flag on that day. Each offer’s title and “In one line” also make up the offers list on the <a href="' . esc_url(home_url('/instagram/')) . '" target="_blank" rel="noopener">Instagram page</a> (tick “Instagram page” as well), the offers answer on the Questions page and the offers paragraph in the Terms (every offer on the homepage). The details may use <code>{hours}</code> and <code>{from:cut}</code>, <code>{from:colour}</code>, <code>{from:highlights}</code> or <code>{from:treatments}</code>.</p>';
-    echo '<p class="yoff-count"><strong>' . (int) $shown . '</strong> on the homepage' . ($shown % 3 !== 0 && $shown > 0 ? ' <span>· rows look best with 3 or 6</span>' : '') . ($shown === 0 ? ' <span>· the Offers section is hidden</span>' : '') . '</p>';
+    echo '<p class="yoff-lead">Each offer is a card in the homepage <a href="' . esc_url(home_url('/#offers')) . '" target="_blank" rel="noopener">Offers</a> section, in this order, three to a row. Tapping a card opens its details with a button. Untick “Show on homepage” to keep an offer here without showing it. Offers with a day get a “Today” flag on that day, and the next offer day is flagged with its name. An offer with dates appears on its first day and goes on the day after its last; without dates it runs until unticked. Each offer’s title and “In one line” also make up the offers list on the <a href="' . esc_url(home_url('/instagram/')) . '" target="_blank" rel="noopener">Instagram page</a> (tick “Instagram page” as well), the offers answer on the Questions page and the offers paragraph in the Terms (every offer on the homepage). The details may use <code>{hours}</code> and <code>{from:cut}</code>, <code>{from:colour}</code>, <code>{from:highlights}</code> or <code>{from:treatments}</code>.</p>';
+    echo '<p class="yoff-count"><strong>' . (int) $shown . '</strong> on the homepage today' . ($shown % 3 !== 0 && $shown > 0 ? ' <span>· rows look best with 3 or 6</span>' : '') . ($shown === 0 ? ' <span>· the Offers section is hidden</span>' : '') . '</p>';
     echo '<form method="post">';
     wp_nonce_field('yuzu_round_offers_save');
     echo '<input type="hidden" name="yuzu_offers_save" value="1" />';
@@ -483,7 +540,7 @@ function yuzu_round_offer_admin_page(): void
         echo yuzu_round_offer_admin_card((string) $n, $offer);
     }
     echo '</div>';
-    $blank = ['id' => '', 'home' => true, 'style' => 'forest', 'day' => '', 'title' => '', 'sub' => '', 'value' => '', 'fine' => '', 'kicker' => '', 'headline' => '', 'text' => '', 'terms' => '', 'action' => 'book', 'button' => '', 'prices' => 'cut', 'summary' => '', 'ig' => false];
+    $blank = ['id' => '', 'home' => true, 'style' => 'forest', 'day' => '', 'title' => '', 'sub' => '', 'value' => '', 'fine' => '', 'kicker' => '', 'headline' => '', 'text' => '', 'terms' => '', 'action' => 'book', 'button' => '', 'prices' => 'cut', 'summary' => '', 'ig' => false, 'from' => '', 'until' => ''];
     echo '<template id="yoff-blank">' . yuzu_round_offer_admin_card('__i__', $blank) . '</template>';
     echo '<p><button type="button" class="button yoff-add">Add an offer</button></p>';
     submit_button('Save offers');
@@ -540,6 +597,7 @@ function yuzu_round_offer_handle_post(): void
     $posted = wp_unslash($_POST['yuzu_offers'] ?? []);
     $clean = yuzu_round_offer_sanitize(is_array($posted) ? array_values($posted) : []);
     update_option('yuzu_round_offers', $clean, true);
+    update_option('yuzu_round_offers_live', yuzu_round_offer_live_ids($clean), true);
     if (function_exists('yuzu_round_mark_edited')) {
         yuzu_round_mark_edited(['home', 'instagram', 'questions', 'terms']);
     }
@@ -550,7 +608,66 @@ function yuzu_round_offer_handle_post(): void
     exit;
 }
 
+function yuzu_round_offer_live_ids(array $offers): string
+{
+    return implode(',', array_column(array_filter($offers, static fn (array $o): bool => yuzu_round_offer_live($o)), 'id'));
+}
+
+function yuzu_round_offer_purge(): void
+{
+    if (function_exists('yuzu_round_prices_purge_cache')) {
+        yuzu_round_prices_purge_cache();
+    }
+    if (function_exists('do_action')) {
+        do_action('breeze_clear_varnish');
+    }
+    if (function_exists('wp_remote_request') && function_exists('home_url')) {
+        @wp_remote_request(home_url('/.*'), [
+            'method' => 'PURGE',
+            'timeout' => 1,
+            'blocking' => false,
+            'headers' => ['X-Purge-Method' => 'regex'],
+        ]);
+    }
+}
+
+/**
+ * Cached pages keep yesterday's offers, so the first request of a day on which
+ * a dated offer starts or ends (and a daily WordPress event) clears the caches.
+ */
+function yuzu_round_offer_check_day(): void
+{
+    $stored = get_option('yuzu_round_offers');
+    if (!is_array($stored)) {
+        return;
+    }
+    $offers = yuzu_round_offer_sanitize($stored);
+    $dated = array_filter($offers, static fn (array $o): bool => $o['from'] !== '' || $o['until'] !== '');
+    $live = yuzu_round_offer_live_ids($offers);
+    $seen = get_option('yuzu_round_offers_live');
+    if ($seen === $live || ($dated === [] && $seen !== false)) {
+        return;
+    }
+    update_option('yuzu_round_offers_live', $live, true);
+    if (function_exists('yuzu_round_mark_edited')) {
+        yuzu_round_mark_edited(['home', 'instagram', 'questions', 'terms']);
+    }
+    yuzu_round_offer_purge();
+}
+
 if (function_exists('add_action')) {
+    add_action('init', static function (): void {
+        try {
+            yuzu_round_offer_check_day();
+            if (function_exists('wp_next_scheduled') && !wp_next_scheduled('yuzu_round_offers_daily')) {
+                $at = new DateTimeImmutable('tomorrow 00:05', new DateTimeZone('Europe/London'));
+                wp_schedule_event($at->getTimestamp(), 'daily', 'yuzu_round_offers_daily');
+            }
+        } catch (Throwable $e) {
+            // A date check must never interrupt a request.
+        }
+    }, 30);
+    add_action('yuzu_round_offers_daily', 'yuzu_round_offer_check_day');
     add_action('admin_init', static function (): void {
         if (get_option('yuzu_round_offers') === false) {
             update_option('yuzu_round_offers', yuzu_round_offer_from_seed(), true);
@@ -580,6 +697,11 @@ if (function_exists('add_action')) {
               .yoff-swatch { width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgb(0 0 0 / 15%); }
               .yoff-name { font-size: 15px; }
               .yoff-tools { margin-left: auto; color: #646970; }
+              .yoff-status { border-radius: 999px; padding: 2px 10px; font-size: 12px; background: #edfaef; color: #00450c; }
+              .yoff-status.is-soon { background: #fcf9e8; color: #614200; }
+              .yoff-status.is-ended, .yoff-status.is-off { background: #f0f0f1; color: #50575e; }
+              .yoff-dates input[type=date] { display: block; margin-top: 4px; font-weight: 400; }
+              .yoff-dates .yoff-hint { flex-basis: 100%; }
               .yoff-tools .yoff-remove { margin-left: 14px; color: #b32d2e; }
               .yoff-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
               .yoff-col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: #50575e; margin: 12px 0 4px; }

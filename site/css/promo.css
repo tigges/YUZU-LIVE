@@ -264,6 +264,9 @@ button.promo.is-selected {
   gap: 16px;
   align-items: start;
 }
+.promo-roll-6 > li[hidden] {
+  display: none;
+}
 
 .offer-tray {
   grid-column: 1 / -1;

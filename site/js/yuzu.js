@@ -188,7 +188,13 @@
     if (!list.querySelector('[data-special-to]:not([hidden])')) list.hidden = true
   })
 
-  const dayCards = [...document.querySelectorAll('.promo[data-day]')]
+  document.querySelectorAll('.promo[data-until]').forEach((el) => {
+    const item = el.closest('li')
+    if (item && el.dataset.until < todayIso) item.hidden = true
+  })
+  const shownPromo = (el) => !el.closest('li[hidden]')
+
+  const dayCards = [...document.querySelectorAll('.promo[data-day]')].filter(shownPromo)
   const offerDays = new Set(dayCards.map((el) => Number(el.dataset.day)))
   if (offerDays.size) {
     let offerDay = today.getUTCDay()
@@ -238,7 +244,7 @@
     const termsEl = detail.querySelector('[data-detail-terms]')
     const bookEl = detail.querySelector('[data-detail-book]')
     const pricesEl = detail.querySelector('[data-detail-prices]')
-    const buttons = [...document.querySelectorAll('[data-promo]')]
+    const buttons = [...document.querySelectorAll('[data-promo]')].filter(shownPromo)
     let activePromo = ''
 
     const placeTray = () => {
@@ -247,7 +253,7 @@
       if (idx < 0) return
       detail.dataset.col = String(idx % 3)
       if (window.innerWidth > 700) {
-        const items = [...roll.querySelectorAll(':scope > li')]
+        const items = [...roll.querySelectorAll(':scope > li:not([hidden])')]
         const rowEnd = items[Math.min(idx - (idx % 3) + 2, items.length - 1)]
         if (rowEnd) rowEnd.after(detail)
         else roll.appendChild(detail)
@@ -374,7 +380,7 @@
   }
 
   document.querySelectorAll('.blend .looks, .blend .reviews, .blend .promo-roll-6').forEach((row) => {
-    const items = [...row.querySelectorAll(':scope > li')]
+    const items = [...row.querySelectorAll(':scope > li:not([hidden])')]
     if (items.length < 2) return
     const dots = document.createElement('div')
     dots.className = 'scroll-dots'
