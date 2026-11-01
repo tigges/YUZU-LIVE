@@ -13,6 +13,7 @@ const YUZU_ROUND_CLICK_KINDS = [
     'email' => 'Email',
     'whatsapp' => 'WhatsApp',
     'review' => 'Google reviews',
+    'search-miss' => 'Price searches that found nothing',
 ];
 
 function yuzu_round_clicks_today(): string
@@ -97,6 +98,7 @@ function yuzu_round_clicks_summary(array $data, int $days, ?string $today = null
     $from = (new DateTimeImmutable($today, new DateTimeZone('Europe/London')))->modify('-' . ($days - 1) . ' days')->format('Y-m-d');
     $kinds = array_fill_keys(array_keys(YUZU_ROUND_CLICK_KINDS), 0);
     $places = [];
+    $misses = [];
     foreach ($data['days'] as $day => $bucket) {
         if ($day < $from || $day > $today || !is_array($bucket)) {
             continue;
@@ -111,10 +113,15 @@ function yuzu_round_clicks_summary(array $data, int $days, ?string $today = null
                 $where = $page . ' · ' . $place;
                 $places[$where] = ($places[$where] ?? 0) + (int) $count;
             }
+            if ($kind === 'search-miss') {
+                $words = str_replace('-', ' ', $place);
+                $misses[$words] = ($misses[$words] ?? 0) + (int) $count;
+            }
         }
     }
     arsort($places);
-    return ['kinds' => $kinds, 'places' => $places];
+    arsort($misses);
+    return ['kinds' => $kinds, 'places' => $places, 'misses' => $misses];
 }
 
 function yuzu_round_clicks_render(): void
@@ -144,11 +151,23 @@ function yuzu_round_clicks_render(): void
     echo '<h3>Where people press Book (last 30 days)</h3>';
     if ($places === []) {
         echo '<p>No Book clicks yet.</p>';
+    } else {
+        echo '<table class="widefat striped" style="max-width:640px"><thead><tr><th>Page · place</th><th>Clicks</th></tr></thead><tbody>';
+        foreach ($places as $where => $count) {
+            echo '<tr><td>' . esc_html($where) . '</td><td>' . esc_html((string) $count) . '</td></tr>';
+        }
+        echo '</tbody></table>';
+    }
+
+    $misses = array_slice($sums[30]['misses'], 0, 15, true);
+    echo '<h3>Price list searches that found nothing (last 30 days)</h3>';
+    if ($misses === []) {
+        echo '<p>None yet. A word that shows up here often may be worth adding to the price list, or telling us so the search learns it.</p>';
         return;
     }
-    echo '<table class="widefat striped" style="max-width:640px"><thead><tr><th>Page · place</th><th>Clicks</th></tr></thead><tbody>';
-    foreach ($places as $where => $count) {
-        echo '<tr><td>' . esc_html($where) . '</td><td>' . esc_html((string) $count) . '</td></tr>';
+    echo '<table class="widefat striped" style="max-width:640px"><thead><tr><th>Searched for</th><th>Times</th></tr></thead><tbody>';
+    foreach ($misses as $words => $count) {
+        echo '<tr><td>' . esc_html($words) . '</td><td>' . esc_html((string) $count) . '</td></tr>';
     }
     echo '</tbody></table>';
 }

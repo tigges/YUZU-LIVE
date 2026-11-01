@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preload" as="font" type="font/woff2" href="fonts/cormorant-500.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400.woff2" crossorigin />
-    <link rel="stylesheet" href="css/yuzu.css?v=1ad55f3563" />
+    <link rel="stylesheet" href="css/yuzu.css?v=8605906713" />
 <!-- /@include -->
   <meta property="og:title" content="Hair Salon Price List — Cuts, Balayage &amp; Colour | YUZU hair, Ealing Broadway" />
   <meta property="og:description" content="Cut and style, colour, highlights, balayage, Nashi fillers, K2.0 and Aura smoothing prices at YUZU hair in Ealing." />
@@ -855,6 +855,12 @@
     <div class="section-head">
       <h1>Hair salon prices</h1>
     </div>
+    <div class="price-search" role="search" hidden data-price-search>
+      <label class="vh" for="price-q">Find a service</label>
+      <input id="price-q" type="search" placeholder="Find a service, e.g. balayage" autocomplete="off" spellcheck="false" enterkeyhint="search" />
+      <p class="price-search-status" aria-live="polite" data-search-status></p>
+      <p class="price-none" data-search-none hidden>Nothing on the price list matches that. <a href="https://www.phorest.com/salon/yuzuhairandbeauty" target="_blank" rel="noopener" data-place="price-search">See every service on Phorest<span class="vh"> (opens in a new tab)</span></a> or call <a href="tel:+442088402244">020 8840 2244</a>.</p>
+    </div>
     <fieldset class="level-pick">
       <legend>Prices for</legend>
       <div class="level-options">
@@ -1543,7 +1549,7 @@
 <!-- /@include -->
 <!-- @include scripts -->
   <script type="application/json" id="yuzu-hours">{"week":[null,null,["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["10:00","20:00"],["09:00","18:00"]],"special":[]}</script>
-  <script src="js/yuzu.js?v=b5df414799"></script>
+  <script src="js/yuzu.js?v=d83da16f21"></script>
 <!-- /@include -->
 </body>
 </html>
