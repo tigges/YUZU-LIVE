@@ -52,6 +52,7 @@ Do not rebuild the pages in Elementor, Spectra, Kadence or the site editor; they
 - **Salon details → Instagram photos**: the photos on the Instagram landing page (pick from the Media Library; empty slots keep the theme photo).
 - **Salon details → Site map**: every page, short link and outside link, with where each page is linked from and whether it is on Google. Built from the theme each time it opens.
 - **Reviews & questions**: one list of reviews and one of questions for the whole site; tick the pages each one shows on. Answers can use `{hours}` and `{from:cut}` (or colour, highlights, treatments) so times and prices come from Salon details and Prices.
+- **Offers**: the homepage offer cards and the details that open under them, in order; each has a look, an optional day for the “Today” flag, a booking or price-list button and a link name (`yuzu.hair/#tuesdays`). The offers Google reads come from the same list.
 
 ## Book, maps, social
 
