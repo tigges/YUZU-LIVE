@@ -534,6 +534,9 @@
     if (!level) syncCutOpen();
     syncBook(level);
     if (desc) desc.textContent = text[level];
+    document.querySelectorAll('[data-level-stylists] > p').forEach(function (p) {
+      p.hidden = p.getAttribute('data-for') !== (level || '');
+    });
     if (board.hasAttribute('data-search')) runSearch();
   }
 

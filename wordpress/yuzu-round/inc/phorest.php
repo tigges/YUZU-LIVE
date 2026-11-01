@@ -283,6 +283,135 @@ function yuzu_round_phorest_service(string $choice): ?array
     return null;
 }
 
+/** Phorest's staff role as a price-list level, or '' for roles that do not take bookings. */
+function yuzu_round_phorest_level_key(string $role): string
+{
+    $map = ['creative director' => 'creative', 'senior stylist' => 'senior', 'stylist' => 'stylist', 'junior stylist' => 'junior'];
+    return $map[strtolower(trim($role))] ?? '';
+}
+
+function yuzu_round_phorest_level_names(): array
+{
+    return ['creative' => 'Creative Director', 'senior' => 'Senior Stylist', 'stylist' => 'Stylist', 'junior' => 'Junior Stylist'];
+}
+
+/**
+ * Everyone in the Phorest menu with what the site shows for them. Stylists in
+ * a bookable level show by default; wp-admin → Booking links changes that.
+ */
+function yuzu_round_phorest_stylists(): array
+{
+    $stored = function_exists('get_option') ? get_option('yuzu_round_phorest_stylists') : [];
+    $stored = is_array($stored) ? $stored : [];
+    $levels = yuzu_round_phorest_level_names();
+    $order = array_flip(array_keys($levels));
+    $out = [];
+    foreach (yuzu_round_phorest_menu()['staff'] as $person) {
+        $id = (string) ($person['id'] ?? '');
+        if (preg_match('/^[A-Za-z0-9_-]{1,80}$/', $id) !== 1) {
+            continue;
+        }
+        $mine = is_array($stored[$id] ?? null) ? $stored[$id] : [];
+        $default_level = yuzu_round_phorest_level_key((string) ($person['level'] ?? ''));
+        $level = isset($mine['level']) && ($mine['level'] === '' || isset($levels[$mine['level']])) ? (string) $mine['level'] : $default_level;
+        $name = trim((string) ($mine['name'] ?? ''));
+        $out[] = [
+            'id' => $id,
+            'phorest_name' => (string) ($person['name'] ?? ''),
+            'phorest_role' => (string) ($person['level'] ?? ''),
+            'name' => $name !== '' ? $name : ucfirst(trim((string) ($person['name'] ?? ''))),
+            'level' => $level,
+            'show' => $level !== '' && (isset($mine['show']) ? (bool) $mine['show'] : $default_level !== ''),
+            'href' => yuzu_round_phorest_base() . '/book/services?staffId=' . $id,
+        ];
+    }
+    usort($out, static fn ($a, $b) => [$order[$a['level']] ?? 9, strtolower($a['name'])] <=> [$order[$b['level']] ?? 9, strtolower($b['name'])]);
+    return $out;
+}
+
+function yuzu_round_phorest_stylists_sanitize(mixed $input): array
+{
+    if (!is_array($input)) {
+        return [];
+    }
+    $levels = yuzu_round_phorest_level_names();
+    $clean = [];
+    foreach (yuzu_round_phorest_menu()['staff'] as $person) {
+        $id = (string) ($person['id'] ?? '');
+        $row = is_array($input[$id] ?? null) ? $input[$id] : null;
+        if ($row === null) {
+            continue;
+        }
+        $level = (string) ($row['level'] ?? '');
+        $name = yuzu_round_prices_clean_line((string) ($row['name'] ?? ''), 30);
+        $clean[$id] = [
+            'show' => !empty($row['show']),
+            'level' => isset($levels[$level]) ? $level : '',
+            'name' => $name === ucfirst(trim((string) ($person['name'] ?? ''))) ? '' : $name,
+        ];
+    }
+    return $clean;
+}
+
+function yuzu_round_phorest_join(array $parts): string
+{
+    $last = array_pop($parts);
+    return $parts === [] ? (string) $last : implode(', ', $parts) . ' or ' . $last;
+}
+
+/** "Book with Jasmine or Stefano" under the level buttons, one line per level plus one for All. */
+function yuzu_round_phorest_stylists_html(string $pad = '      '): string
+{
+    $e = 'yuzu_round_prices_esc';
+    $by = ['' => []];
+    foreach (yuzu_round_phorest_stylists() as $s) {
+        if (!$s['show']) {
+            continue;
+        }
+        $link = '<a href="' . $e($s['href']) . '" target="_blank" rel="noopener" data-place="stylist">' . $e($s['name']) . '<span class="vh"> (opens Phorest in a new tab)</span></a>';
+        $by[''][] = $link;
+        $by[$s['level']][] = $link;
+    }
+    if ($by[''] === []) {
+        return '';
+    }
+    $html = $pad . "<div class=\"level-stylists\" data-level-stylists>\n";
+    foreach ($by as $level => $links) {
+        $lead = $level === '' ? 'Or book with a stylist: ' : 'Book with ';
+        $html .= $pad . '  <p data-for="' . $level . '"' . ($level === '' ? '' : ' hidden') . '>' . $lead . yuzu_round_phorest_join($links) . "</p>\n";
+    }
+    return $html . $pad . "</div>\n";
+}
+
+function yuzu_round_phorest_replace_stylists(string $html): string
+{
+    if (!str_contains($html, '<!-- yuzu-stylists -->')) {
+        return $html;
+    }
+    $block = "<!-- yuzu-stylists -->\n" . yuzu_round_phorest_stylists_html() . '      <!-- /yuzu-stylists -->';
+    return preg_replace_callback('/<!-- yuzu-stylists -->.*?<!-- \/yuzu-stylists -->/s', static fn () => $block, $html, 1) ?? $html;
+}
+
+function yuzu_round_phorest_stylists_admin(): void
+{
+    $levels = ['' => 'Not shown (not a stylist)'] + yuzu_round_phorest_level_names();
+    echo '<section class="yuzu-group"><h2>Stylists</h2>';
+    echo '<p class="description">Under the level buttons on the price list and the service pages, guests see “Book with Jasmine or Stefano” for the level they picked. Each name opens Phorest with only that stylist’s services. The list comes from Phorest: someone who leaves Phorest disappears here after the weekly check, and a new stylist appears with their Phorest role.</p>';
+    echo '<table class="widefat striped"><thead><tr><th>In Phorest</th><th>Show</th><th>Name on the site</th><th>Level</th><th></th></tr></thead><tbody>';
+    foreach (yuzu_round_phorest_stylists() as $s) {
+        $base = 'yuzu_stylists[' . $s['id'] . ']';
+        echo '<tr><td><strong>' . esc_html($s['phorest_name']) . '</strong><br /><small>' . esc_html($s['phorest_role']) . '</small></td>';
+        echo '<td><input type="hidden" name="' . esc_attr($base . '[show]') . '" value="0" /><input type="checkbox" name="' . esc_attr($base . '[show]') . '" value="1"' . ($s['show'] ? ' checked' : '') . ' aria-label="' . esc_attr('Show ' . $s['name']) . '" /></td>';
+        echo '<td><input type="text" maxlength="30" name="' . esc_attr($base . '[name]') . '" value="' . esc_attr($s['name']) . '" aria-label="' . esc_attr('Name on the site for ' . $s['phorest_name']) . '" /></td>';
+        echo '<td><select name="' . esc_attr($base . '[level]') . '" aria-label="' . esc_attr('Level for ' . $s['phorest_name']) . '">';
+        foreach ($levels as $key => $label) {
+            echo '<option value="' . esc_attr($key) . '"' . ($s['level'] === $key ? ' selected' : '') . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select></td><td><a href="' . esc_url($s['href']) . '" target="_blank" rel="noopener">Test</a></td></tr>';
+    }
+    echo '</tbody></table></section>';
+}
+
 function yuzu_round_phorest_admin_page(): void
 {
     if (!current_user_can('edit_pages')) {
@@ -293,7 +422,7 @@ function yuzu_round_phorest_admin_page(): void
     echo '<div class="wrap yuzu-phorest">';
     echo '<h1>Booking links</h1>';
     if ($saved) {
-        echo '<div class="notice notice-success is-dismissible"><p>Booking links saved.</p></div>';
+        echo '<div class="notice notice-success is-dismissible"><p>Booking links and stylists saved.</p></div>';
     }
     echo '<p class="yuzu-lead">Each price on the price list and the service pages has a small ↗ link that opens Phorest on that service, so guests skip the search. Leave a link on Theme choice unless it opens the wrong thing. A link whose service Phorest no longer has opens the stylist level’s list instead, never a dead page.</p>';
     $count = count(yuzu_round_phorest_menu()['services']);
@@ -301,6 +430,7 @@ function yuzu_round_phorest_admin_page(): void
     echo '<form method="post">';
     wp_nonce_field('yuzu_round_phorest_save');
     echo '<input type="hidden" name="yuzu_phorest_action" value="save" />';
+    yuzu_round_phorest_stylists_admin();
     foreach (yuzu_round_phorest_rows() as $group => $meta) {
         echo '<section class="yuzu-group"><h2>' . esc_html($meta['title']) . '</h2>';
         echo '<table class="widefat striped"><thead><tr><th>Service</th><th>Level</th><th>Site price</th><th>Opens in Phorest</th></tr></thead><tbody>';
@@ -356,6 +486,7 @@ function yuzu_round_phorest_handle_post(): void
     }
     check_admin_referer('yuzu_round_phorest_save');
     update_option('yuzu_round_phorest_links', yuzu_round_phorest_sanitize(wp_unslash($_POST['yuzu_phorest'] ?? null)), false);
+    update_option('yuzu_round_phorest_stylists', yuzu_round_phorest_stylists_sanitize(wp_unslash($_POST['yuzu_stylists'] ?? null)), false);
     yuzu_round_prices_mark_edited();
     yuzu_round_prices_purge_cache();
     wp_safe_redirect(add_query_arg('yuzu_saved', '1', admin_url('admin.php?page=yuzu-booking-links')));

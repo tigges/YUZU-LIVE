@@ -120,6 +120,7 @@ def check_defaults(menu: dict, links: dict) -> list[str]:
 def check_site(menu: dict, site: str) -> tuple[list[str], list[str]]:
     services = {s["id"]: s for s in menu["services"]}
     cats = {c["id"] for c in menu["categories"]}
+    people = {p["id"] for p in menu["staff"]}
     broken, prices = [], []
     for path in PAGES:
         url = site.rstrip("/") + "/" + path
@@ -135,8 +136,11 @@ def check_site(menu: dict, site: str) -> tuple[list[str], list[str]]:
             tag = m.group(0)
             svc = re.search(r"/book/services/([A-Za-z0-9_-]+)", href)
             cat = re.search(r"/book/categories/([A-Za-z0-9_-]+)", href)
+            staff = re.search(r"[?&]staffId=([A-Za-z0-9_-]+)", href)
             if svc and svc.group(1) not in services:
                 broken.append(f"{url} links to a Phorest service that no longer exists ({svc.group(1)}).")
+            elif staff and staff.group(1) not in people:
+                broken.append(f"{url} links to a stylist Phorest no longer has ({staff.group(1)}).")
             elif cat and cat.group(1) not in cats:
                 broken.append(f"{url} links to a Phorest category that no longer exists ({cat.group(1)}).")
             elif svc:

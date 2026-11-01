@@ -48,12 +48,12 @@ Do not rebuild the pages in Elementor, Spectra, Kadence or the site editor; they
 
 - **Salon details**: opening hours, holidays and special days, the notice banner, the Google rating, analytics, careers listing on Google (hiring on/off, date, pay), the online gift card link, and click counts for Book, Call, Directions and Email.
 - **Price list**: every price table, the homepage From prices and card sentences.
-- **Price list → Booking links**: which Phorest service each price’s ↗ link opens. The theme’s choices live in `wordpress/yuzu-round/inc/phorest-links.json`; a link whose service Phorest no longer has opens that level’s list, then the main booking page.
+- **Price list → Booking links**: which Phorest service each price’s ↗ link opens. The theme’s choices live in `wordpress/yuzu-round/inc/phorest-links.json`; a link whose service Phorest no longer has opens that level’s list, then the main booking page. The same screen chooses which stylists appear as “Book with Jasmine or Stefano” under the level buttons (from Phorest’s staff list; each name opens Phorest with only that stylist’s services).
 - **Page copy**: the words on each page.
 - **Salon details → Instagram photos**: the photos on the Instagram landing page (pick from the Media Library; empty slots keep the theme photo).
 - **Salon details → Site map**: every page, short link and outside link, with where each page is linked from and whether it is on Google. Built from the theme each time it opens.
 - **Reviews & questions**: one list of reviews and one of questions for the whole site; tick the pages each one shows on. Answers can use `{hours}` and `{from:cut}` (or colour, highlights, treatments) so times and prices come from Salon details and Prices.
-- **Offers**: the homepage offer cards and the details that open under them, in order; each has a look, an optional day for the “Today” flag, a booking or price-list button and a link name (`yuzu.hair/#tuesdays`). The offers Google reads come from the same list. Each offer’s title and “In one line” also make the offers list on the Instagram page (tick “Instagram page”), the offers answer on Questions and the offers paragraph in Terms; `{offers}` in an answer or page copy shows that list.
+- **Offers**: the homepage offer cards and the details that open under them, in order; each has a look, an optional day for the “Today” flag, a booking or price-list button (Book online can open a Phorest list, service, gift vouchers or series) and a link name (`yuzu.hair/#tuesdays`). The offers Google reads come from the same list. Each offer’s title and “In one line” also make the offers list on the Instagram page (tick “Instagram page”), the offers answer on Questions and the offers paragraph in Terms; `{offers}` in an answer or page copy shows that list.
 
 ## Book, maps, social
 
